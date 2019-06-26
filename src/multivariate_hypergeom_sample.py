@@ -7,27 +7,54 @@ Multivaraite Hypergeometric Distribution Sampling
 
 class multivhyper:
 
-    """
-    Initialize multiv. hyperg. distribution object.
-
-        @param counts: Can be list of integers or dict of element type names
-        (keys) and integers (values). The list or dict values are the counts of
-        each type elementin the distribution. Length of list indidicates number
-        of element types. Total sum of intgers of list gives initial size of
-        distribution.
-
-        @return: multivaratie hypergeometic distribution object with following
-        attributes:
-            - counts: Numpy array of current element counts (integers)
-            - types: (if initialized using dict) numpy array of element types
-                    (if initialized using list) None
-            - size: current size of distribution, i.e. total number of elements
-            in distribution (integer)
-            - props: Numpy array of proportions of each element within the
-            distribution (floats)
-    """
-
     def __init__(self, counts):
+        """
+        Initialize multiv. hyperg. distribution object.
+
+            @param counts: Can be list of integers or dict of element type names
+            (keys) and integers (values). The list or dict values are the counts of
+            each type elementin the distribution. Length of list indidicates number
+            of element types. Total sum of intgers of list gives initial size of
+            distribution.
+
+            @return: multivaratie hypergeometic distribution object with following
+            attributes:
+                - counts: Numpy array of current element counts (integers)
+                - types: (if initialized using dict) numpy array of element types
+                        (if initialized using list) None
+                - size: current size of distribution, i.e. total number of elements
+                in distribution (integer)
+                - props: Numpy array of proportions of each element within the
+                distribution (floats)
+
+        Testing
+
+        >>> multivhyper([1, 2, 3.5])
+        Traceback (most recent call last):
+            ...
+        TypeError: Unsupported type for counts: must be list of ints or dict with int values
+        >>> multivhyper({'A':2, 'B':1, 'C':3.66})
+        Traceback (most recent call last):
+            ...
+        TypeError: Unsupported type for counts: must be list of ints or dict with int values
+        >>> audit1 = multivhyper([10, 20, 10])
+        >>> audit1.counts
+        array([10, 20, 10])
+        >>> audit1.types
+        >>> audit1.size
+        40
+        >>> audit1.props
+        array([0.25, 0.5 , 0.25])
+        >>> audit2 = multivhyper({'A':10, 'B':20, 'C':10})
+        >>> audit2.counts
+        array([10, 20, 10])
+        >>> audit2.types
+        array(['A', 'B', 'C'], dtype='<U1')
+        >>> audit2.size
+        40
+        >>> audit2.props
+        array([0.25, 0.5 , 0.25])
+        """
         # Type checking for list or dict and integer values
         if type(counts) is list and all(isinstance(n, int) for n in counts):
             self.counts = np.array(counts, dtype=int)
@@ -36,33 +63,54 @@ class multivhyper:
             self.types = np.array(list(counts.keys()))
             self.counts = np.array(list(counts.values()), dtype=int)
         else:
-            print('Unsupported type for counts: must be list of ints or dict with int values')
-            return
+            raise TypeError('Unsupported type for counts: must be list of ints or dict with int values')
 
         self.size = sum(self.counts)
         self.props = self.counts/self.size
 
-    """
-    Sample from distribtion.
-
-        @param size: Size of desired sample (integer)
-
-        @param print_sample: Boolean, determines if sample (and types if applicable)
-        should be printed before returning sample. Good for testing.
-
-        @return: Sample (as NumPy array of integer counts) from distribution. Each
-        entry in list represents count of that element type in sample.
-    """
-
     def sample(self, size: int, print_sample: bool = False) -> np.ndarray:
+        """
+        Sample from distribtion.
+
+            @param size: Size of desired sample (integer)
+
+            @param print_sample: Boolean, determines if sample (and types if applicable)
+            should be printed before returning sample. Good for testing.
+
+            @return: Sample (as NumPy array of integer counts) from distribution. Each
+            entry in list represents count of that element type in sample.
+
+        Testing
+
+        >>> audit = multivhyper([10, 20, 10])
+        >>> audit.sample(10.5)
+        Traceback (most recent call last):
+            ...
+        TypeError: Sample size must be integer value
+        >>> audit.sample(100)
+        Traceback (most recent call last):
+            ...
+        ValueError: Sample size is too large
+        >>> audit = multivhyper({'A':10, 'B':20, 'C':10})
+        >>> audit.sample(10.5)
+        Traceback (most recent call last):
+            ...
+        TypeError: Sample size must be integer value
+        >>> audit.sample(100)
+        Traceback (most recent call last):
+            ...
+        ValueError: Sample size is too large
+        """
         # Test for integer size
         if type(size) is not int:
-            print("Sample size must be integer value")
-            return None
+            raise TypeError("Sample size must be integer value")
+            # print()
+            # return None
         # Test if sample size is too large, return if canot get large enough sample from current dist.
         if size > self.size:
-            print("Sample size too large")
-            return None
+            raise ValueError('Sample size is too large')
+            # print("Sample size too large")
+            # return None
 
         # Initiliaze empty list of sample counts and set initial sample size to 0
         # sample_counts = [0 for i in self.counts]
@@ -104,15 +152,20 @@ class multivhyper:
 
         return sample_counts
 
-    """
-    Calcualte CDF of current distribution
-
-        @return: NumPy array (of floats) with length equal to the number of
-        element types in distribution which represents the CDF.
-    """
-
     def cdf(self) -> np.ndarray:
-        # Return list of runing total of proportions at each element type
+        """
+        Calcualte CDF of current distribution
+
+            @return: NumPy array (of floats) with length equal to the number of
+            element types in distribution which represents the CDF.
+
+        Testing
+
+        >>> audit = multivhyper([10, 20, 10])
+        >>> audit.cdf()
+        array([0.25, 0.75, 1.  ])
+        """
+
         return np.array([sum(self.props[:i+1]) for i in range(len(self.props))])
 
     """
@@ -129,15 +182,10 @@ class multivhyper:
         print("Distribution: ", self.props.round(3), '\n')
 
 
+def main():
+    import doctest
+    doctest.testmod()
+
+
 if __name__ == '__main__':
-    # Test the creation of distribution and sampling
-    dist1 = multivhyper([40000, 40000, 20000])
-    dist1.print_status()
-    # dist1.sample(100, True)
-
-    dist2 = multivhyper({'A': 20, 'B': 12, 'C': 30})
-    dist2.print_status()
-    dist2.sample(2000000, True)
-    # dist2.sample(10, True)
-
-    dist3 = multivhyper({'A': 1, 'B': 1.2, 'C': 3})
+    main()
