@@ -104,16 +104,11 @@ class multivhyper:
         # Test for integer size
         if type(size) is not int:
             raise TypeError("Sample size must be integer value")
-            # print()
-            # return None
         # Test if sample size is too large, return if canot get large enough sample from current dist.
         if size > self.size:
             raise ValueError('Sample size is too large')
-            # print("Sample size too large")
-            # return None
 
         # Initiliaze empty list of sample counts and set initial sample size to 0
-        # sample_counts = [0 for i in self.counts]
         sample_counts = np.zeros(len(self.counts), dtype=int)
         sample_size = 0
 
@@ -168,12 +163,11 @@ class multivhyper:
 
         return np.array([sum(self.props[:i+1]) for i in range(len(self.props))])
 
-    """
-    Method to print current status of dsitribution. Mainly for testing,
-    useful after sampling.
-    """
-
     def print_status(self):
+        """
+        Method to print current status of dsitribution. Mainly for testing,
+        useful after sampling.
+        """
         print("Current total size: ", self.size, '\n')
         print("Counts: ")
         if self.types is not None:
