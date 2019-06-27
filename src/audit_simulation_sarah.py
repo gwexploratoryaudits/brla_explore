@@ -1,5 +1,5 @@
-from multivariate_hypergeom_sample import multivhyper
-from brla_sarah import brla
+from src.multivariate_hypergeom_sample import multivhyper
+from src.brla_sarah import brla
 import numpy as np
 
 """
