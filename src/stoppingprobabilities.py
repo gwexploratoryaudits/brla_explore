@@ -1,9 +1,16 @@
 # Grant McClearn
 # July 24, 2019
 
-''' A program to calculate the kmins (stopping rule) of an audit proceeding in rounds, 
-or tiers in the Bayesian nomenclature,
-given a specified (frequentist) risk limit.'''
+''' A program that calculates the probabability mass function of stopping at audit
+tiers and going to a full hand count (included so the sum over all values of the pmf = 1),
+given the true tally of the election.
+One can view computing a risk-limiting audit (in the convolution approach) as the
+special case of this where the true tally is set to a tie
+(or margin of 1 in favor of the reported loser).
+
+The computation of the expectation of the pmf is also performed, and this program
+is what was used to calculate the expectations shown in spreadsheet data also
+on this repository.'''
 
 from scipy.stats import hypergeom
 ''' Provides the hypergeometric distribution, of use in the calculation of error.'''
@@ -13,23 +20,29 @@ import datetime as dt
 
 def get_interval(dist):
     ''' This function aids in truncating distributions by finding levels l and u such that 
-    cdf(l) < .0000001 and 1 - cdf(u) < .0000001. (Here, cdf is used somewhat loosely because 
+    cdf(l) < .0000001 and 1 - cdf(u) < .0000001. (Here, cdf is used somewhat loosely because
     we do not require cdf(infinity) = 1,
     although the distribution should sum "close enough" to 1 because .0000001 is absolute, not relative 
-    (i.e. a distribution that summed to .0000004 would result in only half the distribution 
-    being between l and u). 
+    (i.e. a distribution that summed to .0000004 would result in only half the distribution being between l and u). 
     
     The purpose of this is to improve efficiency, since, 
     for instance almost all of the hypergeometric distribution falls between a fraction of its range. 
     This decreases the time it takes to iterate over the (meaningful parts of) distributions. '''
+
     length = len(dist)
+    sum = 0
+    for x in dist:
+        sum += x
+    if (sum < 2 * .00000001):
+        return ([int(length/2 - 1), int(length/2 + 1)])
+
 
     lower_sum = 0
     lower_endpoint = 0
     for i in range(0, length):
         lower_sum += dist[i]
 
-        # if adding the next value of the distribution would cause us to exceed the tolerance, 
+        # if adding the next value of the distribution would cause us to exceed the tolerance,
         # break and return the lower level
         if (lower_sum + dist[i + 1] > .0000001):
             lower_endpoint = i
@@ -52,68 +65,46 @@ def main():
 
     # N = total number of votes for the two candidates
     N = 100000
-    HalfN = int(N / 2)
+
+    # the true tally of the election (number of votes received for reported winner)
+    # Of course one does not ever know this value, short of doing a full hand count,
+    # but the reported tally can be used here as a proxy to perform optimization.
+    true_tally = 60000
 
     # m = number of audit rounds, equal to the length of the list n
     m = 9
 
     # n = a list of the size of each of the escalating audit rounds
     n = [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200]
-    halfn = [int(roundsize / 2) for roundsize in n]
 
-    # the specified risk limit of the audit
-    risklim = .09
+    # k_mins = a list of the k_min values, respective to the audit rounds in list n
+    k_mins = [122, 232, 447, 868, 1698, 3339, 6596, 13063, 25913]
 
-    # risk allottment function, or error distribution
-    # a decreasing geometrically (r = 1/2) error distribution is commented out
-    allotted_error = [risklim / m] * m
-    '''
-    allotted_error = [0] * m
-    for i in range(0, m):
-        allotted_error[i] = .05 * (1.0 / 2) * ((1.0/2) ** (i))
-    testerr = 0
-    for x in allotted_error:
-        testerr += x
-    print(testerr)
-    allotted_error[0] += risklim - testerr
-    '''
-
-    # lists storing stopping rules and their respective probabilities of error
-    k_mins = [0] * m
-    used_error = [0] * m
+    # sprobs = stopping probabilities = 
+    # a list of the probabilities that each audit round (respectively) stops
+    # In special case of tied true tally, this is the error of the round.
+    sprobs = [0] * m
 
     ''' The first audit round is calculated directly and does not require a convolution 
     (as there is no previous distribution to convolve with). '''
-    current_round_distribution = hypergeom.pmf(range(0, n[0] + 1), N, HalfN, n[0])
+    current_round_distribution = hypergeom.pmf(range(0, n[0] + 1), N, true_tally, n[0])
+    this_round_sprob = 0
+    for k in range(k_mins[0], n[0] + 1):
+        this_round_sprob += current_round_distribution[k]
 
-    ''' We analyze potential k_mins. We start with the lowest possible (half of the vote),
-    increasing until a k_min is found that is bounded by the allotted error. In this way,
-    we ensure we get the smallest (most desireable) k_min. '''
-    for potential_k_min in range(halfn[0], n[0]):
-        this_round_error = 0
-        for k in range(potential_k_min, n[0] + 1):
-            this_round_error += current_round_distribution[k]
-        # if the error resulting from this potential k_min is indeed lower than allotted
-        # error, we have found our k_min
-        if this_round_error <= allotted_error[0]:
-            k_mins[0] = potential_k_min
-            used_error[0] = this_round_error
-            # leftover error given to next round
-            allotted_error[1] += allotted_error[0] - used_error[0]
-            break
+    print("Round ", 1, " stopping probability:", this_round_sprob)
+    sprobs[0] = this_round_sprob
 
-    # We now remove the probabilities >= kmin, since they do not proceed to further audit rounds.
+    # We now remove the probabilities >= k_min, since they do not proceed to further audit rounds.
     for k in range(k_mins[0], n[0] + 1):
         current_round_distribution[k] = 0
-
-    print("Round 1 completed, with kmin", k_mins[0], "and error: ", used_error[0])
 
     # As we proceed into the next distribution, we set previous_rounds_distribution equal to the current_round_distribution.
     previous_rounds_distribution = current_round_distribution
 
     # For rounds > 1, we must take into account this previous_rounds_distribution.
     for roundnum in range(1, m):
-        
+
         # re-initializing a current_round_distribution to reflect the size of the new audit round
         current_round_distribution = [0] * (n[roundnum] + 1)
 
@@ -133,7 +124,7 @@ def main():
             # the number of unsampled winner ballots
             # We do not know what this true value is; hence the requirement of an outer loop,
             # which iterates over every possibility.
-            unsampled_winner_ballots = HalfN - previous_rounds_possibility
+            unsampled_winner_ballots = true_tally - previous_rounds_possibility
 
             # number of ballots being sampled (this round)
             sample_size = n[roundnum] - n[roundnum - 1]
@@ -144,45 +135,41 @@ def main():
                 # Here, the probability of getting x ballots (for the reported winner) in the previous rounds and
                 # y ballots in the current round is calculated, giving one component of the probability of getting
                 # x + y ballots for the reported winner in total.
-                component_probability = previous_rounds_distribution[previous_rounds_possibility] * this_round_draws[this_round_possibility]
+                component_probability = previous_rounds_distribution[previous_rounds_possibility]
+                component_probability *= this_round_draws[this_round_possibility]
                 current_round_distribution[previous_rounds_possibility + this_round_possibility] += component_probability
     
-        # Again, finding the k_min by increasing the potential k_min
-        # until one that is less than the allotted error is found.
-        for potential_k_min in range(halfn[roundnum], n[roundnum]):
-            this_round_error = 0
-            for k in range(potential_k_min, n[roundnum] + 1):
-                this_round_error += current_round_distribution[k]    
-            if this_round_error <= allotted_error[roundnum]:
-                k_mins[roundnum] = potential_k_min
-                used_error[roundnum] = this_round_error
-                # giving leftover error to next audit round, if there is a next round
-                if roundnum + 1 < m:
-                    allotted_error[roundnum + 1] += allotted_error[roundnum] - used_error[roundnum]
-                break
-        
+
+        # We calculate the sprob of the computed convolution for the given k_min.
+        this_round_sprob = 0
+        for k in range(k_mins[roundnum], n[roundnum] + 1):
+            this_round_sprob += current_round_distribution[k]
+
+        print("Round ", roundnum + 1, " stopping probability:", this_round_sprob)
+        sprobs[roundnum] = this_round_sprob
+
         # Removing those probabilities which do not proceed to the next round.
-        for k in range(k_mins[roundnum], n[roundnum]):
+        for k in range(k_mins[roundnum], n[roundnum] + 1):
             current_round_distribution[k] = 0
-
-        print("Round", roundnum + 1, "completed, with kmin", k_mins[roundnum], "and error: ", used_error[roundnum])
-
+    
         previous_rounds_distribution = current_round_distribution
 
-    # The used risk will (essentially) always be slightly less than the prespecified risk, 
-    # due to the k_mins' being integers.
-    used_risk = 0
-    for error in used_error:
-        used_risk += error
+    rounds_sprob_sum = 0
+    for sprob in sprobs:
+        rounds_sprob_sum += sprob
 
-    print("The set of k_mins is", k_mins)
-    print("The precise risk limit of the audit is", used_risk * 100, "%.")
+    print("The chance of the audit stopping before a full hand count is", rounds_sprob_sum * 100,"%.")
+
+    # Computation of the expectation.
+    expectation = 0
+    for index in range(0, m):
+        expectation += n[index] * sprobs[index]
+    # Inclusive of the possibility of a full hand count.
+    expectation += (1 - rounds_sprob_sum) * N
+
+    print("The average number of ballots that will be audited is", expectation)
 
     print("Time elapsed:", dt.datetime.now() - starttime)
 
 if __name__ == '__main__':
     main()
-    
-
-
-
