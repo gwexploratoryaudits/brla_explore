@@ -111,6 +111,8 @@ class auditsim:
             else:
                 invalid = 0
 
+            stop = False
+
             # Audit comparisons
             if self.num_candidates == 2:
                 # Two candidate comparison
@@ -118,7 +120,7 @@ class auditsim:
 
                 if audit_counts[0] > kmin:
                     # print("Audit stopped at size ", audit_round)
-                    return True
+                    stop = True
             else:
                 # Multicandidate comparison
                 stop = True
@@ -131,10 +133,10 @@ class auditsim:
                         stop = False
                         break
 
-                # if all comparisons pass, stop audit
-                if stop:
-                    # print("Audit stopped at size ", audit_round)
-                    return True
+            # if all comparisons pass, stop audit
+            if stop:
+                # print("Audit stopped at size ", audit_round)
+                return True
 
             # Test for recount
             if audit_round >= self.total_votes//2:
