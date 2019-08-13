@@ -66,7 +66,7 @@ class auditsim:
 
         @param risk_limit: float value (between 0 and 1) to use in audit.
 
-        @return: Returns True is audit stops, i.e. confirming anounced outcome
+        @return: Returns True if audit stops, i.e. confirming anounced outcome
         of election. False if audit must progress to a full recount.
 
         Testing
