@@ -1,16 +1,19 @@
-from src.multivariate_hypergeom_sample import multivhyper
-from src.brla_sarah import brla
-import numpy as np
+# Sarah Morin
+# Last Edit: 8/13/2019
 
 """
 Class for simulating Bayesian RLA.
 Can be used on 2-candidate or multi-candidate elections with or without invalid votes.
 """
 
+from src.multivariate_hypergeom_sample import multivhyper
+from src.brla_sarah import brla
+import numpy as np
+
 
 class auditsim:
 
-    def __init__(self, total_votes: int, vote_dist, audit_tier: int, invalid: bool = False):
+    def __init__(self, total_votes: int, vote_dist, audit_round: int, invalid: bool = False):
         """
         Create audit simulation object.
 
@@ -21,7 +24,7 @@ class auditsim:
             * First count in distribution represents announced winner.
             * Last count in distribution represents invalid votes (if applicable)
 
-            @param audit_tier: First audit tier to use in audit, must be integer.
+            @param audit_round: First audit round to use in audit, must be integer.
 
             @param invalid: indidicates if invalid votes are present in election.
             (Optional, default = False).
@@ -38,8 +41,8 @@ class auditsim:
             raise TypeError("Vote distribution must be integer counts")
         if type(vote_dist) is dict and not all(isinstance(n, int) for n in list(vote_dist.values())):
             raise TypeError("Vote distribution must be integer counts")
-        if type(audit_tier) is not int:
-            raise TypeError("Audit tier must be integer.")
+        if type(audit_round) is not int:
+            raise TypeError("Audit round must be integer.")
         if type(invalid) is not bool:
             raise TypeError("Invalid must be True/False")
 
@@ -47,10 +50,10 @@ class auditsim:
         self.total_votes = total_votes
         self.vote_dist = vote_dist
         self.invalid = invalid
-        self.audit_tier = audit_tier
+        self.audit_round = audit_round
 
-        # TODO: audit tier is currently first audit tier, then doubles after
-        #   could modify to accept list of integer audit tiers
+        # TODO: audit round is currently first audit round, then doubles after
+        #   could modify to accept list of integer audit rounds
 
         # Get number of candidates in election
         if invalid:
@@ -88,9 +91,9 @@ class auditsim:
         # Initialize array to hold audit counts for each type of vote
         audit_counts = np.zeros(len(self.vote_dist), dtype=int)
 
-        # Set initial audit tier and sample size
-        audit_tier = self.audit_tier
-        sample_size = self.audit_tier
+        # Set initial audit round and sample size
+        audit_round = self.audit_round
+        sample_size = self.audit_round
 
         # Create auditing object for calculations
         audit_lookup = brla(self.total_votes)
@@ -112,18 +115,18 @@ class auditsim:
             # Audit comparisons
             if self.num_candidates == 2:
                 # Two candidate comparison
-                kmin = audit_lookup.get_stopping_size(audit_tier, risk_limit, invalid)
+                kmin = audit_lookup.get_stopping_size(audit_round, risk_limit, invalid)
 
                 if audit_counts[0] > kmin:
-                    # print("Audit stopped at size ", audit_tier)
+                    # print("Audit stopped at size ", audit_round)
                     return True
             else:
                 # Multicandidate comparison
                 stop = True
                 # pairwise comparisons
                 for i in range(1, self.num_candidates):
-                    pair_invalid = audit_tier-(audit_counts[0]+audit_counts[i])
-                    kmin = audit_lookup.get_stopping_size(audit_tier, risk_limit, pair_invalid)
+                    pair_invalid = audit_round-(audit_counts[0]+audit_counts[i])
+                    kmin = audit_lookup.get_stopping_size(audit_round, risk_limit, pair_invalid)
 
                     if audit_counts[0] <= kmin:
                         stop = False
@@ -131,17 +134,17 @@ class auditsim:
 
                 # if all comparisons pass, stop audit
                 if stop:
-                    # print("Audit stopped at size ", audit_tier)
+                    # print("Audit stopped at size ", audit_round)
                     return True
 
             # Test for recount
-            if audit_tier >= self.total_votes//2:
+            if audit_round >= self.total_votes//2:
                 # print("You must progress to a full recount")
                 return False
 
             # Update sample and audit sizes
-            sample_size = audit_tier
-            audit_tier *= 2
+            sample_size = audit_round
+            audit_round *= 2
 
         return False
 
