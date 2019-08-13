@@ -13,11 +13,9 @@ import numpy as np
 
 class auditsim:
 
-    def __init__(self, total_votes: int, vote_dist, audit_round: int, invalid: bool = False):
+    def __init__(self, vote_dist, audit_round: int, invalid: bool = False):
         """
         Create audit simulation object.
-
-            @param total_votes: Total number of ballots cast in election.
 
             @param vote_dist: True underlying distribution of votes in election.
             Can be list of integer counts of votes, or dict with integer count values.
@@ -33,8 +31,6 @@ class auditsim:
             election.
         """
         # type check parameters
-        if type(total_votes) is not int:
-            raise TypeError("Total ballots cast in election must be integer.")
         if type(vote_dist) is not list and type(vote_dist) is not dict:
             raise TypeError("Vote distribution is election must be list or dict.")
         if type(vote_dist) is list and not all(isinstance(n, int) for n in vote_dist):
@@ -47,7 +43,10 @@ class auditsim:
             raise TypeError("Invalid must be True/False")
 
         # Set attributes
-        self.total_votes = total_votes
+        if type(vote_dist) is list:
+            self.total_votes = sum(vote_dist)
+        else:
+            self.total_votes = sum(vote_dist.values())
         self.vote_dist = vote_dist
         self.invalid = invalid
         self.audit_round = audit_round
