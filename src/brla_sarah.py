@@ -42,7 +42,7 @@ class brla:
 
     def get_error(self, stop: int, audit: int, invalid: int = 0) -> float:
         """
-        Get error value assosciated with stopping size and audit tier.
+        Get error value assosciated with stopping size and audit round.
         Error is calcualted using a prior distribution (as described above)
         and a posterior ditribution generated using the hypergeometric distribution
         and prior distribution. The posterior distribution is then normalized and
@@ -51,13 +51,13 @@ class brla:
             @param stop: (integer) stopping value to calculate error for. Should have
             stop < audit.
 
-            @param audit: Size of current audit tier, i.e. size of sample which will
+            @param audit: Size of current audit round, i.e. size of sample which will
             be taken during audit.
 
             @param invalid: Accounts for invalid votes found during audit.
             Optional, default set to 0
 
-            @return: error value assosciated with given audit tier and stopping size.
+            @return: error value assosciated with given audit round and stopping size.
             Calcualted using method described in Bayesian RLA paper (Vora).
 
         Testing
@@ -94,7 +94,7 @@ class brla:
 
     def get_stopping_size(self, audit_size: int, risk: float, invalid: int = 0) -> int:
         """
-        Get stopping size for audit tier which meets given risk limit using prior
+        Get stopping size for audit round which meets given risk limit using prior
         distribution for Bayesian RLA. Uses binary search to test various stopping size
         values and verify that calcualted error is less than or equal to risk limit.
 
@@ -194,11 +194,11 @@ class brla:
         self.prior = np.concatenate((np.zeros((self.total_votes-invalid)//2, dtype=float), np.array([0.5]), np.array(
             [(0.5/((self.total_votes-invalid)-((self.total_votes-invalid)//2))) for j in range((self.total_votes-invalid)-((self.total_votes-invalid)//2))])), axis=None)
 
-    def lookup_table(self, audit_tiers: np.ndarray, risk_limits: np.ndarray, invalid: int = 0, print_table=False) -> np.ndarray:
+    def lookup_table(self, audit_rounds: np.ndarray, risk_limits: np.ndarray, invalid: int = 0, print_table=False) -> np.ndarray:
         """
         Generate lookup table of kmin vlaues for audit.
 
-            @param audit_tiers: array/list of integer audit tier sizes.
+            @param audit_rounds: array/list of integer audit round sizes.
             Columns of lookup table.
 
             @param risk_limits: array/list of risk limits (floats).
@@ -224,7 +224,7 @@ class brla:
         >>> brla(10).lookup_table([2.5, 10], [0.1])
         Traceback (most recent call last):
             ...
-        TypeError: Audit tiers must be integers.
+        TypeError: Audit rounds must be integers.
         >>> brla(10).lookup_table([5, 10], [2, 3])
         Traceback (most recent call last):
             ...
@@ -236,8 +236,8 @@ class brla:
         """
 
         # Type checking
-        if not all(isinstance(n, int) for n in audit_tiers):
-            raise TypeError('Audit tiers must be integers.')
+        if not all(isinstance(n, int) for n in audit_rounds):
+            raise TypeError('Audit rounds must be integers.')
         if not all(isinstance(n, float) for n in risk_limits):
             raise TypeError('Risk limits must be floats')
         if type(invalid) is not int and type(invalid) is not float:
@@ -245,19 +245,19 @@ class brla:
         if type(print_table) is not bool:
             raise TypeError('print_table must be boolean (True/False)')
 
-        lookup = np.zeros((len(risk_limits), len(audit_tiers)), dtype=int)
+        lookup = np.zeros((len(risk_limits), len(audit_rounds)), dtype=int)
 
         for r in range(len(risk_limits)):
-            for a in range(len(audit_tiers)):
+            for a in range(len(audit_rounds)):
                 if type(invalid) is int:
-                    lookup[r][a] = self.get_stopping_size(audit_tiers[a], risk_limits[r], invalid)
+                    lookup[r][a] = self.get_stopping_size(audit_rounds[a], risk_limits[r], invalid)
                 else:
-                    lookup[r][a] = self.get_stopping_size(audit_tiers[a], risk_limits[r], int(audit_tiers[a]*invalid))
+                    lookup[r][a] = self.get_stopping_size(audit_rounds[a], risk_limits[r], int(audit_rounds[a]*invalid))
 
         if print_table:
             col = np.concatenate((np.array([0]), np.array(risk_limits)), axis=None)
             col = np.reshape(col, (len(col), 1))
-            rows = np.concatenate((np.array((audit_tiers), ndmin=2), lookup), axis=0)
+            rows = np.concatenate((np.array((audit_rounds), ndmin=2), lookup), axis=0)
             table = np.concatenate((col, rows), axis=1)
             np.set_printoptions(suppress=True)
             print(table)

@@ -8,7 +8,7 @@ Bayesian RLA uses a prior distribution which is uniform on tallies favoring
 the winner and concentrated on a margin of one for tallies favoring the loser.
 
 To generate lookup table for an election, edit the parameters within the main
-method: total_votes, audit_tiers, and risk_limits.
+method: total_votes, audit_rounds, and risk_limits.
 """
 
 from scipy.stats import hypergeom as hg
@@ -19,39 +19,39 @@ from typing import List
 
     @param total_votes: Total number of votes cast in a given election.
 
-    @param audit_tiers: Array (or list) of escalating audit tier sizes.
-    The audit will begin with a sample of size audit_tiers[0] and either stop
-    (if stopping criterion is met), or progress on to audit_tiers[1]
-    (which should be double audit_tiers[0]), and so on.
+    @param audit_rounds: Array (or list) of escalating audit round sizes.
+    The audit will begin with a sample of size audit_rounds[0] and either stop
+    (if stopping criterion is met), or progress on to audit_rounds[1]
+    (which should be double audit_rounds[0]), and so on.
 
     @param: risk_limits: Array (or list) of risk limits for which we will
     generate minimum stopping vote counts.
 
     @return: 2D Array (List) of integers where each row corresponds to a risk
-    limit and each column corresponds to an audit tier. The table contains the
+    limit and each column corresponds to an audit round. The table contains the
     minimum number of votes for the announced winner needed to stop the audit
-    for a given risk limit and sample size (audit tier).
+    for a given risk limit and sample size (audit round).
 
 """
 
 
-def generate_lookup_table(total_votes: int, audit_tiers: List[int], risk_limits: List[float]) -> List[List[int]]:
-    # Create empty lookup table with len(risk_limits) rows and len(audit_tiers) columns
-    lookup_table = [[0 for i in range(len(audit_tiers))] for j in range(len(risk_limits))]
+def generate_lookup_table(total_votes: int, audit_rounds: List[int], risk_limits: List[float]) -> List[List[int]]:
+    # Create empty lookup table with len(risk_limits) rows and len(audit_rounds) columns
+    lookup_table = [[0 for i in range(len(audit_rounds))] for j in range(len(risk_limits))]
 
     # Prior distribution for Bayesian RLA (described above)
     prior = [0 for i in range(total_votes//2)]+[0.5]+[(0.5/(total_votes-(total_votes//2))) for j in range(total_votes-(total_votes//2))]
 
     # Fill table with stopping sizes
     for risk in range(len(risk_limits)):
-        for audit_size in range(len(audit_tiers)):
-            lookup_table[risk][audit_size] = get_kmin(audit_tiers[audit_size], risk_limits[risk], prior, total_votes)
+        for audit_size in range(len(audit_rounds)):
+            lookup_table[risk][audit_size] = get_kmin(audit_rounds[audit_size], risk_limits[risk], prior, total_votes)
 
     return lookup_table
 
 
 """
-Get error value assosciated with stopping size and audit tier.
+Get error value assosciated with stopping size and audit round.
 Error is calcualted using a prior distribution (as described above)
 and a posterior ditribution generated using the hypergeometric distribution
 and prior distribution. The posterior distribution is then normalized and
@@ -60,7 +60,7 @@ the assocaited error (or risk) is calculated.
     @param stop: (integer) stopping value to calculate error for. Should have
     stop < audit.
 
-    @param audit: Size of current audit tier, i.e. size of sample which will
+    @param audit: Size of current audit round, i.e. size of sample which will
     be taken during audit.
 
     @param prior: Prior distribution (described above)
@@ -68,7 +68,7 @@ the assocaited error (or risk) is calculated.
     @param total_votes: Total number of votes in election. Used for calcualting
     distributions.
 
-    @return: error value assosciated with given audit tier and stopping size.
+    @return: error value assosciated with given audit round and stopping size.
     Calcualted using method described in Bayesian RLA paper (Vora).
 """
 
@@ -87,7 +87,7 @@ def get_error(stop: int, audit: int, prior: List[float], total_votes: int) -> fl
 
 
 """
-Get stopping size for audit tier which meets given risk limit using prior
+Get stopping size for audit round which meets given risk limit using prior
 distribution for Bayesian RLA. Uses binary search to test various stopping size
 values and verify that calcualted error is less than or equal to risk limit.
 
@@ -147,14 +147,14 @@ def get_kmin(audit_size: int, risk: float, prior: List[float], total_votes: int)
 
 def main():
     # Generate lookup table for election of 100,000 total votes,
-    #   9 escalting audit tiers starting at 200,
+    #   9 escalting audit rounds starting at 200,
     #   3 risk limits
     # This currently matches table 3 from the Bayesian RLA paper
     total_votes = 100000
-    audit_tiers = [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200]
+    audit_rounds = [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200]
     risk_limits = [0.1, 0.05, 0.005]
 
-    lookup = generate_lookup_table(total_votes, audit_tiers, risk_limits)
+    lookup = generate_lookup_table(total_votes, audit_rounds, risk_limits)
     print(lookup)
 
 
