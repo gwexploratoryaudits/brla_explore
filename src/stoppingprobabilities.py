@@ -8,8 +8,37 @@
     Crucially, if the true tally is set to a tie (or margin of 1 in favor of the reported loser) then the
     sum of the stopping probabilities is the risk limit of the provided set of k_mins! '''
 
+from optparse import OptionParser
+import logging
+from decimal import Decimal
 from scipy.stats import hypergeom
-''' The hypegeometric distribution is central to the computation of the stopping probabilities. '''
+import convolutionaudit
+import rlacalc
+
+
+parser = OptionParser(prog="rlacalc.py",
+                      usage=__doc__.replace("%InsertOptionParserUsage%\n", 'Usage: %prog [options]\n'))
+
+parser.add_option("-m", "--margin",
+  type="float", default=5.0,
+  help="margin of victory, in percent")
+
+parser.add_option("-r", "--alpha",
+  type="float", default=10.0,
+  help="maximum risk level (alpha), in percent")
+
+parser.add_option("-d", "--debuglevel",
+  type="int", default=logging.WARNING,
+  help="Set logging level to debuglevel: DEBUG=10, INFO=20,\n WARNING=30 (the default), ERROR=40, CRITICAL=50")
+
+parser.add_option("--test",
+  action="store_true", default=False,
+  help="Run tests")
+
+parser.add_option("-v", "--verbose",
+  action="store_true", default=False,
+  help="Verbose doctests")
+
 
 def get_interval(dist):
     ''' This function aids in truncating distributions by finding levels l and u such that 
@@ -62,7 +91,7 @@ class Stopping_Probabilities:
         # N = number of ballots cast for the two candidates (in a two candidate contest)
         self.N = N
         # The round schedule is a list of strictly increasing integers, each in [0, N],
-        # such that after completion of the i'th round round_schedule[i] ballots will
+        # such that after completion of the i'th round round_schedule[i-1] ballots will
         # have been examined.
         self.round_schedule = round_schedule
         # The i'th value of k_min is the stopping rule for the i'th round: if the auditor
@@ -176,16 +205,43 @@ class Stopping_Probabilities:
 
 
 def main():
+
+    (args, more) = parser.parse_args()
+
+    risk_limit = args.alpha / 100.0
+
     N = 100000
-    round_schedule = [200, 400, 800, 1600, 3200]
-    k_mins = [117, 223, 431, 843, 1661]
-    true_tally = 65000
+    margin = Decimal(args.margin / 100.0)
+    true_tally = int(N // 2 + N * margin // 2)
+
+    # Average number of ballots to audit with one ballot per round
+    asn = rlacalc.findAsn(risk_limit, float(margin))
+
+    # Establish rounds at fixed fractions of the asn
+    round_factors = [0.41, 0.71, 1.25, 2.09, 4.64] # percentiles 25, 50, 75, 90, 99
+    # or [.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0, 1.2, 1.4, 1.6, 2., 2.5, 3., 4., 5., 7.]
+
+    round_schedule = [int(asn * round_factor) for round_factor in round_factors]
+    round_count = len(round_schedule)
+
+    risk_schedule = [risk_limit / round_count] * round_count
+
+    # Calculate k_mins
+    audit = convolutionaudit.Convolution_Audit(N, round_schedule, risk_schedule)
+    audit.conduct_audit()
+    k_mins = audit.k_mins
 
     mysprobs = Stopping_Probabilities(N, round_schedule, k_mins, true_tally)
     mysprobs.calculate_sprobs()
+    expected = mysprobs.compute_expectation()
 
-    print(mysprobs.sprobs)
-    print("Expectation:", mysprobs.compute_expectation())
+    print(f'For margin of {margin:.2%} with {N} ballots in {round_count} rounds: {round_schedule}')
+    print(f'BRAVO ASN: {asn}; sum of stopping probs: {sum(mysprobs.sprobs)}')
+    print(f'Expected ballots to audit: {expected:.2f}, {expected / asn:.2%} of ASN')
+
+    print(f'  bal\tkmin\tsmargin\tstop_prob')
+    for roundsize, kmin, stop_prob in zip(round_schedule, k_mins, mysprobs.sprobs):
+        print(f'  {roundsize}\t{kmin}\t{kmin/roundsize:.3%}\t{stop_prob:.4f}')
 
 
 if __name__ == '__main__':
