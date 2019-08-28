@@ -1,5 +1,5 @@
 # Grant McClearn
-# Last Edited: August 13, 2019
+# Last Edited: August 28, 2019
 
 ''' A program which calculates the probability of stopping at each audit round when provided
     the number of ballots cast for two candidates in a two candidate election, the round schedule,
@@ -157,7 +157,7 @@ class Stopping_Probabilities:
         previous_rounds_distribution_bounds = get_interval(previous_rounds_distribution)
 
         # For every possibility (of number of ballots for the winner) in the past rounds...
-        for previous_rounds_possibility in range(previous_rounds_distribution_bounds[0], previous_rounds_distribution_bounds[1]):
+        for previous_rounds_possibility in range(previous_rounds_distribution_bounds[0], previous_rounds_distribution_bounds[1] + 1):
             winner_ballots = range(0, self.round_schedule[round_index] - self.round_schedule[round_index - 1] + 1)
             unsampled_N = self.N - self.round_schedule[round_index - 1]
             unsampled_winner_ballots = self.true_tally - previous_rounds_possibility
@@ -177,7 +177,6 @@ class Stopping_Probabilities:
                 component_probability = previous_rounds_distribution[previous_rounds_possibility] * this_round_draws[this_round_possibility]
                 current_round_distribution[previous_rounds_possibility + this_round_possibility] += component_probability
         return current_round_distribution
-
     
     def lop_off_distribution(self, round_index, current_round_distribution):
         # Removing probabilities which do not proceed to further audit rounds.
@@ -187,7 +186,7 @@ class Stopping_Probabilities:
 
     def compute_total_sprob(self):
         # If the true tally is a tie (or margin of 1 in favor of the reported loser),
-        # then this method returns the risk limit of the audit conducted with the k_mins.
+        # then this method returns the precise risk limit of the audit conducted with the k_mins.
         total_sprob = 0
         for sprob in self.sprobs:
             total_sprob += sprob
@@ -200,9 +199,7 @@ class Stopping_Probabilities:
         for index in range(0, self.number_of_rounds):
             expectation += self.round_schedule[index] * self.sprobs[index]
         expectation += self.N * (1 - self.compute_total_sprob())
-        return expectation
-        
-
+        return expectation    
 
 def main():
 

@@ -1,5 +1,5 @@
 # Grant McClearn
-# Last Edited: August 12, 2019
+# Last Edited: August 28, 2019
 
 ''' A program which, given the number of ballots cast for two candidates in a two-candidate election,
     the round schedule, and the risk schedule, calculates k_mins and their associated errors. '''
@@ -137,7 +137,7 @@ class Convolution_Audit:
         previous_rounds_distribution_bounds = get_interval(previous_rounds_distribution)
 
         # For every possibility (of number of ballots for the winner) in the past rounds...
-        for previous_rounds_possibility in range(previous_rounds_distribution_bounds[0], previous_rounds_distribution_bounds[1]):
+        for previous_rounds_possibility in range(previous_rounds_distribution_bounds[0], previous_rounds_distribution_bounds[1] + 1):
             winner_ballots = range(0, self.round_schedule[round_index] - self.round_schedule[round_index - 1] + 1)
             unsampled_N = self.N - self.round_schedule[round_index - 1]
             unsampled_winner_ballots = self.half_N - previous_rounds_possibility
@@ -164,6 +164,12 @@ class Convolution_Audit:
             current_round_distribution[k] = 0
         return current_round_distribution
 
+    def get_precise_risk(self):
+        risk = 0
+        for round_risk in self.used_risk_schedule:
+            risk += round_risk
+        return risk
+
 def main():
     N = 100000
     round_schedule = [200, 400, 800, 1600, 3200]
@@ -174,7 +180,7 @@ def main():
     audit.conduct_audit()
 
     print(audit.k_mins)
-    print(audit.used_risk_schedule)
+    print(audit.get_precise_risk())
 
 if __name__ == '__main__':
     main()
