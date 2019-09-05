@@ -9,7 +9,7 @@ and a BRAVO audit where the audit is limited to 1 round of a given size.
 import numpy as np
 from scipy.stats import hypergeom, binom
 import matplotlib.pyplot as plt
-from convolutionaudit import Convolution_Audit as conv
+from src.convolutionaudit import Convolution_Audit as conv
 import math
 
 
