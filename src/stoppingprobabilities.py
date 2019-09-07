@@ -1,5 +1,5 @@
 # Grant McClearn
-# Last Edited: August 28, 2019
+# Last Edited: September 7, 2019
 
 ''' A program which calculates the probability of stopping at each audit round when provided
     the number of ballots cast for two candidates in a two candidate election, the round schedule,
@@ -199,7 +199,24 @@ class Stopping_Probabilities:
         for index in range(0, self.number_of_rounds):
             expectation += self.round_schedule[index] * self.sprobs[index]
         expectation += self.N * (1 - self.compute_total_sprob())
-        return expectation    
+        return expectation
+
+    def compute_expected_work(self, epsilon):
+        '''
+        This returns the average work (in units of random ballots examined) with the parameter
+        epsilon, in (0, 1], which is the ratio of the difficulty of examining ballots in a full hand count
+        and in a random sample. If epsilon < .25, for example, that conveys that the auditor
+        would rather audit 100 ballots in a full hand count than 25 randomly selected ballots.
+        '''
+        expectation = 0
+        for index in range(0, self.number_of_rounds):
+            expectation += self.round_schedule[index] * self.sprobs[index]
+        expectation += self.N * epsilon * (1 - self.compute_total_sprob())
+
+        if expectation > epsilon * self.N:
+            print("This audit is on average more work than a full hand count.")
+        
+        return expectation
 
 def main():
 
