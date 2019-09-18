@@ -80,5 +80,3 @@ BRAVOLikeTable = StoppingPercentiles(StopSchedBRAVOLike, nBRAVOLike, percentiles
 BRAVORiskTable = StoppingPercentiles(RiskSchedBRAVO, nBRAVO, risk_percentiles);
 BRAVOLikeRiskTable = StoppingPercentiles(RiskSchedBRAVOLike, nBRAVOLike, risk_percentiles);
 
-
-
