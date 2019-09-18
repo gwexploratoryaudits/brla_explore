@@ -13,8 +13,8 @@
 %
 %Input: 
 %   margin:         array of fractional margins
-%   alpha:          array of fractional risk limits
-%   N:              array of total votes cast for two candidates
+%   alpha:          fractional risk limit
+%   N:              total votes cast for two candidates
 % Types of audits: BRAVO and BRAVO-like, with BRAVO being first. 
 %
 %----------
@@ -34,7 +34,7 @@
 %
 % Output Values
 %   Each is an array of size: 
-%   number of types of audits X size(margin,2) X size(alpha,2) X size(N,2)
+%   number of types of audits X size(margin,2)
 %	RiskValue:                  the total risk, computed as the sum of all 
 %                                   values of risk(j)
 %	StopProb:               the total stopping probability, should 
@@ -46,7 +46,7 @@
 %                                   margin when outcome is correct. 
 %
 %   Also outputs two lists of size 
-%   number of types of audits X size(margin,2) X size(alpha,2) X size(N,2)
+%   number of types of audits X size(margin,2) 
 %   each list element is an array of the size of the corresponding array n
 %   RiskSched:                  the risk schedule, corresponding to the 
 %                                   variable "risk" above, for zero margin
@@ -57,16 +57,28 @@
 
 margins = [0.4, 0.3, 0.2, 0.16, 0.1];
 margin_incorrect = zeros(1,size(margins,2));
-alpha = [0.05, 0.1];
+alpha = [0.1];
+percentiles = [0.25, 0.5, 0.75, 0.9, 0.99];
+risk_percentiles = alpha(1,1)*percentiles;
 N = [1000];
 
 %--------------BRAVO------------%
 [nBRAVO, kminBRAVO] = BSquareBRAVOkminMany(margins, alpha);
-[StopSched(1,:,:,:), StopProb(1,:,:,:), ExpectedBallotsCorrect(1,:,:,:)] = BSquareRisksMany(margins, alpha, N, nBRAVO, kminBRAVO, 0);
-[RiskSched(1,:,:,:), RiskValue(1,:,:,:), ExpectedBallotsInCorrect(1,:,:,:)] = BSquareRisksMany(margin_incorrect, alpha, N, nBRAVO, kminBRAVO, 0);
+[StopSchedBRAVO, StopProbBRAVO, ExpectedBallotsCorrectBRAVO] = BSquareRisksMany(margins, alpha, N, nBRAVO, kminBRAVO, 0);
+[RiskSchedBRAVO, RiskValueBRAVO, ExpectedBallotsInCorrectBRAVO] = BSquareRisksMany(margin_incorrect, alpha, N, nBRAVO, kminBRAVO, 0);
 
 %--------------BRAVOLike------------%
 [nBRAVOLike, kminBRAVOLike] = BSquareBRAVOLikekminMany(margins, alpha, N);
-[StopSched(2,:,:,:), StopProb(2,:,:,:), ExpectedBallotsCorrect(2,:,:,:)] = BSquareRisksMany(margins, alpha, N, nBRAVOLike, kminBRAVOLike, 1);
-[RiskSched(2,:,:,:), RiskValue(2,:,:,:), ExpectedBallotsInCorrect(2,:,:,:)] = BSquareRisksMany(margin_incorrect, alpha, N, nBRAVOLike, kminBRAVOLike, 1);
+[StopSchedBRAVOLike, StopProbBRAVOLike, ExpectedBallotsCorrectBRAVOLike] = BSquareRisksMany(margins, alpha, N, nBRAVOLike, kminBRAVOLike, 1);
+[RiskSchedBRAVOLike, RiskValueBRAVOLike, ExpectedBallotsInCorrectBRAVOLike] = BSquareRisksMany(margin_incorrect, alpha, N, nBRAVOLike, kminBRAVOLike, 1);
+
+%--------------Stopping Percentiles-----------%
+BRAVOTable = StoppingPercentiles(StopSchedBRAVO, nBRAVO, percentiles);
+BRAVOLikeTable = StoppingPercentiles(StopSchedBRAVOLike, nBRAVOLike, percentiles);
+
+%--------------Risk Percentiles---------------%
+BRAVORiskTable = StoppingPercentiles(RiskSchedBRAVO, nBRAVO, risk_percentiles);
+BRAVOLikeRiskTable = StoppingPercentiles(RiskSchedBRAVOLike, nBRAVOLike, risk_percentiles);
+
+
 
