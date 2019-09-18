@@ -22,8 +22,7 @@ function [StopSched, RiskValue, ExpectedBallots] = BSquareRisksMany(margin, alph
 %                   or vector of zeroes (for risk calculations)
 %   alpha:          vector of risk limits as fractions
 %   N:              vector of total votes cast in election. when audits 
-%                       are with replacement, influences only 
-%                       ExpectedBallots
+%                       are with replacement, does not influence anything
 %   the following are lists of arrays, both corresponding lists are  
 %   of the same size:
 %               size(margin,2) X size(alpha, 2) X size(N)
@@ -188,7 +187,7 @@ function [StopSched, RiskValue, ExpectedBallots] = BSquareRisksMany(margin, alph
                     CurrentTier=CurrentTier(1,1:kminvalue(j));
                 end
                 RiskValue(i,s,t) = sum(riskvalue(1:NumberDraws));
-                ExpectedBallots(i,s,t) = dot(riskvalue,nvalue) + (1-RiskValue(i,s,t))*N(t);
+                ExpectedBallots(i,s,t) = dot(riskvalue,nvalue) + (1-RiskValue(i,s,t))*size(nvalue,2);
                 StopSched{i,s,t} = riskvalue;
                 %risk{t+(s-1)*num_N+(i-1)*num_N*num_alpha}=riskvalue;
             end
