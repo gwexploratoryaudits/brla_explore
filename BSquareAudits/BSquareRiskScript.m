@@ -26,7 +26,7 @@
 %   kmin:           array of minimum values of k; jth  value is the minimum 
 %                       number of votes for winner required to terminate 
 %                       an audit with sample size n(j). 
-%   risk:           array of individual risk values. jth value is the 
+%   risk:           array of individual risk schedules. jth value is the 
 %                       risk (or stopping prob.) of the round with sample 
 %                       size n(j)
 %
@@ -55,7 +55,7 @@
 %                                   above, for the corresponding margin
 %
 
-margins = [0.1, 0.16, 0.2, 0.3, 0.4];
+margins = [0.4, 0.3, 0.2, 0.16, 0.1];
 margin_incorrect = zeros(1,size(margins,2));
 alpha = [0.05, 0.1];
 N = [1000];
