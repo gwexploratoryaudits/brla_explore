@@ -44,9 +44,16 @@ RiskSchedB2 =  zeros(1,num_rounds);
 StopSchedR2 =  zeros(1,num_rounds);
 RiskSchedR2 =  zeros(1,num_rounds);
 GoalRiskSched =  zeros(1,num_rounds);
+GoalProbSched =  zeros(1,num_rounds);
+CStopSchedB2 =  zeros(1,num_rounds);
+CRiskSchedB2 =  zeros(1,num_rounds);
+CStopSchedR2 =  zeros(1,num_rounds);
+CRiskSchedR2 =  zeros(1,num_rounds);
+CGoalRiskSched =  zeros(1,num_rounds);
+CGoalProbSched =  zeros(1,num_rounds);
 
 % Generate BSquare BRAVO audit kmins
-[kmslope, kmintercept, nBRAVO, kminBRAVO] = BSquareBRAVOkmin(margin, alpha);
+[kmslope, kmintercept, nBRAVO, kminBRAVO] = BSquareBRAVOkmin(margin,alpha);
 
 % Generate stopping scheds and total probabilities for the same audit and 
 % election margin. 
@@ -79,20 +86,47 @@ end
 [RiskSchedB2, RiskValueB2, ExpectedBallots] = RSquareRisks(0, N, nB2, kminB2, 0);
 [StopSchedB2, StopProbB2, ExpectedBallotsB2] = RSquareRisks(margin, N, nB2, kminB2, 0);
 
+% Compute what the stopping probbailities should have been
+GoalProbSched(1,1) = sum(StopSched(1,1:RoundSched(1,1)-nBRAVO(1)+1));
+for m=2:num_rounds
+    GoalProbSched(m) = sum(StopSched(1,RoundSched(m-1)+1-nBRAVO(1)+1:RoundSched(m)-nBRAVO(1)+1));
+end
+
+% Compute cumulative probabilities
+CStopSchedB2 =  CumDistFunc(StopSchedB2);
+CRiskSchedB2 =  CumDistFunc(RiskSchedB2);
+CStopSchedR2 =  CumDistFunc(StopSchedR2);
+CRiskSchedR2 =  CumDistFunc(RiskSchedR2);
+CGoalRiskSched =  CumDistFunc(GoalRiskSched);
+CGoalProbSched =  CumDistFunc(GoalProbSched);
+
 %Display
 RoundSched
 kminR2
 nB2
 kminB2
-StopSchedR2
-StopSchedB2
-GoalRiskSched
-RiskSchedR2
-RiskSchedB2
+CGoalProbSched
+CStopSchedR2
+CStopSchedB2
+CGoalRiskSched
+CRiskSchedR2
+CRiskSchedB2
 RiskValueR2
 RiskValueB2
 ExpectedBallotsR2
 ExpectedBallotsB2
 
-
+% Plot and save as images
+plot(nB2,CGoalProbSched,'ko-',nB2,CStopSchedB2,'r+-', nB2, CStopSchedR2, 'b*-')
+xlabel('Total Ballots Drawn. Cumulative round schedule is: 193, 332, 587, 974, 2155 ballots')
+ylabel('Cumulative Stopping Probabilities')
+title('Cumulative Stopping probabilities for margin=0.1 and risk limit=0.1')
+legend('Theoretical BRAVO audit (Goal)','BRAVO as currently done','Proposed Audit', 'Location', 'South')
+print -djpeg90 stopping.jpeg
+plot(nB2,CGoalRiskSched,'ko-',nB2,CRiskSchedB2,'r+-', nB2, CRiskSchedR2, 'b*-')
+xlabel('Total Ballots Drawn. Cumulative round schedule is: 193, 332, 587, 974, 2155 ballots')
+ylabel('Cumulative (Maximum) Risk Expenditure')
+title('Cumulative (Maximum) Risk Expenditure for margin=0.1 and risk limit=0.1')
+legend('Theoretical BRAVO audit (Goal)','BRAVO as currently done','Proposed Audit', 'Location', 'South')
+print -djpeg90 risk.jpeg
 
