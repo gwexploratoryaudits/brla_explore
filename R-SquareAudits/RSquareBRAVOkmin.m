@@ -41,7 +41,7 @@
     % others return 0
     valid_values = n_in >= firstvalue;
     
-    % Value and first position of maximum
+    % Value and first position of the maximum, in this case a "1"
     [a, b] = max(valid_values);
     
     if a == 0

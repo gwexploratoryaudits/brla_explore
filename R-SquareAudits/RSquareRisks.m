@@ -4,7 +4,7 @@ function [RiskSched, RiskValue, ExpectedBallots] = RSquareRisks(margin, N, n, km
     % This function returns:
     %       round-by-round stopping probability 
     %       total stopping probability 
-    %       number of expected ballots drawn
+    %       number of expected ballots drawn 
     % for a round-by-round audit defined by a round schedule n and a 
     % corresponding kmin schedule kmin, applied to an election defined 
     % by margin and total size N).
@@ -20,7 +20,7 @@ function [RiskSched, RiskValue, ExpectedBallots] = RSquareRisks(margin, N, n, km
     %   n:              row vector of cumulative sample sizes (round schedule)
     %                       last round size no larger than N for audits 
     %                       without replacement
-    %   kmin:           row vector of same size as n 
+    %   kmin:           row vector of same size as n
     %   audit_type:     0 for with, or 1 for without, replacement
     %
     %   n and kmin are typically outputs of RSquareBravoLikekmin or 
@@ -34,9 +34,8 @@ function [RiskSched, RiskValue, ExpectedBallots] = RSquareRisks(margin, N, n, km
     %                           n(j) ballots, round-by-round.                      
     %   RiskValue:          the risk computed as the sum of all values of 
     %                           the risk sched.
-    %   ExpectedBallots:	expected number of ballots examined
-    %                           should be larger than (1-risk-limit)*N 
-    %                           for zero margin.
+    %   ExpectedBallots:	expected number of ballots examined in number
+    %                           of polling audit ballots
     %----------
 
     % The right tail of the pdf at a round is the risk of the round, when
@@ -168,5 +167,5 @@ function [RiskSched, RiskValue, ExpectedBallots] = RSquareRisks(margin, N, n, km
         CurrentTier=CurrentTier(1,1:kmin(j));
     end
     RiskValue = sum(RiskSched(1:NumberRounds));
-    ExpectedBallots = dot(RiskSched,n) + (1-RiskValue)*N;
+    ExpectedBallots = dot(RiskSched,n) + ((1-RiskValue)*N);
 end
