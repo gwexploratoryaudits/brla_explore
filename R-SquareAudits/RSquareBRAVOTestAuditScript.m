@@ -3,12 +3,10 @@
 % is intended to provide expository numbers to convince folks who are used
 % to BRAVO numbers. 
 %
-% The script generates n and kmin from function 
-% BSquareBRAVOkmin/BSquareBRAVOLikekmin, then the stopping probability 
-% schedules and total stopping probabilities from BSquareRisks, then 
-% sample sizes for percentiles, and, using these and the risk schedule 
-% generated from BSquareRisks, an Rsquare risk schedule and a corresponding 
-% kmin schedule. 
+% The script generates n and kmin from function BSquareBRAVOkmin, and
+% generates a risk schedule. Given round sizes, 
+% the risk schedule generated from BSquareRisks, an Rsquare risk schedule 
+% and a corresponding kmin schedule. 
 % 
 % nB2, kminB2, StopSchedB2, RiskSchedB2, StopProbB2, RiskValueB2 are the 
 % various parameters for direct application of B-by-B-audits. 
@@ -61,7 +59,7 @@ CGoalProbSchedBRAVO =  zeros(1,num_rounds);
 % Generate stopping scheds and total probabilities for the same audit and 
 % election margin. 
 % ``0'' is used to indicate an audit with replacement. 
-[StopSchedBRAVO, StopProbBRAVO, ExpectedBallotsBRAVO] = BSquareRisks(margin, N, nBRAVO, kminBRAVO, 0);
+[StopSchedBRAVO, StopProbBRAVO, ExpectedBallotsBRAVOTrue] = BSquareRisks(margin, N, nBRAVO, kminBRAVO, 0);
 
 % Obtain sample sizes for percentiles, this is the round schedule.  
 RoundSched = StoppingPercentiles(nBRAVO, StopSchedBRAVO, percentiles);
@@ -80,7 +78,7 @@ end
 [kminR2BRAVO, RiskSchedR2BRAVO, RiskValueR2BRAVO, ExpectedBallotsBRAVO] = RSquareInvRisks(0, N, RoundSched, GoalRiskSchedBRAVO, 0);
 
 % Compute the stopping probs with this kmin
-[StopSchedR2BRAVO, StopProbR2BRAVO, ExpectedBallotsR2] = RSquareRisks(margin, N, RoundSched, kminR2BRAVO, 0);
+[StopSchedR2BRAVO, StopProbR2BRAVO, ExpectedBallotsR2BRAVO] = RSquareRisks(margin, N, RoundSched, kminR2BRAVO, 0);
 
 % Compute kmins for direct application of BRAVO to compare
 [kmslope, kmintercept, nB2BRAVO, kminB2BRAVO] = RSquareBRAVOkmin(margin, alpha, RoundSched);
@@ -116,7 +114,7 @@ CRiskSchedR2BRAVO
 CRiskSchedB2BRAVO
 RiskValueR2BRAVO
 RiskValueB2BRAVO
-ExpectedBallotsR2
+ExpectedBallotsR2BRAVO
 ExpectedBallotsB2BRAVO
 
 % Plot and save as images
