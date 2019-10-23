@@ -3,8 +3,7 @@ function ForwardCDF = CumDistFunc(pdf)
     % Computes cumulative distribution function of given pdf. 
     % ----------
     % Input:
-    %   pdf:            row array of values that sum to 1 and lie between 
-    %                       0 and 1
+    %   pdf:            row array of values whose sum desired
     % ----------
     % Output: 
     %   ForwardCDF:     row array of same size as input, cdf of input

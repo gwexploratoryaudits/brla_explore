@@ -22,6 +22,7 @@ function values = InverseCDF(cdf, percentiles)
         %   percentile(j). 
         upper=size(cdf,2);
         lower=1;
+        guess = 1;
         while upper > lower + 1
             guess = ceil((upper+lower)/2);
             if percentiles(j) < cdf(guess)
