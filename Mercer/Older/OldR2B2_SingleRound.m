@@ -15,12 +15,12 @@
 
 % Input
 % For amendment
-% votes_1=14970;
-% votes_2=5257;
+votes_1=15038;
+votes_2=5274;
 
 % Superior court judge
-votes_1=8050;
-votes_2=11435;
+% votes_1=8050;
+% votes_2=11435;
 
 % Court of Common Pleas
 % votes_1=10160;
@@ -30,7 +30,7 @@ votes_2=11435;
 % votes_1=10238;
 % votes_2=11949;
  
-vote_total=23563;
+vote_total=23662;
 alpha=0.1;
 percentile = 0.9;
 
@@ -102,27 +102,28 @@ StopProb_one_round_B2 = zeros(1,num_possible);
 % For the following sample size indices
 % Change this for finer or coarser sampling. Right now this gives us about
 % 18 samples. 
-sample_size_indices = (ceil(Average_Sample_Number/4):ceil(Average_Sample_Number/4):num_possible);
+% sample_size_indices = (ceil(Average_Sample_Number/10):ceil(Average_Sample_Number/10):num_possible);
+sample_size_indices = (1:num_possible);
 
 % For the one round audits
 for i=sample_size_indices 
     % AURROR kmin
-    kmin_oneround_R2(i) = binoinv(1-GoalRiskSched(i), n_bravo(i), 0.5);
+    kmin_oneround_R2(i) = binoinv(1-GoalRiskSched(i), n_bravo(i), 0.5)+1;
     
     % Use-up-all-risk kmin
     % kmin_oneround_all_risk(i) = binoinv(1-alpha, n_bravo(i), 0.5);
     
     % AURROR risk and stopping
-    RiskValue_one_round_R2(i) = binocdf(kmin_oneround_R2(i), n_bravo(i), 0.5, 'upper');
-    StopProb_one_round_R2(i) = binocdf(kmin_oneround_R2(i), n_bravo(i), p, 'upper');
+    RiskValue_one_round_R2(i) = binocdf(kmin_oneround_R2(i)-1, n_bravo(i), 0.5, 'upper');
+    StopProb_one_round_R2(i) = binocdf(kmin_oneround_R2(i)-1, n_bravo(i), p, 'upper');
     
     % Use-up-all-risk risk and stopping
     % RiskValue_one_round_all_risk(i) = binocdf(kmin_oneround_all_risk(i), n_bravo(i), 0.5, 'upper');
     % StopProb_one_round_all_risk(i) = binocdf(kmin_oneround_all_risk(i), n_bravo(i), p, 'upper');
     
     % Arlo risk and stopping, using BRAVO kmins
-    RiskValue_one_round_B2(i) = binocdf(kmin_bravo(i), n_bravo(i), 0.5, 'upper');
-    StopProb_one_round_B2(i) = binocdf(kmin_bravo(i), n_bravo(i), p, 'upper');
+    RiskValue_one_round_B2(i) = binocdf(kmin_bravo(i)-1, n_bravo(i), 0.5, 'upper');
+    StopProb_one_round_B2(i) = binocdf(kmin_bravo(i)-1, n_bravo(i), p, 'upper');
 end
 
 % END: Looking at valid ballots. 
@@ -133,53 +134,51 @@ scale_up = 1/(1-invalid_rate);
 n_bravo_scaled_up = round(scale_up*(n_bravo));
 
 % Files to print figures to
-% filenames = {'Amendment_point1_kmins', 'Amendment_point1_stopping', 'Amendment_point1_risk'};
-filenames = {'Superior_point1_kmins', 'Superior_point1_stopping', 'Superior_point1_risk'};
+filenames = {'Amendment_point1_kmins', 'Amendment_point1_stopping', 'Amendment_point1_risk'};
+% filenames = {'Superior_point1_kmins', 'Superior_point1_stopping', 'Superior_point1_risk'};
 % filenames = {'Common_point1_kmins', 'Common_point1_stopping', 'Common_point1_risk'};
 % filenames = {'Commissioner_point4_kmins', 'Commissioner_point4_stopping', 'Commissioner_point4_risk'};
 
-figure, plot(n_bravo_scaled_up(sample_size_indices), kmin_oneround_R2(sample_size_indices), 'b*', n_bravo_scaled_up(sample_size_indices), kmin_bravo(sample_size_indices), 'ro');
+figure, plot(n_bravo_scaled_up(sample_size_indices), kmin_oneround_R2(sample_size_indices), 'b*-', n_bravo_scaled_up(sample_size_indices), kmin_bravo(sample_size_indices), 'ro-');
 xlabel('Round size');
 ylabel('(rough estimate) Minimum number of ballots for winner required to stop the audit'); 
-% title('Minimum number of winner votes needed to stop audit: Amendment risk limit = 0.1');
-title('Minimum number of winner votes needed to stop audit: Superior Court risk limit = 0.1');
+title('Minimum number of winner votes needed to stop audit: Amendment risk limit = 0.1');
+% title('Minimum number of winner votes needed to stop audit: Superior Court risk limit = 0.1');
 % title('Minimum number of winner votes needed to stop audit: Common Pleas risk limit = 0.1');
 % title('Minimum number of winner votes needed to stop audit: County Commissioner risk limit = 0.4');
 legend('AURROR', 'BRAVO', 'Location', 'northwest');
 print('-djpeg90', filenames{1});
 
-figure, plot(n_bravo_scaled_up(sample_size_indices), StopProb_one_round_R2(sample_size_indices), 'b*', n_bravo_scaled_up(sample_size_indices), GoalStopSched(sample_size_indices), 'ro', n_bravo_scaled_up(sample_size_indices), StopProb_one_round_B2(sample_size_indices), 'k^');
+figure, plot(n_bravo_scaled_up(sample_size_indices), StopProb_one_round_R2(sample_size_indices), 'b*-', n_bravo_scaled_up(sample_size_indices), GoalStopSched(sample_size_indices), 'ro-', n_bravo_scaled_up(sample_size_indices), StopProb_one_round_B2(sample_size_indices), 'k^-');
 xlabel('Round size');
 ylabel('(rough estimate) Stopping Probability'); 
-% title('Stopping Probabilities: Amendment risk limit = 0.1');
-title('Stopping Probabilities: Superior Court risk limit = 0.1');
+title('Stopping Probabilities: Amendment risk limit = 0.1');
+% title('Stopping Probabilities: Superior Court risk limit = 0.1');
 % title('Stopping Probabilities: Common Pleas risk limit = 0.1');
 % title('Stopping Probabilities: County Commissioner risk limit = 0.4');
 legend('AURROR', 'BRAVO', 'Arlo?', 'Location', 'northwest');
 print('-djpeg90', filenames{2});
 
-figure, plot(n_bravo_scaled_up(sample_size_indices), RiskValue_one_round_R2(sample_size_indices), 'b*', n_bravo_scaled_up(sample_size_indices), GoalRiskSched(sample_size_indices), 'ro', n_bravo_scaled_up(sample_size_indices), RiskValue_one_round_B2(sample_size_indices), 'k^');
+figure, plot(n_bravo_scaled_up(sample_size_indices), RiskValue_one_round_R2(sample_size_indices), 'b*-', n_bravo_scaled_up(sample_size_indices), GoalRiskSched(sample_size_indices), 'ro-', n_bravo_scaled_up(sample_size_indices), RiskValue_one_round_B2(sample_size_indices), 'k^-');
 xlabel('Round size');
 ylabel('(rough estimate) Risk Expended'); 
-% title('Risk Expended: Amendment risk limit = 0.1');
-title('Risk Expended: Superior Court risk limit = 0.1');
+title('Risk Expended: Amendment risk limit = 0.1');
+% title('Risk Expended: Superior Court risk limit = 0.1');
 % title('Risk Expended: Common Pleas risk limit = 0.1');
 % title('Risk Expended: County Commissioner risk limit = 0.4');
 legend('AURROR', 'BRAVO', 'Arlo?', 'Location', 'northwest');
 print('-djpeg90', filenames{3});
 
 % Number of total ballots to poll, valid and others, for required percentile 
-aurror_stop_raw = n_bravo(sample_size_indices(InverseCDF(StopProb_one_round_R2(sample_size_indices), percentile)));
-aurror_stop = n_bravo_scaled_up(sample_size_indices(InverseCDF(StopProb_one_round_R2(sample_size_indices), percentile)))
-bravo_stop_raw = n_bravo(sample_size_indices(InverseCDF(GoalStopSched(sample_size_indices), percentile)));
-bravo_stop = n_bravo_scaled_up(sample_size_indices(InverseCDF(GoalStopSched(sample_size_indices), percentile)))
-bravo_R2_stop_raw = n_bravo(sample_size_indices(InverseCDF(StopProb_one_round_B2(sample_size_indices), percentile)));
-bravo_R2_stop = n_bravo_scaled_up(sample_size_indices(InverseCDF(StopProb_one_round_B2(sample_size_indices), percentile)))
+aurror_stop_raw = n_bravo(sample_size_indices(find(StopProb_one_round_R2(sample_size_indices)>= percentile, 1)))
+aurror_stop = n_bravo(sample_size_indices(find(StopProb_one_round_R2(sample_size_indices)>= percentile, 1)))
+bravo_R2_stop_raw = n_bravo(sample_size_indices(find(StopProb_one_round_B2(sample_size_indices)>= percentile, 1)))
+bravo_R2_stop = n_bravo_scaled_up(sample_size_indices(find(StopProb_one_round_B2(sample_size_indices) >= percentile, 1)))
 
 % Embarassment Probabilities for these sample sizes: using valid ballot
 % numbers
-aurror_embarassment = binocdf(ceil(aurror_stop_raw/2), aurror_stop_raw, p)
-arlo_embarassment = binocdf(ceil(bravo_R2_stop_raw/2), bravo_R2_stop_raw, p)
+% aurror_embarassment = binocdf(ceil(aurror_stop_raw/2), aurror_stop_raw, p)
+% arlo_embarassment = binocdf(ceil(bravo_R2_stop_raw/2), bravo_R2_stop_raw, p)
 
 % If wish to include use-all-risk-in-one-round:
 % all_risk_stop = n_bravo_scaled_up(sample_size_indices(InverseCDF(StopProb_one_round_all_risk(sample_size_indices), percentile)))
