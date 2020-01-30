@@ -1,7 +1,7 @@
-function [n, kmin, LLR] = BSquareBRAVOLikekmin(margin, alpha, N)
+function [n, kmin, LLR] = B2BRAVOLikekmin(margin, alpha, N)
     % 
-    % [n, kmin, LLR] = BSquareBRAVOLikekmin(margin, alpha, N)
-    % Generates kmin for a B-square (ballot-by-ballot) BRAVO-like (BRAVO 
+    % [n, kmin, LLR] = B2BRAVOLikekmin(margin, alpha, N)
+    % Generates kmin for a B2 (ballot-by-ballot) BRAVO-like (BRAVO 
     % without replacement) audit
     %----------
     % Input: 
@@ -12,12 +12,13 @@ function [n, kmin, LLR] = BSquareBRAVOLikekmin(margin, alpha, N)
     % Output:
     %   n:              1-D array of sample sizes, beginning with the first 
     %                       sample size where it is possible to stop the 
-    %                       audit n>=kmin.
-    %   kmin:           1-D array of minimum values of k; jth  value is the 
+    %                       audit n(1) is the smallest value of n such that 
+    %                       n(j) >= kmin(j).
+    %   kmin:           1-D array of minimum values of k; kmin(j) is the 
     %                       minimum number of votes for winner required to 
     %                       terminate an audit with sample size n(j). We 
-    %                       do not allow kmin to exceed the minimum 
-    %                       required to win. 
+    %                       do not allow kmin(j) to exceed the minimum 
+    %                       number of ballots required to win the election. 
     %   LLR:            array of values of the log-likelihood ratio (LLR), 
     %                       sanity check. 
 
@@ -67,14 +68,14 @@ function [n, kmin, LLR] = BSquareBRAVOLikekmin(margin, alpha, N)
     for j=1:N
         for k=kminprev(1,j):j
             if j-k > LoserTally
-                % Value of k is small enough that the number of votes for 
-                % the loser is too small for this margin and hence the 
-                % probability in the likelihood ratio numerator is zero 
-                % and hence the LLR is negative infinity, but putting it 
-                % to zero means it is small enough to never be larger 
-                % than -LogAlpha, which will always be positive as LogAlpha 
-                % is negative because Alpha always strictly smaller than 
-                % one. We move on to the next value of k, till it is
+                % Value of k is small enough that the number of votes left 
+                % over in the sample of size j is larger than the total 
+                % tally for the loser. Hence the probability in the 
+                % likelihood ratio numerator is zero and the LLR is
+                % negative infinity. Putting it to zero means it is small 
+                % enough to never be larger than -LogAlpha, which will 
+                % always be positive (Alpha always strictly smaller than 
+                % one). We move on to the next value of k, till it is
                 % large enough. 
                 ThisLLR=0; 
             elseif k > HalfN
@@ -98,7 +99,7 @@ function [n, kmin, LLR] = BSquareBRAVOLikekmin(margin, alpha, N)
             %if ThisRatio > OneOverAlpha
             if ThisLLR > -LogAlpha
                 % We have achieved the required minimum value of the LLR
-                % in the Waldian sequential ratio test. 
+                % in the SPRT. 
                 break
             end
         end
@@ -117,7 +118,8 @@ function [n, kmin, LLR] = BSquareBRAVOLikekmin(margin, alpha, N)
             if ThisLLR > -LogAlpha && startat == 0
                 % If we did achieve the required LLR value but the value 
                 % of startat does not reflect that, this is the first time 
-                % we reached the value and the sample size was large enough. 
+                % we reached the required LLR value and the sample size 
+                % was large enough. 
                 startat = j;
             end
         end
