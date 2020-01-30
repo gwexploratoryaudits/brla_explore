@@ -4,7 +4,7 @@ exploratory code related to ballot-by-ballot RLAs and their approximations: roun
 We assume two candidates and no invalid votes. Using other code in the brla_explore library, one may incorporate invalid votes. We believe we are also able to extend to multiple candidates, but that is for another day. 
 
 ## Properties of ballot-by-ballot audits
-The folder BSquare Audits contains code to compute (without simulation) properties of audits that sample ballot-by-ballot (as opposed to round-by-round). Ballot-by-Ballot (or B-Square) audits make decisions (re: whether to stop the audit or not) at every ballot draw. For example, the theoretical versions of [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) and [*Bayesian Risk Limiting Audits*](https://arxiv.org/abs/1902.00999) are B-Square audits. 
+The folder B2 Audits contains code to compute (without simulation) properties of audits that sample ballot-by-ballot (as opposed to round-by-round). Ballot-by-Ballot (or B2) audits make decisions (re: whether to stop the audit or not) at every ballot draw. For example, the theoretical versions of [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) and [*Bayesian Risk Limiting Audits*](https://arxiv.org/abs/1902.00999) are B2 audits.  
 
 The properties computed are: 
 
@@ -18,24 +18,38 @@ The properties computed are:
 
 5. **No of Expected Ballots:** The scalar product of the stopping schedule and the vector of corresponding sample size. 
 
-6. **No of Expected Ballots for Worst-Case Incorrect Election:** The scalar product of the risk schedule and the sample size vector, plus (1-Total Risk)(max number of draws). This is a lower bound on the value, a sanity check. 
+6. **No of Expected Ballots for Worst-Case Incorrect Election:** The scalar product of the risk schedule and the sample size vector, plus (1-Total Risk)(max number of draws). In the absence of knowledge of the size of the election, this is a lower bound on the value, a sanity check. 
 
 7. **Percentiles:** Desired percentile values may be computed from the stopping schedule and/or the risk schedule. 
 
-To validate our mathematical approach and code we have computed the values of Table 1 in the *BRAVO* paper. See: Tables/BRAVO Table I.pdf for the first five rows and Tables/BRAVO Table I.pdf for the next five rows. We have not yet completed the verification for a 1% margin. 
+To validate our mathematical approach and code we have computed the values of Table 1 in the *BRAVO* paper. See: Tables/BRAVO Table I.pdf for the first five rows and Tables/BRAVO Table II.pdf for the next five rows. The largest fractional difference is smaller than 0.5%, in estimating the expected number of ballots in simulations of audits for an election with a 1% margin. 
 
 *Note:* The properties we compute are properties for the entire audit, over all the draws, so we need to make an assumption regarding the number of draws: 
 
-* Audits *with replacement* are computed assuming the maximum number of draws is 6ASN. (ASN is the theoretical expected number of ballots drawn for a BRAVO audit. About 4.5ASN is the theoretical 99th percentile). 
+* Audits *with replacement* are computed assuming the maximum number of draws is 6ASN. (ASN is the theoretical expected number of ballots drawn for a BRAVO audit. The theoretical 99th percentile for elections with margins ranging from 40% to 1%, corresponds to about 4.36ASN to 4.65ASN ballots drawn). 
 
 * For an audit *without replacement*, the size of the election needs to be provided, and is assumed to be the maximum number of ballots drawn. 
 
-## The specification of a ballot-by-ballot audit for our code
-As in [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999), an audit is specified by an array of sample sizes where stopping decisions are allowed, and corresponding values of *kmin* (minimum number of votes for the winner required to stop the audit). 
+## The specification of a B2 audit for our code
+One may think of an audit as a set of rounds: a round is defined as a the sampling of a number of ballots (the round size) followed by a decision of whether to: 
 
-* For example, an audit with rounds of sizes 100, 400 and 1000 ballots will allow stopping decisions only at 100, 400 and 1000 ballots and have an array of sample sizes: 100, 400 and 1000. It may have *kmin* values of 60, 230 and 520 respectively, which imply that one would stop the audit in the first round if and only if the number of ballots for the winner in the sample were 60 or larger; in the second round if it were 230 or larger and in the last round if it were 520 or larger. 
+(a) stop drawing ballots and declare the election outcome correct or
 
-* For another example, a ballot-by-ballot audit will allow stopping decisions at each draw and its array of sample sizes will be: 1, 2, 3, ..., *N* where *N* is the maximum number of ballots drawn. The corresponding values of *kmin* will be determined by the stopping rule. For example, the *BRAVO* stopping rule is *likelihood ratio > 1/alpha* where *alpha* is the risk limit, and the likelihood ratio depends on the size of the sample, the number of votes for the winner and the election margin. 
+(b) begin another round--draw some more ballots. 
+
+For example: 
+
+* A B2 audit consists of many rounds, each of size one ballot. After each ballot draw, a decision is made whether to stop the audit or draw one more ballot. 
+
+* An audit with rounds of sizes 100, 400 and 1000 ballots will allow stopping decisions only at 100, 400 and 1000 ballots, and not after, say, drawing the first 50 ballots. 
+
+As described in [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999), we specify an audit by an array of sample sizes and corresponding values of *kmin* (minimum number of votes for the winner required to stop the audit). Thus, for the above examples, 
+
+* The B2 audit will allow stopping decisions at each draw. It will be specified by an array of sample sizes: 1, 2, 3, ..., *N* where *N* is the maximum number of ballots drawn. The corresponding values of *kmin* will be determined by the stopping rule. For example, the *BRAVO* stopping rule is *likelihood ratio > 1/alpha* where *alpha* is the risk limit, and the likelihood ratio depends on the size of the sample, the number of votes for the winner and the election margin. 
+
+* The audit with sample sizes 100, 400 and 1000 will be specified by an array of sample sizes: 100, 400 and 1000. It may have *kmin* values of 60, 230 and 520 respectively, which imply that one would stop the audit in the first round if and only if the number of ballots for the winner in the sample were 60 or larger; in the second round if it were 230 or larger and in the last round if it were 520 or larger. 
+
+Clearly, such a specification only works for audits whose stopping criteria are monotonic with the number of winner ballots in the sample. 
 
 We include code for computing:
 
@@ -48,14 +62,16 @@ At the moment, we support two types of audits:
 * *BRAVO* and 
 * *BRAVOLike*:  
   *BRAVO* without replacement, where the likelihood ratio is also computed assuming ballots are drawn without replacement. 
+  
+  We have fuzzy plans to incorporate Bayesian audits: both [*Bayesian RLAs*](https://arxiv.org/abs/1902.00999) and more general [*Bayesian Audits*](https://arxiv.org/abs/1801.00528). 
 
 ### Single Audits
 
-  The functions computing *n* and *kmin* for *BRAVO* and *BRAVOLike* are *BSquareBRAVOkmin* and *BSquareBRAVOLikekmin* respectively. The former requires only the margin and the risk limit as input, while the latter also requires election size. 
+  The functions computing *n* and *kmin* for *BRAVO* and *BRAVOLike* are *B2BRAVOkmin* and *B2BRAVOLikekmin* respectively. The former requires only the margin and the risk limit as input, while the latter also requires election size. 
 
   Try, for example: 
 
-  `[n1, kmin1] = BSquareBRAVOkmin(0.4, 0.1);`
+  `[n1, kmin1] = B2BRAVOkmin(0.4, 0.1);`
 
   to generate two arrays: `n1`: sample sizes and `kmin1`. 
   
@@ -63,13 +79,13 @@ At the moment, we support two types of audits:
 
   Similarly, 
 
-  `[n2, kmin2] = BSquareBRAVOLikekmin(0.4, 0.1, 1000);`
+  `[n2, kmin2] = B2BRAVOLikekmin(0.4, 0.1, 1000);`
 
-  generates the same arrays for the same margin and risk limit and a `1000`-vote election for the *BRAVOLike* audit. 
+  generates the same arrays for the same margin and risk limit and a `1000`-vote election for the *BRAVOLike* audit. *B2BravoLikekmin* also outputs the LogLikelihoodRatio, which may be used as a sanity check. 
 
 ### Multiple Audits
 
-  For much of our code, we have wrappers to compute multiple outputs for different values of margin, risk limit and election size (each input as a row vector). Because arrays for *n* and (hence *kmin*) are not of the same size (the smallest sample size for a decision may not be the same even if some other parameters are), the wrapper code will output many arrays of different sizes in the form of a structured list of these arrays, shaped by the row vectors input representing margin, risk limit and election size. The wrapper code to compute multiple outputs has suffix "Many". 
+  For much of our code, we have wrappers to compute multiple outputs for different values of margin, risk limit and election size (each input as a row vector). Because arrays for *n* and (hence *kmin*) are not of the same size (the smallest sample size for a decision may not be the same even if some other parameters are), the wrapper code will output many arrays of different sizes in the form of a structured list of these arrays, shaped by the row vectors input representing margin, risk limit and election size. The wrapper code to compute multiple outputs has suffix "Many". We used it to verify the statistical properties of our implemenged audits (for example, for the tables in Tables/BRAVO Table I.pdf and Tables/BRAVO Table II.pdf
 
   For multiple audits, for example, try: 
 
@@ -83,7 +99,7 @@ At the moment, we support two types of audits:
 
   `nBRAVO{i,s}` is the array of sample sizes for `margin(i)` and risk limit `alpha(s)`
 
-  `kmin{i,s}` is the array of corresponding values of minimum winner votes needed to stop. 
+  `kminBRAVO{i,s}` is the array of corresponding values of minimum winner votes needed to stop. 
 
   You thus obtain values of *n* and *kmin* for *5* audits, and could obtain *10* audits by using 
   
@@ -119,7 +135,7 @@ At the moment, we support two types of audits:
 
   You thus obtain values of *n* and *kmin* for *20* audits. 
 
-Thus one may input ones own audit(s) defined by one or more pairs of arrays of *n* and corresponding *kmin*, or use our code to generate these arrays for multiple margins, risk limits and election sizes for *BRAVO* or *BRAVOLike* audits. 
+Thus one may input ones own audit(s) defined by one or more pairs of arrays of *n* and corresponding *kmin*, or use our code to generate these arrays for multiple margins, risk limits and election sizes for *BRAVO* or *BRAVOLike* audits (and, hopefully, Bayesian audits in the future). 
 
 ## Stopping Probabilities and Risk
 B-Square audits allow the possibility of stopping at each ballot draw. 
