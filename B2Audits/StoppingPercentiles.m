@@ -10,7 +10,7 @@ function stopping_values = StoppingPercentiles(n, StopSched, percentiles)
     %   StopSched:      row vector of stopping probabilities; jth value is 
     %                       stopping probability at n(j)th draw
     %   percentiles:    row of percentiles desired, as fractions
-    %   Use kmin-generating-modules to generate n and BSquareRisks modules 
+    %   Use kmin-generating-modules to generate n and B2Risks modules 
     %   to generate StopSched. 
     %----------
     % Output:

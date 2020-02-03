@@ -1,7 +1,7 @@
-function [n_out, kmin, LLR] = RSquareBRAVOLikekmin(margin, alpha, N, n_in)
+function [n_out, kmin, LLR] = R2BRAVOLikekmin(margin, alpha, N, n_in)
     % 
-    % [n_out, kmin, LLR] = RSquareBRAVOLikekmin(margin, alpha, N, n_in)
-    % Generates kmin for a R-square (ballot-by-ballot) BRAVO-like (BRAVO 
+    % [n_out, kmin, LLR] = R2BRAVOLikekmin(margin, alpha, N, n_in)
+    % Generates kmin for a R2 (round-by-round) BRAVO-like (BRAVO 
     % without replacement) audit with given round schedule. 
     %----------
     % Input: 
@@ -17,7 +17,8 @@ function [n_out, kmin, LLR] = RSquareBRAVOLikekmin(margin, alpha, N, n_in)
     %                       n_out(j)>=kmin(j).
     %   kmin:           1-D array of minimum values of k; jth value is the 
     %                       minimum number of votes for winner required to 
-    %                       terminate an audit with sample size n(j). 
+    %                       terminate an audit with sample size n(j). Thus 
+    %                       kmin, like n, is cumulative. 
     %   LLR:            array of values of the log-likelihood ratio (LLR), 
     %                       sanity check. 
 
@@ -30,7 +31,7 @@ function [n_out, kmin, LLR] = RSquareBRAVOLikekmin(margin, alpha, N, n_in)
     
     p = (1+margin)/2; % fractional vote count for winner
     
-    WinnerTally = ceil(p*N); % number of votes obtained by winner
+    WinnerTally = floor(p*N); % number of votes obtained by winner
     
     LoserTally = N-WinnerTally; % number of votes obtained by loser
 
@@ -70,12 +71,11 @@ function [n_out, kmin, LLR] = RSquareBRAVOLikekmin(margin, alpha, N, n_in)
                 % Value of k is small enough that the number of votes for 
                 % the loser is too large for this margin and hence the 
                 % probability in the likelihood ratio numerator is zero 
-                % and hence the LLR is negative infinity. But as the LLR is
-                % zero, it is small enough to not be larger than 
-                % -LogAlpha, which will always be positive as LogAlpha 
-                % is negative because alpha always strictly smaller than 
-                % one. We move on to the next value of k, till the LR is
-                % large enough. 
+                % and hence the LLR is negative infinity. We may assign a 
+                % value of zero to the LLR, which is small enough to not 
+                % be larger than -LogAlpha, which is positive as LogAlpha 
+                % is negative: alpha strictly smaller than one. We move 
+                % on to the next value of k, till the LR is large enough. 
                 ThisLLR=0; 
             elseif k > HalfN
                 % The winner has won because we have sampled a sufficient

@@ -1,6 +1,6 @@
-function [RiskSched, RiskValue, ExpectedBallots] = BSquareRisks(margin, N, n, kmin, audit_type)
+function [RiskSched, RiskValue, ExpectedBallots] = B2Risks(margin, N, n, kmin, audit_type)
     %
-    % [RiskSched, RiskValue, ExpectedBallots] = BSquareRisks(margin, N, n, kmin, audit_type)
+    % [RiskSched, RiskValue, ExpectedBallots] = B2Risks(margin, N, n, kmin, audit_type)
     % This function returns:
     %       ballot-by-ballot stopping probability 
     %       total stopping probability 
@@ -21,9 +21,9 @@ function [RiskSched, RiskValue, ExpectedBallots] = BSquareRisks(margin, N, n, km
     %   kmin:           row vector of same size as n 
     %   audit_type:     0 for with, or 1 for without, replacement
     %
-    %   n and kmin are outputs of BSquareBravoLike or BSquareBRAVOkmin 
-    %   using margin, alpha (and N) when margin is not zero. the jth value 
-    %   of kmin is  the minimum number of votes for winner required to 
+    %   n and kmin maybe outputs of B2BravoLikekmin or B2BRAVOkmin 
+    %   using a non-zero margin, alpha (and N). The jth value 
+    %   of kmin is the minimum number of votes for winner required to 
     %   terminate the audit round of size n(j). 
     %----------
     % Output Values
@@ -100,7 +100,10 @@ function [RiskSched, RiskValue, ExpectedBallots] = BSquareRisks(margin, N, n, km
         PreviousTier=CurrentTier;
         clear CurrentTier;
         % We now construct Current tier from the first possible element. 
-        % k=0 is possible only if jth draw is for the loser. In this case: 
+        % k=0 is possible only if jth draw is for the loser. 
+        % PreviousTier(1,1) is prob of zero votes for the winner 
+        % before this draw. 
+        % In this case: 
         if audit_type == 0
             % with replacement: prob of draw for loser is 1-p
             CurrentTier(1,1)=PreviousTier(1,1)*(1-p);

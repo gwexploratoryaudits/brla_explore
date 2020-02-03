@@ -1,5 +1,5 @@
 function stopping_values_Many = StoppingPercentilesMany(n_Many, StopSched_Many, percentiles)
-    %
+    %   LIKELY UNTESTED
     % stopping_values_Many = StoppingPercentilesMany(n_Many, StopSched_Many, percentiles)
     % This function generates number of ballots for various 
     % specified percentiles of the stopping probabilities for many audits. 

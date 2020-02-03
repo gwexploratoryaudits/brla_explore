@@ -1,4 +1,4 @@
- function [kmslope, kmintercept, n_out, kmin] = RSquareBRAVOkmin(margin, alpha, n_in)
+ function [kmslope, kmintercept, n_out, kmin] = R2BRAVOkmin(margin, alpha, n_in)
     %
     % [kmslope, kmintercept, kmin] = RSquareBRAVOkmin(margin, alpha, n)
     % Classical BRAVO slope and intercept for linear expression for kmin 

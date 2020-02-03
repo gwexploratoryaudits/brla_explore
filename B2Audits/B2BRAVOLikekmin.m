@@ -35,7 +35,7 @@ function [n, kmin, LLR] = B2BRAVOLikekmin(margin, alpha, N)
     HalfN = floor(N/2);
     LogAlpha = log(alpha);
     p = (1+margin)/2;
-    WinnerTally = ceil(p*N);
+    WinnerTally = floor(p*N);
     LoserTally = N-WinnerTally;
 
     %--------------------
