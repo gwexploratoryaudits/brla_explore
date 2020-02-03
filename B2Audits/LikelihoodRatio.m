@@ -15,7 +15,7 @@ function ratio = LikelihoodRatio(k,winnervotes,n,N)
     % The formula is: 
     % product_{i=0}^{k-1} (winnervotes-i)/(winnerhalf-i) 
     % times
-    % product_{i=}^{n-k-1} (N-winnervotes-i)/(loserhalf-i) 
+    % product_{i=0}^{n-k-1} (N-winnervotes-i)/(loserhalf-i) 
     % where winnerhalf is N/2 or (N-1)/2 and loserhalf is N/2 or (N+1)/2
     % when N is even or odd respectively.
     
@@ -32,6 +32,7 @@ function ratio = LikelihoodRatio(k,winnervotes,n,N)
     
     %Initialize
     ratio = 1;
+    
     for i=0:k-1
         ratio = ratio*((winnervotes-i)/(winnerhalf-i));
     end

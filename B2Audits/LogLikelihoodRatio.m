@@ -16,7 +16,7 @@ function LogRatio = LogLikelihoodRatio(k,winnervotes,n,N)
     % The formula is: 
     % sum_{i=0}^{k-1} [log(winnervotes-i)-log(winnerhalf-i)] 
     % +
-    % sum_{i=}^{n-k-1} [log(N-winnervotes-i)-log(loserhalf-i)] 
+    % sum_{i=0}^{n-k-1} [log(N-winnervotes-i)-log(loserhalf-i)] 
     % where winnerhalf is N/2 or (N-1)/2 and loserhalf is N/2 or (N+1)/2
     % when N is even or odd respectively.
     
@@ -33,6 +33,7 @@ function LogRatio = LogLikelihoodRatio(k,winnervotes,n,N)
     
     %Initialize
     LogRatio = 0;
+    
     for i=0:k-1
         LogRatio = LogRatio+log(winnervotes-i)-log(winnerhalf-i);
     end

@@ -6,13 +6,13 @@
 % slightly off; we do not yet have an explanation for this other than 
 % that perhaps the number of simulations performed is not sufficient to 
 % expect a perfect match. Expected ballots differ from ASN in part, we 
-% believe, because the likelihood ration takes on discrete values and 
+% believe, because the likelihood ratio takes on discrete values and 
 % is not continuously evaluated. That is also the reason for the risk 
 % limit not being achieved. 
 %
-% The script generates n and kmin from function BSquareBRAVOkminMany, 
+% The script generates n and kmin from function B2BRAVOkminMany, 
 % then the stopping probability schedule and total stopping probabilities 
-% from BSquareRisksMany, and, finally, the percentiles from 
+% from B2RisksMany, and, finally, the percentiles from 
 % StoppingPercentilesMany.  
 % 
 % IT MAY TAKE TOO LONG TO DO ALL MARGINS AT ONCE. SEE NOTE IN SCRIPT.  
@@ -30,7 +30,7 @@
 %   ExpectedBallots:    expected ballot draws
 %   ASNValues:          the theoretical values of expected ballot draws
 %
-% Computes all kinds of other values as described in BSquareRisksMany
+% Computes all kinds of other values as described in B2RisksMany
 
 % Compute margins in smaller batches: the first five together, then the 
 % next two, and the last three individually. 
@@ -43,15 +43,16 @@ alpha = [0.1];
 N = [1000];
 
 % Generate BRAVO audit kmins
-% nBRAVO and kminBRAVO are structured lists of the same size. Each element 
-% of each list is an array corresponding to that value of margin. nBRAVO 
-% is a list of arrays of sample sizes, beginning at the first one of 
-% consequence. kminBRAVO is the list of corresponding arrays of kmins. 
-[nBRAVO_Many, kminBRAVO_Many] = BSquareBRAVOkminMany(marginVector, alpha);
+% nBRAVO_Many and kminBRAVO_Many are structured lists of the same size. 
+% Each element of each list is an array corresponding to that value of 
+% margin. nBRAVO is a list of arrays of sample sizes, beginning at the 
+% first one of consequence. kminBRAVO is the list of corresponding arrays 
+% of kmins. 
+[nBRAVO_Many, kminBRAVO_Many] = B2BRAVOkminMany(marginVector, alpha);
 
 % Generate stopping scheds and total probabilities for the same margins. 
 % ``0'' is used to indicate an audit with replacement. 
-[StopSched_Many, StopProb_Many, ExpectedBallots_Many] = BSquareRisksMany(marginVector, N, nBRAVO_Many, kminBRAVO_Many, 0);
+[StopSched_Many, StopProb_Many, ExpectedBallots_Many] = B2RisksMany(marginVector, N, nBRAVO_Many, kminBRAVO_Many, 0);
 
 % Obtain sample sizes for percentiles. 
 BRAVOTable = StoppingPercentilesMany(nBRAVO_Many, StopSched_Many, percentiles);

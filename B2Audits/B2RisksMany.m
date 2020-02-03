@@ -1,7 +1,7 @@
-function [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = BSquareRisksMany(marginVector, NVector, n_Many, kmin_Many, audit_type)
+function [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = B2RisksMany(marginVector, NVector, n_Many, kmin_Many, audit_type)
     %
     % [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = BSquareRisksMany(marginVector, NVector, n_Many, kmin_Many, audit_type)
-    % This is the BSquareRisks function for vector inputs, used to compute 
+    % This is the B2Risks function for vector inputs, used to compute 
     % multiple audits. 
     % This function returns:
     %       ballot-by-ballot stopping probability 
@@ -39,16 +39,17 @@ function [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = BSquareRisksMa
     %                           size as n
     %   audit_type:         0 or 1 depending on whether the audit is with 
     %                           or without replacement respectively. 
-    %   Single entries (arrays) in n_Many and kmin_Many are outputs of 
-    %   BSquareBravoLike or BSquareBRAVOkmin using margin, some values of 
+    %   Single entries (arrays) in n_Many and kmin_Many may be outputs of 
+    %   B2BravoLikekmin or B2BRAVOkmin using margin, some values of 
     %   alpha (and N for BRAVOLike). For a single array in the list, the 
     %   jth value of kmin is the minimum number of votes for winner 
     %   required to terminate the audit round of size n(j). 
     %
-    %   The audit defined by margin(i), (unknown for this code) alpha(s) 
+    %   The audit defined by margin(i), an unknown (for this code) alpha(s) 
     %   and N(t) is at position (i,s,t)
     %   The best way to use this code is to use output from
-    %   BSquareBravoLikeMany or BSquareBRAVOkminMany. 
+    %   B2BravoLikeMany or B2BRAVOkminMany, but it may also be used to 
+    %   evaluate the risks of other audits specified as described above. 
     % ----------
     % Output
     %   RiskSched_Many:         structured list of arrays of risk schedules. 
@@ -76,7 +77,7 @@ function [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = BSquareRisksMa
     for i=1:num_margin   
         for s=1:num_alpha
             for t=1:num_N
-                [RiskSched_Many{i,s,t}, RiskValue_Many(i,s,t), ExpectedBallots_Many(i,s,t)] = BSquareRisks(marginVector(i), NVector(t), n_Many{i,s,t}, kmin_Many{i,s,t}, audit_type);
+                [RiskSched_Many{i,s,t}, RiskValue_Many(i,s,t), ExpectedBallots_Many(i,s,t)] = B2Risks(marginVector(i), NVector(t), n_Many{i,s,t}, kmin_Many{i,s,t}, audit_type);
             end
         end
     end

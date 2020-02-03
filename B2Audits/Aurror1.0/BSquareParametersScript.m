@@ -1,12 +1,12 @@
-% This script computes the parameters of a BSquare audit needed to design
-% a corresponding RSquare audit. It is intended for use when time 
+% This script computes the parameters of a B2 audit needed to design
+% a corresponding R2 audit. It is intended for use when time 
 % is not an issue: between election results and audit. 
 %
-% The script generates n and kmin using function BSquareBRAVOkmin, 
-% then the risk schedule using BSquareRisks. 
+% The script generates n and kmin using function B2BRAVOkmin, 
+% then the risk schedule using B2Risks. 
 %
 % n and the corresponding risk schedule are the only variables needed for 
-% an RSquare audit. They are denoted nB2 and RiskSchedB2. 
+% an R2 audit. They are denoted nB2 and RiskSchedB2. 
 % 
 %------------
 %

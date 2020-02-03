@@ -1,23 +1,23 @@
 % CURRENTLY WORKS ONLY FOR ONE RISK LIMIT AND ONE VALUE OF N
 % Given margins, risk limits and values of N, this script generates the 
-% total risk and risk schedule of various B-square audits, each represented 
+% total risk and risk schedule of various B2 audits, each represented 
 % by an array of sample sizes, and an array of kmin of the same length. 
 % The script also generates the schedule of stopping probabilities 
 % assuming an underlying election of the given margin. 
 %
-% Currently the two types of B-square audits are BRAVO and BRAVO-like 
+% Currently the two types of B2 audits are BRAVO and BRAVO-like 
 % (BRAVO without replacement). The script generates arrays of n and 
-% corresponding kmin using functions BSquareBRAVOkminMany and 
-% BSquareBRAVOLikekminMany, and then the risk schedule and stopping 
-% probabilities from BSquareRisksMany. These functions, in turn, call 
-% BSquareBRAVOkmin, BSquareBRAVOLikekmin and BSquareRisks many times. 
+% corresponding kmin using functions B2BRAVOkminMany and 
+% B2BRAVOLikekminMany, and then the risk schedule and stopping 
+% probabilities from B2RisksMany. These functions, in turn, call 
+% B2BRAVOkmin, B2BRAVOLikekmin and B2Risks many times. 
 % Types of audits: BRAVO and BRAVO-like, with BRAVO being output first. 
 %
 % Output BRAVOTable may be compared to the corresponding values in Table 1
 % of the BRAVO paper. ASNMany may be used to compute the last column of 
 % the table. It is not computed by this script. To compute only the 
 % BRAVO Table and not compare it with BRAVOLike, use
-% BSquareBRAVOTestScript. 
+% B2BRAVOTestScript. 
 % The input values for the first five rows of the BRAVO Table are: 
 % margins = [0.4, 0.3, 0.2, 0.16, 0.1];
 % alpha = [0.1];
@@ -78,12 +78,12 @@
 %       no. of margin values X no. of alpha values X no of N values
 % each list element is an array (different-sized arrays):
 %	nZ_Many:         each element of this list is a 1-D array n from 
-%                       BSquareBRAVOLikekmin. It begins at the smallest 
+%                       B2BRAVOLikekmin. It begins at the smallest 
 %                       sample size for which a kmin no larger than 
 %                       sample size gives a large enough likelihood 
 %                       ratio and ends at the corresponding value of N. 
 %	kminZ_Many:      each element of this list is a 1-D array kmin from
-%                       BSquareBRAVOLike kmin; jth value is the minimum 
+%                       B2BRAVOLike kmin; jth value is the minimum 
 %                       number of votes for winner required to terminate 
 %                       an audit with sample size n(j).
 %
@@ -101,14 +101,14 @@ margin_incorrect = zeros(1,size(margins,2));
 risk_percentiles = alpha(1,1)*percentiles;
 
 %--------------BRAVO------------%
-[nBRAVO, kminBRAVO] = BSquareBRAVOkminMany(margins, alpha);
-[StopSchedBRAVO, StopProbBRAVO, ExpectedBallotsCorrectBRAVO] = BSquareRisksMany(margins, N, nBRAVO, kminBRAVO, 0);
-[RiskSchedBRAVO, RiskValueBRAVO, ExpectedBallotsInCorrectBRAVO] = BSquareRisksMany(margin_incorrect, N, nBRAVO, kminBRAVO, 0);
+[nBRAVO, kminBRAVO] = B2BRAVOkminMany(margins, alpha);
+[StopSchedBRAVO, StopProbBRAVO, ExpectedBallotsCorrectBRAVO] = B2RisksMany(margins, N, nBRAVO, kminBRAVO, 0);
+[RiskSchedBRAVO, RiskValueBRAVO, ExpectedBallotsInCorrectBRAVO] = B2RisksMany(margin_incorrect, N, nBRAVO, kminBRAVO, 0);
 
 %--------------BRAVOLike------------%
-[nBRAVOLike, kminBRAVOLike] = BSquareBRAVOLikekminMany(margins, alpha, N);
-[StopSchedBRAVOLike, StopProbBRAVOLike, ExpectedBallotsCorrectBRAVOLike] = BSquareRisksMany(margins, N, nBRAVOLike, kminBRAVOLike, 1);
-[RiskSchedBRAVOLike, RiskValueBRAVOLike, ExpectedBallotsInCorrectBRAVOLike] = BSquareRisksMany(margin_incorrect, N, nBRAVOLike, kminBRAVOLike, 1);
+[nBRAVOLike, kminBRAVOLike] = B2BRAVOLikekminMany(margins, alpha, N);
+[StopSchedBRAVOLike, StopProbBRAVOLike, ExpectedBallotsCorrectBRAVOLike] = B2RisksMany(margins, N, nBRAVOLike, kminBRAVOLike, 1);
+[RiskSchedBRAVOLike, RiskValueBRAVOLike, ExpectedBallotsInCorrectBRAVOLike] = B2RisksMany(margin_incorrect, N, nBRAVOLike, kminBRAVOLike, 1);
 
 %--------------Stopping Percentiles-----------%
 BRAVOTable = StoppingPercentilesMany(nBRAVO,StopSchedBRAVO,percentiles);
