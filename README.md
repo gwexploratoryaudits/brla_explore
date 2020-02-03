@@ -22,11 +22,11 @@ The properties computed are:
 
 7. **Percentiles:** Desired percentile values may be computed from the stopping schedule and/or the risk schedule. 
 
-To validate our mathematical approach and code we have computed the values of Table 1 in the *BRAVO* paper. See: Tables/BRAVO Table I.pdf for the first five rows and Tables/BRAVO Table II.pdf for the next five rows. The largest fractional difference is smaller than 0.5%, in estimating the expected number of ballots in simulations of audits for an election with a 1% margin. 
+To validate our mathematical approach and code we have computed the values of Table 1 in the *BRAVO* paper. See: Tables/BRAVO Table I.pdf for the first five rows and Tables/BRAVO Table II.pdf for the next five rows. The largest fractional difference is smaller than 0.5\%, in estimating the expected number of ballots in simulations of audits for an election with a 1% margin. 
 
 *Note:* The properties we compute are properties for the entire audit, over all the draws, so we need to make an assumption regarding the number of draws: 
 
-* Audits *with replacement* are computed assuming the maximum number of draws is 6ASN. (ASN is the theoretical expected number of ballots drawn for a BRAVO audit. The theoretical 99th percentile for elections with margins ranging from 40% to 1%, corresponds to about 4.36ASN to 4.65ASN ballots drawn). 
+* Audits *with replacement* are computed assuming the maximum number of draws is 6ASN. (ASN is the theoretical expected number of ballots drawn for a BRAVO audit. The theoretical 99th percentile for elections with margins ranging from 40\% to 1\%, corresponds to about 4.36ASN to 4.65ASN ballots drawn). 
 
 * For an audit *without replacement*, the size of the election needs to be provided, and is assumed to be the maximum number of ballots drawn. 
 
@@ -209,7 +209,7 @@ To obtain a similar five rows for the *BRAVOLike* audit, try:
 
 and `ExpectedBallotsCorrectBRAVOLike` will give you the expected ballots. See: `Tables/BRAVO-BRAVOLike 1K Table 1.pdf` for a comparison of these values.  
 
-We may also compute risk percentiles. It makes most sense to compute the risk percentiles for the risk limit; that is, find values that reach 25% of the risk limit, 50% of the risk limit, etc. Try, for example, 
+We may also compute risk percentiles. It makes most sense to compute the risk percentiles for the risk limit; that is, find values that reach 25\% of the risk limit, 50\% of the risk limit, etc. Try, for example, 
 
 `risk_percentiles = alpha(1,1)*percentiles;`
 
