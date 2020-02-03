@@ -1,6 +1,6 @@
-function [RiskSched, RiskValue, ExpectedBallots] = RSquareRisks(margin, N, n, kmin, audit_type)
+function [RiskSched, RiskValue, ExpectedBallots] = R2Risks(margin, N, n, kmin, audit_type)
     %
-    % [RiskSched, RiskValue, ExpectedBallots] = BSquareRisks(margin, N, n, kmin, audit_type)
+    % [RiskSched, RiskValue, ExpectedBallots] = R2Risks(margin, N, n, kmin, audit_type)
     % This function returns:
     %       round-by-round stopping probability 
     %       total stopping probability 
@@ -23,8 +23,8 @@ function [RiskSched, RiskValue, ExpectedBallots] = RSquareRisks(margin, N, n, km
     %   kmin:           row vector of same size as n
     %   audit_type:     0 for with, or 1 for without, replacement
     %
-    %   n and kmin are typically outputs of RSquareBravoLikekmin or 
-    %   RSquareBRAVOkmin using margin, alpha (and N) when margin is not 
+    %   n and kmin are typically outputs of R2BravoLikekmin or 
+    %   R2BRAVOkmin using margin, alpha (and N) when margin is not 
     %   zero. the jth value of kmin is the minimum number of votes for 
     %   winner required to terminate the audit round of size n(j). 
     %----------
@@ -34,8 +34,8 @@ function [RiskSched, RiskValue, ExpectedBallots] = RSquareRisks(margin, N, n, km
     %                           n(j) ballots, round-by-round.                      
     %   RiskValue:          the risk computed as the sum of all values of 
     %                           the risk sched.
-    %   ExpectedBallots:	expected number of ballots examined in number
-    %                           of polling audit ballots
+    %   ExpectedBallots:	expected number of ballots examined
+    %
     %----------
 
     % The right tail of the pdf at a round is the risk of the round, when
@@ -129,7 +129,8 @@ function [RiskSched, RiskValue, ExpectedBallots] = RSquareRisks(margin, N, n, km
                     % Also, we will not need more PreviousVotes than k. 
                     % On the other hand, we can draw at most ThisRoundSize
                     % votes for the winner, so PreviousVotes needs to be 
-                    % at least k-ThisRoundSize. 
+                    % at least k-ThisRoundSize; it also needs to be non-
+                    % negative. 
                     % 
                     % Number of votes needed for winner to make k votes 
                     % in all is k-PreviousVotes
@@ -157,7 +158,7 @@ function [RiskSched, RiskValue, ExpectedBallots] = RSquareRisks(margin, N, n, km
                     % Total number of ballots for winner still in the 
                     % election is WinnerVotes-PreviousVotes.
                     % Our limits for this for loop should ensure values
-                    % passed to hygepdf make sense. In nay case, hygepdf 
+                    % passed to hygepdf make sense. In any case, hygepdf 
                     % will return zeroes if not. 
                     CurrentTier(1,k+1) = CurrentTier(1,k+1) + PreviousTier(1,PreviousVotes+1)*hygepdf(k-PreviousVotes,N-n(j-1),WinnerVotes-PreviousVotes,ThisRoundSize);
                 end
