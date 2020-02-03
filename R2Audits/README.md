@@ -1,16 +1,16 @@
 # brla_explore
-exploratory code related to ballot-by-ballot (B2) RLAs
+exploratory code related to round-by-round RLAs
 
 We assume two candidates and no invalid votes. 
 
-Read the README for the parent directory, brla_explore, first. 
+Read the README file for B2Audits first. 
 
-## Properties of ballot-by-ballot audits
+## Properties of round-by-round audits
 The properties computed are: 
 
-1. **Ballot-by-Ballot Stopping Schedule:** The probability of stopping at each ballot draw for a given underlying election margin. 
+1. **Round-by-Round Stopping Schedule:** The probability of stopping at each round for a given round schedule and underlying election margin. 
 
-2. **Ballot-by-Ballot Risk Schedule:** The above, when the margin is the smallest possible for an incorrect election: a draw (for even-sized elections) or a margin of a single vote in favor of the loser. 
+2. **Round-by-Round Risk Schedule:** The above, when the margin is the smallest possible for an incorrect election: a draw (for even-sized elections) or a margin of a single vote in favor of the loser. 
 
 3. **Stopping Probability:** The probability that the audit stops: the sum of the values of the stopping schedule, expected to be one. 
 
@@ -22,13 +22,9 @@ The properties computed are:
 
 7. **Percentiles:** Desired percentile values may be computed from the stopping schedule and/or the risk schedule. 
 
-To validate our mathematical approach and code we have computed the values of Table 1 in the *BRAVO* paper. See: Tables/BRAVO Table I.pdf for the first five rows and Tables/BRAVO Table II.pdf for the next five rows. The largest fractional difference is smaller than 0.5\%, in estimating the expected number of ballots in simulations of audits for an election with a 1\% margin. 
-
 *Note:* The properties we compute are properties for the entire audit, over all the draws, so we need to make an assumption regarding the number of draws: 
 
-* Audits *with replacement* are computed assuming the maximum number of draws is 6ASN. (ASN is the theoretical expected number of ballots drawn for a BRAVO audit. The theoretical 99th percentile for elections with margins ranging from 40\% to 1\%, corresponds to about 4.36ASN to 4.65ASN ballots drawn). 
-
-* For an audit *without replacement*, the size of the election needs to be provided, and is assumed to be the maximum number of ballots drawn. 
+[AND?]
 
 ### Single Audits
 
