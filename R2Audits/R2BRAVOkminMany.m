@@ -1,8 +1,8 @@
- function [n_out_Many, kmin_Many] = RSquareBRAVOkminMany(marginVector, alphaVector, n_in_Many)
-	% [n_out_Many, kmin_Many] = RSquareBRAVOkminMany(marginVector, alphaVector, n_in_Many)
-    % The RSquareBRAVOkmin function for vector inputs, used to compute 
+ function [n_out_Many, kmin_Many] = R2BRAVOkminMany(marginVector, alphaVector, n_in_Many)
+	% [n_out_Many, kmin_Many] = R2BRAVOkminMany(marginVector, alphaVector, n_in_Many)
+    % The R2BRAVOkmin function for vector inputs, used to compute 
     % multiple audits. Does not, however, output slope and intercept as
-    % does RSquareBRAVOkmin. Outputs classical BRAVO kmin values and 
+    % does R2BRAVOkmin. Outputs classical BRAVO kmin values and 
     % corresponding vector, n_out_Many, of sample sizes. 
     % -----------
     % Input: 
@@ -18,16 +18,16 @@
     %                       each list element is an array (different-sized 
     %                       arrays)
     %	n_out_Many:         each element of this list is a 1-D array n_out 
-    %                       from RSquareBRAVOkmin, beginning at the smallest 
+    %                       from R2BRAVOkmin, beginning at the smallest 
     %                       sample size in the corresponding n_in for  
     %                       which kmin is no larger than sample size.  
     %	kmin_Many:          each element of this list is a 1-D array kmin 
-    %                       from RSquareBRAVOkmin: 
+    %                       from R2BRAVOkmin: 
     %                       kmin = ceiling(kmslope*n_out + kmintercept)
     %                       computed for the corresponding arrays of 
     %                       n_in_Many
     % ----------
-    %   Note beta assumed zero as in BSquareBRAVOkmin and as defined in 
+    %   Note beta assumed zero as in B2BRAVOkmin and as defined in 
     %   original BRAVO paper. 
     %   
     num_margin=size(marginVector,2);

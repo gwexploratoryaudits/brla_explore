@@ -1,7 +1,7 @@
 function [n_out, kmin, LLR] = RSquareBRAVOLikekmin(margin, alpha, N, n_in)
     % 
-    % [n_out, kmin, LLR] = RSquareBRAVOLikekmin(margin, alpha, N, n_in)
-    % Generates kmin for a R-square (ballot-by-ballot) BRAVO-like (BRAVO 
+    % [n_out, kmin, LLR] = R2BRAVOLikekmin(margin, alpha, N, n_in)
+    % Generates kmin for a R2 (round-by-round) BRAVO-like (BRAVO 
     % without replacement) audit with given round schedule. 
     %----------
     % Input: 
@@ -17,7 +17,8 @@ function [n_out, kmin, LLR] = RSquareBRAVOLikekmin(margin, alpha, N, n_in)
     %                       n_out(j)>=kmin(j).
     %   kmin:           1-D array of minimum values of k; jth value is the 
     %                       minimum number of votes for winner required to 
-    %                       terminate an audit with sample size n(j). 
+    %                       terminate an audit with sample size n(j). Thus 
+    %                       kmin, like n, is cumulative. 
     %   LLR:            array of values of the log-likelihood ratio (LLR), 
     %                       sanity check. 
 
@@ -30,7 +31,7 @@ function [n_out, kmin, LLR] = RSquareBRAVOLikekmin(margin, alpha, N, n_in)
     
     p = (1+margin)/2; % fractional vote count for winner
     
-    WinnerTally = ceil(p*N); % number of votes obtained by winner
+    WinnerTally = floor(p*N); % number of votes obtained by winner
     
     LoserTally = N-WinnerTally; % number of votes obtained by loser
 
