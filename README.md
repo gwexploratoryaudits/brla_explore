@@ -22,7 +22,7 @@ The properties computed are:
 
 7. **Percentiles:** Desired percentile values may be computed from the stopping schedule and/or the risk schedule. 
 
-To validate our mathematical approach and code we have computed the values of Table 1 in the *BRAVO* paper. See: Tables/BRAVO Table I.pdf for the first five rows and Tables/BRAVO Table II.pdf for the next five rows. The largest fractional difference is smaller than 0.5\%, in estimating the expected number of ballots in simulations of audits for an election with a 1% margin. 
+To validate our mathematical approach and code we have computed the values of Table 1 in the *BRAVO* paper. See: Tables/BRAVO Table I.pdf for the first five rows and Tables/BRAVO Table II.pdf for the next five rows. The largest fractional difference is smaller than 0.5\%, in estimating the expected number of ballots in simulations of audits for an election with a 1\% margin. 
 
 *Note:* The properties we compute are properties for the entire audit, over all the draws, so we need to make an assumption regarding the number of draws: 
 
@@ -85,7 +85,7 @@ At the moment, we support two types of audits:
 
 ### Multiple Audits
 
-  For much of our code, we have wrappers to compute multiple outputs for different values of margin, risk limit and election size (each input as a row vector). Because arrays for *n* and (hence *kmin*) are not of the same size (the smallest sample size for a decision may not be the same even if some other parameters are), the wrapper code will output many arrays of different sizes in the form of a structured list of these arrays, shaped by the row vectors input representing margin, risk limit and election size. The wrapper code to compute multiple outputs has suffix "Many". We used it to verify the statistical properties of our implemenged audits (for example, for the tables in Tables/BRAVO Table I.pdf and Tables/BRAVO Table II.pdf
+  For much of our code, we have wrappers to compute multiple outputs for different values of margin, risk limit and election size (each input as a row vector). Because arrays for *n* and (hence *kmin*) are not of the same size (the smallest sample size for a decision may not be the same even if some other parameters are), the wrapper code will output many arrays of different sizes in the form of a structured list of these arrays, shaped by the row vectors input representing margin, risk limit and election size. The wrapper code to compute multiple outputs has suffix "Many". We used it to verify the statistical properties of our implemented audits (for example, for the tables in Tables/BRAVO Table I.pdf and Tables/BRAVO Table II.pdf
 
   For multiple audits, for example, try: 
 
@@ -93,7 +93,7 @@ At the moment, we support two types of audits:
 
   `alpha = [0.1];`
 
-  `[nBRAVO, kminBRAVO] = BSquareBRAVOkminMany(margins, alpha);`
+  `[nBRAVO, kminBRAVO] = B2BRAVOkminMany(margins, alpha);`
 
   to obtain two lists of *5* arrays: *nBRAVO* and *kminBRAVO*
 
@@ -107,7 +107,7 @@ At the moment, we support two types of audits:
   
   and
   
-  `[nBRAVO2, kminBRAVO2] = BSquareBRAVOkminMany(margins, alpha2);`
+  `[nBRAVO2, kminBRAVO2] = B2BRAVOkminMany(margins, alpha2);`
 
   to obtain two lists of *10* arrays: *nBRAVO2* and *kminBRAVO2*
 
@@ -115,7 +115,7 @@ At the moment, we support two types of audits:
   
   `N=[1000]`
   
-  `[nBRAVOLike, kminBRAVOLike] = BSquareBRAVOLikekminMany(margins, alpha, N);`
+  `[nBRAVOLike, kminBRAVOLike] = B2BRAVOLikekminMany(margins, alpha, N);`
   
   for a 1000-vote election. 
   
@@ -125,7 +125,7 @@ At the moment, we support two types of audits:
 
   and: 
   
- `[nBRAVOLike2, kminBRAVOLike2] = BSquareBRAVOLikekminMany(margins, alpha2, N2);`
+ `[nBRAVOLike2, kminBRAVOLike2] = B2BRAVOLikekminMany(margins, alpha2, N2);`
   
   to obtain two 5 X 2 X 2 lists of arrays: *nBRAVOLike* and *kminBRAVOLike*
 
@@ -138,7 +138,7 @@ At the moment, we support two types of audits:
 Thus one may input ones own audit(s) defined by one or more pairs of arrays of *n* and corresponding *kmin*, or use our code to generate these arrays for multiple margins, risk limits and election sizes for *BRAVO* or *BRAVOLike* audits (and, hopefully, Bayesian audits in the future). 
 
 ## Stopping Probabilities and Risk
-B-Square audits allow the possibility of stopping at each ballot draw. 
+B2 audits allow the possibility of stopping at each ballot draw. 
 
 * If the election is incorrect, the possibility of stopping at each draw allows for the incurring of risk at each draw, by erroneously stopping the audit. 
 
@@ -150,23 +150,23 @@ The respective sums give us the total stopping probability of the specified audi
 
 ### Single Audits
 
-We include code for computing these schedules for single audits, called BSquare Risks. 
+We include code for computing these schedules for single audits, called B2Risks. 
 
 Try, using the above computed values of *kmin* and *n*: 
 
-`[StopSched1, StopValue1, ExpectedBallots1] = BSquareRisks(0.4, N, n1, kmin1, 0)`
+`[StopSched1, StopValue1, ExpectedBallots1] = B2Risks(0.4, N, n1, kmin1, 0)`
 
 to obtain the array `StopSched1` of the *BRAVO* schedule of stopping probabilities, `StopValue1` its sum, expected to be very close to 1 and representing the total probability of the audit stopping, and `ExpectedBallots`, the expected number of ballots drawn, for an underlying election of margin 0.4, which this audit, defined by `n1` and `kmin1`, was designed for. The value `N` is a dummy variable and does not affect the answers. The last argument, `0`, represents an audit with replacement. 
 
 Similarly, you could try: 
 
-`[StopSched2, StopValue2, ExpectedBallots2] = BSquareRisks(0.4, N, n2, kmin2, 1)`
+`[StopSched2, StopValue2, ExpectedBallots2] = B2Risks(0.4, N, n2, kmin2, 1)`
 
 for the *BRAVOLike* single audit. 
 
 You may also use other values for `margin`, or use `1` (without replacement) to see what you would get were the audit used in a setting different from the one it was designed for. Using `margin=0` will give you the risk schedule, total risk and a lower bound on the number of expected ballot draws when the underlying election is tied. 
 
-`[RiskSched1, RiskValue1, ExpectedBallotsInCorrect1] = BSquareRisks(0, N, n1, kmin1, 0)`
+`[RiskSched1, RiskValue1, ExpectedBallotsInCorrect1] = B2Risks(0, N, n1, kmin1, 0)`
 
 gives you the risk schedule, total risk and expected ballots for a worst-case incorrect election for the *BRAVO* audit computed for a margin of *0.4* and a risk limit of *0.1*. 
 
@@ -174,16 +174,16 @@ gives you the risk schedule, total risk and expected ballots for a worst-case in
 
 As described earlier for the generation of *kmin* values, we can use wrapper code to perform the above for multiple audits. You may try, for *BRAVO*: 
 
-`[StopSchedBRAVO, StopProbBRAVO, ExpectedBallotsCorrectBRAVO] = BSquareRisksMany(margins, N, nBRAVO, kminBRAVO, 0);`
+`[StopSchedBRAVO, StopProbBRAVO, ExpectedBallotsCorrectBRAVO] = B2RisksMany(margins, N, nBRAVO, kminBRAVO, 0);`
 
 `margin_incorrect = zeros(1,size(margins,2));`
-`[RiskSchedBRAVO, RiskValueBRAVO, ExpectedBallotsInCorrectBRAVO] = BSquareRisksMany(margin_incorrect, N, nBRAVO, kminBRAVO, 0);`
+`[RiskSchedBRAVO, RiskValueBRAVO, ExpectedBallotsInCorrectBRAVO] = B2RisksMany(margin_incorrect, N, nBRAVO, kminBRAVO, 0);`
 
 and, for *BRAVOLike*: 
 
-`[StopSchedBRAVOLike, StopProbBRAVOLike, ExpectedBallotsCorrectBRAVOLike] = BSquareRisksMany(margins, N, nBRAVOLike, kminBRAVOLike, 1);`
+`[StopSchedBRAVOLike, StopProbBRAVOLike, ExpectedBallotsCorrectBRAVOLike] = B2RisksMany(margins, N, nBRAVOLike, kminBRAVOLike, 1);`
 
-`[RiskSchedBRAVOLike, RiskValueBRAVOLike, ExpectedBallotsInCorrectBRAVOLike] = BSquareRisksMany(margin_incorrect, N, nBRAVOLike, kminBRAVOLike, 1);`
+`[RiskSchedBRAVOLike, RiskValueBRAVOLike, ExpectedBallotsInCorrectBRAVOLike] = B2RisksMany(margin_incorrect, N, nBRAVOLike, kminBRAVOLike, 1);`
 
 You may compare the `ExpectedBallotsCorrectBRAVO` values, also listed in Tables/BRAVO Table I.pdf, with entries in the first five rows of Table 1 in the *BRAVO* paper. 
 
@@ -201,7 +201,7 @@ This too can be done for multiple audits, and you can try:
 
 `BRAVOTable = StoppingPercentilesMany(nBRAVO,StopSchedBRAVO,percentiles);`
 
-to obtain our estimates of the percentile columns of the first five rows of Table 1 of the *BRAVO* paper. `ExpectedBallotsCorrectBRAVO` from the previous computation of `BSquare Risks` and `ASNmany(margins,[0.1])` will give you the other columns in the Table. 
+to obtain our estimates of the percentile columns of the first five rows of Table 1 of the *BRAVO* paper. `ExpectedBallotsCorrectBRAVO` from the previous computation of `B2Risks` and `ASNmany(margins,[0.1])` will give you the other columns in the Table. 
 
 To obtain a similar five rows for the *BRAVOLike* audit, try: 
 
@@ -219,7 +219,7 @@ and
 
 `BRAVOLikeRiskTable = StoppingPercentilesMany(nBRAVOLike,RiskSchedBRAVOLike, risk_percentiles);`
 
-Try scripts `BSquareBRAVOTestScript`, which does all of the above for *BRAVO*, and BSquareRiskScript which does it all for `BRAVO` and *BRAVOLike*. See our results in the various pdf files in Tables/
+From the Scripts folder try scripts `B2BRAVOTestScript`, which does all of the above for *BRAVO*, and B2RiskScript which does it all for `BRAVO` and *BRAVOLike*. See our results in the various pdf files in Tables/
 
 ## Log-Likelihood (Ignore if not curious)
 The *BRAVOLike* audit requires the computation of the ratio of hypergeometric probabilities for the stopping decision, see equation (5), [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999), with beta = 0. Because hypergeometric probabilities can be very small for our values, and because we are really interested in the ratio (each probability is a likelihood, and the ratio is the likelihood ratio) we do not use hypergeometric probability functions. 
