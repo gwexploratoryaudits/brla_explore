@@ -1,6 +1,6 @@
  function [kmslope, kmintercept, n_out, kmin] = R2BRAVOkmin(margin, alpha, n_in)
     %
-    % [kmslope, kmintercept, kmin] = RSquareBRAVOkmin(margin, alpha, n)
+    % [kmslope, kmintercept, kmin] = R2BRAVOkmin(margin, alpha, n)
     % Classical BRAVO slope and intercept for linear expression for kmin 
     % in log domain; also computes kmin values for valid values in given 
     % n_in. beta assumed zero as defined in original BRAVO paper. 
