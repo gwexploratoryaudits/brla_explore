@@ -3,7 +3,9 @@ exploratory code related to ballot-by-ballot RLAs and their approximations: roun
 
 We assume two candidates and no invalid votes. 
 
-The folder B2 Audits contains code to compute (without simulation) properties of audits that sample *ballot-by-ballot* (as opposed to *round-by-round*). Ballot-by-Ballot (or B2) audits make decisions (re: whether to stop the audit or not) at every ballot draw. For example, the theoretical versions of [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) and [*Bayesian Risk Limiting Audits*](https://arxiv.org/abs/1902.00999) are B2 audits.  
+The folder B2Audits contains code to compute (without simulation) properties of audits that sample *ballot-by-ballot* (as opposed to *round-by-round*). Ballot-by-Ballot (or B2) audits make decisions (re: whether to stop the audit or not) at every ballot draw. For example, the theoretical versions of [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) and [*Bayesian Risk Limiting Audits*](https://arxiv.org/abs/1902.00999) are B2 audits. 
+
+To validate our mathematical approach and code for B2 audits we have computed the values of Table 1 in the *BRAVO* paper. See: B2Audits/Tables/BRAVO Table I.pdf for the first five rows and Tables/BRAVO Table II.pdf for the next five rows. The largest fractional difference is smaller than 0.5\%, in estimating the expected number of ballots in simulations of audits for an election with a 1\% margin.  
 
 The folder R2 Audits contains code to compute (without simulation) properties of audits that sample *round-by-round*, making decisions (re: whether to stop the audit or not) after drawing a round of tens of ballots (in a single location) or even thousands across a state. Many real election audits are R2 audits, applying decision rules developed for B2 audits. This results in considerable inefficiency. 
 
