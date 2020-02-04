@@ -26,6 +26,10 @@ The properties computed are:
 
 [AND?]
 
+## Specification of an Audit. 
+
+We use the idea of *kmin*s (minimum number of votes for the winner required in the sample to stop the audit) described in the parent directory, brla_explore. 
+
 ### Single Audits
 
  The functions computing *kmin* for a given round schedule in the form of *n_in* for *BRAVO* and *BRAVOLike* are *R2BRAVOkmin* and *R2BRAVOLikekmin* respectively. The former requires only the margin, risk limit and round schedule as input, while the latter also requires election size. 
