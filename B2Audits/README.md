@@ -30,6 +30,10 @@ To validate our mathematical approach and code we have computed the values of Ta
 
 * For an audit *without replacement*, the size of the election needs to be provided, and is assumed to be the maximum number of ballots drawn. 
 
+## Specification of an Audit. 
+
+We use the idea of *kmin*s (minimum number of votes for the winner required in the sample to stop the audit) described in the parent directory, brla_explore. 
+
 ### Single Audits
 
   The functions computing *n* and *kmin* for *BRAVO* and *BRAVOLike* are *B2BRAVOkmin* and *B2BRAVOLikekmin* respectively. The former requires only the margin and the risk limit as input, while the latter also requires election size. 
