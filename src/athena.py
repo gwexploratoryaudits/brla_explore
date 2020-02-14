@@ -115,6 +115,7 @@ class Athena:
             self.truncate_dist(H0_dist, i)
             self.truncate_dist(Ha_dist, i)
         
+        print("The outputs: LR denominator, LR numerator, 1 / LR (or alpha').")
         print(self.pr_H0_sched, '\n', self.pr_Ha_sched, '\n', self.risk_sched)
 
     def next_round_dist(self, H0, dist, rnd_index):
@@ -186,3 +187,13 @@ class Athena:
 
         for i in range(self.k_min_sched[rnd_index], self.round_sched[rnd_index]+1):
             dist[i] = 0
+
+def main():
+    print("Currently this exploratory tool must be used in the interactive environment.")
+    print("Type \"python3\" then \"from athena import *\" then:")
+    print("x = Athena(N, reported winner tally, round schedule, k_min schedule)")
+    print("And finally \"x.compute_risk()\"")
+    print("The output will be the denominator of the LR, the numerator, and 1 / LR.")
+
+if __name__== '__main__':
+    main()
