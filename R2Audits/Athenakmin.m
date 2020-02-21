@@ -11,17 +11,17 @@
     %                       increasing
     % ----------
     % Output: 
-    %   n_out:          1_D array, beginning at first value of n_in for 
+    %   n_out:          1-D array, beginning at first value of n_in for 
     %                           which the probability ratio is large 
     %                           enough. That is, the first value of sample
     %                           size with a non-zero probability of making
     %                           a decision. 
-	%	kmin:           1-D array of Athena kmin corresponding to n_out; 
+    %	kmin:           1-D array of Athena kmin corresponding to n_out; 
     %                           size of n_out
     % -----------
     %
     % kmin[i] = smallest integer k such that 
-    % pdf tail for declared election tallies | previous kmins 
+    % pdf tail for declared election margins | previous kmins 
     %           <= alpha * pdf tail for tie | previous kmins
 
     %-------------Preliminaries--------------
@@ -43,6 +43,8 @@
     % Right tail is 1-left tail, and left tail is the cdf. 
     RiskSched(1) = 1-binocdf([0:n_in(1)], n_in(1), p);
     StopSched(1) = 1-binocdf([0:n_in(1)], n_in(1), 0.5);
+    
+    
     
     % We now need to compute the pdf for smaller values of winner votes in 
     % the current sample, so we can compute the pdf for winner votes after 
