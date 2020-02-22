@@ -1,99 +1,63 @@
-function [pvalue, stopping] = find_p_value(margin, alpha, n_prev, n, k, delta)
+function [Metis_pvalues, Athena_pvalues, Arlo_pvalues, stopping] = find_p_values(margin, alpha, n_prev, kmin_prev, n, k, delta)
     %
-    % [pvalue, stopping] = find_p_value(margin, alpha, n_prev, n, k, delta)
-    % This function returns the pvalue and whether the audit should stop  
-    % for a round-by-round audit.
+    % [pvalues, dvalues, stopping] = find_p_values(margin, alpha, n_prev, kmin_prev, n, k, delta)
+    % This function returns the pvalues, dvalues and whether the audit 
+    % should stop for a round-by-round audit.
     %
     % Input Values
-    %       risk limit: alpha
-    %       prior cumulative round schedule: n_prev
-    %       current cumulative round size: n
-    %       current cumulative ballots for the winner: k
-    %       audit factor: 1 <= delta <= 1/alpha
-    %       election margin: margin
-    % ONLY FOR SAMPLING WITH REPLACEMENT. 
+    %       margin: election margin as a fraction
+    %       alpha: risk limit as a fraction
+    %       n_prev: prior cumulative round schedule
+    %       kmin_prev: kmins corresponding to n_prev
+    %       n: current (single) cumulative round size
+    %       k: sequence of (cumulative) number of ballots for the winner
+    %       delta: inverse of delta is the minimum acceptable likelihood 
+    %               ratio; alpha <= delta <= infinity
+    %
+    % THIS IS CURRENTLY ONLY FOR SAMPLING WITH REPLACEMENT. 
     %
     % Note that: 
-    % a ballot-by-ballot round schedule gives the BRAVO audit independent
-    %       of delta
+    % a ballot-by-ballot round schedule gives exactly the BRAVO audit
+    %       independent of delta
     % a round schedule that is not ballot by ballot gives you: 
-    %       Arlo if delta = 1/alpha
-    %       Athena else. 
-    % The maximum benefit for Athena is acheived when delta = 1. 
+    %       Arlo if delta = alpha
+    %       an Athena variation else, which is assured to be a 
+    %       max-likelihood estimate if delta <= 1 (ML ratio >= 1)
+    % The larger delta is, the greater the benefit of Athena 
+    %       standard use is with delta = 1 for an ML estimate that
+    %       maximizes the benefit of Athena
+    %       Minerva is defined as Athena with delta = infinity
+    %
     %----------
     %
     % Output Values
-    %   pvalue:         The p-value corresponding to a tied election
-    %   stopping:          the risk computed as the sum of all values of 
-    %                           the risk sched.
+    %   pvalues:        p-values for each round, corresponding to a tied 
+    %                       election as the null
+    %   dvalues:        inverse of the LR for each round
+    %   stopping:       'Done' if audit is done; 'Draw more ballots' else. 
+    %   stopping condition is pvalue <= alpha AND dvalue <= delta
     %
     %----------
-    %
-    % See also R2Risks for auditing without replacement. 
-    %
-    %----------
-
-    % The right tail of the pdf at a round is the risk of the round, when
-    % the pdf represents the underlying vote distribution. 
-    % The worst case risk corresponds to a tied election, see Bayesian 
-    % RLA paper. 
 
     % p: fractional vote count for winner
     p = (1+margin)/2;
-    % NumberRounds is the size of n and kmin
-    NumberRounds = size(n,2);
 
-    % Initialize risk schedule (or stopping prob. sched when margin is not 
-    % zero). 
-    RiskSched = zeros(1,NumberRounds);
+    % Obtain risk and stopping probability schedules assuming k=kmin for 
+    % most recent round
+    [RiskSched, RiskValue] = R2RisksWithReplacement(margin,[n_prev n],[kmin_prev k]);
+    [StopSched, StopValue] = R2RisksWithReplacement(0,[n_prev n],[kmin_prev k]);
 
-    %---------For jth audit round-----------   
-    % For j=1 the risk is straightforward: 
-    % risk = right tail of binomial distribution for a tied election. 
-    % Similarly, stopping probability is the right tail of the distribution 
-    % when the election is correct. 
-    % Right tail is 1-left tail, and left tail is the cdf. 
-    RiskSched(1) = 1-binocdf(kmin(1)-1, n(1), p);
-    
-    % We now need to compute the pdf for smaller values of winner votes in 
-    % the current sample, so we can compute the pdf for winner votes after 
-    % drawing the next set of votes. 
-    %                   
-    % CurrentTier: array of size kmin(j) to store the non-zero 
-    %               probabilities for winner votes in the interval 
-    %               [0, kmin(j)-1] going into the next draw. Note that 
-    %               there is zero probability of winner votes being 
-    %               kmin(j) or larger. 
-    %               For j=1, hence, the CurrentTier is the binomial pdf 
-    %               lopped off at kmin(1). 
-    CurrentTier=binopdf(0:kmin(1)-1, n(1), p);
-        
-    % k: number of votes for the winner
-    % Suppose the audit progresses to round j, j > 1. In order to compute 
-    % the new pdf resulting from drawing more votes to get a total of n(j) 
-    % votes, we use CurrentTier from the previous draw and the pdf for the 
-    % probabilities of the entire sample drawn next to compute the new pdf. 
-    % The risk is the right tail of this newly-computed pdf, which is 
-    % lopped off and then becomes the (new) CurrentTier. 
-    for j=2:NumberRounds
-        ThisRoundSize = n(j)-n(j-1);
-        PreviousTier=CurrentTier;
-        clear CurrentTier;
-        % Initialize the new CurrentTier for round j. 
-        % The max number of winner votes in the collection: kmin(j-1)-1
-        % cannot be incremented by more than ThisRoundSize. 
-        % MATLAB indexes arrays beginning at 1. Thus CurrentTier(1,k)
-        % corresponds to the probability of k-1 votes. 
-        CurrentTier = zeros(1,kmin(j-1)-1+ThisRoundSize+1);
-
-        % We now construct CurrentTier by the convolution of 
-        % PreviousVotes with the distribution of the new draw. 
-        CurrentTier = PreviousTier conv binopdf(0:ThisRoundSize,ThisRoundSize, p);
-        
-        RiskSched(j) = sum(CurrentTier(1,kmin(j)+1:size(CurrentTier,2)));
-        CurrentTier=CurrentTier(1,1:kmin(j));
+    % pvalue is the ratio of total risk to total stopping probability
+    if StopValue == 0
+        error('pvalue infinitely large');
+    else
+        pvalue = RiskValue/StopValue;
     end
     
-    RiskValue = sum(RiskSched(1:NumberRounds));
-    
+    % stop if pvalue not larger than alpha
+    if pvalue <= alpha
+        stopping = 'Done'; 
+    else
+        stopping = 'Draw more ballots';
+    end
 end
