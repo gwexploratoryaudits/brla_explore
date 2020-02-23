@@ -1,8 +1,8 @@
-margin = 0.1;
+margin = 0.29;
 alpha = 0.1;
 delta=1;
-n_in = [100, 200, 300];
-k_all = [60, 113, 167];
+n_in = [193, 332, 587];
+k_all = [106, 192, 334];
 
 NumberRounds=size(n_in,2);
 
