@@ -1,7 +1,7 @@
-function p_values = p_value(margin, n_prev, kmin_prev, k_prev, n, k, audit_method)
+function p_value = p_value(margin, n_prev, kmin_prev, k_prev, n, k, audit_method)
     %
-    % pvalues = p_value(margin, n_prev, kmin_prev, k_prev, n, k, audit_method)
-    % This function returns the pvalues for each round of an audit. 
+    % pvalue = p_value(margin, n_prev, kmin_prev, k_prev, n, k, audit_method)
+    % This function returns the pvalue for the last round of an audit. 
     % Obviously, don't use this for large ballot-by-ballot audits. 
     % In particular, BRAVO is not an option for audit method. 
     %
@@ -24,7 +24,7 @@ function p_values = p_value(margin, n_prev, kmin_prev, k_prev, n, k, audit_metho
     %----------
     %
     % Output Values
-    %   pvalues:    row of p-values for each round, corresponding to a tied 
+    %   pvalue:    p-value for last round, corresponding to a tied 
     %                       election as the null
     %
     %----------
@@ -33,10 +33,11 @@ function p_values = p_value(margin, n_prev, kmin_prev, k_prev, n, k, audit_metho
     p = (1+margin)/2;
     logpoverhalf = log(p/0.5);
     logqoverhalf = log((1-p)/0.5);
+    NumberRounds = size(n_prev,2)+1;
     
     % Arlo does not need stopping or probability schedules
     if strcmp(audit_method,'Arlo')
-            p_values = exp(-logpoverhalf*[k_prev k] - logqoverhalf*([n_prev n]-[k_prev k]));
+        p_value = exp(-logpoverhalf*k - logqoverhalf*(n-k));
     else        
         % Obtain risk and stopping probability schedules assuming k=kmin for 
         % most recent round
@@ -48,9 +49,9 @@ function p_values = p_value(margin, n_prev, kmin_prev, k_prev, n, k, audit_metho
             % p_value is the ratio of total risk to total stopping probability
             StopValues = CumDistFunc(StopSched);
             RiskValues = CumDistFunc(RiskSched);
-            p_values = RiskValues./StopValues;
+            p_value = RiskValues(NumberRounds)/StopValues(NumberRounds);
         else % audit_method is either Athena or Minerva
-            p_values = RiskSched./StopSched;
+            p_value = RiskSched(NumberRounds)/StopSched(NumberRounds);
         end
     end
 end
