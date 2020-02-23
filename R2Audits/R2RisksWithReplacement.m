@@ -15,8 +15,8 @@ function RiskSched = R2RisksWithReplacement(margin, n, kmin)
     %   n:              row vector of cumulative sample sizes (round schedule)
     %   kmin:           row vector of same size as n
     %
-    %   n and kmin are typically outputs of R2BRAVOkmin, Athenakmin or
-    %   Metiskmin using margin (when non-zero) and alpha. the jth value of 
+    %   n and kmin are typically outputs of R2BRAVOkmin or Athenakmin 
+    %   using margin (when non-zero) and alpha. the jth value of 
     %   kmin is the minimum number of votes for winner required to 
     %   terminate the audit round of size n(j). This routine may also be 
     %   used by Athenakmin to try a single value of k or multiple values 

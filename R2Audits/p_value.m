@@ -1,4 +1,4 @@
-%function p_values = p_value(margin, n_prev, kmin_prev, k_prev, n, k, audit_method)
+function p_values = p_value(margin, n_prev, kmin_prev, k_prev, n, k, audit_method)
     %
     % pvalues = p_value(margin, n_prev, kmin_prev, k_prev, n, k, audit_method)
     % This function returns the pvalues for each round of an audit. 
@@ -13,10 +13,11 @@
     %               winner in previous rounds corresponding to n_prev
     %       n: current (single) cumulative round size
     %       k: current (single) cumulative number of ballots for the winner
-    %       audit_method: Arlo, Athena, Minerva, Metis
+    %       audit_method: string, one of: Arlo, Athena, Minerva, Metis
     %                       Athena and Minerva have the same p_values for 
     %                       the same kmins, but their kmins are, in 
-    %                       general, distinct for the same round sizes. 
+    %                       general, distinct for the same round sizes
+    %                       because their stopping conditions are distinct. 
     %
     % THIS IS CURRENTLY ONLY FOR SAMPLING WITH REPLACEMENT. 
     %
@@ -52,4 +53,4 @@
             p_values = RiskSched./StopSched;
         end
     end
-%end
+end
