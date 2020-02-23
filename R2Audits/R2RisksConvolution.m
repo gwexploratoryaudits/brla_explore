@@ -1,6 +1,6 @@
-function [RiskSched, RiskValue, ExpectedBallots] = R2Risks(margin, N, n, kmin, audit_type)
+function [RiskSched, RiskValue, ExpectedBallots] = R2RisksConvolution(margin, N, n, kmin, audit_type)
     %
-    % [RiskSched, RiskValue, ExpectedBallots] = R2Risks(margin, N, n, kmin, audit_type)
+    % [RiskSched, RiskValue, ExpectedBallots] = R2RisksConvolution(margin, N, n, kmin, audit_type)
     % This function returns:
     %       round-by-round stopping probability 
     %       total stopping probability 
