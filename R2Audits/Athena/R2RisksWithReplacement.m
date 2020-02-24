@@ -19,8 +19,7 @@ function RiskSched = R2RisksWithReplacement(margin, n, kmin)
     %   using margin (when non-zero) and alpha. the jth value of 
     %   kmin is the minimum number of votes for winner required to 
     %   terminate the audit round of size n(j). This routine may also be 
-    %   used by Athenakmin to try a single value of k or multiple values 
-    %   as potential kmin(s) for the next (few) round(s). 
+    %   used for computing pvalues for Athena. 
     %
     %----------
     %
@@ -51,7 +50,7 @@ function RiskSched = R2RisksWithReplacement(margin, n, kmin)
     % tied election. 
     % Similarly, stopping probability is the right tail of the distribution 
     % when the election is correct. 
-    % Right tail is 1-left tail, and left tail is the cdf. 
+    % Right tail is 1-cdf. 
     RiskSched(1) = 1-binocdf(kmin(1)-1, n(1), p);
     
     % We now need to compute the pdf for smaller values of winner votes in 

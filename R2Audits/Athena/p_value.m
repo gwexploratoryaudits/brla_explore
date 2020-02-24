@@ -1,6 +1,6 @@
-function p_value = p_value(margin, n_prev, kmin_prev, k_prev, n, k, audit_method)
+function p_value = p_value(margin, n_prev, kmin_prev, n, k, audit_method)
     %
-    % pvalue = p_value(margin, n_prev, kmin_prev, k_prev, n, k, audit_method)
+    % pvalue = p_value(margin, n_prev, kmin_prev, n, k, audit_method)
     % This function returns the pvalue for the last round of an audit. 
     % Obviously, don't use this for large ballot-by-ballot audits. 
     % In particular, BRAVO is not an option for audit method. 
