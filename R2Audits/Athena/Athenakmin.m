@@ -1,8 +1,8 @@
  function [n_out, kmin, StopSched, RiskSched] = ...
      Athenakmin(margin, alpha, delta, n_in, audit_method)
     % IN PROGRESS
-    % [n_out, kmin] = Athenakmin(margin, alpha, delta, n_in, audit_method)
-    % Athena kmin values for valid rounds sizes among given n_in. 
+    % [n_out, kmin, StopSched, RiskSched] = Athenakmin(margin, alpha, delta, n_in, audit_method)
+    % Athena kmin values for valid round sizes among given n_in. 
     % beta = 0; sampling with replacement. 
     % -----------
     % Input: 
@@ -47,7 +47,8 @@
     StopSched = zeros(1,NumberRounds);
     kmin = zeros(1, NumberRounds);
     
-    % Compute BRAVO kmins for alpha = delta for Athena LR check
+    % Compute BRAVO kmins for alpha = delta 
+    % Needed for Athena LR check
     if strcmp(audit_method,'Athena')
         [slope, intercept, ~, ~] = ...
             R2BRAVOkminWithSlope(margin, delta, n_in);
@@ -65,7 +66,7 @@
     % For round jcurrent the stop prob and risk are straightforward: 
     % right tails of the corresponding binomial distribution. 
     % They are the same for Athena, Minerva and Metis:
-    % Right tail is 1-left tail, and left tail is the cdf. 
+    % Right tail is 1-cdf. 
     %
     % Compute ratios of tails for all values of k, and find first ratio to 
     % cross 1/alpha. This is kmin(jcurrent) for Minerva and Metis. 
@@ -108,7 +109,7 @@
                     kmin(jcurrent) = max(km, ceil(n_in(jcurrent)/2)+1);
                     startat = jcurrent; % Note first round for audit
                 end
-            else % others need not check LR
+            else % other audit types need not check LR
                 % kmin should be larger than half round size
                 kmin(jcurrent) = max(Valid_k(1), ceil(n_in(jcurrent)/2)+1);
                 startat = jcurrent; % Note first round for audit
@@ -120,10 +121,8 @@
     % round for which the ratio is large enough. 
     
     %-----------Compute kmins for next rounds, if any --------%
-    if startat == 0 % didn't find a first round, n_out and kmin are empty
+    if startat == 0 % didn't find a first round all returned arrays are empty
         n_out = []; kmin = []; StopSched = [];  RiskSched = []; 
-        CStopSched = []; CRiskSched = []; TailStop = []; 
-        TailRisk = []; CurrentTierStop = []; CurrentTierRisk = [];
     else % Found a first round where audit has non-zero prob of stopping
         % The stopping prob and risk for this round are the right tails:
         StopSched(1, startat) = 1-binocdf(kmin(startat)-1, n_in(startat), p);
@@ -133,12 +132,14 @@
         CRiskSched = RiskSched;
         
         % If there is another round, we should compute the pdf of winner 
-        % votes in this round after the stopping conditions are tested. 
+        % votes in this round as it would be just before going into the 
+        % next round and just after the stopping conditions are tested. 
         if startat < NumberRounds
     
-            % We now need to compute the pdf for smaller values of winner 
-            % votes in the current sample, so we can compute the pdf for 
-            % winner votes after drawing the next set of votes. 
+            % We now need to compute the pdf for the smaller values of 
+            % winner votes left in the current sample, which we will need 
+            % to compute the pdf for winner votes after drawing the next 
+            % sample. 
             %
             % CurrentTier: array of size kmin(j) to store the non-zero 
             %               probabilities for winner votes in the interval 
@@ -146,7 +147,9 @@
             %               that the probability of winner votes being 
             %               kmin(j) or larger is zero. 
             %               For j=startat, the CurrentTier is the 
-            %               binomial pdf lopped off at kmin(startat). 
+            %               binomial pdf lopped off at kmin(startat), 
+            %               leaving behind at most kmin(startat)-1 votes 
+            %               for the winner. 
 
             CurrentTierStop=binopdf(0:kmin(startat)-1, n_in(startat), p);
             CurrentTierRisk=binopdf(0:kmin(startat)-1, n_in(startat), 0.5);
@@ -158,7 +161,10 @@
                 
                 % k: number of votes for the winner
                 % Use CurrentTier from the previous draw and the pdf for 
-                % the new sample to compute the new pdf using the FFT. 
+                % the new sample to compute the new pdf (of the sum of: 
+                % votes for the winner from the previous round and
+                % from new ballots drawn). This is computed as the 
+                % convolution of the two distributions, using the FFT. 
                 % Rename old CurrentTier as PreviousTier
                 % Pad PreviousTier in readiness for FFT
                 % Padding before fft is necessary, see, for example, 
@@ -169,7 +175,7 @@
                 clear CurrentTierStop;
                 
                 % Padding ballot probability vector for the new draw 
-                % (binomial of size of new draw)
+                % (this pdf is the binomial of the size of the new draw)
                 NewBallotsStop = [binopdf(0:ThisRoundSize,ThisRoundSize, p) ...
                     zeros(1,kmin(j-1)-1)];
                 NewBallotsRisk = [binopdf(0:ThisRoundSize,ThisRoundSize, 0.5) ...
@@ -187,11 +193,14 @@
                 TailRisk = zeros(1, size(CurrentTierRisk-1, 2));
                 
                 % ----------Compute tails --------%
+                % MATLAB indexes arrays beginning at 1. Thus 
+                % CurrentTier(k+1) corresponds to the probability of 
+                % k votes. 
                 for k=1:size(TailStop,2)
                     TailStop(k) = sum(CurrentTierStop(k+1:size(CurrentTierStop,2)));
                     TailRisk(k) = sum(CurrentTierRisk(k+1:size(CurrentTierRisk,2)));
                 end
-                
+
                 % ----------- kmins through computation of p values -----%
                 
                 if strcmp(audit_method,'Athena') || strcmp(audit_method,'Minerva') 
@@ -200,8 +209,8 @@
                     % tails of the stopping probability and risk 
                     % distributions. 
                     Valid_k = find(alpha*(TailStop) >= (TailRisk));
-                    % The kth value above tests the ratio of the right
-                    % tails for kmin = k
+                    % The kth value of the test above tests the ratio of 
+                    % the right tails for kmin = k
                     if strcmp(audit_method,'Minerva') % No need to test LR
                         % kmin(j) must be larger than ceil(n_in(j)/2)
                         kmin(j) = max(Valid_k(1), ceil(n_in(j)/2)+1);
