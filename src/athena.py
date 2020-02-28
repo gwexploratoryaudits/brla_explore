@@ -1,3 +1,4 @@
+from typing import List
 from scipy.stats import binom
 from scipy.signal import fftconvolve
 
@@ -9,30 +10,34 @@ class Athena:
         parameters for the total number of ballots cast, the reported winner tally, and
         the round and k_min schedules, from which the risk of the audit is derived.
 
-    ..  note:: 
-    
-        This is equivalent to "AURROR 2.0."
-        
-    ..  note:: 
-    
-        Throughout the class, the null hypothesis of the reported loser winning (or tying)
-        is abbreviated as "H0", which has its own assumed tally and distribution distinct
-        from the alternative hypothesis "Ha" of the reported winner really winning.
+    Attributes
+        N (int): Total number of ballots cast for the two candidates.
+        Ha_tally (int): The reported number of ballots for the reported winner.
+        round_sched (List[int]): The cumulative round schedule of the audit.
+        alpha (float): The risk limit of the audit.
+        pr_H0_sched (List[float]): Bookkeeps the denominators of Wald's likelihood ratio.
+        pa_Ha_sched (List[float]): Bookkeeps the numerators of Wald's likelihood ratio.
+        risk_sched (List[float]): Bookkeeps the reciprocal of Wald's likelihood ratio,
+            that is, the lowest alpha for which the audit would stop.
+        k_min_sched (List[int]): A list of stopping rules respective to the round sizes.
     """
     
     N: int
     Ha_tally: int
-    round_sched: list
-    k_min_sched: list
-    pr_H0_sched: list
-    pr_Ha_sched: list
-    risk_sched: list
+    round_sched: List[int]
+    alpha: float
+    m: int
+    H0_tally: int
+    pr_H0_sched: List[float]
+    pr_Ha_sched: List[float]
+    risk_sched: List[float]
+    k_min_sched: List[int]
 
-    def __init__(self, N, Ha_tally, round_sched, k_min_sched):
+    def __init__(self, N: int, Ha_tally: int, round_sched: List[int], alpha: float):
         self.N = N
         self.Ha_tally = Ha_tally
         self.round_sched = round_sched
-        self.k_min_sched = k_min_sched
+        self.alpha = alpha
 
         self.check_params()
 
@@ -41,19 +46,19 @@ class Athena:
         self.pr_H0_sched = [0] * self.m
         self.pr_Ha_sched = [0] * self.m
         self.risk_sched = [0] * self.m
+        self.k_min_sched = [0] * self.m
 
     def check_inc_sched(self, sched):
-        """ Returns True iff a list of numbers is strictly increasing.
+        """ Returns True iff a list of numbers (the schedule) is strictly increasing.
 
-        :param sched: Presumably a round or k_min schedule.
-        :type: sched: list.
+        Args
+            sched (List[int]): A schedule of round sizes (which should be strictly
+            increasing).
 
-        :returns: bool
+        Returns
+            bool: Whether the passed schedule is strictly increasing.
         """
-        
-        if type(sched) != list:
-            return False
-        
+
         for i in range(1, len(sched)):
             if sched[i] <= sched[i - 1]:
                 return False
@@ -64,11 +69,10 @@ class Athena:
         """ Prints out notices about bad parameters.
 
         This method prints out a notice for obvious errors in the audit parameters,
-        such as a negative N, a mismatch between the lengths of the round and k_min
-        schedules, etc.
+        such as a negative N, or an out-of-bounds alpha.
         """
         
-        # TODO: More cases, especially confirming appropriate types.
+        # TODO: More cases?
 
         if self.N <= 0:
             print('Bad Parameter: N')
@@ -79,13 +83,10 @@ class Athena:
         if len(self.round_sched) < 1 or not self.check_inc_sched(self.round_sched):
             print('Bad Parameter: Round Schedule')
 
-        if len(self.k_min_sched) < 1 or not self.check_inc_sched(self.k_min_sched):
-            print('Bad Parameter: k_min Schedule')
-
-        if len(self.round_sched) != len(self.k_min_sched):
-            print('Bad Parameter: Schedule mismatch')
+        if self.alpha <= 0 or self.alpha >= .5:
+            print('Bad Parameter: Alpha')
     
-    def compute_risk(self):
+    def compute_audit(self):
         """ The body of the audit procedure.
 
         The audit computation proceeds in three steps (twice over for each hypothesis):
@@ -104,19 +105,14 @@ class Athena:
             H0_dist = self.next_round_dist(True, H0_dist, i)
             Ha_dist = self.next_round_dist(False, Ha_dist, i)
 
-            # Second addend ensures cumulativity (recursively)
-            # max(i - 1, 0) ensures no index of -1
-            self.pr_H0_sched[i] = (self.compute_sprob(H0_dist, i) 
-                                 + self.pr_H0_sched[max(i - 1, 0)])
-            self.pr_Ha_sched[i] = (self.compute_sprob(Ha_dist, i) 
-                                 + self.pr_Ha_sched[max(i - 1, 0)])
-            self.risk_sched[i] = self.pr_H0_sched[i] / self.pr_Ha_sched[i]
+            self.decide_k_min(H0_dist, Ha_dist, i)
 
             self.truncate_dist(H0_dist, i)
             self.truncate_dist(Ha_dist, i)
         
-        print("The outputs: LR denominator, LR numerator, 1 / LR (or alpha').")
-        print(self.pr_H0_sched, '\n', self.pr_Ha_sched, '\n', self.risk_sched)
+        print("The outputs: k_mins, LR denominator, LR numerator, 1 / LR (or alpha').")
+        print(self.k_min_sched, '\n', self.pr_H0_sched, '\n', self.pr_Ha_sched, '\n', 
+            self.risk_sched)
 
     def next_round_dist(self, H0, dist, rnd_index):
         """ Calculates the distribution of the next round.
@@ -124,14 +120,14 @@ class Athena:
         This method calculates the probability distribution of the next round, given the
         probability distribution of the previous round (used for convolution).
 
-        :param H0: Which hypothesis' distribution, true if the null.
-        :type: H0: bool.
-        :param dist: The previous round's probability distribution.
-        :type: dist: list.
-        :param rnd_index: The index of the next round. The first round has rnd_index 0.
-        :type: rnd_index: int.
+        Args
+            H0 (bool): Which hypothesis' distribution, True if the null.
+            dist (List[float]): The previous round's probability distribution.
+            rnd_index (int) The index of the next round. The first round has rnd_index 0.
 
-        :returns: list
+        Returns
+            List[float]: The next round's probability distribution for the given
+                hypothesis.
         """
 
         if H0:
@@ -152,26 +148,42 @@ class Athena:
             return draws_dist
         else:
             return fftconvolve(dist, draws_dist)
+    
+    def decide_k_min(self, H0_dist, Ha_dist, rnd_index):
+        """ Decides the k_min of the round subject to the likelihood ratio constraint.
 
-    def compute_sprob(self, dist, rnd_index):
-        """ Computes the stopping probability of a round.
+        A linear search finds the minimal k such that the likelihood ratio > 1 / alpha.
+        Nothing is returned, rather the appropriate schedules (k_min, pr_H0, pr_Ha, risk)
+        are all populated.
 
-        Given the round's distribution and its index (from which we ascertain the k_min),
-        this method calculates the round's stopping probability.
-
-        :param dist: The round's probability distribution.
-        :type: dist: list.
-        :param rnd_index: The round index. The first round has rnd_index 0.
-        :type: rnd_index: int.
-
-        :returns: float
+        Args
+            H0_dist (List[float]): The null hypothesis' probability distribution.
+            Ha_dist (List[float]): The alternative hypothesis' probability distribution.
+            rnd_index (int): The index of the round. The first round has rnd_index 0.
         """
 
-        sprob = 0
-        for i in range(self.k_min_sched[rnd_index], self.round_sched[rnd_index] + 1):
-            sprob += dist[i]
-        
-        return sprob
+        for k in range(self.round_sched[rnd_index] // 2 + 1, self.round_sched[rnd_index]):
+
+            LR_num = 0
+            LR_denom = 0
+
+            for i in range(k, self.round_sched[rnd_index]):
+                LR_num += Ha_dist[i]
+                LR_denom += H0_dist[i]
+
+            #if (LR_num + self.pr_Ha_sched[max(rnd_index-1, 0)])/ (LR_denom + self.pr_H0_sched[max(rnd_index-1, 0)])> 1 / self.alpha:
+            if LR_num / LR_denom > 1 / self.alpha:
+                self.k_min_sched[rnd_index] = k
+
+                cumulative_H0_sched = self.pr_H0_sched[max(rnd_index-1, 0)]
+                cumulative_Ha_sched = self.pr_Ha_sched[max(rnd_index-1, 0)]
+
+                self.pr_H0_sched[rnd_index] = LR_denom + cumulative_H0_sched
+                self.pr_Ha_sched[rnd_index] = LR_num + cumulative_Ha_sched
+                self.risk_sched[rnd_index] = LR_denom / LR_num
+                #self.risk_sched[rnd_index] = self.pr_H0_sched[rnd_index] / self.pr_Ha_sched[rnd_index]
+                return
+
 
     def truncate_dist(self, dist, rnd_index):
         """ Truncates (or "lops off") the part of distributions >= k_min.
@@ -179,14 +191,47 @@ class Athena:
         So that certain sequences of ballots are not counted towards the risk more than
         once, this method truncates the tail of a given distribution.
 
-        :param dist: The round's probability distribution.
-        :type: dist: list.
-        :param rnd_index: The round index. The first round has rnd_index 0.
-        :type: rnd_index: int.
+        Args
+            dist (List[float]): The round's probability distribution.
+            rnd_index (int): The index of the round. The first round has rnd_index 0.
         """
 
         for i in range(self.k_min_sched[rnd_index], self.round_sched[rnd_index]+1):
             dist[i] = 0
+
+    def next_round(self, H0_dist, Ha_dist, cumulative_sprob):
+        """
+        # All of the past audi parameters can be gleaned from just the distributions.
+        assert(len(H0_dist) == len(Ha_dist))
+        last_round_size = len(H0_dist) - 1
+        last_round_sprob = 0
+        for y in Ha_dist:
+            last_round_sprob += y
+        last_round_sprob = 1 - last_round_sprob
+
+        if last_round_sprob > cumulative_sprob:
+            print("This cumulative stopping probability has already been attained.")
+
+        # Start searching for satisfactory round sizes at last_round_size + 10, and
+        # stop searching at last_round_size * 10 (surely there ought to be intermediate
+        # rounds).
+        for possible_round_size in range(last_round_size + 10, last_round_size * 10):
+            draws = possible_round_size - last_round_size
+            next_round_H0_dist = fftconvolve(binom.pdf(range(0, draws + 1), draws, 
+                self.H0_tally / self.N), H0_dist)
+            next_round_Ha_dist = fftconvolve(binom.pdf(range(0, draws + 1), draws,
+                self.Ha_tally / self.N), Ha_dist)
+        """
+
+        # TODO: Finish implementation, including a refactoring of code that reduces
+        # dependency on a round indices (because in next_round calculations none may
+        # be available).
+
+        # NOTE: All relevant parameters / properties of an audit can be gleaned from its
+        # twin distributions: the most recent round size, the cumulative risk expended, 
+        # and the cumulative stopping probability. The past round's k_min can be deduced
+        # from the precipitous drop to a probability of 0.
+            
 
 def main():
     print("Currently this exploratory tool must be used in the interactive environment.")
