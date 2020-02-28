@@ -1,4 +1,4 @@
-# brla_explore
+# brla_explore/B2Audits
 exploratory code related to ballot-by-ballot (B2) RLAs
 
 We assume two candidates and no invalid votes. 
@@ -10,7 +10,7 @@ The properties computed are:
 
 1. **Ballot-by-Ballot Stopping Schedule:** The probability of stopping at each ballot draw for a given underlying election margin. 
 
-2. **Ballot-by-Ballot Risk Schedule:** The above, when the margin is the smallest possible for an incorrect election: a draw (for even-sized elections) or a margin of a single vote in favor of the loser. 
+2. **Ballot-by-Ballot Risk Schedule:** The above, when the margin is the smallest possible for an incorrect election: a draw (for even-sized elections) or a margin of a single vote in favor of the loser. For audits with replacement, we always assume a tie as in the literature. 
 
 3. **Stopping Probability:** The probability that the audit stops: the sum of the values of the stopping schedule, expected to be one. 
 
@@ -22,13 +22,15 @@ The properties computed are:
 
 7. **Percentiles:** Desired percentile values may be computed from the stopping schedule and/or the risk schedule. 
 
-To validate our mathematical approach and code we have computed the values of Table 1 in the *BRAVO* paper. See: Tables/BRAVO Table I.pdf for the first five rows and Tables/BRAVO Table II.pdf for the next five rows. The largest fractional difference is smaller than 0.5\%, in estimating the expected number of ballots in simulations of audits for an election with a 1\% margin. 
+To validate our mathematical approach and code we have computed the values of Table 1 in the *BRAVO* paper. See: Tables/BRAVO Table I.pdf for the first five rows and Tables/BRAVO Table II.pdf for the next five rows. The largest fractional difference is smaller than 0.5\%. 
 
-*Note:* The properties we compute are properties for the entire audit, over all the draws, so we need to make an assumption regarding the number of draws: 
+*Note:* The properties we compute are properties for the entire audit, over all the draws, so we need to make an assumption regarding the number of draws when we compute the stopping and risk schedules:
 
 * Audits *with replacement* are computed assuming the maximum number of draws is 6ASN. (ASN is the theoretical expected number of ballots drawn for a BRAVO audit. The theoretical 99th percentile for elections with margins ranging from 40\% to 1\%, corresponds to about 4.36ASN to 4.65ASN ballots drawn). 
 
 * For an audit *without replacement*, the size of the election needs to be provided, and is assumed to be the maximum number of ballots drawn. 
+
+* Note that a smaller number of maximum ballots drawn may be specified while designing an audit, the above computations are for the purpose of testing our results against simulations and for determining statistical properties. 
 
 ## Specification of an Audit. 
 
@@ -64,7 +66,7 @@ We use the idea of *kmin*s (minimum number of votes for the winner required in t
 
   `[nBRAVO, kminBRAVO] = B2BRAVOkminMany(margins, alpha);`
 
-  to obtain two lists of *5* arrays: *nBRAVO* and *kminBRAVO*
+  to obtain two lists of *5* arrays each: *nBRAVO* and *kminBRAVO*
 
   `nBRAVO{i,s}` is the array of sample sizes for `margin(i)` and risk limit `alpha(s)`
 
@@ -78,7 +80,7 @@ We use the idea of *kmin*s (minimum number of votes for the winner required in t
   
   `[nBRAVO2, kminBRAVO2] = B2BRAVOkminMany(margins, alpha2);`
 
-  to obtain two lists of *10* arrays: *nBRAVO2* and *kminBRAVO2*
+  to obtain two 5 X 2 lists of *10* arrays each: *nBRAVO2* and *kminBRAVO2*
 
   For *BRAVOLike* you would need election size as well: 
   
@@ -96,7 +98,7 @@ We use the idea of *kmin*s (minimum number of votes for the winner required in t
   
  `[nBRAVOLike2, kminBRAVOLike2] = B2BRAVOLikekminMany(margins, alpha2, N2);`
   
-  to obtain two 5 X 2 X 2 lists of arrays: *nBRAVOLike* and *kminBRAVOLike*
+  to obtain two 5 X 2 X 2 lists of *20* arrays each: *nBRAVOLike* and *kminBRAVOLike*
 
   `nBRAVOLike2{i,s,t}` is the array of sample sizes for `margin(i)`, risk limit `alpha2(s)` and `N2(t)`
 
@@ -104,7 +106,7 @@ We use the idea of *kmin*s (minimum number of votes for the winner required in t
 
   You thus obtain values of *n* and *kmin* for *20* audits. 
 
-Thus one may input ones own audit(s) defined by one or more pairs of arrays of *n* and corresponding *kmin*, or use our code to generate these arrays for multiple margins, risk limits and election sizes for *BRAVO* or *BRAVOLike* audits (and, hopefully, Bayesian audits in the future). 
+Thus one may input one's own audit(s) defined by one or more pairs of arrays of *n* and corresponding *kmin*, or use our code to generate these arrays for multiple margins, risk limits and election sizes for *BRAVO* or *BRAVOLike* audits (and, hopefully, Bayesian audits in the future). 
 
 ## Stopping Probabilities and Risk
 B2 audits allow the possibility of stopping at each ballot draw. 
@@ -125,7 +127,7 @@ Try, using the above computed values of *kmin* and *n*:
 
 `[StopSched1, StopValue1, ExpectedBallots1] = B2Risks(0.4, N, n1, kmin1, 0)`
 
-to obtain the array `StopSched1` of the *BRAVO* schedule of stopping probabilities, `StopValue1` its sum, expected to be very close to 1 and representing the total probability of the audit stopping, and `ExpectedBallots`, the expected number of ballots drawn, for an underlying election of margin 0.4, which this audit, defined by `n1` and `kmin1`, was designed for. The value `N` is a dummy variable and does not affect the answers. The last argument, `0`, represents an audit with replacement. 
+to obtain the array `StopSched1` of the *BRAVO* schedule of stopping probabilities, `StopValue1` its sum, expected to be very close to 1 and representing the total probability of the audit stopping, and `ExpectedBallots`, the expected number of ballots drawn, for an underlying election of margin 0.4, which this audit, defined by `n1` and `kmin1`, was designed for. When sampling is without replacement, the value `N` is only used to find the expected number of ballots, and its contribution is weighted by multiplying by StopValue1, which will be consequential if the number of draws is small for the margin. In particular, `N` matters when the `margin=0`(when it is the risk that is computed). If the entire arrays of `n` and `kmin` computed using *B2BRAVOkmin* are used, `N` is of consequence only for `margin=0`. The last argument, `0`, represents an audit with replacement. 
 
 Similarly, you could try: 
 
@@ -133,7 +135,7 @@ Similarly, you could try:
 
 for the *BRAVOLike* single audit. 
 
-You may also use other values for `margin`, or use `1` (without replacement) to see what you would get were the audit used in a setting different from the one it was designed for. Using `margin=0` will give you the risk schedule, total risk and a lower bound on the number of expected ballot draws when the underlying election is tied. 
+You may also use other values for `margin`, or use `1` (without replacement) to see what you would get were the audit used in a setting different from the one it was designed for. Using `margin=0` will give you the risk schedule, total risk and a lower bound on the minimum number of expected ballot draws when the underlying election is tied. 
 
 `[RiskSched1, RiskValue1, ExpectedBallotsInCorrect1] = B2Risks(0, N, n1, kmin1, 0)`
 
@@ -193,7 +195,7 @@ From the Scripts folder try scripts `B2BRAVOTestScript`, which does all of the a
 ## Log-Likelihood (Ignore if not curious)
 The *BRAVOLike* audit requires the computation of the ratio of hypergeometric probabilities for the stopping decision, see equation (5), [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999), with beta = 0. Because hypergeometric probabilities can be very small for our values, and because we are really interested in the ratio (each probability is a likelihood, and the ratio is the likelihood ratio) we do not use hypergeometric probability functions. 
 
-Instead, we simplify the expression by canceling out common factors in the numerator and denominator, and compute only the product of ratios that are not too extreme in value. However, we see that there may be too many products and that can also pose a problem. We finally chose to compute these products as sums in the log domain and to obtain the Log-Likelihood Ratio (LLR). Also, we make sure to check for zeros in the denominator, and get a constant value of *kmin* once *kmin* reaches one more than half the number of votes.  
+We tried simplifying the expression by canceling out common factors in the numerator and denominator, and computed only the product of ratios that are not too extreme in value. However, we see that there may be too many products and that can also pose a problem. We finally chose to compute these products as sums in the log domain and to obtain the Log-Likelihood Ratio (LLR). Also, we make sure to check for zeros in the denominator, and get a constant value of *kmin* once *kmin* reaches one more than half the number of votes.  
 
 ## Verification Through Simulations
 
