@@ -1,4 +1,4 @@
- function [n_out, kmin] = R2BRAVOkmin(margin, alpha, n_in)
+ function [kmslope, kmintercept, n_out, kmin] = R2BRAVOkmin(margin, alpha, n_in)
     %
     % [kmslope, kmintercept, n_out, kmin] = R2BRAVOkmin(margin, alpha, n_in)
     % Classical BRAVO slope and intercept for linear expression for kmin 
@@ -13,7 +13,7 @@
     % ----------
     % Output: 
 	%   kmslope:        (log 0.5 - log (1-p))/(log p - log(1-p))
-	%   kmintercept:    - (log (alpha))/(log p - log(1-p)) 
+	%	kmintercept:    - (log (alpha))/(log p - log(1-p)) 
     %                           where p is the fractional vote for the winner:
     %                           (1+margin)/2
     %   n_out:          1_D array, beginning at first value of n_in for 

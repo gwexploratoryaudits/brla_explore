@@ -95,7 +95,7 @@ function [n_out, kmin, LLR] = R2BRAVOLikekmin(margin, alpha, N, n_in)
                 % than WinnerTally. Because we ensure that the number of 
                 % votes for the loser in the sample is smaller than 
                 % LoserTally, it is also smaller than HalfN. 
-                ThisLLR = LogLikelihoodRatio(k,WinnerTally,n_in(j),N);
+                ThisLLR = BravoLikeLLR(k,WinnerTally,n_in(j),N);
             end
             %if LikelihoodRatio > OneOverAlpha
             if ThisLLR > -LogAlpha
