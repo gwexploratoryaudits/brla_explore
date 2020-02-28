@@ -40,7 +40,19 @@
     p=(1+margin)/2;
     
     % NumberRounds is the size of StopSched
-    NumberRounds = size(StopSched,2);
+    NumberRounds = size(n_in,2);
+
+    % Allocate risk/ stopping prob. scheds., kmin
+    RiskSched = zeros(1,NumberRounds);
+    StopSched = zeros(1,NumberRounds);
+    kmin = zeros(1, NumberRounds);
+    
+    % Compute BRAVO kmins for alpha = delta 
+    % Needed for Athena LR check
+    if strcmp(audit_method,'Athena')
+        [slope, intercept, ~, ~] = ...
+            R2BRAVOkminWithSlope(margin, delta, n_in);
+    end % end "if audit_method is Athena"
     
     % Initialize values to begin looking for first round where it is 
     % possible to satisfy stopping condition(s) (i.e. possible to stop 
