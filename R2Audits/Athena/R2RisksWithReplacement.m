@@ -7,6 +7,7 @@ function RiskSched = R2RisksWithReplacement(margin, n, kmin)
     % by margin.
     % Note that, if margin=0, it returns round-by-round risk schedule
     % ONLY FOR AUDITING WITH REPLACEMENT
+    % USES FOURIER TRANSFORM
     %----------
     %
     % Input Values: 

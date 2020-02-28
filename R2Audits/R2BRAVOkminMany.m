@@ -35,7 +35,7 @@
     
     for i=1:num_margin
         for s=1:num_alpha
-            [n_out_Many{i,s}, kmin_Many{i,s}] = RSquareBRAVOkmin(marginVector(i), alphaVector(s), n_in_Many{i,s});
+            [n_out_Many{i,s}, kmin_Many{i,s}] = R2BRAVOkmin(marginVector(i), alphaVector(s), n_in_Many{i,s});
         end
     end
  end

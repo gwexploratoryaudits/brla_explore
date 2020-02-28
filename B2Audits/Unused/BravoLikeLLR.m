@@ -1,9 +1,10 @@
-function LogRatio = LogLikelihoodRatio(k,winnervotes,n,N)
+function ratio = BravoLikeLR(k,winnervotes,n,N)
     %
-    % LogRatio = LogLikelihoodRatio(k,n,N)
-    % This function generates the log-likelihood ratio for a BRAVOLike
-    % audit without using the hypergeometric function. 
-    % Error checking to avoid log(0) should be done outside this function. 
+    % ratio = BravoLikeLR(k,n,N)
+    % This function generates the likelihood ratio for a BRAVOLike
+    % audit without using the hypergeometric function.
+    % We don't use it because it does not work well for a large
+    % election. Use the log likelihood ration from BravoLikeLLR instead. 
     %------------
     %Input: 
     %   k:              number of votes for winner
@@ -11,12 +12,12 @@ function LogRatio = LogLikelihoodRatio(k,winnervotes,n,N)
     %   N:              total number of votes
     %----------
     % Output:
-    % LogRatio:         log-likelihood ratio
+    % ratio:            likelihood ratio
 
     % The formula is: 
-    % sum_{i=0}^{k-1} [log(winnervotes-i)-log(winnerhalf-i)] 
-    % +
-    % sum_{i=0}^{n-k-1} [log(N-winnervotes-i)-log(loserhalf-i)] 
+    % product_{i=0}^{k-1} (winnervotes-i)/(winnerhalf-i) 
+    % times
+    % product_{i=0}^{n-k-1} (N-winnervotes-i)/(loserhalf-i) 
     % where winnerhalf is N/2 or (N-1)/2 and loserhalf is N/2 or (N+1)/2
     % when N is even or odd respectively.
     
@@ -32,13 +33,13 @@ function LogRatio = LogLikelihoodRatio(k,winnervotes,n,N)
     loservotes = N-winnervotes;
     
     %Initialize
-    LogRatio = 0;
+    ratio = 1;
     
     for i=0:k-1
-        LogRatio = LogRatio+log(winnervotes-i)-log(winnerhalf-i);
+        ratio = ratio*((winnervotes-i)/(winnerhalf-i));
     end
     for i=0:n-k-1
-        LogRatio = LogRatio+ log(loservotes-i)-log(loserhalf-i);
+        ratio = ratio*((loservotes-i)/(loserhalf-i));
     end
 end
 
