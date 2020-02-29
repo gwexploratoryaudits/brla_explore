@@ -2,8 +2,9 @@ function kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
      RiskSched_prev, CurrentTierStop, CurrentTierRisk, n_next, audit_method)
     % Testing in progress
     %
-    % kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
-    % RiskSched_prev, CurrentTierStop, CurrentTierRisk, n_next, audit_method)
+    % kminNext = ... 
+    % AthenaNextkmin(alpha, delta, StopSched_prev, RiskSched_prev, ...
+    %           CurrentTierStop, CurrentTierRisk, n_next, audit_method)
     %
     % Athena next kmin value for given (single) cumulative n_next. 
     % beta = 0; sampling may be with or without replacement as CurrentTier, 
@@ -14,17 +15,17 @@ function kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
     % -----------
     %
     % Input: 
-	%   margin:             fractional margin; needed only for Athena
+	%   margin:             fractional margin; only for Athena
     %   alpha:              fractional risk limit
-    %   delta:              LR stopping condition; needed only for Athena
+    %   delta:              LR stopping condition; only for Athena
     %	StopSched_prev:     previous non-cumulative stopping prob. 
     %                               sched; needed only for Metis
     %	RiskSched_prev:     previous non-cumulative Risk Schedule; 
     %                               needed only for Metis
-    %	CurrentTierStop:	current winner vote distribution for margin; 
+    %	CurrentTierStop:	current winner vote distribution for p; 
     %	CurrentTierRisk:	current winner vote distribution for tied 
     %                               election; 
-	%   n_next:             single cumulative round size
+	%   n_in:               single cumulative round size
 	%   audit_method:       string, one of: Athena, Minerva, Metis
     %                       Athena and Minerva have the same p_values for 
     %                       the same kmins, but their kmins are, in 
@@ -36,10 +37,12 @@ function kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
     %
     % Output: 
     %	kmin_next:          single Athena kmin value corresponding to 
-    %                           n_next. kmin_next = n_next+1 implies 
-    %                           n_next notlarge enough and kmin_next not 
-    %                           found. 
+    %                           n_next if found = 0. Junk otherwise. 
+    %   found:              0 if found, 1 else
     %
+    
+    % Initialize found
+    found = 0;
     
     % --------- Allocate arrays for tails -----------%
     TailStop = zeros(1, size(CurrentTierStop-1, 2));
@@ -63,7 +66,7 @@ function kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
         % kmin = k
         
         if size(Valid_k,2) == 0 % no value of k works
-            kmin_next=n_next + 1;
+            found = 1;
             break
         else
             % there is a value of k that works. Ensure it is larger than 
@@ -73,9 +76,10 @@ function kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
             
             % If Athena, check LR
             if strcmp(audit_method,'Athena') && ...
-                klog(1+margin)+(n-k)log(1-margin) < -log(delta) 
-                % Audit type is Athena but LR condition not satisfied
-                kmin_next = n_next+1;
+                ((klog(1+margin)+(n-k)log(1-margin)) < -log(delta)) 
+                % Athena LR not satisfied
+                found = 1;
+                kmin_next = 0;
                 break
             end
             % kmin_next satisfies Athena/Minerva
@@ -87,7 +91,7 @@ function kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
         Valid_k = find(alpha*(sum(StopSched_prev)+ TailStop) ...
             >= (sum(RiskSched_prev) + TailRisk));
         if size(Valid_k,2) == 0 % Metis condition not satisfied
-            kmin_next=n_next+1;
+            found = 1;
             break
         else
             % Metis condition met
