@@ -1,4 +1,5 @@
-function p_value = p_value(margin, StopSched, RiskSched, n, k, audit_method)
+function p_value = p_value(margin, StopSched_prev, RiskSched_prev, ...
+    CurrentTierStop, CurrentTierRisk, n, k, audit_method)
     %
     % pvalue = p_value(margin, n_prev, kmin_prev, n, k, audit_method)
     % This function returns the pvalue for the current round of an audit. 
@@ -6,14 +7,19 @@ function p_value = p_value(margin, StopSched, RiskSched, n, k, audit_method)
     % In particular, BRAVO is not an option for audit method. 
     %
     % Input Values
-    %       margin:         election margin as a fraction
-    %       StopSched:      current non-cumulative stopping prob. sched; 
-    %                           not needed for Arlo
-    %       RiskSched:      current non-cumulative Risk Schedule; not 
-    %                           needed for Arlo
-    %       n:              current (single) cumulative round size
-    %       k:              current (single) cumulative number of ballots 
-    %                           for the winner
+    %       margin:             election margin as a fraction; needed only 
+    %                               for Arlo
+    %       StopSched_prev:     previous non-cumulative stopping prob. 
+    %                               sched; needed only for Metis
+    %       RiskSched_prev:     previous non-cumulative Risk Schedule; 
+    %                               needed only for Metis
+    %       CurrentTierStop:	current winner vote distribution for p; not
+    %                               needed for Arlo
+    %       CurrentTierRisk:	current winner vote distribution for tied 
+    %                               election; not needed for Arlo
+    %       n:                  current (single) cumulative round size
+    %       k:                  current (single) cumulative number of 
+    %                               ballots for the winner
     %       audit_method:   string, one of: Arlo, Athena, Minerva, Metis
     %                           Athena and Minerva have the same p_values 
     %                           for the same kmins and CurrentTier, but 
@@ -21,7 +27,6 @@ function p_value = p_value(margin, StopSched, RiskSched, n, k, audit_method)
     %                           the same round sizes because their stopping 
     %                           conditions are distinct. 
     %
-    % THIS IS CURRENTLY ONLY FOR SAMPLING WITH REPLACEMENT. 
     %
     %----------
     %
@@ -38,21 +43,26 @@ function p_value = p_value(margin, StopSched, RiskSched, n, k, audit_method)
     logqoverhalf = log((1-p)/0.5);
     NumberRounds = size(StopSched,2);
     
-    % Arlo does not need stopping or probability schedules
+    % Arlo does not need stopping or probability schedules. 
     if strcmp(audit_method,'Arlo')
+        % Compute p value in log domain first. 
         p_value = exp(-logpoverhalf*k - logqoverhalf*(n-k));
     else        
-        % pvalue is defined differently for different audits: 
+        % pvalue is defined differently for different audits, but all 
+        % except Arlo need computation of the tails for this round. 
+        TailStop = sum(CurrentTierStop(k+1:size(CurrentTierStop,2)));
+        TailRisk = sum(CurrentTierRisk(k+1:size(CurrentTierRisk,2)));
         if strcmp(audit_method, 'Metis')
-            % p_value is the ratio of total risk to total stopping probability
-            StopValues = CumDistFunc(StopSched);
-            RiskValues = CumDistFunc(RiskSched);
-            p_value = RiskValues(NumberRounds)/StopValues(NumberRounds);
+            % p_value is the ratio of total risk to total stopping 
+            % probability for all rounds. 
+            StopValue = sum(StopSched_prev)+TailStop;
+            RiskValue = sum(RiskSched_prev)+TailRisk;
+            p_value = RiskValue/StopValue;
         else
             % audit_method is either Athena or Minerva, and p_value is
-            % the ratio of the risk of current round to stopping 
-            % probability of current round
-            p_value = RiskSched(NumberRounds)/StopSched(NumberRounds);
+            % the ratio of the risk tail to the stopping probability tail
+            % for current round only. 
+            p_value = TailRisk/TailStop;
         end
     end
 end

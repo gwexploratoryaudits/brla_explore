@@ -12,6 +12,13 @@ function [RiskSched, RiskValue, ExpectedBallots] = R2RisksConvolution(margin, N,
     %       round-by-round risk schedule
     %       total risk
     %       number of expected ballots drawn (for this case, a sanity check)
+    % Does not use Fourier transform. A more efficient convolution, written
+    % using Fourier Transforms, only for sampling with replacement, may be 
+    % computed using R2RisksWithReplacement in Athena folder. 
+    %
+    % Note also that the computation of the new pdf is not really a 
+    % convolution when sampling without replacement, and hence the 
+    % Fourier Transform is not useful in that case. 
     %----------
     % Input Values: 
     %   margin:         announced margin as a fraction for stopping probs;

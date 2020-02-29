@@ -1,27 +1,34 @@
- function kminNext = ...
-     AthenaNextkmin(alpha, delta, StopSched, RiskSched, n_in, audit_method)
+ function [kminNext, found] = ...
+     AthenaNextkmin(alpha, delta, CurrentTierStop, CurrentTierRisk, ...
+     StopSched_prev, RiskSched_prev, n_in, audit_method)
     % Testing in progress
     %
-    % kminNext = ... 
-    % AthenaNextkmin(alpha, delta, StopSched, RiskSched, n_in, audit_method)
+    % [kminNext, found] = ... 
+    % AthenaNextkmin(alpha, delta, CurrentTier, StopSched, RiskSched, n_in, audit_method)
     %
     % Athena next kmin value for given (single) cumulative n_in. Has to be
-    % for a second or later round. That is, we are certain that it has a 
-    % non-zero cumulative stopping probability. 
-    % beta = 0; sampling may be with or without replacement as StopSched 
-    % and RiskSched capture that information. For the same reason, margin 
-    % not needed. 
-    % Neither Arlo nor Bravo is an option for audit_method. 
+    % for a second or later round. That is, StopSched_prev and 
+    % RiskSched_prev are not null arrays. 
+    % beta = 0; sampling may be with or without replacement as CurrentTier, 
+    % StopSched and RiskSched capture that information. For the same 
+    % reason, margin is not needed. 
+    % Neither Arlo nor Bravo is an option for audit_method. R2BRAVOkmin 
+    % should be used instead. 
     %
     % -----------
     %
     % Input: 
-    %   alpha:          fractional risk limit
-    %   delta:          LR stopping condition for Athena
-    %	StopSched:      current non-cumulative stopping prob. sched
-    %	RiskSched:      current non-cumulative Risk Schedule
-    %   n_in:           single cumulative round size
-	%   audit_method:   string, one of: Athena, Minerva, Metis
+    %   alpha:              fractional risk limit
+    %   delta:              LR stopping condition; only for Athena
+    %	StopSched_prev:     previous non-cumulative stopping prob. 
+    %                               sched; needed only for Metis
+    %	RiskSched_prev:     previous non-cumulative Risk Schedule; 
+    %                               needed only for Metis
+    %	CurrentTierStop:	current winner vote distribution for p; 
+    %	CurrentTierRisk:	current winner vote distribution for tied 
+    %                               election; 
+	%   n_in:               single cumulative round size
+	%   audit_method:       string, one of: Athena, Minerva, Metis
     %                       Athena and Minerva have the same p_values for 
     %                       the same kmins, but their kmins are, in 
     %                       general, distinct for the same round sizes
@@ -32,8 +39,8 @@
     %
     % Output: 
     %	kmin:           single Athena kmin value corresponding to n_in
+    %   found:          0 if not found, 1 else
     %
-    % -----------
 
     %-------------Preliminaries--------------
     % p is fractional vote for winner 
