@@ -41,13 +41,11 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
     
     % Book keeping
     NumberRounds = size(StopSched,2);
-	
-    % Compute LR value in log domain first.
-	LR = exp(log(1+margin)*k + log(1-margin)*(n-k));
-    
+    LR = exp(-log(1+margin)*k - log(1-margin)*(n-k));
     % Arlo does not need stopping or probability schedules. 
     if strcmp(audit_method,'Arlo')
-        p_value = 1/LR;
+        % Compute p value in log domain first. 
+        p_value = exp(-log(1+margin)*k - log(1-margin)*(n-k));
     else        
         % pvalue is defined differently for different audits, but all 
         % except Arlo need computation of the tails for this particular 
@@ -57,9 +55,9 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
         if strcmp(audit_method, 'Metis')
             % p_value is the ratio of total risk over all rounds to total 
             % stopping probability for all rounds. 
-            TotalStop = sum(StopSched_prev)+TailStop;
-            TotalRisk = sum(RiskSched_prev)+TailRisk;
-            p_value = TotalRisk/TotalStop;
+            StopValue = sum(StopSched_prev)+TailStop;
+            RiskValue = sum(RiskSched_prev)+TailRisk;
+            p_value = RiskValue/StopValue;
         else
             % audit_method is either Athena or Minerva, and p_value is
             % the ratio of the risk tail to the stopping probability tail
