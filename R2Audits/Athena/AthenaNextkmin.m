@@ -14,7 +14,7 @@ function kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
     % -----------
     %
     % Input: 
-	%   margin:             fractional margin; needed only for Athena
+    % margin:             fractional margin; needed only for Athena
     %   alpha:              fractional risk limit
     %   delta:              LR stopping condition; needed only for Athena
     %	StopSched_prev:     previous non-cumulative stopping prob. 
@@ -24,8 +24,8 @@ function kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
     %	CurrentTierStop:	current winner vote distribution for margin; 
     %	CurrentTierRisk:	current winner vote distribution for tied 
     %                               election; 
-	%   n_next:             single cumulative round size
-	%   audit_method:       string, one of: Athena, Minerva, Metis
+    %   n_next:             single cumulative round size
+    %   audit_method:       string, one of: Athena, Minerva, Metis
     %                       Athena and Minerva have the same p_values for 
     %                       the same kmins, but their kmins are, in 
     %                       general, distinct for the same round sizes
@@ -43,18 +43,18 @@ function kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
     
     % --------- Allocate arrays for tails -----------%
     TailStop = zeros(1, size(CurrentTierStop-1, 2));
-    TailRisk = zeros(1, size(CurrentTierRisk-1, 2)); 
+    TailRisk = zeros(1, size(CurrentTierRisk-1, 2));
     
-	% ----------Compute tails --------%
-	% MATLAB indexes arrays beginning at 1. Thus CurrentTier(k+1) 
-	% corresponds to the probability of k votes. 
-	for k=1:size(TailStop,2)
+    % ----------Compute tails --------%
+    % MATLAB indexes arrays beginning at 1. Thus CurrentTier(k+1) 
+    % corresponds to the probability of k votes. 
+    for k=1:size(TailStop,2)
         TailStop(k) = sum(CurrentTierStop(k+1:size(CurrentTierStop,2)));
         TailRisk(k) = sum(CurrentTierRisk(k+1:size(CurrentTierRisk,2)));
-	end
-
-	% ----------------- kmin computations -------------------%
-	if strcmp(audit_method,'Athena') || strcmp(audit_method,'Minerva') 
+    end
+    
+    % ----------------- kmin computations -------------------%
+    if strcmp(audit_method,'Athena') || strcmp(audit_method,'Minerva') 
         % Athena/Minerva p-value check is identical for a given distribution 
         % and value of k: the ratio of the right tails of the stopping 
         % probability and risk distributions. 
