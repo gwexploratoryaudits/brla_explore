@@ -1,8 +1,8 @@
-function kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
+function kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
      RiskSched_prev, CurrentTierStop, CurrentTierRisk, n_next, audit_method)
     % Testing in progress
     %
-    % kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
+    % kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
     % RiskSched_prev, CurrentTierStop, CurrentTierRisk, n_next, audit_method)
     %
     % Athena next kmin value for given (single) cumulative n_next. 
@@ -37,7 +37,7 @@ function kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
     % Output: 
     %	kmin_next:          single Athena kmin value corresponding to 
     %                           n_next. kmin_next = n_next+1 implies 
-    %                           n_next notlarge enough and kmin_next not 
+    %                           n_next not large enough and kmin_next not 
     %                           found. 
     %
     
@@ -51,11 +51,11 @@ function kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
 	for k=1:size(TailStop,2)
         TailStop(k) = sum(CurrentTierStop(k+1:size(CurrentTierStop,2)));
         TailRisk(k) = sum(CurrentTierRisk(k+1:size(CurrentTierRisk,2)));
-    end
+	end
 
-	% ----------- kmins through computation of p values -----%
+	% ----------------- kmin computations -------------------%
 	if strcmp(audit_method,'Athena') || strcmp(audit_method,'Minerva') 
-        % Athena/Minerva p-values are identical for a given distribution 
+        % Athena/Minerva p-value check is identical for a given distribution 
         % and value of k: the ratio of the right tails of the stopping 
         % probability and risk distributions. 
         Valid_k = find(alpha*(TailStop) >= (TailRisk));
@@ -69,7 +69,7 @@ function kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
             % there is a value of k that works. Ensure it is larger than 
             % ceil(n_next/2)
             kmin_next = max(Valid_k(1), ceil(n_next/2)+1);
-            % kmin_next now works for Minerva
+            % kmin_next done for Minerva
             
             % If Athena, check LR
             if strcmp(audit_method,'Athena') && ...
@@ -80,12 +80,14 @@ function kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
             end
             % kmin_next satisfies Athena/Minerva
         end
+        
 	else % this is Metis
         % Test only Metis p-value, no LR test for Metis. 
         % Metis test compares the sums of right tails, including right 
         % tails from previous rounds
         Valid_k = find(alpha*(sum(StopSched_prev)+ TailStop) ...
             >= (sum(RiskSched_prev) + TailRisk));
+        
         if size(Valid_k,2) == 0 % Metis condition not satisfied
             kmin_next=n_next+1;
             break
@@ -94,6 +96,7 @@ function kminNext = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
             % kmin must be larger than ceil(n_prev/2)
             kmin_next = max(Valid_k(1), ceil(n_prev/2)+1);
         end
+        
     end 
 end
 
