@@ -4,9 +4,10 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
     % [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
     %           CurrentTierStop, CurrentTierRisk, n, k, audit_method)
     %
-    % This function returns the pvalue for the current round of an audit. 
-    % Obviously, don't use this for large ballot-by-ballot audits. 
-    % In particular, BRAVO is not an option for audit method. 
+    % This function returns the pvalue and the likelihood ratio for the 
+    % current round of an audit. Likelihood ratio is the inverse of the 
+    % `delta-value' used for Athena. This function returns it for 
+    % all audit methods, but checks against delta only for Arlo. 
     %
     % Input Values
     %       margin:             election margin as a fraction; needed only 
