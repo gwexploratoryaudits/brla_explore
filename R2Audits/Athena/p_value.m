@@ -15,8 +15,8 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
     %                               sched; needed only for Metis
     %       RiskSched_prev:     previous non-cumulative Risk Schedule; 
     %                               needed only for Metis
-    %       CurrentTierStop:	current winner vote distribution for p; not
-    %                               needed for Arlo
+    %       CurrentTierStop:	current winner vote distribution for 
+    %                           margin; not needed for Arlo
     %       CurrentTierRisk:	current winner vote distribution for tied 
     %                               election; not needed for Arlo
     %       n:                  current (single) cumulative round size
@@ -57,9 +57,8 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
         if strcmp(audit_method, 'Metis')
             % p_value is the ratio of total risk over all rounds to total 
             % stopping probability for all rounds. 
-            TotalStop = sum(StopSched_prev)+TailStop;
-            TotalRisk = sum(RiskSched_prev)+TailRisk;
-            p_value = TotalRisk/TotalStop;
+            p_value = (sum(RiskSched_prev)+TailRisk)/...
+                (sum(StopSched_prev)+TailStop);
         else
             % audit_method is either Athena or Minerva, and p_value is
             % the ratio of the risk tail to the stopping probability tail
