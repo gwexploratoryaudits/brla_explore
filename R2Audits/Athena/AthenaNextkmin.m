@@ -14,7 +14,7 @@ function kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
     % -----------
     %
     % Input: 
-    % margin:             fractional margin; needed only for Athena
+    %	margin:             fractional margin; needed only for Athena
     %   alpha:              fractional risk limit
     %   delta:              LR stopping condition; needed only for Athena
     %	StopSched_prev:     previous non-cumulative stopping prob. 
@@ -80,8 +80,7 @@ function kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
             end
             % kmin_next satisfies Athena/Minerva
         end
-        
-	else % this is Metis
+    else % this is Metis
         % Test only Metis p-value, no LR test for Metis. 
         % Metis test compares the sums of right tails, including right 
         % tails from previous rounds
