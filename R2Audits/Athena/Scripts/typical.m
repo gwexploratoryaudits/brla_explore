@@ -3,14 +3,19 @@ i = i+1;
 n_in(i)= input('Total relevant ballots drawn: ');
 k_all(i)= input('Total winner ballots drawn: ');
 
+% If this is the first round need audit parameters
 if i == 1
     % insert parameters of choice
     fprintf('This is the first round of the audit, enter audit parameters \n')
     margin = input('Margin as a fraction: ');
     alpha = input('Risk limit, alpha, as a fraction: ');
-    delta= input('delta value for Athena: ');
     audit_method = input('audit method as a string: ');
-    % parameters below are fixed
+    if strcmp(audit_method,'Athena')
+        delta= input('delta value for Athena: ');
+    else
+        delta = [];
+    end
+    % Initialization parameters below are fixed
     currently_drawn_ballots = 0;
     CurrentTierStop = (1);
     CurrentTierRisk = (1);
@@ -30,10 +35,8 @@ CurrentTierRisk = R2CurrentTier(0,CurrentTierRisk,this_draw);
 
 % Compute kmin
 if strcmp(audit_method,'Arlo')
-    [~, ~, ~, kmin(i)] = R2BRAVOkmin(margin, alpha, n_in(i));
-    if kmin(i) == [] % round not large enough for decision
-        kmin(i) = n_in(i)+1;
-    end
+    [slope, intercept, ~, ~] = R2BRAVOkmin(margin, alpha, n_in(i));
+    kmin(i) = ceil(slope*n_in(i)+intercept);
 else
     kmin(i) = AthenaNextkmin(margin, alpha, delta, StopSched, RiskSched, ...
         CurrentTierStop, CurrentTierRisk, n_in(i), audit_method);
