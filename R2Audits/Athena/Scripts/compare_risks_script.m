@@ -1,8 +1,11 @@
+% This script was used to check values in 
+% https://github.com/filipzz/athena/blob/master/code/athena/test_athena.json
+% They check out, for both values of margin
 margin = 0.1;
+% margin = 0.2903;
 alpha = 0.1;
 delta=1;
 n_in = [193, 332, 587];
-k_all = [58];
 NumberRounds=size(n_in,2);
 
 % Compute kmins
