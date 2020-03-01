@@ -64,21 +64,18 @@ function kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
         
         if size(Valid_k,2) == 0 % no value of k works
             kmin_next=n_next + 1;
-            break
         else
             % there is a value of k that works. Ensure it is larger than 
             % ceil(n_next/2)
             kmin_next = max(Valid_k(1), ceil(n_next/2)+1);
             % kmin_next done for Minerva
-            
+      
             % If Athena, check LR
-            if strcmp(audit_method,'Athena') && ...
-                klog(1+margin)+(n-k)log(1-margin) < -log(delta) 
-                % Audit type is Athena but LR condition not satisfied
-                kmin_next = n_next+1;
-                break
+            if strcmp(audit_method,'Athena') 
+                %Compute Arlo kmin for risk limit delta
+                km = ceil((-log(delta) - n_next*log(1-margin))/log((1+margin)/(1-margin)));
+                kmin_next = max(kmin_next, km);
             end
-            % kmin_next satisfies Athena/Minerva
         end
     else % this is Metis
         % Test only Metis p-value, no LR test for Metis. 
@@ -89,11 +86,10 @@ function kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
         
         if size(Valid_k,2) == 0 % Metis condition not satisfied
             kmin_next=n_next+1;
-            break
         else
             % Metis condition met
             % kmin must be larger than ceil(n_prev/2)
-            kmin_next = max(Valid_k(1), ceil(n_prev/2)+1);
+            kmin_next = max(Valid_k(1), ceil(n_next/2)+1);
         end
         
     end 

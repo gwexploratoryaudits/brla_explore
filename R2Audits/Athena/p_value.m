@@ -41,7 +41,7 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
     %----------
     
     % Book keeping
-    NumberRounds = size(StopSched,2);
+    NumberRounds = size(StopSched_prev,2);
 	
     % Compute LR value in log domain first.
 	LR = exp(log(1+margin)*k + log(1-margin)*(n-k));
