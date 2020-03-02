@@ -3,7 +3,7 @@ i = i+1;
 n_in(i)= input('Total relevant ballots drawn: ');
 k_all(i)= input('Total winner ballots drawn: ');
 
-% If this is the first round need audit parameters
+% If this is the first round, need audit parameters
 if i == 1
     % insert parameters of choice
     fprintf('This is the first round of the audit, enter audit parameters \n')
@@ -35,9 +35,14 @@ CurrentTierRisk = R2CurrentTier(0,CurrentTierRisk,this_draw);
 
 % Compute kmin
 if strcmp(audit_method,'Arlo')
+    % R2BRAVOkmin returns first value for which round is large enough; 
+    % this does not suffice for us as our round may be too small. Best 
+    % compute slope and intercept to compute kmin, which could be larger 
+    % than n. 
     [slope, intercept, ~, ~] = R2BRAVOkmin(margin, alpha, n_in(i));
     kmin(i) = ceil(slope*n_in(i)+intercept);
 else
+    % AthenaNextkmin returns n+1 if kmin larger than n
     kmin(i) = AthenaNextkmin(margin, alpha, delta, StopSched, RiskSched, ...
         CurrentTierStop, CurrentTierRisk, n_in(i), audit_method);
 end
