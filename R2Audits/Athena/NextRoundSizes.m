@@ -1,4 +1,4 @@
-function next_rounds = NextRoundSizes(margin, alpha, delta, ...
+function [next_rounds, n, kmin, Stopping] = NextRoundSizes(margin, alpha, delta, ...
      StopSched_prev, RiskSched_prev, CurrentTierStop, CurrentTierRisk, ... 
      n_last, k_last, percentiles, max_draws, audit_method)
     % WIP
@@ -31,15 +31,20 @@ function next_rounds = NextRoundSizes(margin, alpha, delta, ...
     % -------------------------Outputs---------------------------
     %
     %       next_rounds:        new draw sizes
+    %       n:                  total ballots drawn
+    %       kmin:               corresponding kmin
+    %       Stopping:           corresponding stopping probability
     %
     
-    [n, ~, Stopping] = StopProb(margin, alpha, delta, ...
+    [n, kmin, Stopping] = StopProb(margin, alpha, delta, ...
      StopSched_prev, RiskSched_prev, CurrentTierStop, CurrentTierRisk, ... 
      n_last, k_last, max_draws, audit_method);
  
-    % Find value of n(j) so that Stopping(j) >= percentiles for all i >=j
-    
-    
+    % Find value of j0 so that Stopping(j0) >= percentiles for all j >=j0
+    for i=1:size(percentiles,2)
+        kValue = find(Stopping < percentiles(1,i));
+        next_rounds(i) = kValue(size(kValue,2))+1;
+    end
 end
 
 

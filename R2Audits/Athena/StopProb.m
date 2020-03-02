@@ -37,13 +37,14 @@ function [n, kmin, Stopping] = StopProb(margin, alpha, delta, ...
     % assumed fraction of winner votes
     p = (1+margin)/2;
 
-    % possible new ballots drawn
+    % possible new total sample size
     n = (n_last+1:max_draws);
 
     % initialize probabilities to zero
     Stopping = zeros(1, max_draws-n_last);
 
     for j=1:max_draws-n_last
+        % j is number of new ballots drawn
         NextTierStop = R2CurrentTier(margin,CurrentTierStop,j);
         NextTierRisk = R2CurrentTier(0,CurrentTierRisk,j);
     
@@ -63,7 +64,7 @@ function [n, kmin, Stopping] = StopProb(margin, alpha, delta, ...
         if kmin(j) <= n(j)
             % Round is large enough for  non-zero stopping probability. 
             % Compute binomial cdf for kmin(j) - k_last
-            Stopping(j) = binocdf(kmin(j)-k_last-1,n(j),p, 'upper');
+            Stopping(j) = 1-binocdf(kmin(j)-k_last-1,j,p);
         end
     end
 end
