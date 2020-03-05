@@ -39,8 +39,11 @@ function [n, kmin, Stopping] = StopProb(margin, alpha, delta, ...
 
     % possible new total sample size
     n = (n_last+1:max_draws);
+    
+    % allocate kmin
+    kmin = zeros(1, size(n,2));
 
-    % initialize probabilities to zero
+    % allocate and initialize probabilities to zero
     Stopping = zeros(1, max_draws-n_last);
     
     if strcmp(audit_method,'Arlo')

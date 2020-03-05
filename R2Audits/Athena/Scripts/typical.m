@@ -1,4 +1,4 @@
-% script for ith round. Set i=0 and then begin script. 
+% interface script for ith round. Set i=0 and then begin script. 
 i = i+1;
 n_in(i)= input('Total relevant ballots drawn: ');
 k_all(i)= input('Total winner ballots drawn: ');
