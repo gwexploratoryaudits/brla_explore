@@ -1,4 +1,4 @@
-% very basic script to compute Arlo first round values for a single state
+% very basic script to compute Athena first round values for a single state
 % also comparing to Filip's
 % for margins smaller than 5%
 
@@ -15,30 +15,30 @@ for i=3
     
     % factor to scale raw values by to obtain approx round sizes
     factor = total_ballots/total_relevant_ballots;
-    [next_rounds(i), ~, ~, ~]  = NextRoundSizes(margin, 0.1, 1.0, (0), (0), (1), (1), 0, 0, (0.9), 10000, 'Arlo');
+    [next_rounds(i), ~, ~, ~]  = NextRoundSizes(margin, 0.1, 1.0, (0), (0), (1), (1), 0, 0, (0.9), 10000, 'Athena');
     % if 10000 not large enough; try 15000
     if next_rounds(i) >= 10000
-        [next_rounds(i), ~, ~, ~]  = NextRoundSizes(margin, 0.1, 1.0, (0), (0), (1), (1), 0, 0, (0.9), 15000, 'Arlo');
+        [next_rounds(i), ~, ~, ~]  = NextRoundSizes(margin, 0.1, 1.0, (0), (0), (1), (1), 0, 0, (0.9), 15000, 'Athena');
     end
-    election_results.(states{i}).contests.presidential.Arlo_pv_raw = next_rounds(i);
+    election_results.(states{i}).contests.presidential.Athena_pv_raw = next_rounds(i);
 	next_rounds_scaled(i) = ceil(factor*next_rounds(i));
-	election_results.(states{i}).contests.presidential.Arlo_pv_scaled = next_rounds_scaled(i);
+	election_results.(states{i}).contests.presidential.Athena_pv_scaled = next_rounds_scaled(i);
 end
 
-% Filip's arlo file
-fname2='2016_one_round_arlo.json';
-Arlo_rounds = jsondecode(fileread(fname2));
-tests = fieldnames(Arlo_rounds);
+% Filip's athena file
+fname2='2016_one_round_athena.json';
+Athena_rounds = jsondecode(fileread(fname2));
+tests = fieldnames(Athena_rounds);
 for i=3
-    fz(i) = Arlo_rounds.(tests{i}).expected.round_candidates
+    fz(i) = Athena_rounds.(tests{i}).expected.round_candidates
 end
 
-% Write Filip's Arlo values to our structure
+% Write Filip's Athena values to our structure
 for i=3
-    election_results.(states{i}).contests.presidential.Arlo_fz = fz(i);
+    election_results.(states{i}).contests.presidential.Athena_fz = fz(i);
 end
 
-% Write all these into one file. 
+% Write all these into the original file. 
 txt = jsonencode(election_results);
 fname3 = '2016_one_round_all.json';
 fid = fopen(fname3, 'w');
