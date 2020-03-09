@@ -1,4 +1,5 @@
-% very basic script to compute Minerva first round values
+% very basic script to compute Metis first round values, which should be
+% identical to Minerva first round values
 % for the moment, only margin >= 5%
 fname='2016_one_round_all.json';
 election_results = jsondecode(fileread(fname));
@@ -15,18 +16,18 @@ for i=1:size(states,1)
     
     % doing only for 5% or larger margins right now
     if (margin > 0.05)
-        [next_rounds(i), ~, ~, ~]  = NextRoundSizes(margin, 0.1, 1.0, (0), (0), (1), (1), 0, 0, (0.9), 1500, 'Minerva');
+        [next_rounds(i), ~, ~, ~]  = NextRoundSizes(margin, 0.1, 1.0, (0), (0), (1), (1), 0, 0, (0.9), 1500, 'Metis');
         
         % if 1500 not enough, 6000 we have found is
         if next_rounds(i) > 1500
-            [next_rounds(i), ~, ~, ~]  = NextRoundSizes(margin, 0.1, 1.0, (0), (0), (1), (1), 0, 0, (0.9), 6000, 'Minerva');
+            [next_rounds(i), ~, ~, ~]  = NextRoundSizes(margin, 0.1, 1.0, (0), (0), (1), (1), 0, 0, (0.9), 6000, 'Metis');
         end
         
-        election_results.(states{i}).contests.presidential.Minerva_pv_raw = next_rounds(i);
+        election_results.(states{i}).contests.presidential.Metis_pv_raw = next_rounds(i);
         
         % scale up
         next_rounds_scaled(i) = ceil(factor*next_rounds(i));
-        election_results.(states{i}).contests.presidential.Minerva_pv_scaled = next_rounds_scaled(i);
+        election_results.(states{i}).contests.presidential.Metis_pv_scaled = next_rounds_scaled(i);
     end
 end
 
