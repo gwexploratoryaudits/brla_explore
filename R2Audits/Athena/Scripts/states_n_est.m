@@ -28,6 +28,8 @@ q = 1-p;
 k_a = norminv(1-prob, 0, 1);
 mod_prob = normcdf(k_a, 0, 1, 'upper'); % this is the exact value of tail
 
+k = k_a*sqrt(npq) + pn = k_b*sqrt(0.5*0.5*n) + 0.5*n + 1
+
 % At that point, the risk (tail of the tied election) should be at most 
 % alpha*tail of announced election
 k_b = norminv(1-(alpha*mod_prob), 0, 1);
