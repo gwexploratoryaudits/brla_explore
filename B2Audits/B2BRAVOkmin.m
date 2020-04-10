@@ -3,7 +3,7 @@
     % [kmslope, kmintercept, n, kmin] = B2BRAVOkmin(margin, alpha)
     % Classical BRAVO slope and intercept for linear expression for kmin 
     % in log domain; also computes kmin values. beta assumed zero as 
-    % defined in original BRAVO paper. 
+    % defined in original BRAVO paper. Max value of round size is 6*ASN
     % -----------
     % Input: 
     %   margin:         fractional margin
