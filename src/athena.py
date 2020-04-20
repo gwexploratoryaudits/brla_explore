@@ -1,6 +1,9 @@
 from typing import List
 from scipy.stats import binom
 from scipy.signal import fftconvolve
+from scipy.signal import convolve
+import copy
+from datetime import datetime
 
 class Athena:
     """ Computes an Athena audit.
@@ -47,6 +50,10 @@ class Athena:
         self.pr_Ha_sched = [0] * self.m
         self.risk_sched = [0] * self.m
         self.k_min_sched = [0] * self.m
+
+        # For internal use
+        self.H0_dists = []
+        self.Ha_dists = []
 
     def check_inc_sched(self, sched):
         """ Returns True iff a list of numbers (the schedule) is strictly increasing.
@@ -97,6 +104,7 @@ class Athena:
         rounds' risks.
         """
         
+        time = datetime.now()
         H0_dist = []
         Ha_dist = []
 
@@ -107,12 +115,17 @@ class Athena:
 
             self.decide_k_min(H0_dist, Ha_dist, i)
 
-            self.truncate_dist(H0_dist, i)
-            self.truncate_dist(Ha_dist, i)
+            #self.truncate_dist(H0_dist, i)
+            H0_dist = H0_dist[:self.k_min_sched[i]]
+            #self.truncate_dist(Ha_dist, i)
+            Ha_dist = Ha_dist[:self.k_min_sched[i]]
         
-        print("The outputs: k_mins, LR denominator, LR numerator, 1 / LR (or alpha').")
-        print(self.k_min_sched, '\n', self.pr_H0_sched, '\n', self.pr_Ha_sched, '\n', 
-            self.risk_sched)
+        #print("The outputs: k_mins, LR denominator, LR numerator, 1 / LR (or alpha').")
+        #print(self.k_min_sched, '\n', self.pr_H0_sched, '\n', self.pr_Ha_sched, '\n', 
+            #self.risk_sched)
+        print("Output suppressed. Use instance variables k_min_sched, pr_H0_sched, pr_Ha_sched, risk_sched")
+
+        print("Time elapsed:", datetime.now() - time)
 
     def next_round_dist(self, H0, dist, rnd_index):
         """ Calculates the distribution of the next round.
@@ -147,8 +160,9 @@ class Athena:
         if rnd_index == 0:
             return draws_dist
         else:
-            return fftconvolve(dist, draws_dist)
-    
+            return convolve(dist, draws_dist, method='direct')
+            #return fftconvolve(dist, draws_dist)
+
     def decide_k_min(self, H0_dist, Ha_dist, rnd_index):
         """ Decides the k_min of the round subject to the likelihood ratio constraint.
 
@@ -162,17 +176,41 @@ class Athena:
             rnd_index (int): The index of the round. The first round has rnd_index 0.
         """
 
-        for k in range(self.round_sched[rnd_index] // 2 + 1, self.round_sched[rnd_index]):
+        self.H0_dists.append(copy.deepcopy(H0_dist))
+        self.Ha_dists.append(copy.deepcopy(Ha_dist))
+        #print("Deciding kmin for round index", rnd_index)
 
+        # If you change the end bound to len(H0_dist) then that's an issue
+
+        for k in range(self.round_sched[rnd_index] // 2 + 1, self.round_sched[rnd_index] + 1):
+            #print("kmin?:", k)
             LR_num = 0
             LR_denom = 0
-
-            for i in range(k, self.round_sched[rnd_index]):
+            for i in range(k, len(H0_dist)):
                 LR_num += Ha_dist[i]
                 LR_denom += H0_dist[i]
+            
+            delta = 1
 
+            # FOR METIS
             #if (LR_num + self.pr_Ha_sched[max(rnd_index-1, 0)])/ (LR_denom + self.pr_H0_sched[max(rnd_index-1, 0)])> 1 / self.alpha:
-            if LR_num / LR_denom > 1 / self.alpha:
+
+            # FOR ATHENA
+            #if LR_num / LR_denom > 1 / self.alpha and Ha_dist[k] > delta * H0_dist[k]:
+            
+            # The case of equality essentially only happens when both sides are 0. Then there's no harm
+            # in calling it a kmin (since it necessarily won't contribute to the risk), in spite of the fact
+            # that the ratio criterion cannot be satisfied because of division by zero.
+            # GRANT COULD ALSO BE DENOM = 0 OR ALPHA NUM > DENOM short circuit
+
+
+
+            # SENTINELS FOR WHEN THERE'S NO KMIN! if we get to the
+            # end of the dist and there's no satisfaction just return SENTINEL
+
+            # FOR MINERVA
+            if self.alpha * LR_num >= LR_denom:
+
                 self.k_min_sched[rnd_index] = k
 
                 cumulative_H0_sched = self.pr_H0_sched[max(rnd_index-1, 0)]
@@ -180,7 +218,11 @@ class Athena:
 
                 self.pr_H0_sched[rnd_index] = LR_denom + cumulative_H0_sched
                 self.pr_Ha_sched[rnd_index] = LR_num + cumulative_Ha_sched
+
+                # FOR MINERVA
                 self.risk_sched[rnd_index] = LR_denom / LR_num
+
+                # FOR METIS
                 #self.risk_sched[rnd_index] = self.pr_H0_sched[rnd_index] / self.pr_Ha_sched[rnd_index]
                 return
 
@@ -196,8 +238,9 @@ class Athena:
             rnd_index (int): The index of the round. The first round has rnd_index 0.
         """
 
-        for i in range(self.k_min_sched[rnd_index], self.round_sched[rnd_index]+1):
-            dist[i] = 0
+        #for i in range(self.k_min_sched[rnd_index], self.round_sched[rnd_index]+1):
+            #dist[i] = 0
+        dist = dist[:self.k_min_sched[rnd_index]]
 
     def next_round(self, H0_dist, Ha_dist, cumulative_sprob):
         """
