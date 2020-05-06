@@ -1,13 +1,13 @@
 function [next_rounds_max, next_rounds_min, n, kmin, Stopping] = RangeNextRoundSizes(margin, alpha, delta, ...
      StopSched_prev, RiskSched_prev, CurrentTierStop, CurrentTierRisk, ... 
      n_last, k_last, percentiles, max_draws, audit_method)
-    % WIP
+    % Done. Begin tests. 
     %
     % next_rounds = FurthestNextRoundSizes(margin, alpha, delta, ...
     % StopSched_prev, RiskSched_prev, CurrentTierStop, CurrentTierRisk, ... 
     % n_last, k_last, percentiles, max_draws, audit_method)
     %
-    % Computes next round sizes for given percentiles. 
+    % Computes range of next round sizes for given percentiles. 
     %
     % ---------------------------Inputs------------------------
     %
@@ -43,7 +43,7 @@ function [next_rounds_max, next_rounds_min, n, kmin, Stopping] = RangeNextRoundS
     %
     % -------------------------Usage------------------------------
     % Use for first round sizes as follows:
-    %   [next_rounds, n, kmin, Stopping] = ...
+    %   [next_rounds_max, next_rounds_min, n, kmin, Stopping] = ...
     %       FurthestNextRoundSizes(margin, alpha, delta, (0), (0), (1), ...
     %           (1), 0, 0, percentiles, max_draws, audit_method)
     % 
