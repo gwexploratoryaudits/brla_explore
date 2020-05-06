@@ -1,6 +1,14 @@
 % very basic script to compute Athena first round p-values for Montgomery
 % County, Ohio, 2020 primary audit
 
+% Input values
+
+% Contests: valid values are 1-9
+races = [1];
+k_in = [10];
+n_in = [14];
+
+% 
 % Read election results and first round predictions
 fname='2020_montgomery_results.json';
 election_results = jsondecode(fileread(fname));
@@ -10,64 +18,20 @@ contests = fieldnames(election_results);
 % Next 9 fields are contests. 
 % For each contest 
 
-for i=1:size(contests)-4
-    votes = election_results.(contests{i+4}).votes;
-    
-    % Find max votes
-    [votes_max, r] = max(votes);
-    
-    % Find second highest votes
-    votes(r) = [];
-    votes_second = max(votes);
-    
-    % Total relevant ballots
-    total_relevant_ballots = votes_max + votes_second;
-    
-    % factor to scale up raw values
-    factor = election_results.total_ballots/total_relevant_ballots;
-    election_results.(contests{i+4}).scale_factor = factor;
-    
-    [next_rounds_max, next_rounds_min, n{i}, kmin{i}, Stopping{i}]  = RangeNextRoundSizes(election_results.(contests{i+4}).margin, alpha, delta, (0), (0), (1), (1), 0, 0, percentiles, max_ballots, 'Athena');
-    next_rounds_max_scaled = ceil(factor*next_rounds_max);
-    next_rounds_min_scaled = ceil(factor*next_rounds_min);
-    n_scaled{i} = ceil(factor*n{i});
-        
-    % For each value in percentiles, note the results in election_results
-    for j=1:size(percentiles,2)
-        election_results.(contests{i+4}).Athena_first_round(j).percentile = percentiles(j);
-        election_results.(contests{i+4}).Athena_first_round(j).raw_max = next_rounds_max(j);
-        election_results.(contests{i+4}).Athena_first_round(j).raw_min = next_rounds_min(j);
-        election_results.(contests{i+4}).Athena_first_round(j).raw_max_scaled = next_rounds_max_scaled(j);
-        election_results.(contests{i+4}).Athena_first_round(j).raw_min_scaled = next_rounds_min_scaled(j);
-    end
-    
-    % write kmins into a different file
-    fname2 = sprintf('2020_montgomery_kmins_%s.txt',(contests{i+4}));
-    fid = fopen(fname2, 'w');
-    if fid == -1, error('Cannot create kmin file'); end
-    fprintf(fid, 'alpha = %4f\n', alpha);
-    fprintf(fid,'%8s \t %8s\n','n','kmin(n)');
-    fprintf(fid, '%8d \t %8d\n',[n{i}; kmin{i}]); 
-    fclose(fid);
+for i=1:size(races)
+    % For each contest in races, find p-value
+    [p_value, LR] = p_value(election_results.(contests{races(i)+4}).margin, ...
+        (0), (0), (1), (1), n_in(i), k_in(i), 'Athena');
+    election_results.(contests{races(i)+4}).test = [n_in(i), k_in(i)];
+    election_results.(contests{races(i)+4}).p_value = p_value;
+    election_results.(contests{races(i)+4}).LR = LR;
 end
 
 % Write election_results back into new file
 txt = jsonencode(election_results);
-fname3 = '2020_montgomery_results.json';
+fname3 = '2020_montgomery_test_pvalues.json';
 fid = fopen(fname3, 'w');
 if fid == -1, error('Cannot create JSON file'); end
 fwrite(fid,txt,'char');
 fclose(fid);
 
-plot(n_scaled{1}, Stopping{1}, 'r--o', n_scaled{2}, Stopping{2}, 'g--+', ...
-    n_scaled{3}, Stopping{3}, 'b--*', n_scaled{4}, Stopping{4}, 'm->', ...
-    n_scaled{5}, Stopping{5}, '-s', n_scaled{6}, Stopping{6}, 'c-^', ...
-    n_scaled{7}, Stopping{7}, 'k-d', n_scaled{8}(1:40), Stopping{8}(1:40), 'r-h', ...
-    n_scaled{9}, Stopping{9}, 'b-v', ...
-    n_scaled{3}, 0.9*ones(size(n_scaled{3})), '-')
-legend('d\_president', 'd\_congress', 'd\_senator', ...
-    'd\_cc\_1\_2\_2021', 'd\_cc\_1\_3\_2021', 'r\_10th', ...
-    'r\_senator', 'r\_42nd', 'r\_cc\_1\_2\_2021')
-xlabel('Sample Size (in total ballots, including irrelevant ones)')
-ylabel('Probability of stopping')
-title('Stopping probability vs. Sample size')
