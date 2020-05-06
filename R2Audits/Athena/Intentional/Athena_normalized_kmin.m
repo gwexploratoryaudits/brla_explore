@@ -1,6 +1,6 @@
  function nkmin = Athena_normalized_kmin(margin, alpha, delta, ...
      resolution, audit_method)
-    % In progress
+    % Intentional, we haven't yet incorporated resolution into this. 
     % nkmin = Athena_normalized_kmin(margin, alpha, delta, ...
     %   resolution, audit_method)
     % Athena normalized kmin values at resolution. 
@@ -52,7 +52,8 @@
         CurrentTierStop = R2CurrentTier(margin,CurrentTierStop,n_in(j)-current_number_ballots);
         CurrentTierRisk = R2CurrentTier(0,CurrentTierRisk,n_in(j)-current_number_ballots);
         kmin(j) = AthenaNextkmin(margin, alpha, delta, StopSched, ...
-     RiskSched, CurrentTierStop, CurrentTierRisk, n_in(j), audit_method);
+                    RiskSched, CurrentTierStop, CurrentTierRisk, ...
+                    n_in(j), audit_method);
  
         if kmin(j) > n_in(j)
             % round not large enough; do not lop off, nothing happens

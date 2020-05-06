@@ -1,28 +1,9 @@
-% very basic script to compute Athena first round values for Montgomery
+% very basic script to compute Athena first round p-values for Montgomery
 % County, Ohio, 2020 primary audit
 
-% Parameters
-alpha = 0.1;
-delta = 1;
-percentiles = [0.7, 0.8, 0.9];
-% raw max
-max_ballots = 100;
-
-% Read election results
-fname='2020_montgomery.json';
+% Read election results and first round predictions
+fname='2020_montgomery_results.json';
 election_results = jsondecode(fileread(fname));
-
-% Delete fields 8, 12, 15 as contests are local and too many ballots 
-% required. 
-election_results = rmfield(election_results, 'd_39th');
-election_results = rmfield(election_results, 'r_judge');
-election_results = rmfield(election_results, 'r_43rd');
-
-% Want to change the names
-election_results = renameStructField(election_results, 'd_primary', 'd_president');
-election_results = renameStructField(election_results, 'd_cc_feb', 'd_cc_1_2_2021');
-election_results = renameStructField(election_results, 'd_cc_mar', 'd_cc_1_3_2021');
-election_results = renameStructField(election_results, 'r_cc_feb', 'r_cc_1_2_2021');
 
 contests = fieldnames(election_results);
 % First four fields are global values for the election. 
@@ -33,22 +14,14 @@ for i=1:size(contests)-4
     votes = election_results.(contests{i+4}).votes;
     
     % Find max votes
-    [votes_max, r(1)] = max(votes);
-    election_results.(contests{i+4}).info.votes_max = votes_max;
-    election_results.(contests{i+4}).info.winner = r(1)-1;
+    [votes_max, r] = max(votes);
     
     % Find second highest votes
-    votes(r(1)) = [];
+    votes(r) = [];
     votes_second = max(votes);
-    election_results.(contests{i+4}).info.votes_second_highest = votes_second;
-    votes = election_results.(contests{i+4}).votes;
-    position = find(votes==votes_second, 1)-1;
-    election_results.(contests{i+4}).info.runnerup = position;
     
     % Total relevant ballots
     total_relevant_ballots = votes_max + votes_second;
-    election_results.(contests{i+4}).info.total_relevant_ballots = ... 
-        total_relevant_ballots;
     
     % factor to scale up raw values
     factor = election_results.total_ballots/total_relevant_ballots;
@@ -61,7 +34,6 @@ for i=1:size(contests)-4
         
     % For each value in percentiles, note the results in election_results
     for j=1:size(percentiles,2)
-        election_results.(contests{i+4}).Athena_first_round(j).alpha = alpha;
         election_results.(contests{i+4}).Athena_first_round(j).percentile = percentiles(j);
         election_results.(contests{i+4}).Athena_first_round(j).raw_max = next_rounds_max(j);
         election_results.(contests{i+4}).Athena_first_round(j).raw_min = next_rounds_min(j);

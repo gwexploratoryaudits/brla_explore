@@ -33,6 +33,9 @@ function [n, kmin, Stopping] = StopProbRanges(margin, alpha, delta, ...
     %       kmin:               corresponding kmin
     %       Stopping:           corresponding stopping probability
     %
+    % --------------
+    %
+    % Need to test this against StopProb
     
     % assumed fraction of winner votes
     p = (1+margin)/2;

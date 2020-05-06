@@ -7,7 +7,8 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
     % This function returns the pvalue and the likelihood ratio for the 
     % current round of an audit. Likelihood ratio is the inverse of the 
     % `delta-value' used for Athena. This function returns LR for 
-    % all audit methods. 
+    % all audit methods. Note that LR depends only on margin, n and k; 
+    % that is, only on variables needed for Arlo p-values. 
     %
     % Input Values
     %       margin:             election margin as a fraction; needed only 
@@ -17,7 +18,7 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
     %       RiskSched_prev:     previous non-cumulative Risk Schedule; 
     %                               needed only for Metis
     %       CurrentTierStop:	current winner vote distribution for 
-    %                           margin; not needed for Arlo
+    %                               margin; not needed for Arlo
     %       CurrentTierRisk:	current winner vote distribution for tied 
     %                               election; not needed for Arlo
     %       n:                  current (single) cumulative round size
