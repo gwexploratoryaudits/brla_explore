@@ -50,7 +50,7 @@ end
 
 % Write election_results back into new file
 %txt = jsonencode(election_results);
-txt = savejson(new_election_results);
+txt = savejson('',new_election_results);
 fname3 = '2020_montgomery_formatted.json';
 fid = fopen(fname3, 'w');
 if fid == -1, error('Cannot create JSON file'); end
