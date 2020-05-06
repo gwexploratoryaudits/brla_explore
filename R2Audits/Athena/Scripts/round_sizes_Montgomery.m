@@ -80,10 +80,8 @@ for i=1:size(contests)-4
 end
 
 % Write election_results back into new file
-txt = jsonencode(election_results);
-txt = strrep(txt, ',', sprintf(',\r'));
-txt = strrep(txt, '[{', sprintf('[\r{\r'));
-txt = strrep(txt, '}]', sprintf('\r}\r]'));
+%txt = jsonencode(election_results);
+txt = savejson(election_results);
 fname3 = '2020_montgomery_results.json';
 fid = fopen(fname3, 'w');
 if fid == -1, error('Cannot create JSON file'); end
