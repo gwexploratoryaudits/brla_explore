@@ -4,8 +4,8 @@ function CurrentTier = R2CurrentTier(margin, PreviousTier, new_round_draws)
     % This function returns winner vote distributions for an election 
     % defined by margin, for a new round, using the distribution for the 
     % previous round. 
-    % ONLY FOR AUDITING WITH REPLACEMENT
-    % USES FOURIER TRANSFORM
+    % ONLY FOR AUDITING WITH REPLACEMENT.
+    % USES FOURIER TRANSFORM.
     %----------
     %
     % Input Values: 

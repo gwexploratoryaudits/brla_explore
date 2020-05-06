@@ -2,12 +2,12 @@ function [RiskSched, CurrentTier] = R2RisksWithReplacement(margin, n, kmin)
     %
     % [RiskSched, CurrentTier] = R2RisksWithReplacement(margin, n, kmin)
     % This function returns round-by-round stopping probability 
-    % for a round-by-round audit defined by a round schedule n and a 
-    % corresponding kmin schedule kmin, applied to an election defined 
-    % by margin.
-    % Note that, if margin=0, it returns round-by-round risk schedule
-    % ONLY FOR AUDITING WITH REPLACEMENT
-    % USES FOURIER TRANSFORM
+    % (stopping probbaility schedule/risk schedule) for a round-by-round 
+    % audit defined by a round schedule n and a corresponding kmin 
+    % schedule kmin, applied to an election defined by margin.
+    % Note that, if margin=0, it returns round-by-round risk schedule.
+    % ONLY FOR AUDITING WITH REPLACEMENT.
+    % USES FOURIER TRANSFORM.
     %----------
     %
     % Input Values: 
