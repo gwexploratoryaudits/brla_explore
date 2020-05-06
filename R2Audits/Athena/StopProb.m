@@ -7,7 +7,7 @@ function [n, kmin, Stopping] = StopProb(margin, alpha, delta, ...
     %   n_last, k_last, max_draws, audit_method)
     %
     % Computes n, kmin and Stopping probability for various round sizes. 
-    % Outputs are arrays indexded by number of new ballots drawn. 
+    % Outputs are arrays indexed by number of new ballots drawn. 
     %
     % ---------------------------Inputs------------------------
     %
