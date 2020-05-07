@@ -1,7 +1,8 @@
-% very basic script to compute Athena first round values for Montgomery
-% County, Ohio, 2020 primary audit
+% Very basic script to compute interesting properties of announced results 
+% as well as Athena first round values for Montgomery County, Ohio, 2020 
+% primary audit.
 
-% Parameters
+% Parameters for audit
 alpha = 0.1;
 delta = 1;
 percentiles = [0.7, 0.8, 0.9];
@@ -9,68 +10,74 @@ percentiles = [0.7, 0.8, 0.9];
 max_ballots = 100;
 
 % Read election results
-fname='2020_montgomery.json';
-election_results = jsondecode(fileread(fname));
+fname='2020_montgomery_formatted.json';
+election_computations = loadjson(fileread(fname));
 
-% Delete fields 8, 12, 15 as contests are local and too many ballots 
-% required. 
-election_results = rmfield(election_results, 'd_39th');
-election_results = rmfield(election_results, 'r_judge');
-election_results = rmfield(election_results, 'r_43rd');
-
-% Want to change the names
-election_results = renameStructField(election_results, 'd_primary', 'd_president');
-election_results = renameStructField(election_results, 'd_cc_feb', 'd_cc_1_2_2021');
-election_results = renameStructField(election_results, 'd_cc_mar', 'd_cc_1_3_2021');
-election_results = renameStructField(election_results, 'r_cc_feb', 'r_cc_1_2_2021');
-
-contests = fieldnames(election_results);
-% First four fields are global values for the election. 
-% Next 9 fields are contests. 
-% For each contest 
-
-for i=1:size(contests)-4
-    votes = election_results.(contests{i+4}).votes;
+% Look at individual contests %
+races = fieldnames(election_computations.contests);
+for i=1:size(races)
+    candidates = fieldnames(election_computations.contests.(races{i}).tally);
+    votes = zeros(size(candidates));
+    for j=1:size(candidates)
+        votes(j) = election_computations.contests.(races{i}).tally.(candidates{j});
+    end
+    
+    % ----- PART I ---- Compute properties -------%
     
     % Find max votes
-    [votes_max, r(1)] = max(votes);
-    election_results.(contests{i+4}).info.votes_max = votes_max;
-    election_results.(contests{i+4}).info.winner = r(1)-1;
-    
+    [votes_max, r] = max(votes);
+      
     % Find second highest votes
     votes(r(1)) = [];
     votes_second = max(votes);
-    election_results.(contests{i+4}).info.votes_second_highest = votes_second;
-    votes = election_results.(contests{i+4}).votes;
-    position = find(votes==votes_second, 1)-1;
-    election_results.(contests{i+4}).info.runnerup = position;
     
-    % Total relevant ballots
+    % Because you deleted the highest number of votes, need it again
+    for j=1:size(candidates)
+        votes(j) = election_computations.contests.(races{i}).tally.(candidates{j});
+    end
+    
+    % Find candidate with second highest votes
+    position = find(votes==votes_second, 1);
+    
+    % Total relevant ballots and margin.
     total_relevant_ballots = votes_max + votes_second;
-    election_results.(contests{i+4}).info.total_relevant_ballots = ... 
-        total_relevant_ballots;
+    margin = (votes_max-votes_second)/total_relevant_ballots;
     
     % factor to scale up raw values
-    factor = election_results.total_ballots/total_relevant_ballots;
-    election_results.(contests{i+4}).scale_factor = factor;
+    factor = election_computations.total_ballots/total_relevant_ballots;
     
-    [next_rounds_max, next_rounds_min, n{i}, kmin{i}, Stopping{i}]  = RangeNextRoundSizes(election_results.(contests{i+4}).margin, alpha, delta, (0), (0), (1), (1), 0, 0, percentiles, max_ballots, 'Athena');
+    % ------ PART II ----- Compute Athena first rounds ---- %
+    
+    [next_rounds_max, next_rounds_min, n{i}, kmin{i}, Stopping{i}]  = ...
+        RangeNextRoundSizes(margin, alpha, delta, (0), (0), (1), (1), ...
+        0, 0, percentiles, max_ballots, 'Athena');
     next_rounds_max_scaled = ceil(factor*next_rounds_max);
     next_rounds_min_scaled = ceil(factor*next_rounds_min);
     n_scaled{i} = ceil(factor*n{i});
-        
-    % For each value in percentiles, note the results in election_results
+    
+    % ----- PART III ----- Output --- %
+    % Write properties in a new field of the race
+    election_computations.contests.(races{i}).info.runnerup = candidates(position);
+    election_computations.contests.(races{i}).info.votes_max = votes_max;
+    election_computations.contests.(races{i}).info.votes_second_highest = votes_second;
+    election_computations.contests.(races{i}).info.total_relevant_ballots = ... 
+        total_relevant_ballots;
+    election_computations.contests.(races{i}).info.margin = margin;
+    election_computations.contests.(races{i}).info.scale_factor = factor;
+    
+    % For each value in percentiles, note the Athena first rounds in new 
+    % election_results
     for j=1:size(percentiles,2)
-        election_results.(contests{i+4}).Athena_first_round(j).alpha = alpha;
-        election_results.(contests{i+4}).Athena_first_round(j).percentile = percentiles(j);
-        election_results.(contests{i+4}).Athena_first_round(j).raw_max = next_rounds_max(j);
-        election_results.(contests{i+4}).Athena_first_round(j).raw_min = next_rounds_min(j);
-        election_results.(contests{i+4}).Athena_first_round(j).raw_max_scaled = next_rounds_max_scaled(j);
-        election_results.(contests{i+4}).Athena_first_round(j).raw_min_scaled = next_rounds_min_scaled(j);
+        election_computations.contests.(races{i}).Athena_first_round(j).alpha = alpha;
+        election_computations.contests.(races{i}).Athena_first_round(j).percentile = percentiles(j);
+        election_computations.contests.(races{i}).Athena_first_round(j).raw_max = next_rounds_max(j);
+        election_computations.contests.(races{i}).Athena_first_round(j).raw_min = next_rounds_min(j);
+        election_computations.contests.(races{i}).Athena_first_round(j).raw_max_scaled = next_rounds_max_scaled(j);
+        election_computations.contests.(races{i}).Athena_first_round(j).raw_min_scaled = next_rounds_min_scaled(j);
     end
     
     % write kmins into a different file
-    fname2 = sprintf('2020_montgomery_kmins_%s.txt',(contests{i+4}));
+    fname2 = sprintf('2020_montgomery_kmins_%s.txt',(races{i}));
     fid = fopen(fname2, 'w');
     if fid == -1, error('Cannot create kmin file'); end
     fprintf(fid, 'alpha = %4f\n', alpha);
@@ -79,15 +86,16 @@ for i=1:size(contests)-4
     fclose(fid);
 end
 
-% Write election_results back into new file
-%txt = jsonencode(election_results);
-txt = savejson(election_results);
-fname3 = '2020_montgomery_results.json';
+% Write all new results into a new file
+% txt = jsonencode(election_results);
+txt = savejson('',election_computations);
+fname3 = '2020_montgomery_formatted_computations.json';
 fid = fopen(fname3, 'w');
 if fid == -1, error('Cannot create JSON file'); end
 fwrite(fid,txt,'char');
 fclose(fid);
 
+%------ Plot stopping probabilities------ %
 plot(n_scaled{1}, Stopping{1}, 'r--o', n_scaled{2}, Stopping{2}, 'g--+', ...
     n_scaled{3}, Stopping{3}, 'b--*', n_scaled{4}, Stopping{4}, 'm->', ...
     n_scaled{5}, Stopping{5}, '-s', n_scaled{6}, Stopping{6}, 'c-^', ...
