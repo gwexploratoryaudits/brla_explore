@@ -65,8 +65,8 @@ for i=1:size(races)
     election_computations.contests.(races{i}).info.margin = margin;
     election_computations.contests.(races{i}).info.scale_factor = factor;
     
-    % For each value in percentiles, note the Athena first rounds in new 
-    % election_results
+    % For each value in percentiles, note the Athena first rounds in a new 
+    % field of the race
     for j=1:size(percentiles,2)
         election_computations.contests.(races{i}).Athena_first_round(j).alpha = alpha;
         election_computations.contests.(races{i}).Athena_first_round(j).percentile = percentiles(j);
@@ -76,7 +76,24 @@ for i=1:size(races)
         election_computations.contests.(races{i}).Athena_first_round(j).raw_min_scaled = next_rounds_min_scaled(j);
     end
     
-    % write kmins into a different file
+    % Note the Athena first rounds in a different structure for testing
+    testing.next_round_size.(sprintf('test%d',i)).audit_type = 'athena';
+    testing.next_round_size.(sprintf('test%d',i)).election = election_computations.name;
+    testing.next_round_size.(sprintf('test%d',i)).contest = races{i};
+    testing.next_round_size.(sprintf('test%d',i)).alpha = alpha; 
+    testing.next_round_size.(sprintf('test%d',i)).quants = percentiles; 
+    testing.next_round_size.(sprintf('test%d',i)).expected.round_candidates = percentiles; 
+    
+    for j=1:size(percentiles,2)
+        election_computations.contests.(races{i}).Athena_first_round(j).alpha = alpha;
+        election_computations.contests.(races{i}).Athena_first_round(j).percentile = percentiles(j);
+        election_computations.contests.(races{i}).Athena_first_round(j).raw_max = next_rounds_max(j);
+        election_computations.contests.(races{i}).Athena_first_round(j).raw_min = next_rounds_min(j);
+        election_computations.contests.(races{i}).Athena_first_round(j).raw_max_scaled = next_rounds_max_scaled(j);
+        election_computations.contests.(races{i}).Athena_first_round(j).raw_min_scaled = next_rounds_min_scaled(j);
+    end
+    
+  % write kmins into a different file
     fname2 = sprintf('2020_montgomery_kmins_%s.txt',(races{i}));
     fid = fopen(fname2, 'w');
     if fid == -1, error('Cannot create kmin file'); end
