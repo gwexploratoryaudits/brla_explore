@@ -32,7 +32,7 @@ for j=1:num_tests
     % Generate winning vote distributions for each hypothesis
     margin = election_computations.contests.(races{i}).info.margin;
     CurrentTierStop = R2CurrentTier(margin,(1),n_in(j));
-    CurrentTierRisk = R2CurrentTier(0,(1),k_in(j));
+    CurrentTierRisk = R2CurrentTier(0,(1),n_in(j));
     
     %Compute p value
     [pvalue, LR] = p_value(margin, (0), (0), CurrentTierStop, ...
@@ -44,14 +44,14 @@ for j=1:num_tests
     testing.evaluate_risk.(sprintf('test%d',j)).election = election_computations.name;
     testing.evaluate_risk.(sprintf('test%d',j)).contest = races{i};
     testing.evaluate_risk.(sprintf('test%d',j)).alpha = alpha; 
-    testing.evaluate_risk.(sprintf('test%d',j)).round_schedule = [n_in(j)]; 
-    testing.evaluate_risk.(sprintf('test%d',j)).audit_observations = [k_in(j)]; 
+    testing.evaluate_risk.(sprintf('test%d',j)).round_schedule = n_in(j)*ones(1); 
+    testing.evaluate_risk.(sprintf('test%d',j)).audit_observations = k_in(j)*ones(1); 
     testing.evaluate_risk.(sprintf('test%d',j)).expected.passed = int8((pvalue <= alpha) && (dvalue <= delta)); 
     testing.evaluate_risk.(sprintf('test%d',j)).expected.pvalue = pvalue; 
     testing.evaluate_risk.(sprintf('test%d',j)).expected.delta = dvalue; 
 end
 
-% Write tests into a testing file
+% Write tests back into testing file
 txt = savejson('',testing);
 fname3 = '2020_montgomery_tests.json';
 fid = fopen(fname3, 'w');

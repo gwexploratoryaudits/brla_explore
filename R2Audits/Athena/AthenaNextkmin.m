@@ -42,8 +42,8 @@ function kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
     %
     
     % --------- Allocate arrays for tails -----------%
-    TailStop = zeros(1, size(CurrentTierStop-1, 2));
-    TailRisk = zeros(1, size(CurrentTierRisk-1, 2));
+    TailStop = zeros(1, size(CurrentTierStop, 2)-1);
+    TailRisk = zeros(1, size(CurrentTierRisk, 2)-1);
     
     % ----------Compute tails --------%
     % MATLAB indexes arrays beginning at 1. Thus CurrentTier(k+1) 
