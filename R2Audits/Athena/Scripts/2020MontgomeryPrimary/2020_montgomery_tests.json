@@ -128,7 +128,7 @@
 			"audit_observations": 13,
 			"expected": {
 				"passed": 1,
-				"pvalue": 0.00014017494,
+				"pvalue": 0.02815764107,
 				"delta": 0.1095441161
 			}
 		},
@@ -141,7 +141,7 @@
 			"audit_observations": 12,
 			"expected": {
 				"passed": 1,
-				"pvalue": 0.0002557594541,
+				"pvalue": 0.07514532461,
 				"delta": 0.5638535872
 			}
 		},
@@ -154,7 +154,7 @@
 			"audit_observations": 11,
 			"expected": {
 				"passed": 0,
-				"pvalue": 0.0004946601605,
+				"pvalue": 0.1683235777,
 				"delta": 2.902308942
 			}
 		},
@@ -167,7 +167,7 @@
 			"audit_observations": 27,
 			"expected": {
 				"passed": 1,
-				"pvalue": 8.519980771e-09,
+				"pvalue": 0.05056102882,
 				"delta": 0.2795342369
 			}
 		},
@@ -180,7 +180,7 @@
 			"audit_observations": 26,
 			"expected": {
 				"passed": 1,
-				"pvalue": 1.603353097e-08,
+				"pvalue": 0.0883117256,
 				"delta": 0.6897212754
 			}
 		},
@@ -193,7 +193,7 @@
 			"audit_observations": 25,
 			"expected": {
 				"passed": 0,
-				"pvalue": 3.093454486e-08,
+				"pvalue": 0.1452960395,
 				"delta": 1.701814573
 			}
 		},
@@ -206,7 +206,7 @@
 			"audit_observations": 13,
 			"expected": {
 				"passed": 1,
-				"pvalue": 0.0001468336045,
+				"pvalue": 0.02949520031,
 				"delta": 0.09781294227
 			}
 		},
@@ -219,7 +219,7 @@
 			"audit_observations": 12,
 			"expected": {
 				"passed": 1,
-				"pvalue": 0.0002610691796,
+				"pvalue": 0.07670538832,
 				"delta": 0.4547995628
 			}
 		},
@@ -232,7 +232,7 @@
 			"audit_observations": 11,
 			"expected": {
 				"passed": 0,
-				"pvalue": 0.0004983441363,
+				"pvalue": 0.1695771656,
 				"delta": 2.114675599
 			}
 		},
@@ -245,7 +245,7 @@
 			"audit_observations": 31,
 			"expected": {
 				"passed": 1,
-				"pvalue": 5.377003276e-10,
+				"pvalue": 0.049324932,
 				"delta": 0.2715034047
 			}
 		},
@@ -258,7 +258,7 @@
 			"audit_observations": 30,
 			"expected": {
 				"passed": 1,
-				"pvalue": 1.012281956e-09,
+				"pvalue": 0.08282824868,
 				"delta": 0.6201461791
 			}
 		},
@@ -271,7 +271,7 @@
 			"audit_observations": 29,
 			"expected": {
 				"passed": 0,
-				"pvalue": 1.949424661e-09,
+				"pvalue": 0.1323253904,
 				"delta": 1.416487885
 			}
 		},
@@ -284,7 +284,7 @@
 			"audit_observations": 14,
 			"expected": {
 				"passed": 1,
-				"pvalue": 7.134887839e-05,
+				"pvalue": 0.03715492842,
 				"delta": 0.1429403835
 			}
 		},
@@ -297,7 +297,7 @@
 			"audit_observations": 13,
 			"expected": {
 				"passed": 1,
-				"pvalue": 0.0001295560336,
+				"pvalue": 0.08865681324,
 				"delta": 0.5963817005
 			}
 		},
@@ -310,7 +310,7 @@
 			"audit_observations": 12,
 			"expected": {
 				"passed": 0,
-				"pvalue": 0.0002489085268,
+				"pvalue": 0.1831500054,
 				"delta": 2.488248065
 			}
 		},
@@ -323,7 +323,7 @@
 			"audit_observations": 8,
 			"expected": {
 				"passed": 1,
-				"pvalue": 0.004540420904,
+				"pvalue": 0.02270210452,
 				"delta": 0.04879617053
 			}
 		},
@@ -336,7 +336,7 @@
 			"audit_observations": 7,
 			"expected": {
 				"passed": 1,
-				"pvalue": 0.008007421129,
+				"pvalue": 0.09208534298,
 				"delta": 0.6096650952
 			}
 		},
@@ -349,7 +349,7 @@
 			"audit_observations": 6,
 			"expected": {
 				"passed": 0,
-				"pvalue": 0.01566893902,
+				"pvalue": 0.254620259,
 				"delta": 7.617227422
 			}
 		},
@@ -362,7 +362,7 @@
 			"audit_observations": 22,
 			"expected": {
 				"passed": 1,
-				"pvalue": 2.740574601e-07,
+				"pvalue": 0.04606157947,
 				"delta": 0.2335017342
 			}
 		},
@@ -375,7 +375,7 @@
 			"audit_observations": 21,
 			"expected": {
 				"passed": 1,
-				"pvalue": 5.112391219e-07,
+				"pvalue": 0.08724892553,
 				"delta": 0.6582625329
 			}
 		},
@@ -388,7 +388,7 @@
 			"audit_observations": 20,
 			"expected": {
 				"passed": 0,
-				"pvalue": 9.845237739e-07,
+				"pvalue": 0.1528940262,
 				"delta": 1.855701688
 			}
 		},
@@ -401,7 +401,7 @@
 			"audit_observations": 22,
 			"expected": {
 				"passed": 1,
-				"pvalue": 2.720663283e-07,
+				"pvalue": 0.04572692456,
 				"delta": 0.2401206027
 			}
 		},
@@ -414,7 +414,7 @@
 			"audit_observations": 21,
 			"expected": {
 				"passed": 1,
-				"pvalue": 5.090943064e-07,
+				"pvalue": 0.08688288772,
 				"delta": 0.684863854
 			}
 		},
@@ -427,7 +427,7 @@
 			"audit_observations": 20,
 			"expected": {
 				"passed": 0,
-				"pvalue": 9.823615398e-07,
+				"pvalue": 0.1525582368,
 				"delta": 1.953345499
 			}
 		},
@@ -440,7 +440,7 @@
 			"audit_observations": 51,
 			"expected": {
 				"passed": 1,
-				"pvalue": 4.904967728e-16,
+				"pvalue": 0.05998526836,
 				"delta": 0.3843759392
 			}
 		},
@@ -453,7 +453,7 @@
 			"audit_observations": 50,
 			"expected": {
 				"passed": 1,
-				"pvalue": 9.755358279e-16,
+				"pvalue": 0.08761871736,
 				"delta": 0.7050552943
 			}
 		},
@@ -466,7 +466,7 @@
 			"audit_observations": 49,
 			"expected": {
 				"passed": 0,
-				"pvalue": 1.874513449e-15,
+				"pvalue": 0.1245044151,
 				"delta": 1.293272854
 			}
 		}
