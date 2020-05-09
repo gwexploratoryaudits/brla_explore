@@ -59,3 +59,5 @@ if fid == -1, error('Cannot create JSON file'); end
 fwrite(fid,txt,'char');
 fclose(fid);
 
+%sprintf('%s',(candidates{winner}),'*')
+
