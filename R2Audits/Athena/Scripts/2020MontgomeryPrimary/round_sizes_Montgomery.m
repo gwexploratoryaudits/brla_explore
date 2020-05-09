@@ -11,11 +11,14 @@ max_ballots = 100;
 
 % Read election results
 fname='2020_montgomery_formatted.json';
-election_computations = loadjson(fileread(fname));
+election_results = loadjson(fileread(fname));
+
+% Make a new structure to hold computed values
+election_computations = election_results;
 
 % Look at individual contests %
 races = fieldnames(election_computations.contests);
-for i=1:size(races)
+for i=1:size(races) % for each contest
     candidates = fieldnames(election_computations.contests.(races{i}).tally);
     votes = zeros(size(candidates));
     for j=1:size(candidates)
@@ -23,7 +26,6 @@ for i=1:size(races)
     end
     
     % ----- PART I ---- Compute properties -------%
-    
     % Find max votes
     [votes_max, r] = max(votes);
       
@@ -38,6 +40,9 @@ for i=1:size(races)
     
     % Find candidate with second highest votes
     position = find(votes==votes_second, 1);
+    
+    % Denote them distinctly
+    renameStructField(election_computations.contests.(races{i}).tally, candidates(r), 'd_president');
     
     % Total relevant ballots and margin.
     total_relevant_ballots = votes_max + votes_second;
