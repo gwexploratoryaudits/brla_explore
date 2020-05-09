@@ -1,0 +1,303 @@
+{
+	"next_round_size": {
+		"test1": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_president",
+			"alpha": 0.1,
+			"quants": [0.7,0.8,0.9],
+			"expected": {
+				"Bennet": {
+					"round_candidates_max": [4,4,4],
+					"round_candidates_max_kmins": [4,4,4],
+					"round_candidates_max_probs": [0.9930638145,0.9930638145,0.9930638145],
+					"round_candidates_min": [4,4,4],
+					"round_candidates_min_kmins": [4,4,4],
+					"round_candidates_min_probs": [0.9930638145,0.9930638145,0.9930638145],
+					"round_candidates_max_scaled": [10,10,10],
+					"round_candidates_min_scaled": [10,10,10]
+				},
+				"Bloomberg": {
+					"round_candidates_max": [4,4,7],
+					"round_candidates_max_kmins": [4,4,6],
+					"round_candidates_max_probs": [0.9086415913,0.9086415913,0.989133332],
+					"round_candidates_min": [4,4,4],
+					"round_candidates_min_kmins": [4,4,4],
+					"round_candidates_min_probs": [0.9086415913,0.9086415913,0.9086415913],
+					"round_candidates_max_scaled": [10,10,17],
+					"round_candidates_min_scaled": [10,10,10]
+				},
+				"Buttigieg": {
+					"round_candidates_max": [4,4,7],
+					"round_candidates_max_kmins": [4,4,6],
+					"round_candidates_max_probs": [0.9307928054,0.9307928054,0.9937513294],
+					"round_candidates_min": [4,4,4],
+					"round_candidates_min_kmins": [4,4,4],
+					"round_candidates_min_probs": [0.9307928054,0.9307928054,0.9307928054],
+					"round_candidates_max_scaled": [10,10,17],
+					"round_candidates_min_scaled": [10,10,10]
+				},
+				"Gabbard": {
+					"round_candidates_max": [4,4,4],
+					"round_candidates_max_kmins": [4,4,4],
+					"round_candidates_max_probs": [0.981729223,0.981729223,0.981729223],
+					"round_candidates_min": [4,4,4],
+					"round_candidates_min_kmins": [4,4,4],
+					"round_candidates_min_probs": [0.981729223,0.981729223,0.981729223],
+					"round_candidates_max_scaled": [10,10,10],
+					"round_candidates_min_scaled": [10,10,10]
+				},
+				"Klobuchar": {
+					"round_candidates_max": [4,4,4],
+					"round_candidates_max_kmins": [4,4,4],
+					"round_candidates_max_probs": [0.9456266494,0.9456266494,0.9456266494],
+					"round_candidates_min": [4,4,4],
+					"round_candidates_min_kmins": [4,4,4],
+					"round_candidates_min_probs": [0.9456266494,0.9456266494,0.9456266494],
+					"round_candidates_max_scaled": [10,10,10],
+					"round_candidates_min_scaled": [10,10,10]
+				},
+				"Patrick": {
+					"round_candidates_max": [4,4,4],
+					"round_candidates_max_kmins": [4,4,4],
+					"round_candidates_max_probs": [0.9967367235,0.9967367235,0.9967367235],
+					"round_candidates_min": [4,4,4],
+					"round_candidates_min_kmins": [4,4,4],
+					"round_candidates_min_probs": [0.9967367235,0.9967367235,0.9967367235],
+					"round_candidates_max_scaled": [10,10,10],
+					"round_candidates_min_scaled": [10,10,10]
+				},
+				"Sanders": {
+					"round_candidates_max": [10,12,17],
+					"round_candidates_max_kmins": [8,9,12],
+					"round_candidates_max_probs": [0.786288213,0.8831905065,0.9545712625],
+					"round_candidates_min": [10,12,14],
+					"round_candidates_min_kmins": [8,9,10],
+					"round_candidates_min_probs": [0.786288213,0.8831905065,0.9368447429],
+					"round_candidates_max_scaled": [21,25,35],
+					"round_candidates_min_scaled": [21,25,29]
+				},
+				"Steyer": {
+					"round_candidates_max": [4,4,4],
+					"round_candidates_max_kmins": [4,4,4],
+					"round_candidates_max_probs": [0.9919370935,0.9919370935,0.9919370935],
+					"round_candidates_min": [4,4,4],
+					"round_candidates_min_kmins": [4,4,4],
+					"round_candidates_min_probs": [0.9919370935,0.9919370935,0.9919370935],
+					"round_candidates_max_scaled": [10,10,10],
+					"round_candidates_min_scaled": [10,10,10]
+				},
+				"Warren": {
+					"round_candidates_max": [4,7,7],
+					"round_candidates_max_kmins": [4,6,6],
+					"round_candidates_max_probs": [0.8608369956,0.974901582,0.974901582],
+					"round_candidates_min": [4,4,7],
+					"round_candidates_min_kmins": [4,4,6],
+					"round_candidates_min_probs": [0.8608369956,0.8608369956,0.974901582],
+					"round_candidates_max_scaled": [10,17,17],
+					"round_candidates_min_scaled": [10,10,17]
+				},
+				"Write_Ins": {
+					"round_candidates_max": [4,4,4],
+					"round_candidates_max_kmins": [4,4,4],
+					"round_candidates_max_probs": [0.9867467464,0.9867467464,0.9867467464],
+					"round_candidates_min": [4,4,4],
+					"round_candidates_min_kmins": [4,4,4],
+					"round_candidates_min_probs": [0.9867467464,0.9867467464,0.9867467464],
+					"round_candidates_max_scaled": [10,10,10],
+					"round_candidates_min_scaled": [10,10,10]
+				},
+				"largest_round_max_scaled": [21,25,35],
+				"largest_round_min_scaled": [21,25,29]
+			}
+		},
+		"test2": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_congress",
+			"alpha": 0.1,
+			"quants": [0.7,0.8,0.9],
+			"expected": {
+				"Moyer": {
+					"round_candidates_max": [27,31,42],
+					"round_candidates_max_kmins": [18,20,26],
+					"round_candidates_max_probs": [0.770775343,0.8450038489,0.9293748971],
+					"round_candidates_min": [22,29,40],
+					"round_candidates_min_kmins": [15,19,25],
+					"round_candidates_min_probs": [0.7143196634,0.8113077835,0.9140294307],
+					"round_candidates_max_scaled": [54,62,84],
+					"round_candidates_min_scaled": [44,58,80]
+				},
+				"largest_round_max_scaled": [54,62,84],
+				"largest_round_min_scaled": [44,58,80]
+			}
+		},
+		"test3": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_senator",
+			"alpha": 0.1,
+			"quants": [0.7,0.8,0.9],
+			"expected": {
+				"Griggs": {
+					"round_candidates_max": [12,12,17],
+					"round_candidates_max_kmins": [9,9,12],
+					"round_candidates_max_probs": [0.8518545851,0.8518545851,0.9351568247],
+					"round_candidates_min": [10,12,14],
+					"round_candidates_min_kmins": [8,9,10],
+					"round_candidates_min_probs": [0.7458846513,0.8518545851,0.914496971],
+					"round_candidates_max_scaled": [41,41,58],
+					"round_candidates_min_scaled": [34,41,48]
+				},
+				"largest_round_max_scaled": [41,41,58],
+				"largest_round_min_scaled": [34,41,48]
+			}
+		},
+		"test4": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_cc_1_2_2021",
+			"alpha": 0.1,
+			"quants": [0.7,0.8,0.9],
+			"expected": {
+				"Rountree": {
+					"round_candidates_max": [29,38,49],
+					"round_candidates_max_kmins": [19,24,30],
+					"round_candidates_max_probs": [0.754088552,0.8489762602,0.9200229051],
+					"round_candidates_min": [27,33,44],
+					"round_candidates_min_kmins": [18,21,27],
+					"round_candidates_min_probs": [0.7099695265,0.8241364096,0.9082929606],
+					"round_candidates_max_scaled": [58,75,97],
+					"round_candidates_min_scaled": [54,66,87]
+				},
+				"largest_round_max_scaled": [58,75,97],
+				"largest_round_min_scaled": [54,66,87]
+			}
+		},
+		"test5": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_cc_1_3_2021",
+			"alpha": 0.1,
+			"quants": [0.7,0.8,0.9],
+			"expected": {
+				"West": {
+					"round_candidates_max": [12,15,19],
+					"round_candidates_max_kmins": [9,11,13],
+					"round_candidates_max_probs": [0.811965727,0.8525102737,0.9422202047],
+					"round_candidates_min": [12,12,17],
+					"round_candidates_min_kmins": [9,9,12],
+					"round_candidates_min_probs": [0.811965727,0.811965727,0.9073826343],
+					"round_candidates_max_scaled": [24,30,38],
+					"round_candidates_min_scaled": [24,24,34]
+				},
+				"largest_round_max_scaled": [24,30,38],
+				"largest_round_min_scaled": [24,24,34]
+			}
+		},
+		"test6": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_10th",
+			"alpha": 0.1,
+			"quants": [0.7,0.8,0.9],
+			"expected": {
+				"Anderson": {
+					"round_candidates_max": [7,7,9],
+					"round_candidates_max_kmins": [6,6,7],
+					"round_candidates_max_probs": [0.910176637,0.910176637,0.9756574401],
+					"round_candidates_min": [4,7,7],
+					"round_candidates_min_kmins": [4,6,6],
+					"round_candidates_min_probs": [0.7349273257,0.910176637,0.910176637],
+					"round_candidates_max_scaled": [19,19,24],
+					"round_candidates_min_scaled": [11,19,19]
+				},
+				"Flanders": {
+					"round_candidates_max": [4,7,7],
+					"round_candidates_max_kmins": [4,6,6],
+					"round_candidates_max_probs": [0.7956653572,0.9462547585,0.9462547585],
+					"round_candidates_min": [4,7,7],
+					"round_candidates_min_kmins": [4,6,6],
+					"round_candidates_min_probs": [0.7956653572,0.9462547585,0.9462547585],
+					"round_candidates_max_scaled": [11,20,20],
+					"round_candidates_min_scaled": [11,20,20]
+				},
+				"largest_round_max_scaled": [19,20,24],
+				"largest_round_min_scaled": [11,20,20]
+			}
+		},
+		"test7": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_senator",
+			"alpha": 0.1,
+			"quants": [0.7,0.8,0.9],
+			"expected": {
+				"Robinson": {
+					"round_candidates_max": [10,12,14],
+					"round_candidates_max_kmins": [8,9,10],
+					"round_candidates_max_probs": [0.7962146531,0.8905599426,0.9418738777],
+					"round_candidates_min": [10,12,14],
+					"round_candidates_min_kmins": [8,9,10],
+					"round_candidates_min_probs": [0.7962146531,0.8905599426,0.9418738777],
+					"round_candidates_max_scaled": [40,48,56],
+					"round_candidates_min_scaled": [40,48,56]
+				},
+				"Selby": {
+					"round_candidates_max": [20,24,33],
+					"round_candidates_max_kmins": [14,16,21],
+					"round_candidates_max_probs": [0.7471064972,0.8482592111,0.9327086636],
+					"round_candidates_min": [17,22,31],
+					"round_candidates_min_kmins": [12,15,20],
+					"round_candidates_min_probs": [0.7279525971,0.803748527,0.913062978],
+					"round_candidates_max_scaled": [69,83,114],
+					"round_candidates_min_scaled": [59,76,107]
+				},
+				"largest_round_max_scaled": [69,83,114],
+				"largest_round_min_scaled": [59,76,107]
+			}
+		},
+		"test8": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_42nd",
+			"alpha": 0.1,
+			"quants": [0.7,0.8,0.9],
+			"expected": {
+				"Stubbs": {
+					"round_candidates_max": [20,24,33],
+					"round_candidates_max_kmins": [14,16,21],
+					"round_candidates_max_probs": [0.7546557766,0.8543412107,0.9366381673],
+					"round_candidates_min": [17,22,31],
+					"round_candidates_min_kmins": [12,15,20],
+					"round_candidates_min_probs": [0.7352025382,0.8106082158,0.9176963481],
+					"round_candidates_max_scaled": [156,188,258],
+					"round_candidates_min_scaled": [133,172,242]
+				},
+				"largest_round_max_scaled": [156,188,258],
+				"largest_round_min_scaled": [133,172,242]
+			}
+		},
+		"test9": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_cc_1_2_2021",
+			"alpha": 0.1,
+			"quants": [0.7,0.8,0.9],
+			"expected": {
+				"Scearce": {
+					"round_candidates_max": [52,67,86],
+					"round_candidates_max_kmins": [32,40,50],
+					"round_candidates_max_probs": [0.7366494841,0.838330726,0.9163476936],
+					"round_candidates_min": [47,60,79],
+					"round_candidates_min_kmins": [29,36,46],
+					"round_candidates_min_probs": [0.7239253154,0.8165565562,0.9061936706],
+					"round_candidates_max_scaled": [150,194,248],
+					"round_candidates_min_scaled": [136,173,228]
+				},
+				"largest_round_max_scaled": [150,194,248],
+				"largest_round_min_scaled": [136,173,228]
+			}
+		}
+	}
+}
