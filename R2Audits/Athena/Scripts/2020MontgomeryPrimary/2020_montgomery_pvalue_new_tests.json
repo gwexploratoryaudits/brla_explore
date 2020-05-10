@@ -1,0 +1,769 @@
+{
+	"evaluate_risk": {
+		"test1": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_president",
+			"alpha": 0.1,
+			"round_schedule": 17,
+			"audit_observations": {
+				"Bennet": 0,
+				"Biden": 13,
+				"Bloomberg": 0,
+				"Buttigieg": 0,
+				"Gabbard": 0,
+				"Klobuchar": 0,
+				"Patrick": 0,
+				"Sanders": 4,
+				"Steyer": 0,
+				"Warren": 0,
+				"Write_Ins": 0
+			},
+			"expected": {
+				"Bennet": {
+					"passed": 1,
+					"pvalue": 0.0001248631524,
+					"delta": 0.0001248631524
+				},
+				"Bloomberg": {
+					"passed": 1,
+					"pvalue": 0.0001666610323,
+					"delta": 0.0001666610323
+				},
+				"Buttigieg": {
+					"passed": 1,
+					"pvalue": 0.0001541124585,
+					"delta": 0.0001541124585
+				},
+				"Gabbard": {
+					"passed": 1,
+					"pvalue": 0.0001296095403,
+					"delta": 0.0001296095403
+				},
+				"Klobuchar": {
+					"passed": 1,
+					"pvalue": 0.0001463932397,
+					"delta": 0.0001463932397
+				},
+				"Patrick": {
+					"passed": 1,
+					"pvalue": 0.0001233739765,
+					"delta": 0.0001233739765
+				},
+				"Sanders": {
+					"passed": 1,
+					"pvalue": 0.02815764107,
+					"delta": 0.1095441161
+				},
+				"Steyer": {
+					"passed": 1,
+					"pvalue": 0.0001253246875,
+					"delta": 0.0001253246875
+				},
+				"Warren": {
+					"passed": 1,
+					"pvalue": 0.0001986630306,
+					"delta": 0.0001986630306
+				},
+				"Write_Ins": {
+					"passed": 1,
+					"pvalue": 0.0001274798434,
+					"delta": 0.0001274798434
+				},
+				"passed": 1,
+				"pvalue": 0.02815764107,
+				"delta": 0.1095441161
+			}
+		},
+		"test2": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_president",
+			"alpha": 0.1,
+			"round_schedule": 18,
+			"audit_observations": {
+				"Bennet": 0,
+				"Biden": 12,
+				"Bloomberg": 1,
+				"Buttigieg": 0,
+				"Gabbard": 0,
+				"Klobuchar": 0,
+				"Patrick": 0,
+				"Sanders": 5,
+				"Steyer": 0,
+				"Warren": 0,
+				"Write_Ins": 0
+			},
+			"expected": {
+				"Bennet": {
+					"passed": 1,
+					"pvalue": 0.0002492921368,
+					"delta": 0.0002492921368
+				},
+				"Bloomberg": {
+					"passed": 1,
+					"pvalue": 0.001774171348,
+					"delta": 0.006875378512
+				},
+				"Buttigieg": {
+					"passed": 1,
+					"pvalue": 0.000302747802,
+					"delta": 0.000302747802
+				},
+				"Gabbard": {
+					"passed": 1,
+					"pvalue": 0.0002580268471,
+					"delta": 0.0002580268471
+				},
+				"Klobuchar": {
+					"passed": 1,
+					"pvalue": 0.0002887227086,
+					"delta": 0.0002887227086
+				},
+				"Patrick": {
+					"passed": 1,
+					"pvalue": 0.0002465464044,
+					"delta": 0.0002465464044
+				},
+				"Sanders": {
+					"passed": 1,
+					"pvalue": 0.07514532461,
+					"delta": 0.5638535872
+				},
+				"Steyer": {
+					"passed": 1,
+					"pvalue": 0.0002501425996,
+					"delta": 0.0002501425996
+				},
+				"Warren": {
+					"passed": 1,
+					"pvalue": 0.0003827165849,
+					"delta": 0.0003827165849
+				},
+				"Write_Ins": {
+					"passed": 1,
+					"pvalue": 0.0002541106943,
+					"delta": 0.0002541106943
+				},
+				"passed": 1,
+				"pvalue": 0.07514532461,
+				"delta": 0.5638535872
+			}
+		},
+		"test3": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_president",
+			"alpha": 0.1,
+			"round_schedule": 19,
+			"audit_observations": {
+				"Bennet": 0,
+				"Biden": 11,
+				"Bloomberg": 1,
+				"Buttigieg": 0,
+				"Gabbard": 0,
+				"Klobuchar": 0,
+				"Patrick": 0,
+				"Sanders": 6,
+				"Steyer": 1,
+				"Warren": 0,
+				"Write_Ins": 0
+			},
+			"expected": {
+				"Bennet": {
+					"passed": 1,
+					"pvalue": 0.0004977174475,
+					"delta": 0.0004977174475
+				},
+				"Bloomberg": {
+					"passed": 1,
+					"pvalue": 0.00327731817,
+					"delta": 0.01342532355
+				},
+				"Buttigieg": {
+					"passed": 1,
+					"pvalue": 0.0005947360292,
+					"delta": 0.0005947360292
+				},
+				"Gabbard": {
+					"passed": 1,
+					"pvalue": 0.0005136801942,
+					"delta": 0.0005136801942
+				},
+				"Klobuchar": {
+					"passed": 1,
+					"pvalue": 0.0005694306829,
+					"delta": 0.0005694306829
+				},
+				"Patrick": {
+					"passed": 1,
+					"pvalue": 0.0004926900411,
+					"delta": 0.0004926900411
+				},
+				"Sanders": {
+					"passed": 0,
+					"pvalue": 0.1683235777,
+					"delta": 2.902308942
+				},
+				"Steyer": {
+					"passed": 1,
+					"pvalue": 0.003174673185,
+					"delta": 0.1234695095
+				},
+				"Warren": {
+					"passed": 1,
+					"pvalue": 0.0007372885835,
+					"delta": 0.0007372885835
+				},
+				"Write_Ins": {
+					"passed": 1,
+					"pvalue": 0.0005065290577,
+					"delta": 0.0005065290577
+				},
+				"passed": 0,
+				"pvalue": 0.1683235777,
+				"delta": 2.902308942
+			}
+		},
+		"test4": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_congress",
+			"alpha": 0.1,
+			"round_schedule": 42,
+			"audit_observations": {
+				"Moyer": 15,
+				"Tims": 27
+			},
+			"expected": {
+				"Moyer": {
+					"passed": 1,
+					"pvalue": 0.05056102881,
+					"delta": 0.2795342369
+				},
+				"passed": 1,
+				"pvalue": 0.05056102881,
+				"delta": 0.2795342369
+			}
+		},
+		"test5": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_congress",
+			"alpha": 0.1,
+			"round_schedule": 42,
+			"audit_observations": {
+				"Moyer": 16,
+				"Tims": 26
+			},
+			"expected": {
+				"Moyer": {
+					"passed": 1,
+					"pvalue": 0.0883117256,
+					"delta": 0.6897212757
+				},
+				"passed": 1,
+				"pvalue": 0.0883117256,
+				"delta": 0.6897212757
+			}
+		},
+		"test6": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_congress",
+			"alpha": 0.1,
+			"round_schedule": 42,
+			"audit_observations": {
+				"Moyer": 17,
+				"Tims": 25
+			},
+			"expected": {
+				"Moyer": {
+					"passed": 0,
+					"pvalue": 0.1452960395,
+					"delta": 1.701814573
+				},
+				"passed": 0,
+				"pvalue": 0.1452960395,
+				"delta": 1.701814573
+			}
+		},
+		"test7": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_senator",
+			"alpha": 0.1,
+			"round_schedule": 17,
+			"audit_observations": {
+				"Fogel": 13,
+				"Griggs": 4
+			},
+			"expected": {
+				"Griggs": {
+					"passed": 1,
+					"pvalue": 0.02949520031,
+					"delta": 0.09781294228
+				},
+				"passed": 1,
+				"pvalue": 0.02949520031,
+				"delta": 0.09781294228
+			}
+		},
+		"test8": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_senator",
+			"alpha": 0.1,
+			"round_schedule": 17,
+			"audit_observations": {
+				"Fogel": 12,
+				"Griggs": 5
+			},
+			"expected": {
+				"Griggs": {
+					"passed": 1,
+					"pvalue": 0.07670538832,
+					"delta": 0.4547995629
+				},
+				"passed": 1,
+				"pvalue": 0.07670538832,
+				"delta": 0.4547995629
+			}
+		},
+		"test9": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_senator",
+			"alpha": 0.1,
+			"round_schedule": 17,
+			"audit_observations": {
+				"Fogel": 11,
+				"Griggs": 6
+			},
+			"expected": {
+				"Griggs": {
+					"passed": 0,
+					"pvalue": 0.1695771656,
+					"delta": 2.1146756
+				},
+				"passed": 0,
+				"pvalue": 0.1695771656,
+				"delta": 2.1146756
+			}
+		},
+		"test10": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_cc_1_2_2021",
+			"alpha": 0.1,
+			"round_schedule": 49,
+			"audit_observations": {
+				"Dodge": 31,
+				"Rountree": 18
+			},
+			"expected": {
+				"Rountree": {
+					"passed": 1,
+					"pvalue": 0.049324932,
+					"delta": 0.2715034046
+				},
+				"passed": 1,
+				"pvalue": 0.049324932,
+				"delta": 0.2715034046
+			}
+		},
+		"test11": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_cc_1_2_2021",
+			"alpha": 0.1,
+			"round_schedule": 49,
+			"audit_observations": {
+				"Dodge": 30,
+				"Rountree": 19
+			},
+			"expected": {
+				"Rountree": {
+					"passed": 1,
+					"pvalue": 0.08282824869,
+					"delta": 0.6201461789
+				},
+				"passed": 1,
+				"pvalue": 0.08282824869,
+				"delta": 0.6201461789
+			}
+		},
+		"test12": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_cc_1_2_2021",
+			"alpha": 0.1,
+			"round_schedule": 49,
+			"audit_observations": {
+				"Dodge": 29,
+				"Rountree": 20
+			},
+			"expected": {
+				"Rountree": {
+					"passed": 0,
+					"pvalue": 0.1323253904,
+					"delta": 1.416487884
+				},
+				"passed": 0,
+				"pvalue": 0.1323253904,
+				"delta": 1.416487884
+			}
+		},
+		"test13": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_cc_1_3_2021",
+			"alpha": 0.1,
+			"round_schedule": 19,
+			"audit_observations": {
+				"Lieberman": 14,
+				"West": 5
+			},
+			"expected": {
+				"West": {
+					"passed": 1,
+					"pvalue": 0.03715492842,
+					"delta": 0.1429403835
+				},
+				"passed": 1,
+				"pvalue": 0.03715492842,
+				"delta": 0.1429403835
+			}
+		},
+		"test14": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_cc_1_3_2021",
+			"alpha": 0.1,
+			"round_schedule": 19,
+			"audit_observations": {
+				"Lieberman": 13,
+				"West": 6
+			},
+			"expected": {
+				"West": {
+					"passed": 1,
+					"pvalue": 0.08865681324,
+					"delta": 0.5963817006
+				},
+				"passed": 1,
+				"pvalue": 0.08865681324,
+				"delta": 0.5963817006
+			}
+		},
+		"test15": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_cc_1_3_2021",
+			"alpha": 0.1,
+			"round_schedule": 19,
+			"audit_observations": {
+				"Lieberman": 12,
+				"West": 7
+			},
+			"expected": {
+				"West": {
+					"passed": 0,
+					"pvalue": 0.1831500054,
+					"delta": 2.488248065
+				},
+				"passed": 0,
+				"pvalue": 0.1831500054,
+				"delta": 2.488248065
+			}
+		},
+		"test16": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_10th",
+			"alpha": 0.1,
+			"round_schedule": 9,
+			"audit_observations": {
+				"Anderson": 1,
+				"Flanders": 0,
+				"Turner": 8
+			},
+			"expected": {
+				"Anderson": {
+					"passed": 1,
+					"pvalue": 0.02270210452,
+					"delta": 0.04879617054
+				},
+				"Flanders": {
+					"passed": 1,
+					"pvalue": 0.006170198497,
+					"delta": 0.006170198497
+				},
+				"passed": 1,
+				"pvalue": 0.02270210452,
+				"delta": 0.04879617054
+			}
+		},
+		"test17": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_10th",
+			"alpha": 0.1,
+			"round_schedule": 11,
+			"audit_observations": {
+				"Anderson": 2,
+				"Flanders": 2,
+				"Turner": 7
+			},
+			"expected": {
+				"Anderson": {
+					"passed": 1,
+					"pvalue": 0.09208534298,
+					"delta": 0.6096650954
+				},
+				"Flanders": {
+					"passed": 1,
+					"pvalue": 0.09085875979,
+					"delta": 0.9445119506
+				},
+				"passed": 1,
+				"pvalue": 0.09208534298,
+				"delta": 0.9445119506
+			}
+		},
+		"test18": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_10th",
+			"alpha": 0.1,
+			"round_schedule": 11,
+			"audit_observations": {
+				"Anderson": 3,
+				"Flanders": 2,
+				"Turner": 6
+			},
+			"expected": {
+				"Anderson": {
+					"passed": 0,
+					"pvalue": 0.254620259,
+					"delta": 7.617227428
+				},
+				"Flanders": {
+					"passed": 0,
+					"pvalue": 0.1456625042,
+					"delta": 1.784103583
+				},
+				"passed": 0,
+				"pvalue": 0.254620259,
+				"delta": 7.617227428
+			}
+		},
+		"test19": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_senator",
+			"alpha": 0.1,
+			"round_schedule": 39,
+			"audit_observations": {
+				"Antani": 22,
+				"Robinson": 6,
+				"Selby": 11
+			},
+			"expected": {
+				"Robinson": {
+					"passed": 1,
+					"pvalue": 0.002175600931,
+					"delta": 0.0104011751
+				},
+				"Selby": {
+					"passed": 1,
+					"pvalue": 0.04606157948,
+					"delta": 0.2335017342
+				},
+				"passed": 1,
+				"pvalue": 0.04606157948,
+				"delta": 0.2335017342
+			}
+		},
+		"test20": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_senator",
+			"alpha": 0.1,
+			"round_schedule": 39,
+			"audit_observations": {
+				"Antani": 21,
+				"Robinson": 6,
+				"Selby": 12
+			},
+			"expected": {
+				"Robinson": {
+					"passed": 1,
+					"pvalue": 0.003386289913,
+					"delta": 0.01749401876
+				},
+				"Selby": {
+					"passed": 1,
+					"pvalue": 0.08724892553,
+					"delta": 0.6582625329
+				},
+				"passed": 1,
+				"pvalue": 0.08724892553,
+				"delta": 0.6582625329
+			}
+		},
+		"test21": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_senator",
+			"alpha": 0.1,
+			"round_schedule": 40,
+			"audit_observations": {
+				"Antani": 20,
+				"Robinson": 7,
+				"Selby": 13
+			},
+			"expected": {
+				"Robinson": {
+					"passed": 1,
+					"pvalue": 0.01012202252,
+					"delta": 0.09250605582
+				},
+				"Selby": {
+					"passed": 0,
+					"pvalue": 0.1528940262,
+					"delta": 1.855701688
+				},
+				"passed": 0,
+				"pvalue": 0.1528940262,
+				"delta": 1.855701688
+			}
+		},
+		"test22": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_42nd",
+			"alpha": 0.1,
+			"round_schedule": 33,
+			"audit_observations": {
+				"Stubbs": 11,
+				"Young": 22
+			},
+			"expected": {
+				"Stubbs": {
+					"passed": 1,
+					"pvalue": 0.04572692456,
+					"delta": 0.2401206027
+				},
+				"passed": 1,
+				"pvalue": 0.04572692456,
+				"delta": 0.2401206027
+			}
+		},
+		"test23": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_42nd",
+			"alpha": 0.1,
+			"round_schedule": 33,
+			"audit_observations": {
+				"Stubbs": 12,
+				"Young": 21
+			},
+			"expected": {
+				"Stubbs": {
+					"passed": 1,
+					"pvalue": 0.08688288772,
+					"delta": 0.684863854
+				},
+				"passed": 1,
+				"pvalue": 0.08688288772,
+				"delta": 0.684863854
+			}
+		},
+		"test24": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_42nd",
+			"alpha": 0.1,
+			"round_schedule": 33,
+			"audit_observations": {
+				"Stubbs": 13,
+				"Young": 20
+			},
+			"expected": {
+				"Stubbs": {
+					"passed": 0,
+					"pvalue": 0.1525582368,
+					"delta": 1.953345499
+				},
+				"passed": 0,
+				"pvalue": 0.1525582368,
+				"delta": 1.953345499
+			}
+		},
+		"test25": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_cc_1_2_2021",
+			"alpha": 0.1,
+			"round_schedule": 86,
+			"audit_observations": {
+				"Scearce": 35,
+				"Setzer": 51
+			},
+			"expected": {
+				"Scearce": {
+					"passed": 1,
+					"pvalue": 0.05998526836,
+					"delta": 0.3843759393
+				},
+				"passed": 1,
+				"pvalue": 0.05998526836,
+				"delta": 0.3843759393
+			}
+		},
+		"test26": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_cc_1_2_2021",
+			"alpha": 0.1,
+			"round_schedule": 86,
+			"audit_observations": {
+				"Scearce": 36,
+				"Setzer": 50
+			},
+			"expected": {
+				"Scearce": {
+					"passed": 1,
+					"pvalue": 0.08761871736,
+					"delta": 0.7050552943
+				},
+				"passed": 1,
+				"pvalue": 0.08761871736,
+				"delta": 0.7050552943
+			}
+		},
+		"test27": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_cc_1_2_2021",
+			"alpha": 0.1,
+			"round_schedule": 86,
+			"audit_observations": {
+				"Scearce": 37,
+				"Setzer": 49
+			},
+			"expected": {
+				"Scearce": {
+					"passed": 0,
+					"pvalue": 0.1245044151,
+					"delta": 1.293272854
+				},
+				"passed": 0,
+				"pvalue": 0.1245044151,
+				"delta": 1.293272854
+			}
+		}
+	}
+}
