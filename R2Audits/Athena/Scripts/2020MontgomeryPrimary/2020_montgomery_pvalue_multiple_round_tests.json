@@ -1,0 +1,355 @@
+{
+	"evaluate_risk": {
+		"test1": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_president",
+			"alpha": 0.1,
+			"round_schedule": [19,29],
+			"audit_observations": {
+				"Bennet": [0,0],
+				"Biden": [11,17],
+				"Bloomberg": [1,1],
+				"Buttigieg": [0,0],
+				"Gabbard": [0,0],
+				"Klobuchar": [0,0],
+				"Patrick": [0,0],
+				"Sanders": [6,10],
+				"Steyer": [1,1],
+				"Warren": [0,0],
+				"Write_Ins": [0,0]
+			},
+			"expected": {
+				"Bennet": {
+					"kmin": [10,18],
+					"pvalue": [0.0004977174475,"_NaN_"],
+					"delta": [0.0004977174475,7.858454724e-06]
+				},
+				"Bloomberg": {
+					"kmin": [10,19],
+					"pvalue": [0.00327731817,"_NaN_"],
+					"delta": [0.01342532355,0.0002421898115]
+				},
+				"Buttigieg": {
+					"kmin": [10,15],
+					"pvalue": [0.0005947360292,"_NaN_"],
+					"delta": [0.0005947360292,1.034819844e-05]
+				},
+				"Gabbard": {
+					"kmin": [10,18],
+					"pvalue": [0.0005136801942,"_NaN_"],
+					"delta": [0.0005136801942,8.251354936e-06]
+				},
+				"Klobuchar": {
+					"kmin": [10,15],
+					"pvalue": [0.0005694306829,"_NaN_"],
+					"delta": [0.0005694306829,9.675676431e-06]
+				},
+				"Patrick": {
+					"kmin": [10,18],
+					"pvalue": [0.0004926900411,"_NaN_"],
+					"delta": [0.0004926900411,7.736118624e-06]
+				},
+				"Sanders": {
+					"kmin": [12,20],
+					"pvalue": [0.1683235777,1.68632162],
+					"delta": [2.902308942,11.74371987]
+				},
+				"Steyer": {
+					"kmin": [11,19],
+					"pvalue": [0.003174673185,"_NaN_"],
+					"delta": [0.1234695095,0.001952781051]
+				},
+				"Warren": {
+					"kmin": [9,18],
+					"pvalue": [0.0007372885835,"_NaN_"],
+					"delta": [0.0007372885835,1.442368238e-05]
+				},
+				"Write_Ins": {
+					"kmin": [10,18],
+					"pvalue": [0.0005065290577,"_NaN_"],
+					"delta": [0.0005065290577,8.07450366e-06]
+				},
+				"passed": false,
+				"pvalue": 0.1683235777,
+				"delta": 2.902308942
+			}
+		},
+		"test2": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_president",
+			"alpha": 0.1,
+			"round_schedule": [16,45],
+			"audit_observations": {
+				"Bennet": [0,1],
+				"Biden": [10,20],
+				"Bloomberg": [1,1],
+				"Buttigieg": [0,1],
+				"Gabbard": [0,1],
+				"Klobuchar": [0,1],
+				"Patrick": [0,1],
+				"Sanders": [4,17],
+				"Steyer": [1,1],
+				"Warren": [0,1],
+				"Write_Ins": [0,0]
+			},
+			"expected": {
+				"Bennet": {
+					"kmin": [9,22],
+					"pvalue": [0.0009937042567,"_NaN_"],
+					"delta": [0.0009937042567,0.0002839820271]
+				},
+				"Bloomberg": {
+					"kmin": [10,18],
+					"pvalue": [0.006020289743,"_NaN_"],
+					"delta": [0.02621518397,3.252905324e-05]
+				},
+				"Buttigieg": {
+					"kmin": [9,18],
+					"pvalue": [0.001168335301,"_NaN_"],
+					"delta": [0.001168335301,3.840792855e-05]
+				},
+				"Gabbard": {
+					"kmin": [9,19],
+					"pvalue": [0.001022635221,"_NaN_"],
+					"delta": [0.001022635221,0.0001136886566]
+				},
+				"Klobuchar": {
+					"kmin": [9,18],
+					"pvalue": [0.00112305438,"_NaN_"],
+					"delta": [0.00112305438,4.543529838e-05]
+				},
+				"Patrick": {
+					"kmin": [10,19],
+					"pvalue": [0.0009845752047,0.0005933921022],
+					"delta": [0.0009845752047,0.0005933921022]
+				},
+				"Sanders": {
+					"kmin": [10,26],
+					"pvalue": [0.09583521232,4.696810008],
+					"delta": [0.5144737175,6480.367015]
+				},
+				"Steyer": {
+					"kmin": [10,22],
+					"pvalue": [0.005860676787,"_NaN_"],
+					"delta": [0.2464397452,0.0002455842252]
+				},
+				"Warren": {
+					"kmin": [8,18],
+					"pvalue": [0.001420357718,"_NaN_"],
+					"delta": [0.001420357718,2.743328926e-05]
+				},
+				"Write_Ins": {
+					"kmin": [9,18],
+					"pvalue": [0.001009684724,"_NaN_"],
+					"delta": [0.001009684724,1.019463242e-06]
+				},
+				"passed": true,
+				"pvalue": 0.09583521232,
+				"delta": 0.5144737175
+			}
+		},
+		"test3": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_president",
+			"alpha": 0.1,
+			"round_schedule": [22,29],
+			"audit_observations": {
+				"Bennet": [0,0],
+				"Biden": [11,17],
+				"Bloomberg": [1,1],
+				"Buttigieg": [0,0],
+				"Gabbard": [0,0],
+				"Klobuchar": [0,0],
+				"Patrick": [0,0],
+				"Sanders": [9,10],
+				"Steyer": [1,1],
+				"Warren": [0,0],
+				"Write_Ins": [0,0]
+			},
+			"expected": {
+				"Bennet": {
+					"kmin": [10,18],
+					"pvalue": [0.0004977174475,"_NaN_"],
+					"delta": [0.0004977174475,7.858454724e-06]
+				},
+				"Bloomberg": {
+					"kmin": [10,19],
+					"pvalue": [0.00327731817,"_NaN_"],
+					"delta": [0.01342532355,0.0002421898115]
+				},
+				"Buttigieg": {
+					"kmin": [10,15],
+					"pvalue": [0.0005947360292,"_NaN_"],
+					"delta": [0.0005947360292,1.034819844e-05]
+				},
+				"Gabbard": {
+					"kmin": [10,18],
+					"pvalue": [0.0005136801942,"_NaN_"],
+					"delta": [0.0005136801942,8.251354936e-06]
+				},
+				"Klobuchar": {
+					"kmin": [10,15],
+					"pvalue": [0.0005694306829,"_NaN_"],
+					"delta": [0.0005694306829,9.675676431e-06]
+				},
+				"Patrick": {
+					"kmin": [10,18],
+					"pvalue": [0.0004926900411,"_NaN_"],
+					"delta": [0.0004926900411,7.736118624e-06]
+				},
+				"Sanders": {
+					"kmin": [14,20],
+					"pvalue": [0.412103303,2.441480828],
+					"delta": [84.27550793,11.74371987]
+				},
+				"Steyer": {
+					"kmin": [11,19],
+					"pvalue": [0.003174673185,"_NaN_"],
+					"delta": [0.1234695095,0.001952781051]
+				},
+				"Warren": {
+					"kmin": [9,18],
+					"pvalue": [0.0007372885835,"_NaN_"],
+					"delta": [0.0007372885835,1.442368238e-05]
+				},
+				"Write_Ins": {
+					"kmin": [10,18],
+					"pvalue": [0.0005065290577,"_NaN_"],
+					"delta": [0.0005065290577,8.07450366e-06]
+				},
+				"passed": false,
+				"pvalue": 0.412103303,
+				"delta": 11.74371987
+			}
+		},
+		"test4": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_congress",
+			"alpha": 0.1,
+			"round_schedule": [42,63],
+			"audit_observations": {
+				"Moyer": [17,26],
+				"Tims": [25,37]
+			},
+			"expected": {
+				"Moyer": {
+					"kmin": [26,41],
+					"pvalue": [0.1452960395,0.8456895457],
+					"delta": [1.701814573,3.487286795]
+				},
+				"passed": false,
+				"pvalue": 0.1452960395,
+				"delta": 1.701814573
+			}
+		},
+		"test5": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_congress",
+			"alpha": 0.1,
+			"round_schedule": [27,54],
+			"audit_observations": {
+				"Moyer": [10,20],
+				"Tims": [17,34]
+			},
+			"expected": {
+				"Moyer": {
+					"kmin": [18,35],
+					"pvalue": [0.1417425181,0.1108615019],
+					"delta": [0.6084459578,0.3702064835]
+				},
+				"passed": false,
+				"pvalue": 0.1108615019,
+				"delta": 0.3702064835
+			}
+		},
+		"test6": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_congress",
+			"alpha": 0.1,
+			"round_schedule": [31,62],
+			"audit_observations": {
+				"Moyer": [12,24],
+				"Tims": [19,38]
+			},
+			"expected": {
+				"Moyer": {
+					"kmin": [20,39],
+					"pvalue": [0.1531084812,0.1858424631],
+					"delta": [0.9028963273,0.8152217779]
+				},
+				"passed": false,
+				"pvalue": 0.1531084812,
+				"delta": 0.8152217779
+			}
+		},
+		"test7": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_senator",
+			"alpha": 0.1,
+			"round_schedule": [17,26],
+			"audit_observations": {
+				"Fogel": [11,16],
+				"Griggs": [6,10]
+			},
+			"expected": {
+				"Griggs": {
+					"kmin": [12,19],
+					"pvalue": [0.1695771656,1.699747809],
+					"delta": [2.1146756,11.14486171]
+				},
+				"passed": false,
+				"pvalue": 0.1695771656,
+				"delta": 2.1146756
+			}
+		},
+		"test8": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_senator",
+			"alpha": 0.1,
+			"round_schedule": [12,24],
+			"audit_observations": {
+				"Fogel": [8,16],
+				"Griggs": [4,8]
+			},
+			"expected": {
+				"Griggs": {
+					"kmin": [9,18],
+					"pvalue": [0.2031703804,0.3179465114],
+					"delta": [1.181797188,1.396644593]
+				},
+				"passed": false,
+				"pvalue": 0.2031703804,
+				"delta": 1.181797188
+			}
+		},
+		"test9": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_senator",
+			"alpha": 0.1,
+			"round_schedule": [40,80],
+			"audit_observations": {
+				"Fogel": [27,54],
+				"Griggs": [13,26]
+			},
+			"expected": {
+				"Griggs": {
+					"kmin": [28,55],
+					"pvalue": [0.01936899031,0.03590104178],
+					"delta": [1.045527039,1.09312679]
+				},
+				"passed": false,
+				"pvalue": 0.01936899031,
+				"delta": 1.045527039
+			}
+		}
+	}
+}
