@@ -48,7 +48,7 @@ else
 end
 
 if kmin(i) <= n_in(i)
-    % Round is large enough for  non-zero stopping probbaility. Compute 
+    % Round is large enough for  non-zero stopping probability. Compute 
     % tails for each hypothesis at kmin
     StopSched(i) = sum(CurrentTierStop(kmin(i)+1:size(CurrentTierStop,2)));
     RiskSched(i) = sum(CurrentTierRisk(kmin(i)+1:size(CurrentTierRisk,2)));
