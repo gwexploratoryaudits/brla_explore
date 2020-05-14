@@ -114,6 +114,10 @@ for s=1:num_tests
     testing.evaluate_risk.(sprintf('test%d',s)).expected.passed = int8((pvalue_max <= alpha) && (dvalue_max <= delta)); 
     testing.evaluate_risk.(sprintf('test%d',s)).expected.pvalue = pvalue_max; 
     testing.evaluate_risk.(sprintf('test%d',s)).expected.delta = dvalue_max; 
+    
+    if testing.evaluate_risk.(sprintf('test%d',s)).expected.passed ~= 1 % Test failed, compute next round
+        
+        
 end
 
 % Write tests back into testing file
