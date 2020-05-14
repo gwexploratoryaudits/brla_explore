@@ -1,4 +1,4 @@
-% very basic script to compute Athena MULTIPLE round p-values for Montgomery
+% very basic script to compute Athena MULTIPLE rounds for Montgomery
 % County, Ohio, 2020 primary audit
 
 % Input values
@@ -97,6 +97,7 @@ for s=1:num_tests
         CurrentTierRisk = (1);
         StopSched = (0);
         RiskSched = (0);
+        
         for round = 1:num_rounds
             % Compute new relevant ballots drawn
             this_draw = k_in{s}(round,winner) + k_in{s}(round,j) - ...
