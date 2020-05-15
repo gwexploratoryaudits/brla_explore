@@ -51,7 +51,6 @@ if round == 1
     % Columns will be added to these vectors for each round
     n_last = zeros(size(candidates)); %last cumulative relevant sample size
     n_actual = n_last; % current cumulative relevant sample size 
-    kmin_last = n_last; % last cumulative kmin
     kmin_actual = n_last; % current cumulative kmin
     passed_true = kmin_actual; % whether test passed
     % Initialize p-values, d-values and likelihood ratios
@@ -120,6 +119,7 @@ pairwise_relevant_max = [next_rounds_max(max_round_cand(1),1), ...
     next_rounds_max(max_round_cand(3),3)];
 pairwise_kmin_max = [kmin_max(max_round_cand(1),1), ...
     kmin_max(max_round_cand(2),2), kmin_max(max_round_cand(3),3)];
+
 %---- Would be good to fix this, but works for now ----%
 pairwise_candidates_max = cellstr(candidates{max_round_cand(1)});
 pairwise_candidates_max = [pairwise_candidates_max, ...
@@ -127,6 +127,7 @@ pairwise_candidates_max = [pairwise_candidates_max, ...
 pairwise_candidates_max = [pairwise_candidates_max, ...
     candidates{max_round_cand(3)}];
 %---- End good to fix -----%
+
 actual_stop_max = [stop_max(max_round_cand(1),1), ...
     stop_max(max_round_cand(2),2), stop_max(max_round_cand(3),3)];
 
@@ -135,6 +136,7 @@ pairwise_relevant_min = [next_rounds_min(min_round_cand(1),1), ...
     next_rounds_min(min_round_cand(3),3)];
 pairwise_kmin_min = [kmin_min(min_round_cand(1),1), ...
     kmin_min(min_round_cand(2),2), kmin_min(min_round_cand(3),3)];
+
 %---- Would be good to fix this, but works for now ----%
 pairwise_candidates_min = cellstr(candidates{max_round_cand(1)});
 pairwise_candidates_min = [pairwise_candidates_min, ...
@@ -142,60 +144,69 @@ pairwise_candidates_min = [pairwise_candidates_min, ...
 pairwise_candidates_min = [pairwise_candidates_min, ...
     candidates{max_round_cand(3)}];
 %---- End good to fix -----%
+
 actual_stop_min = [stop_min(min_round_cand(1),1), ...
     stop_max(min_round_cand(2),2), stop_min(min_round_cand(3),3)];
 
 % Inform
-fprintf('Recommended min round sizes are as follow\n')
-fprintf('Minimum sizes for percentiles [%1.2f, %1.2f, %1.2f] are [%d, %d, %d]\n', ...
+fprintf('Recommended min round sizes for next draw are as follow\n')
+fprintf('Minimum sizes for percentiles [%1.4f, %1.4f, %1.4f] are [%d, %d, %d]\n', ...
     percentiles, largest_min_round_size)
-fprintf('with stopping probabilities [%1.2f, %1.2f, %1.2f]\n', actual_stop_min)
+fprintf('With actual stopping probabilities [%1.4f, %1.4f, %1.4f]\n', actual_stop_min)
 fprintf('Corresponding to pairwise relevant ballots [%d, %d, %d]\n', ...
     pairwise_relevant_min) 
-fprintf('and requiring minimum winner votes (kmin) [%d, %d, %d] to stop\n', ...
+fprintf('Cumulative pairwise relevant ballots [%d, %d, %d]\n', ...
+    pairwise_relevant_min + n_last(j,round)) 
+fprintf('Requiring minimum winner votes (kmin) [%d, %d, %d] to stop\n', ...
     pairwise_kmin_min)  
-fprintf('for announced winner %s and candidates [%s, %s, %s]\n\n\n', ...
+fprintf('For announced winner %s and candidates [%s, %s, %s]\n\n\n', ...
     candidates{winner}, candidates{min_round_cand(1)}, ...
     candidates{min_round_cand(2)}, candidates{min_round_cand(3)})
 
-fprintf('Recommended max round sizes are as follow\n')
-fprintf('Maximum sizes for percentiles [%1.2f, %1.2f, %1.2f] are [%d, %d, %d]\n', ...
+fprintf('Recommended max round sizes for next draw are as follow\n')
+fprintf('Maximum sizes for percentiles [%1.4f, %1.4f, %1.4f] are [%d, %d, %d]\n', ...
     percentiles, largest_max_round_size)
-fprintf('with stopping probabilities [%1.2f, %1.2f, %1.2f]\n', actual_stop_max)
+fprintf('With actual stopping probabilities [%1.4f, %1.4f, %1.4f]\n', actual_stop_max)
 fprintf('Corresponding to pairwise relevant ballots [%d, %d, %d]\n', ...
     pairwise_relevant_max) 
-fprintf('and requiring minimum winner votes [%d, %d, %d] to stop\n', ...
+fprintf('Cumulative pairwise relevant ballots [%d, %d, %d]\n', ...
+    pairwise_relevant_max + n_last(j,round)) 
+fprintf('Requiring minimum winner votes (kmin) [%d, %d, %d] to stop\n', ...
     pairwise_kmin_max)  
-fprintf('for announced winner %s and candidates [%s, %s, %s]\n\n\n', ...
+fprintf('For announced winner %s and candidates [%s, %s, %s]\n\n\n', ...
     candidates{winner}, candidates{max_round_cand(1)},...
     candidates{max_round_cand(2)}, candidates{max_round_cand(3)})
 
 % save in testing structure
 testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_max.largest_round_scaled ...
     = largest_max_round_size;
-testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_max.round_sizes ...
+testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_max.relevant_round_sizes ...
     = pairwise_relevant_max;
+testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_max.cumulative_relevant_round_sizes ...
+    = pairwise_relevant_max + n_last(j,round);
 testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_max.round_kmins ...
     = pairwise_kmin_max;
 testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_max.round_candidates ...
     = pairwise_candidates_max;
-testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_max.round_probs ...
+testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_max.probs ...
     = actual_stop_max;
 
 
 testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_min.largest_round_scaled ...
     = largest_min_round_size;
-testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_min.round_sizes ...
+testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_min.relevant_round_sizes ...
     = pairwise_relevant_min;
+testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_min.cumulative_relevant_round_sizes ...
+    = pairwise_relevant_min + n_last(j,round);
 testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_min.round_kmins ...
     = pairwise_kmin_min;
 testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_min.round_candidates ...
     = pairwise_candidates_min;
-testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_min.round_probs ...
+testing.interactive.(sprintf('test%d',s)).next_round_size.expected.(sprintf('round_%d',round)).sizes_min.probs ...
     = actual_stop_min;
 
 % Get sample 
-fprintf('Enter information on sample drawn as directed.\n')
+fprintf('Below, enter information on sample drawn.\n')
 % n_in is a row vector of size round, that gets incremented in size with 
 % every round. 
 n_in(round) = input('Enter cumulative ballots drawn\n') 
@@ -220,9 +231,13 @@ testing.interactive.(sprintf('test%d',s)).evaluate_risk.audit_observations_by_ro
 for j=1:size(candidates,1)
     testing.interactive.(sprintf('test%d',s)).evaluate_risk.audit_observations_by_candidate.(candidates{j}) = k_in(:,j).'; 
 end
+ 
+% ------ PART II ----- For each loser, compute pvalues----
+% Initialize list of those who pass audit
+audit_passers = [];
+% Flag to check if anyone passed
+pass_flag = 0;
 
-
-% ------ PART II ----- For each loser, compute pvalues---- 
 for j = losers
 	% Compute new relevant ballots drawn
     n_actual(j,round) = k_in(round,winner) + k_in(round,j); % cumulative relevant ballots
@@ -267,9 +282,23 @@ for j = losers
         = StopSched(j, :);
     testing.interactive.(sprintf('test%d',s)).evaluate_risk.expected.(candidates{j}).RiskSched ...
         = RiskSched(j, :);
-end % for every loser
+    testing.interactive.(sprintf('test%d',s)).evaluate_risk.expected.(candidates{j}).passed ...
+        = (pvalue(j, round) <= alpha) && (dvalue(j,round) <= delta);
     
+    if (pvalue(j, round) <= alpha) && (dvalue(j,round) <= delta)
+        audit_passers = [audit_passers, j];
+        pass_flag = 1;
+    end      
+end % for every loser in current list
+
 % Done with all losers
+% Delete those who passed the test
+if pass_flag == 1 % audit_passers non-empty
+    for j = audit_passers
+        losers = losers(losers ~= j);
+    end
+end
+
 % Summary maximum p and d values for this round. Max finds max in each column. 
 pvalue_max = max(pvalue);
 dvalue_max = max(dvalue);
@@ -279,12 +308,41 @@ passed_found = find(passed_true, 1);
 passed = ~isempty(passed_found);
 
 % Write to structure
-testing.interactive.(sprintf('test%d',s)).expected.passed = passed; 
-testing.interactive.(sprintf('test%d',s)).expected.pvalue = min(pvalue_max); 
-testing.interactive.(sprintf('test%d',s)).expected.delta = min(dvalue_max);
+testing.interactive.(sprintf('test%d',s)).expected.(sprintf('round_%d',round)).passed = passed; 
+testing.interactive.(sprintf('test%d',s)).expected.(sprintf('round_%d',round)).pvalue_max = min(pvalue_max,1); 
+testing.interactive.(sprintf('test%d',s)).expected.(sprintf('round_%d',round)).pvalue_final = min(min(pvalue_max),1); 
+testing.interactive.(sprintf('test%d',s)).expected.(sprintf('round_%d',round)).dvalue_max = dvalue_max;
+testing.interactive.(sprintf('test%d',s)).expected.(sprintf('round_%d',round)).dvalue_final = min(dvalue_max);
+if pass_flag == 1 % audit_passers non-empty
+    for j=1:size(audit_passers,2)
+        passers{j} = candidates(audit_passers(j));
+    end
+    testing.interactive.(sprintf('test%d',s)).expected.(sprintf('round_%d',round)).passers = passers;
+end
 
 % Output to user
-fprintf('Total new ballots drawn = %d \n', n_in(round))
+fmt=['Round-wise pvalues are' repmat(' %1.4f ',1,numel(min(pvalue_max,1))) '\n'];
+fprintf(fmt, min(pvalue_max,1))
+fprintf('Overall pvalue is %1.4f\n', min(min(pvalue_max),1))
+fmt=['Round-wise dvalues are' repmat(' %1.4f ',1,numel(dvalue_max)) '\n'];
+fprintf(fmt,dvalue_max)
+fprintf('Overall dvalue is %1.4f\n', min(dvalue_max))
+if passed == true
+    fprintf('The election passed the audit\n')
+else
+    fprintf('The election did not pass the audit\n')
+    if pass_flag == 1
+        fprintf('However, the pairwise contests between Candidate %s and the \n', candidates{winner})
+        fprintf('following candidates pass the audit with risk limit %1.4f:\n', alpha)
+        for j = audit_passers
+            fprintf('%s', candidates{j})
+        end 
+    end
+    fprintf('Draw more ballots to test if Candidate Biden won more votes than the following candidates:\n')
+    for j = losers
+        fprintf('%s', candidates{j})
+    end    
+end
 
 % Update
 % Round is done, update number of relevant ballots for all
