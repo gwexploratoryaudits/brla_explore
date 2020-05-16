@@ -4,12 +4,10 @@
 % interface script for ith round. Set round=0 and then begin script. Set 
 % s = test number. 
 
-if s ~= 1 % Not first test, 
-    % Read test file to append to it. 
-    fname = '2020_montgomery_interactive_tests.json';
-    testing = loadjson(fileread(fname));
+if s ~= 1 % first test, 
+    % Read test file
+    
 end
-
 round = round+1;
 
 % If this is the first round, need audit parameters
