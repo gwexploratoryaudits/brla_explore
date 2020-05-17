@@ -242,6 +242,7 @@ end
 % ------ PART II ----- For each loser, compute pvalues----
 % Initialize list of those who pass audit
 audit_passers = [];
+passers = audit_passers;
 % Flag to check if anyone passed
 pass_flag = 0;
 
