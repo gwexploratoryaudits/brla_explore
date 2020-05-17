@@ -4,11 +4,11 @@
 % interface script for ith round. Set round=0 and then begin script. Set 
 % s = test number. 
 
-if s ~= 1 % Not first test, 
+% if s ~= 1 % Not first test, 
     % Read test file to append to it. 
-    fname = '2020_montgomery_interactive_tests.json';
-    testing = loadjson(fileread(fname));
-end
+%    fname = '2020_montgomery_interactive_tests.json';
+%    testing = loadjson(fileread(fname));
+% end
 
 round = round+1;
 
@@ -76,7 +76,7 @@ if round == 1
     % each round
     k_last = 0;
     
-    % Initialize testing structure and write it into file. 
+    % Initialize testing structure to write into file. 
     testing.interactive.(sprintf('test%d',s)).audit_type = 'athena';
     testing.interactive.(sprintf('test%d',s)).election = ...
         election_computations.name;
@@ -153,7 +153,7 @@ pairwise_candidates_min = [pairwise_candidates_min, ...
 %---- End good to fix -----%
 
 actual_stop_min = [stop_min(min_round_cand(1),1), ...
-    stop_max(min_round_cand(2),2), stop_min(min_round_cand(3),3)];
+    stop_min(min_round_cand(2),2), stop_min(min_round_cand(3),3)];
 
 % Inform
 fprintf('Recommended min round sizes for next draw are as follow\n')
@@ -358,11 +358,11 @@ n_last(:,round+1) = n_actual(:,round);
 k_last(round+1) = k_in(round,winner);
 
 % Write tests back into testing file
-txt = savejson('',testing);
-fname3 = '2020_montgomery_interactive_tests.json';
-fid = fopen(fname3, 'w');
-if fid == -1, error('Cannot create JSON file'); end
-fwrite(fid,txt,'char');
-fclose(fid);
+% txt = savejson('',testing);
+% fname3 = '2020_montgomery_interactive_tests.json';
+% fid = fopen(fname3, 'w');
+% if fid == -1, error('Cannot create JSON file'); end
+% fwrite(fid,txt,'char');
+% fclose(fid);
 
 %sprintf('%s',(candidates{winner}),'*')
