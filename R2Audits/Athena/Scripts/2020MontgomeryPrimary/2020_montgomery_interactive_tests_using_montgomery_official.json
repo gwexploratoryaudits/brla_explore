@@ -1,0 +1,322 @@
+{
+	"interactive": {
+		"test1": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_president",
+			"alpha": 0.1,
+			"quants": [0.7,0.8,0.9],
+			"next_round_size": {
+				"max_new_ballots_drawn": 300,
+				"expected": {
+					"round_1": {
+						"sizes_max": {
+							"largest_round_scaled": [21,25,35],
+							"relevant_round_sizes": [10,12,17],
+							"cumulative_relevant_round_sizes": [10,12,17],
+							"round_kmins": [8,9,12],
+							"round_candidates": [
+								"Sanders",
+								"Sanders",
+								"Sanders"
+							],
+							"probs": [0.7811777362,0.8793443888,0.9523123147]
+						},
+						"sizes_min": {
+							"largest_round_scaled": [21,25,29],
+							"relevant_round_sizes": [10,12,14],
+							"cumulative_relevant_round_sizes": [10,12,14],
+							"round_kmins": [8,9,10],
+							"round_candidates": [
+								"Sanders",
+								"Sanders",
+								"Sanders"
+							],
+							"probs": [0.7811777362,0.8793443888,0.9341840612]
+						}
+					}
+				}
+			},
+			"evaluate_risk": {
+				"round_schedule": 150,
+				"audit_observations_by_round": [0,118,4,2,0,1,0,20,0,4,1],
+				"audit_observations_by_candidate": {
+					"Bennet": 0,
+					"Biden": 118,
+					"Bloomberg": 4,
+					"Buttigieg": 2,
+					"Gabbard": 0,
+					"Klobuchar": 1,
+					"Patrick": 0,
+					"Sanders": 20,
+					"Steyer": 0,
+					"Warren": 4,
+					"Write_Ins": 1
+				},
+				"expected": {
+					"Bennet": {
+						"kmin": 106,
+						"pvalue": -5.73909746e-19,
+						"delta": 3.702293451e-36,
+						"StopSched": 1,
+						"RiskSched": -3.000051188e-17,
+						"passed": true
+					},
+					"Bloomberg": {
+						"kmin": 101,
+						"pvalue": 1.717887086e-17,
+						"delta": 1.014067706e-29,
+						"StopSched": 1,
+						"RiskSched": 4.842412176e-14,
+						"passed": true
+					},
+					"Buttigieg": {
+						"kmin": 100,
+						"pvalue": -1.083499425e-17,
+						"delta": 1.97644597e-32,
+						"StopSched": 1,
+						"RiskSched": 2.756013966e-14,
+						"passed": true
+					},
+					"Gabbard": {
+						"kmin": 103,
+						"pvalue": -8.133333209e-19,
+						"delta": 5.246815633e-36,
+						"StopSched": 1,
+						"RiskSched": -9.475380331e-18,
+						"passed": true
+					},
+					"Klobuchar": {
+						"kmin": 101,
+						"pvalue": -7.257346136e-18,
+						"delta": 5.619701826e-34,
+						"StopSched": 1,
+						"RiskSched": 1.711366825e-15,
+						"passed": true
+					},
+					"Patrick": {
+						"kmin": 107,
+						"pvalue": -5.206015918e-19,
+						"delta": 3.358402392e-36,
+						"StopSched": 1,
+						"RiskSched": -2.906755135e-17,
+						"passed": true
+					},
+					"Sanders": {
+						"kmin": 95,
+						"pvalue": -4.201345873e-17,
+						"delta": 2.213516637e-17,
+						"StopSched": 0.9999939885,
+						"RiskSched": 5.649801738e-06,
+						"passed": true
+					},
+					"Steyer": {
+						"kmin": 105,
+						"pvalue": -6.001183169e-19,
+						"delta": 3.871365018e-36,
+						"StopSched": 1,
+						"RiskSched": -2.443190375e-17,
+						"passed": true
+					},
+					"Warren": {
+						"kmin": 98,
+						"pvalue": 2.737658687e-17,
+						"delta": 8.596275996e-30,
+						"StopSched": 1,
+						"RiskSched": 4.170734173e-12,
+						"passed": true
+					},
+					"Write_Ins": {
+						"kmin": 105,
+						"pvalue": -4.063980812e-18,
+						"delta": 5.89538333e-34,
+						"StopSched": 1,
+						"RiskSched": 2.498430969e-17,
+						"passed": true
+					}
+				}
+			},
+			"expected": {
+				"round_1": {
+					"passed": true,
+					"pvalue_max": 2.737658687e-17,
+					"pvalue_final": 2.737658687e-17,
+					"dvalue_max": 2.213516637e-17,
+					"dvalue_final": 2.213516637e-17,
+					"passers": [
+						[
+							"Bennet"
+						],
+						[
+							"Bloomberg"
+						],
+						[
+							"Buttigieg"
+						],
+						[
+							"Gabbard"
+						],
+						[
+							"Klobuchar"
+						],
+						[
+							"Patrick"
+						],
+						[
+							"Sanders"
+						],
+						[
+							"Steyer"
+						],
+						[
+							"Warren"
+						],
+						[
+							"Write_Ins"
+						]
+					]
+				}
+			}
+		},
+		"test2": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "d_cc_1_2_2021",
+			"alpha": 0.1,
+			"quants": [0.7,0.8,0.9],
+			"next_round_size": {
+				"max_new_ballots_drawn": 300,
+				"expected": {
+					"round_1": {
+						"sizes_max": {
+							"largest_round_scaled": [68,76,101],
+							"relevant_round_sizes": [34,38,51],
+							"cumulative_relevant_round_sizes": [34,38,51],
+							"round_kmins": [22,24,31],
+							"round_candidates": [
+								"Rountree",
+								"Rountree",
+								"Rountree"
+							],
+							"probs": [0.7760705266,0.8363075077,0.9237833202]
+						},
+						"sizes_min": {
+							"largest_round_scaled": [58,72,97],
+							"relevant_round_sizes": [29,36,49],
+							"cumulative_relevant_round_sizes": [29,36,49],
+							"round_kmins": [19,23,30],
+							"round_candidates": [
+								"Rountree",
+								"Rountree",
+								"Rountree"
+							],
+							"probs": [0.7394059097,0.8084030797,0.9107380508]
+						}
+					}
+				}
+			},
+			"evaluate_risk": {
+				"round_schedule": 140,
+				"audit_observations_by_round": [89,51],
+				"audit_observations_by_candidate": {
+					"Dodge": 89,
+					"Rountree": 51
+				},
+				"expected": {
+					"Rountree": {
+						"kmin": 84,
+						"pvalue": 0.0008920047915,
+						"delta": 0.01462230914,
+						"StopSched": 0.9916371796,
+						"RiskSched": 0.01107747799,
+						"passed": true
+					}
+				}
+			},
+			"expected": {
+				"round_1": {
+					"passed": true,
+					"pvalue_max": 0.0008920047915,
+					"pvalue_final": 0.0008920047915,
+					"dvalue_max": 0.01462230914,
+					"dvalue_final": 0.01462230914,
+					"passers": [
+						[
+							"Rountree"
+						]
+					]
+				}
+			}
+		},
+		"test3": {
+			"audit_type": "athena",
+			"election": "montgomery_primary_2020",
+			"contest": "r_cc_1_2_2021",
+			"alpha": 0.1,
+			"quants": [0.7,0.8,0.9],
+			"next_round_size": {
+				"max_new_ballots_drawn": 300,
+				"expected": {
+					"round_1": {
+						"sizes_max": {
+							"largest_round_scaled": [150,193,248],
+							"relevant_round_sizes": [52,67,86],
+							"cumulative_relevant_round_sizes": [52,67,86],
+							"round_kmins": [32,40,50],
+							"round_candidates": [
+								"Scearce",
+								"Scearce",
+								"Scearce"
+							],
+							"probs": [0.7388169692,0.8401766336,0.9176592332]
+						},
+						"sizes_min": {
+							"largest_round_scaled": [136,167,228],
+							"relevant_round_sizes": [47,58,79],
+							"cumulative_relevant_round_sizes": [47,58,79],
+							"round_kmins": [29,35,46],
+							"round_candidates": [
+								"Scearce",
+								"Scearce",
+								"Scearce"
+							],
+							"probs": [0.7260366391,0.8010200196,0.9075636596]
+						}
+					}
+				}
+			},
+			"evaluate_risk": {
+				"round_schedule": 69,
+				"audit_observations_by_round": [20,49],
+				"audit_observations_by_candidate": {
+					"Scearce": 20,
+					"Setzer": 49
+				},
+				"expected": {
+					"Scearce": {
+						"kmin": 41,
+						"pvalue": 0.001888624499,
+						"delta": 0.003420389759,
+						"StopSched": 0.853995976,
+						"RiskSched": 0.07401609035,
+						"passed": true
+					}
+				}
+			},
+			"expected": {
+				"round_1": {
+					"passed": true,
+					"pvalue_max": 0.001888624499,
+					"pvalue_final": 0.001888624499,
+					"dvalue_max": 0.003420389759,
+					"dvalue_final": 0.003420389759,
+					"passers": [
+						[
+							"Scearce"
+						]
+					]
+				}
+			}
+		}
+	}
+}
