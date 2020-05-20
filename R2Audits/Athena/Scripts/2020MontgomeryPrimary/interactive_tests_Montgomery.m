@@ -6,7 +6,7 @@
 
 if s ~= 1 % Not first test, 
     % Read test file to append to it. 
-	fname = '2020_montgomery_interactive_tests.json';
+	fname = '2020_montgomery_interactive_tests_using_montgomery_official.json';
 	testing = loadjson(fileread(fname));
 end
 
@@ -15,7 +15,7 @@ round = round+1;
 % If this is the first round, need audit parameters
 if round == 1
     % Read election results
-    fname = '2020_montgomery_formatted.json';
+    fname = '2020_montgomery_official.json';
     election_computations = loadjson(fileread(fname));
     races = fieldnames(election_computations.contests);
 
@@ -361,7 +361,7 @@ k_last(round+1) = k_in(round,winner);
 
 % Write tests back into testing file
 txt = savejson('',testing);
-fname3 = '2020_montgomery_interactive_tests.json';
+fname3 = '2020_montgomery_interactive_tests_using_montgomery_official.json';
 fid = fopen(fname3, 'w');
 if fid == -1, error('Cannot create JSON file'); end
 fwrite(fid,txt,'char');
