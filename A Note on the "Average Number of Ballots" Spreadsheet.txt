@@ -1,0 +1,14 @@
+A Note on the "Average Number of Ballots" Spreadsheet
+
+This spreadsheet contains, in the lower table,
+the average number of ballots examined by the audit type or error distribution. For error distributions (e.g., uniform, increasing, etc.), these refer to different ways of allotting the risk for the convolution approach. Compared to these various flavors of the convolution approach is the Bayesian RLA (with a uniform prior) and the traditional RLA (that is, the special case of the Bayesian RLA where there are two "spikes" of .5 in the prior, one at the tie and the other at the reported tally).
+
+It is important to emphasize that these averages are only accurate if the audited is actually conducted entirely in rounds (not ballot-by-ballot, even though the Bayesian RLA and traditional RLA permit this). The rounds are of size [200, 400, ..., 51200], with N = 100000. The risk limit is 5%.
+
+The upper table contain k_mins, which are an intermediate result used in calculating the lower table. The average number of ballots depends entirely on the margin and the k_mins; if two approaches have the same k_min's, then for the same margin they will have identical expectations.
+
+Some things of interest:
+
+The traditional RLA, taking into account the reported tally, performs better (in the sense of lower averages) than the Bayesian RLA for wider margins. As Professor Vora has said, this motivates using a prior that both uses the reported tally while also not being so "exacting" (perhaps a Guassian centered around the reported tally).
+
+When comparing different convolution approach error distributions to each other, one sees that increasing error distributions (e.g., the second tier is allowed to make twice as much error as the first) perform better for narrow margins, while decreasing error distributions perform better for wider margins.

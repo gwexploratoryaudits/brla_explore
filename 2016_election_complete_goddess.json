@@ -1,0 +1,410 @@
+{
+    "Alabama": [
+        {
+            "Athena_gm_raw": 90,
+            "Athena_gm_scaled": 94,
+            "Minerva_gm_raw": 90,
+            "Minerva_gm_scaled": 94
+        }
+    ],
+    "Alaska": [
+        {
+            "Athena_gm_raw": 259,
+            "Athena_gm_scaled": 295,
+            "Minerva_gm_raw": 259,
+            "Minerva_gm_scaled": 295
+        }
+    ],
+    "Arizona": [
+        {
+            "Athena_gm_raw": 4881,
+            "Athena_gm_scaled": 5204,
+            "Minerva_gm_raw": 4881,
+            "Minerva_gm_scaled": 5204
+        }
+    ],
+    "Arkansas": [
+        {
+            "Athena_gm_raw": 90,
+            "Athena_gm_scaled": 96,
+            "Minerva_gm_raw": 90,
+            "Minerva_gm_scaled": 96
+        }
+    ],
+    "California": [
+        {
+            "Athena_gm_raw": 73,
+            "Athena_gm_scaled": 79,
+            "Minerva_gm_raw": 73,
+            "Minerva_gm_scaled": 79
+        }
+    ],
+    "Colorado": [
+        {
+            "Athena_gm_raw": 2446,
+            "Athena_gm_scaled": 2676,
+            "Minerva_gm_raw": 2446,
+            "Minerva_gm_scaled": 2676
+        }
+    ],
+    "Connecticut": [
+        {
+            "Athena_gm_raw": 357,
+            "Athena_gm_scaled": 374,
+            "Minerva_gm_raw": 357,
+            "Minerva_gm_scaled": 374
+        }
+    ],
+    "Delaware": [
+        {
+            "Athena_gm_raw": 495,
+            "Athena_gm_scaled": 523,
+            "Minerva_gm_raw": 495,
+            "Minerva_gm_scaled": 523
+        }
+    ],
+    "District of Columbia": [
+        {
+            "Athena_gm_raw": 7,
+            "Athena_gm_scaled": 8,
+            "Minerva_gm_raw": 7,
+            "Minerva_gm_scaled": 8
+        }
+    ],
+    "Florida": [
+        {
+            "Athena_gm_raw": 45094,
+            "Athena_gm_scaled": 46563,
+            "Minerva_gm_raw": 45094,
+            "Minerva_gm_scaled": 46563
+        }
+    ],
+    "Georgia": [
+        {
+            "Athena_gm_raw": 2474,
+            "Athena_gm_scaled": 2567,
+            "Minerva_gm_raw": 2474,
+            "Minerva_gm_scaled": 2567
+        }
+    ],
+    "Hawaii": [
+        {
+            "Athena_gm_raw": 62,
+            "Athena_gm_scaled": 68,
+            "Minerva_gm_raw": 62,
+            "Minerva_gm_scaled": 68
+        }
+    ],
+    "Idaho": [
+        {
+            "Athena_gm_raw": 55,
+            "Athena_gm_scaled": 64,
+            "Minerva_gm_raw": 55,
+            "Minerva_gm_scaled": 64
+        }
+    ],
+    "Illinois": [
+        {
+            "Athena_gm_raw": 228,
+            "Athena_gm_scaled": 242,
+            "Minerva_gm_raw": 228,
+            "Minerva_gm_scaled": 242
+        }
+    ],
+    "Indiana": [
+        {
+            "Athena_gm_raw": 177,
+            "Athena_gm_scaled": 187,
+            "Minerva_gm_raw": 177,
+            "Minerva_gm_scaled": 187
+        }
+    ],
+    "Iowa": [
+        {
+            "Athena_gm_raw": 699,
+            "Athena_gm_scaled": 753,
+            "Minerva_gm_raw": 699,
+            "Minerva_gm_scaled": 753
+        }
+    ],
+    "Kansas": [
+        {
+            "Athena_gm_raw": 150,
+            "Athena_gm_scaled": 162,
+            "Minerva_gm_raw": 150,
+            "Minerva_gm_scaled": 162
+        }
+    ],
+    "Kentucky": [
+        {
+            "Athena_gm_raw": 75,
+            "Athena_gm_scaled": 79,
+            "Minerva_gm_raw": 75,
+            "Minerva_gm_scaled": 79
+        }
+    ],
+    "Louisiana": [
+        {
+            "Athena_gm_raw": 175,
+            "Athena_gm_scaled": 182,
+            "Minerva_gm_raw": 175,
+            "Minerva_gm_scaled": 182
+        }
+    ],
+    "Maine": [
+        {
+            "Athena_gm_raw": 6820,
+            "Athena_gm_scaled": 7358,
+            "Minerva_gm_raw": 6820,
+            "Minerva_gm_scaled": 7358
+        }
+    ],
+    "Maryland": [
+        {
+            "Athena_gm_raw": 92,
+            "Athena_gm_scaled": 98,
+            "Minerva_gm_raw": 92,
+            "Minerva_gm_scaled": 98
+        }
+    ],
+    "Massachusetts": [
+        {
+            "Athena_gm_raw": 86,
+            "Athena_gm_scaled": 93,
+            "Minerva_gm_raw": 86,
+            "Minerva_gm_scaled": 93
+        }
+    ],
+    "Michigan": [
+        {
+            "Athena_gm_raw": 1242756,
+            "Athena_gm_scaled": 1311311,
+            "Minerva_gm_raw": 1242756,
+            "Minerva_gm_scaled": 1311311
+        }
+    ],
+    "Minnesota": [
+        {
+            "Athena_gm_raw": 25054,
+            "Athena_gm_scaled": 27421,
+            "Minerva_gm_raw": 25054,
+            "Minerva_gm_scaled": 27421
+        }
+    ],
+    "Mississippi": [
+        {
+            "Athena_gm_raw": 219,
+            "Athena_gm_scaled": 224,
+            "Minerva_gm_raw": 219,
+            "Minerva_gm_scaled": 224
+        }
+    ],
+    "Missouri": [
+        {
+            "Athena_gm_raw": 190,
+            "Athena_gm_scaled": 201,
+            "Minerva_gm_raw": 190,
+            "Minerva_gm_scaled": 201
+        }
+    ],
+    "Montana": [
+        {
+            "Athena_gm_raw": 150,
+            "Athena_gm_scaled": 164,
+            "Minerva_gm_raw": 150,
+            "Minerva_gm_scaled": 164
+        }
+    ],
+    "Nebraska": [
+        {
+            "Athena_gm_raw": 101,
+            "Athena_gm_scaled": 110,
+            "Minerva_gm_raw": 101,
+            "Minerva_gm_scaled": 110
+        }
+    ],
+    "Nevada": [
+        {
+            "Athena_gm_raw": 10378,
+            "Athena_gm_scaled": 11110,
+            "Minerva_gm_raw": 10378,
+            "Minerva_gm_scaled": 11110
+        }
+    ],
+    "New Hampshire": [
+        {
+            "Athena_gm_raw": 443436,
+            "Athena_gm_scaled": 475357,
+            "Minerva_gm_raw": 443436,
+            "Minerva_gm_scaled": 475357
+        }
+    ],
+    "New Jersey": [
+        {
+            "Athena_gm_raw": 338,
+            "Athena_gm_scaled": 350,
+            "Minerva_gm_raw": 338,
+            "Minerva_gm_scaled": 350
+        }
+    ],
+    "New Mexico": [
+        {
+            "Athena_gm_raw": 824,
+            "Athena_gm_scaled": 934,
+            "Minerva_gm_raw": 824,
+            "Minerva_gm_scaled": 934
+        }
+    ],
+    "New York": [
+        {
+            "Athena_gm_raw": 133,
+            "Athena_gm_scaled": 140,
+            "Minerva_gm_raw": 133,
+            "Minerva_gm_scaled": 140
+        }
+    ],
+    "North Carolina": [
+        {
+            "Athena_gm_raw": 4800,
+            "Athena_gm_scaled": 5000,
+            "Minerva_gm_raw": 4800,
+            "Minerva_gm_scaled": 5000
+        }
+    ],
+    "North Dakota": [
+        {
+            "Athena_gm_raw": 49,
+            "Athena_gm_scaled": 55,
+            "Minerva_gm_raw": 49,
+            "Minerva_gm_scaled": 55
+        }
+    ],
+    "Ohio": [
+        {
+            "Athena_gm_raw": 969,
+            "Athena_gm_scaled": 1018,
+            "Minerva_gm_raw": 969,
+            "Minerva_gm_scaled": 1018
+        }
+    ],
+    "Oklahoma": [
+        {
+            "Athena_gm_raw": 51,
+            "Athena_gm_scaled": 55,
+            "Minerva_gm_raw": 51,
+            "Minerva_gm_scaled": 55
+        }
+    ],
+    "Oregon": [
+        {
+            "Athena_gm_raw": 477,
+            "Athena_gm_scaled": 535,
+            "Minerva_gm_raw": 477,
+            "Minerva_gm_scaled": 535
+        }
+    ],
+    "Pennsylvania": [
+        {
+            "Athena_gm_raw": 122230,
+            "Athena_gm_scaled": 127792,
+            "Minerva_gm_raw": 122230,
+            "Minerva_gm_scaled": 127792
+        }
+    ],
+    "Rhode Island": [
+        {
+            "Athena_gm_raw": 261,
+            "Athena_gm_scaled": 280,
+            "Minerva_gm_raw": 261,
+            "Minerva_gm_scaled": 280
+        }
+    ],
+    "South Carolina": [
+        {
+            "Athena_gm_raw": 328,
+            "Athena_gm_scaled": 344,
+            "Minerva_gm_raw": 328,
+            "Minerva_gm_scaled": 344
+        }
+    ],
+    "South Dakota": [
+        {
+            "Athena_gm_raw": 73,
+            "Athena_gm_scaled": 79,
+            "Minerva_gm_raw": 73,
+            "Minerva_gm_scaled": 79
+        }
+    ],
+    "Tennessee": [
+        {
+            "Athena_gm_raw": 101,
+            "Athena_gm_scaled": 106,
+            "Minerva_gm_raw": 101,
+            "Minerva_gm_scaled": 106
+        }
+    ],
+    "Texas": [
+        {
+            "Athena_gm_raw": 795,
+            "Athena_gm_scaled": 833,
+            "Minerva_gm_raw": 795,
+            "Minerva_gm_scaled": 833
+        }
+    ],
+    "Utah": [
+        {
+            "Athena_gm_raw": 120,
+            "Athena_gm_scaled": 165,
+            "Minerva_gm_raw": 120,
+            "Minerva_gm_scaled": 165
+        }
+    ],
+    "Vermont": [
+        {
+            "Athena_gm_raw": 79,
+            "Athena_gm_scaled": 91,
+            "Minerva_gm_raw": 79,
+            "Minerva_gm_scaled": 91
+        }
+    ],
+    "Virginia": [
+        {
+            "Athena_gm_raw": 2192,
+            "Athena_gm_scaled": 2329,
+            "Minerva_gm_raw": 2192,
+            "Minerva_gm_scaled": 2329
+        }
+    ],
+    "Washington": [
+        {
+            "Athena_gm_raw": 236,
+            "Athena_gm_scaled": 265,
+            "Minerva_gm_raw": 236,
+            "Minerva_gm_scaled": 265
+        }
+    ],
+    "West Virginia": [
+        {
+            "Athena_gm_raw": 38,
+            "Athena_gm_scaled": 41,
+            "Minerva_gm_raw": 38,
+            "Minerva_gm_scaled": 41
+        }
+    ],
+    "Wisconsin": [
+        {
+            "Athena_gm_raw": 103621,
+            "Athena_gm_scaled": 110622,
+            "Minerva_gm_raw": 103621,
+            "Minerva_gm_scaled": 110622
+        }
+    ],
+    "Wyoming": [
+        {
+            "Athena_gm_raw": 26,
+            "Athena_gm_scaled": 29,
+            "Minerva_gm_raw": 26,
+            "Minerva_gm_scaled": 29
+        }
+    ]
+}
