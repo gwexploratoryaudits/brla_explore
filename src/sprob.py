@@ -99,19 +99,15 @@ class Sprob:
             H0_dist = self.next_round_dist(True, H0_dist, i)
             Ha_dist = self.next_round_dist(False, Ha_dist, i)
 
-            # Second addend ensures cumulativity (recursively)
-            # max(i - 1, 0) ensures no index of -1
-            self.pr_H0_sched[i] = (self.compute_sprob(H0_dist, i) 
-                                 + self.pr_H0_sched[max(i - 1, 0)])
-            self.pr_Ha_sched[i] = (self.compute_sprob(Ha_dist, i) 
-                                 + self.pr_Ha_sched[max(i - 1, 0)])
+            self.pr_H0_sched[i] = self.compute_sprob(H0_dist, i)
+            self.pr_Ha_sched[i] = self.compute_sprob(Ha_dist, i)
             self.risk_sched[i] = self.pr_H0_sched[i] / self.pr_Ha_sched[i]
 
             self.truncate_dist(H0_dist, i)
             self.truncate_dist(Ha_dist, i)
         
         print('RISK CONSUMED SCHEDULE:', self.pr_H0_sched, '\n STOPPING PROB SCHEDULE', 
-            self.pr_Ha_sched, '\n RATIO SCHEDULE (this must be below alpha)', self.risk_sched)
+            self.pr_Ha_sched, '\n RATIO SCHEDULE (lowest value = risk limit of audit w/ these kmins)', self.risk_sched)
 
     def next_round_dist(self, H0, dist, rnd_index):
         """ Calculates the distribution of the next round.
