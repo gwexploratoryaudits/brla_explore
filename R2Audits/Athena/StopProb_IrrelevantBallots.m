@@ -55,9 +55,13 @@ for j=1:max_draws-n_last % j is number of new ballots drawn
       NextTierStop = binopdf(0:j,j,p);
       NextTierRisk = binopdf(0:j,j,0.5);
    else % Not Arlo and not first round, need convolution
+      % TODO: Does R2CurrentTier_IrrelevantBallots need to be used to
+      % correct margin caluclations?
       NextTierStop = R2CurrentTier(margin,CurrentTierStop,j);
       NextTierRisk = R2CurrentTier(0,CurrentTierRisk,j);
 
+      % TODO: Is the AthenaNextkmin margin calculation also incorrect for
+      % irrelevant ballots?
       kmin(j) = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
       RiskSched_prev, NextTierStop, NextTierRisk, n(j), audit_method);
    end
