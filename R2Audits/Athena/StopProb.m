@@ -11,7 +11,7 @@ function [n, kmin, Stopping] = StopProb(margin, alpha, delta, ...
     % Outputs are arrays indexed by number of new ballots drawn. 
     %
     % ---------------------------Inputs------------------------
-    %
+    %cxz
     %       margin:             fractional margin
     %       alpha:              fractional risk limit
     %       delta:              minimum value for Athena LR; not needed for 

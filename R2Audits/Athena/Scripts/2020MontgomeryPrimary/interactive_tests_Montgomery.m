@@ -3,6 +3,8 @@
 % -------
 % interface script for ith round. Set round=0 and then begin script. Set 
 % s = test number. 
+round = 0;
+s = 1;
 
 if s ~= 1 % Not first test, 
     % Read test file to append to it. 
@@ -46,9 +48,11 @@ if round == 1
     % For each candidate, including winner, compute margin
     relevant_ballots = votes_max + votes;
     margin = (votes_max-votes)./relevant_ballots;
+    fprintf('%d\n\n', margin);
     
     % factor to scale up raw values
     factor = election_computations.total_ballots./relevant_ballots;
+    fprintf('%d\n\n', factor);
     
     % list of all losing candidate (numbers)
     losers = (1:size(candidates,1)); 

@@ -30,6 +30,8 @@ function [next_rounds_max, next_rounds_min, n, kmin, Stopping] = ...
     %                               drawn in all
     %       audit_method:       one of Arlo, Athena, Minerva, Metis
     %
+    %       irrelevant_fraction: reported fraction of irrelevant ballots
+    %
     % -------------------------Outputs---------------------------
     %
     %       next_rounds_max:	max new draw sizes: one larger than largest 
@@ -53,6 +55,10 @@ function [next_rounds_max, next_rounds_min, n, kmin, Stopping] = ...
     [n, kmin, Stopping] = StopProb(margin, alpha, delta, ...
      StopSched_prev, RiskSched_prev, CurrentTierStop, CurrentTierRisk, ... 
      n_last, k_last, max_draws, audit_method);
+     
+    for i=1:size(Stopping,2)
+        fprintf('%d\t%d\n', n(i), Stopping(i));
+    end
  
     % Find value of j0 so that Stopping(j0) >= percentiles for all j >=j0
     for i=1:size(percentiles,2)
@@ -60,6 +66,10 @@ function [next_rounds_max, next_rounds_min, n, kmin, Stopping] = ...
         next_rounds_max(i) = kValuemax(size(kValuemax,2))+1;
         kValuemin = find(Stopping >= percentiles(1,i));
         next_rounds_min(i) = kValuemin(1,1);
+    end
+    
+    for i=1:size(next_rounds_max,2)
+        fprintf('%d\t%d\t%d\n', percentiles(i), next_rounds_max(i), next_rounds_min(i));
     end
 end
 
