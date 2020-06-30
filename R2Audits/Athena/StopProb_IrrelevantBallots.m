@@ -29,9 +29,9 @@ n_last, k_last, max_draws, audit_method, irrelevant_fraction)
 %
 % -------------------------Outputs---------------------------
 %
-%       n:                  total ballots drawn, (n_last+1:max_draws)
-%       kmin:               corresponding kmin
-%       Stopping:           corresponding stopping probability
+%       n:                      total ballots drawn, (n_last+1:max_draws)
+%       kmin:                   corresponding kmin
+%       Stopping:               corresponding stopping probability
 %
 
 % assumed fraction of winner votes
@@ -41,7 +41,8 @@ p = ((1-irrelevant_fraction)+difference_fraction)/2;
 l = 1-irrelevant_fraction-p;
 
 % margin calculation to be passed into R2CurrentTier and AthenaNextkmin
-margin = (p-l)/(1-irrelevant_fraction);
+denom = p+l;
+margin = difference_fraction/denom;
 
 % possible new total sample size
 n = (n_last+1:max_draws);
@@ -57,38 +58,32 @@ Stopping = zeros(1, max_draws-n_last);
 for j=1:max_draws-n_last % j is number of new ballots drawn
 
    if n_last == 0 % Not Arlo, but first round. Do not need convolutions. 
-      NextTierStop = binopdf(0:j,j,p);
+      NextTierStop = binopdf(0:j,j,(1+margin)/2);
       NextTierRisk = binopdf(0:j,j,0.5);
    else % Not Arlo and not first round, need convolution
-      % TODO: Does R2CurrentTier_IrrelevantBallots need to be used to
-      % correct margin caluclations?
       NextTierStop = R2CurrentTier(margin,CurrentTierStop,j);
       NextTierRisk = R2CurrentTier(0,CurrentTierRisk,j);
    end
-   % TODO: Is the AthenaNextkmin margin calculation also incorrect for
-   % irrelevant ballots?
+
    kmin(j) = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
    RiskSched_prev, NextTierStop, NextTierRisk, n(j), audit_method);
   
-%    for i=1:size(kmin,2)
-%      fprintf('%d', kmin(i));
-%      fprintf('\n');
-%    end
 end
 
 %---------------Compute Stopping----------------%
 
 % Assuming not Arlo right now... 
-
 for j=1:max_draws-n_last % j is number of new ballots drawn
 
     % Round is large enough for non-zero stopping probability
     if kmin(j) <= n(j)
         
+        % Initialize stopping probability for round size of j
         Final_stop_prob = 0;
         for i=0:j % i is the number of irrelevant ballots, j-i is the number of relevant ballots
             
-            % initualize the stopping probability
+            % Initialize the stopping probability for round size of j where
+            % i ballots are irrelevant 
             Stop_prob=0;
             
             % There is no chance of stopping if...
@@ -96,16 +91,14 @@ for j=1:max_draws-n_last % j is number of new ballots drawn
             %   - the number of relevant votes drawn is not large enough,
             %       meaning its corresponding kmin value returned is larger
             %       than itself   
-            if j-i > 0 && kmin(j-i) <= n(j-i)
+            if (j-i > 0) && (kmin(j-i) <= n(j-i))
                 for k=kmin(j-i)-k_last:j-i 
                 
                     % Calculate the probability of drawing k winner ballots,
                     % j-k-i loser ballots, and i irrelevant ballots
-                    Stop_prob = Stop_prob + TrinomialDistribution(p,l,irrelevant_fraction,k,j-k-i,i,j);
+                    Stop_prob = Stop_prob + TrinomialDistribution(p,l,irrelevant_fraction,k,j-k-i,i);
                 end
-                %
-                %invalid_prob = irrelevant_fraction^i;
-                %Stop_prob = 1 - (invalid_prob * binocdf(kmin(j-i)-k_last,j-i,p));
+
                 Final_stop_prob = Final_stop_prob + Stop_prob;
             end
         end 

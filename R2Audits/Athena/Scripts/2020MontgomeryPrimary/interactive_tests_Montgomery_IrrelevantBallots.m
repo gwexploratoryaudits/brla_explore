@@ -50,13 +50,8 @@ if round == 1
     % (the difference between the winner votes and the candidates votes as a 
     % fraction) as well as the irrelevant fraction (the number of votes that 
     % are not for either the winner or the current candidate as a fraction)
-    all_ballots = sum(votes);
-    difference_fraction = (votes_max-votes)./all_ballots;
-    fprintf('%d\n\n', difference_fraction);
-    
-    relevant_ballots = votes_max + votes;
-    irrelevant_fraction = relevant_ballots./all_ballots;
-    fprintf('%d\n\n', irrelevant_fraction);
+    difference_fraction = (votes_max/election_computations.total_ballots) - (votes/election_computations.total_ballots);
+    irrelevant_fraction = (election_computations.total_ballots - (votes_max+votes)) / election_computations.total_ballots;  
     
     % list of all losing candidate (numbers)
     losers = (1:size(candidates,1)); 
@@ -122,8 +117,8 @@ for j = losers
 end
 
 % Find largest rounds
-[largest_max_round_size, max_round_cand] = max(next_rounds_max_scaled);
-[largest_min_round_size, min_round_cand] = max(next_rounds_min_scaled);
+[largest_max_round_size, max_round_cand] = max(next_rounds_max);
+[largest_min_round_size, min_round_cand] = max(next_rounds_min);
 
 pairwise_relevant_max = [next_rounds_max(max_round_cand(1),1), ...
     next_rounds_max(max_round_cand(2),2), ...
