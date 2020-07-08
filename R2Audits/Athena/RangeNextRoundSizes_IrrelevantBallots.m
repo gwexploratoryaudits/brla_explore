@@ -47,16 +47,16 @@ function [next_rounds_max, next_rounds_min, n, kmin, Stopping] = ...
     %                                   probability
     %
     % -------------------------Usage------------------------------
-    % Use for first round sizes as follows:
-    %   [next_rounds_max, next_rounds_min, n, kmin, Stopping] = ...
-    %       RangeNextRoundSizes(margin, alpha, delta, (0), (0), (1), ...
-    %           (1), 0, 0, percentiles, max_draws, audit_method)
-    % 
 
     [n, kmin, Stopping] = StopProb_IrrelevantBallots(difference_fraction, alpha, delta, ...
         StopSched_prev, RiskSched_prev, CurrentTierStop, CurrentTierRisk, ...
         n_last, k_last, max_draws, audit_method, irrelevant_fraction);
- 
+    
+    % The max and min next round size concept is not necessary for these 
+    % calculations because the stopping probabilities returned by 
+    % StopProb_IrrelevantBallots do not fluctuate up and down, they consistently 
+    % increase as n increases
+    
     % Find value of j0 so that Stopping(j0) >= percentiles for all j >=j0
     for i=1:size(percentiles,2)
         kValuemax = find(Stopping < percentiles(1,i));

@@ -104,7 +104,7 @@ for j=1:max_draws-n_last % j is number of new ballots drawn
         end 
             
         Stopping(j) = Final_stop_prob;
-    end     
+    end
 end    
 
    

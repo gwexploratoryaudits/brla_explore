@@ -20,7 +20,7 @@ if round == 1
     % Read election results
     fname = '2020_montgomery_official.json';
     election_computations = loadjson(fileread(fname));
-    races = fieldnames(election_computations.contests);
+    races = fieldnames(election_computations.contests)
 
     % interactively insert other parameters of choice
     fprintf('This is the first round of the audit, enter audit parameters \n')
@@ -97,7 +97,7 @@ testing.interactive.(sprintf('test%d',s)).next_round_size.max_new_ballots_drawn 
 % Initialize arrays that will be rewritten for each round
 next_rounds_max = zeros(size(candidates,1), size(percentiles,2));
 next_rounds_min = next_rounds_max;
-kmin_max = next_rounds_max_scaled;
+kmin_max = next_rounds_max;
 kmin_min = kmin_max;
 stop_min = kmin_max;
 stop_max = kmin_max;
