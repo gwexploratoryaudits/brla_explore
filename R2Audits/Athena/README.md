@@ -17,13 +17,13 @@ Suppose the risk limit of the audit is $\alpha = 0.1$. Suppose `n1` ballots are 
 
 The *BRAVO* p-value is defined as follows: 
 
-$\frac{Prob(k1=32 | margin = 0)}{Prob(k1=32 | margin = 0.5)} = \frac{0.016035}{0.026390} = 0.6076 > \alpha$
+$$\frac{Prob(k1=32 | margin = 0)}{Prob(k1=32 | margin = 0.5)} = \frac{0.016035}{0.026390} = 0.6076 > \alpha$$
 
 Thus the sample does not satisfy the stopping condition for *BRAVO*. 
 
 The *Athena* p-value is defined as the ratio of the tails, (red tail divided by blue tail)
 
-$\frac{Prob(k1>=32 | margin = 0)}{Prob(k1>=32 | margin = 0.5)} = \frac{0.032454}{0.971267} = 0.0334 < \alpha$
+$$\frac{Prob(k1>=32 | margin = 0)}{Prob(k1>=32 | margin = 0.5)} = \frac{0.032454}{0.971267} = 0.0334 < \alpha$$
 
 And the sample satisfies the *Athena* stopping condition. 
 
