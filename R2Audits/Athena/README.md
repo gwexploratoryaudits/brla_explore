@@ -13,16 +13,19 @@ Consider a two-contestant contest with no invalid votes. Let `x` be the announce
 
 Suppose the risk limit of the audit is <img src="https://render.githubusercontent.com/render/math?math=\alpha=0.1">
 
-Suppose `n1` ballots are drawn in the first round. Denote by `k1` the number of votes drawn for the winner. Suppose `n1=50` and `x=0.75` (corresponding to a margin of `0.5`). Figure 1 shows the probability distributions of `k1` given that the election is (a) as announced for `x = 0.75` (blue curve), and (b) a tie (red curve). Recall that the tied election is the wrong election outcome that is hardest to distinguish from the announced one, and hence defines the worst-case risk. (See [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999)). Observe that, if `k1=32`, `Pr[k1=32 | margin=0.5] = 0.0264` and `Pr[k1=32 | margin=0] = 0.0160`. 
+Suppose `n1` ballots are drawn in the first round. Denote by `k1` the number of votes drawn for the winner. Suppose `n1=50` and `x=0.75` (corresponding to a margin of `0.5`). Figure 1 shows the probability distributions of `k1` given that the election is (a) as announced for `x = 0.75` (blue solid curve), and (b) a tie (red dashed curve). Recall that the tied election is the wrong election outcome that is hardest to distinguish from the announced one, and hence defines the worst-case risk. (See [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999)). Observe that, if `k1=32`, `Pr[k1=32 | margin=0.5] = 0.0264` and `Pr[k1=32 | margin=0] = 0.0160`. 
  
 ![Figure 1: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: First Round](fig/graph_athena_tails.png)
 
 The *BRAVO* p-value is defined as follows: 
-<img src="https://render.githubusercontent.com/render/math?math=\frac{Prob(k1=32 ~\mid~ margin = 0)}{Prob(k1=32 ~\mid~ margin = 0.5)} = \frac{0.0160}{0.0264} = 0.6076 > \alpha">
+
+<img src="https://render.githubusercontent.com/render/math?math=\frac{Prob(k1=32 \mid margin = 0)}{Prob(k1=32 \mid margin = 0.5)} = \frac{0.0160}{0.0264} = 0.6076 > \alpha">
+
 Thus the sample does not satisfy the stopping condition for *BRAVO*. 
 
-The *Athena* p-value is defined as the ratio of the tails, (red tail divided by blue tail)
-<img src="https://render.githubusercontent.com/render/math?math=\frac{Prob(k1 \geq 32 ~\mid~ margin = 0)}{Prob(k1 \geq 32 ~\mid~ margin = 0.5)} = \frac{0.0325}{0.9713} = 0.0334 < \alpha">
+The *Athena* p-value is defined as the ratio of the tails, (red solid tail divided by blue semi-transparent tail)
+
+<img src="https://render.githubusercontent.com/render/math?math=\frac{Prob(k1 \geq 32 \mid margin = 0)}{Prob(k1 \geq 32 \mid margin = 0.5)} = \frac{0.0325}{0.9713} = 0.0334 < \alpha">
 
 And the sample satisfies the *Athena* stopping condition. 
 
