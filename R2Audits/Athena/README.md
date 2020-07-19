@@ -17,15 +17,15 @@ Suppose `n1` ballots are drawn in the first round. Denote by `k1` the number of 
  
 ![Figure 1: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: First Round](fig/graph_athena_tails.png)
 
-The *BRAVO* p-value is defined as follows: 
+The *BRAVO* p-value is defined as the ratios of the probabilities: 
 
-<img src="https://render.githubusercontent.com/render/math?math=\frac{Prob(k1=32 \mid margin = 0)}{Prob(k1=32 \mid margin = 0.5)} = \frac{0.0160}{0.0264} = 0.6076 > \alpha">
+<img src="https://render.githubusercontent.com/render/math?math=\Large \frac{Prob(k1=32 \mid margin = 0)}{Prob(k1=32 \mid margin = 0.5)} = \frac{0.0160}{0.0264} = 0.6076 > \alpha">
 
 Thus the sample does not satisfy the stopping condition for *BRAVO*. 
 
 The *Athena* p-value is defined as the ratio of the tails, (red solid tail divided by blue semi-transparent tail)
 
-<img src="https://render.githubusercontent.com/render/math?math=\frac{Prob(k1 \geq 32 \mid margin = 0)}{Prob(k1 \geq 32 \mid margin = 0.5)} = \frac{0.0325}{0.9713} = 0.0334 < \alpha">
+<img src="https://render.githubusercontent.com/render/math?math=\Large \frac{Prob(k1 \geq 32 \mid margin = 0)}{Prob(k1 \geq 32 \mid margin = 0.5)} = \frac{0.0325}{0.9713} = 0.0334 < \alpha">
 
 And the sample satisfies the *Athena* stopping condition. 
 
