@@ -65,7 +65,7 @@ then:
 
 <img src="https://render.githubusercontent.com/render/math?math=\large R = \sum _i R_i \leq \alpha \sum _i S_i  = \alpha S \leq \alpha ">
 
-where <img src="https://render.githubusercontent.com/render/math?math=\large R, S"> are the total risk and stopping probability respectively, and, as stopping probability of the audit, <img src="https://render.githubusercontent.com/render/math?math= \large S \leq 1">. 
+where <img src="https://render.githubusercontent.com/render/math?math=\large R, S"> are the total risk and stopping probability respectively, and, as stopping probability of the audit, <img src="https://render.githubusercontent.com/render/math?math= \large%20S%20\leq%201">. 
 
 That is, the total risk will be the sum of the risks of each individual round. Each of these risks is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the corresponding stopping probability. Adding all the risks gives us the total risk, which is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the total stopping probability. Because the total stopping probability cannot be larger than one, the total risk cannot be larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">. 
 
