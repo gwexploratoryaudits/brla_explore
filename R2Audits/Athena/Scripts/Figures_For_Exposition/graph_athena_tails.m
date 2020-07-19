@@ -11,8 +11,8 @@ margin = 2*p-1;
 %----Begin graphs
 
 % Two plots
-first_plot = plot((0:n1),binopdf((0:n1),n1,p), 'r', (0:n1), ...
-    binopdf((0:n1),n1,0.5), '--b', 'LineWidth', 3);
+first_plot = plot((0:n1),binopdf((0:n1),n1,p), 'b', (0:n1), ...
+    binopdf((0:n1),n1,0.5), '--r', 'LineWidth', 3);
 hold
 
 % Draw line at k1 and label it
@@ -41,9 +41,9 @@ title(sprintf('Probability as a function of winner ballots in sample of size %d'
 
 % Color tails
 patch_label1 = patch([(k1:n1), fliplr((k1:n1))], ...
-    [binopdf((k1:n1),n1,p), fliplr(zeros(1,n1-k1+1))], 'r', 'FaceAlpha', 0.3);
+    [binopdf((k1:n1),n1,p), fliplr(zeros(1,n1-k1+1))], 'b', 'FaceAlpha', 0.25);
 patch_label2 = patch([(k1:n1), fliplr((k1:n1))], ...
-    [binopdf((k1:n1),n1,0.5), fliplr(zeros(1,n1-k1+1))], 'b');
+    [binopdf((k1:n1),n1,0.5), fliplr(zeros(1,n1-k1+1))], 'r');
 
 % Legend
 legend(vertcat(first_plot, patch_label1, patch_label2), ...
