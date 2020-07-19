@@ -11,7 +11,7 @@ The folder Scripts contains scripts for use in elections with multiple candidate
 
 Consider a two-contestant contest with no invalid votes. Let `x` be the announced fractional tally for the winner. 
 
-Suppose the risk limit of the audit is <img src="https://render.githubusercontent.com/render/math?math= \large \alpha%3D0.1">
+Suppose the risk limit of the audit is <img src="https://render.githubusercontent.com/render/math?math=\large\alpha%3D0.1">
 
 Suppose `n1` ballots are drawn in the first round. Denote by `k1` the number of votes drawn for the winner. Suppose `n1=50` and `x=0.75` (corresponding to a margin of `0.5`). Figure 1 shows the probability distributions of `k1` given that the election is (a) as announced for `x = 0.75` (blue solid curve), and (b) a tie (red dashed curve). Recall that the tied election is the wrong election outcome that is hardest to distinguish from the announced one, and hence defines the worst-case risk. (See [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999)). Observe that, if `k1=32`, `Pr[k1=32 | margin=0.5] = 0.0264` and `Pr[k1=32 | margin=0] = 0.0160`. 
  
