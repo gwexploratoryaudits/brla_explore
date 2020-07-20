@@ -50,32 +50,32 @@ The stopping condition for each audit is that the p-value should be no larger th
 
 The math for later rounds is somewhat more complicated, and we get to it soon. 
 
-You may try different values of `x`, `n1`, `k1` and <img src="https://render.githubusercontent.com/render/math?math=\large\alpha">. Use the script `https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_athena_tails.m`
+To view other plots similar to the above, you may try different values of `x`, `n1` and `k1` in the script https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_athena_tails.m
+
 ## Why do we claim that *Athena* is risk-limiting? 
 
-We have shown in [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999) that the ratio
+We have shown in [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999) that the *BRAVO* p-value
 
-<img src="https://render.githubusercontent.com/render/math?math=\Large \frac{Prob(k1 \mid margin=0)}{Prob(k1 \mid margin)}">
+<img src="https://render.githubusercontent.com/render/math?math=\Large \frac{Prob(k1 \mid margin=0)}{Prob(k1 \mid margin=m)}">
 
-decreases with `k1` if `margin > 0.5`. That is, the tied election is less likely than the announced one for larger `k1`. Thus if we choose to stop for a particular value of `k1=32`, we should stop for larger values as well, because the announced election is even more likely for those. 
+decreases with an increase in `k1` (assuming `m > 0`, of course). Thus if we choose to stop for a particular value of `k1=32`, we should stop for larger values as well, because the p-value would be smaller. 
 
 So if we decide to stop at `k1=32`: 
 
-* The *stopping probability* (the probability that the audit will stop given that the election is as announced) is the tail of the solid blue curve, the translucent blue area, because it includes the probabilities of larger values of `k1`. 
-
+* The *stopping probability* (the probability that the audit will stop given that the election is as announced) should include the probabilities of all values of `k1 >= 32`. That is, the stopping probability is the tail of the solid blue curve, the translucent blue area: 
 <img src="https://render.githubusercontent.com/render/math?math=\large S_1 = Prob(k1 \geq 32 \mid margin = 0.5)">
 
 where <img src="https://render.githubusercontent.com/render/math?math=\large S_i"> denotes the stopping probability for round *i*. 
 
-* The *risk* (the probability that the audit will stop given that the election is tied) is the tail of the dashed red curve, the solid red area, because it includes the probabilities of larger values of `k1`. 
+* The *risk* (the probability that the audit will stop given that the election is tied) is the tail of the dashed red curve, the solid red area:
 
 <img src="https://render.githubusercontent.com/render/math?math=\large R_1 = Prob(k1 \geq 32 \mid margin = 0)">
 
 where <img src="https://render.githubusercontent.com/render/math?math=\large R_i"> denotes the risk for round *i*.  
 
-Our stopping condition ensures that the risk is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the stopping probability: 
+The *Athena* stopping condition ensures that the risk is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the stopping probability: 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large R_1 \leq \alpha S_1">
+<img src="https://render.githubusercontent.com/render/math?math=\large \frac{R_1]{S_1} \leq \alpha \Rightarrow R_1 \leq \alpha S_1">
 
 If we can guarantee this for every round, that is, if our stopping condition ensures that: 
 
@@ -88,5 +88,7 @@ then:
 where <img src="https://render.githubusercontent.com/render/math?math=\large R, S"> are the total risk and stopping probability respectively, and, the total stopping probability of the audit, <img src="https://render.githubusercontent.com/render/math?math=\large%20S%20\leq%201">. 
 
 That is, the total risk will be the sum of the risks of each individual round. Each of these risks is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the corresponding stopping probability. Adding all the risks gives us the total risk, which is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the total stopping probability. Because the total stopping probability cannot be larger than one, the total risk cannot be larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">. 
+
+## Later Rounds
 
 See also https://github.com/nealmcb/brla
