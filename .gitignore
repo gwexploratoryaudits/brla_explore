@@ -108,3 +108,4 @@ venv.bak/
 *.asv
 .DS_Store
 startup.m
+*.m~

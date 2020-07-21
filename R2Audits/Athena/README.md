@@ -20,6 +20,10 @@ The *Athena* class of audits, on the other hand, is designed for use as an R2 au
 
 We can show that the *Athena* approach greatly improves efficiency. In fact, when compared to *R2 BRAVO*, *Athena* requires only about half the number of ballots for a 90\% stopping probability across a wide range of margins. *Athena* is also more efficient than the application of the *BRAVO* rule ballot-by-ballot when ballots are drawn in rounds. This implies that, when ballots are drawn in rounds, keeping track of the order of the samples is not useful for efficiency; it is better to use *Athena*. 
 
+For simplicity here, we describe the Minerva audit first. 
+
+## Minerva
+
 Consider a two-contestant contest with no invalid votes. Let `x` be the announced fractional tally for the winner. 
 
 Suppose the risk limit of the audit is <img src="https://render.githubusercontent.com/render/math?math=\large\alpha%3D0.1">
@@ -44,17 +48,17 @@ The *BRAVO* p-value is defined as the ratio of the probabilities:
 
 The *BRAVO* stopping rule is that the p-value is smaller than the risk limit, so we see that. the sample does not pass the *BRAVO* audit. 
 
-One p-value for the *Athena* class of audits is defined as the ratio of the tails, (red solid tail divided by blue semi-transparent tail)
+The *Minerva* p-value is defined as the ratio of the tails, (red solid tail divided by blue semi-transparent tail)
 
 <img src="https://render.githubusercontent.com/render/math?math=\Large \frac{Prob(k1 \geq 32 \mid margin = 0)}{Prob(k1 \geq 32 \mid margin = 0.5)} = \frac{0.0325}{0.9713} = 0.0334 < \alpha">
 
-Various members of the Athena class of audits have various stopping conditions.  We consider the simplest one, where the above p-value is no larger than the risk limit, <img src="https://render.githubusercontent.com/render/math?math=\large\alpha \leq 0.1">. Thus the sample passes the *Athena* audit.  
+Various members of the Athena class of audits have various stopping conditions.  We consider the simplest one, *Minerva*, where the above p-value is no larger than the risk limit, <img src="https://render.githubusercontent.com/render/math?math=\large\alpha \leq 0.1">. Thus the sample passes the *Minerva* audit.  
 
 The math for later rounds is somewhat more complicated, and we get to it soon. 
 
 To view other plots similar to the above, you may try different values of `x`, `n1` and `k1` in the script https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_athena_tails.m
 
-## Why do we claim that *Athena* is risk-limiting? 
+## Why do we claim that *Minerva* is risk-limiting? 
 
 We have shown in [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999) that the *BRAVO* p-value
 
@@ -75,7 +79,7 @@ where <img src="https://render.githubusercontent.com/render/math?math=\large S_i
 
 where <img src="https://render.githubusercontent.com/render/math?math=\large R_i"> denotes the risk for round *i*.  
 
-The *Athena* stopping condition ensures that the risk is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the stopping probability: 
+The *Minerva* stopping condition ensures that the risk is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the stopping probability: 
 
 <img src="https://render.githubusercontent.com/render/math?math=\large\frac{R_1}{S_1} \leq \alpha \Rightarrow R_1 \leq \alpha S_1">
 
@@ -91,7 +95,7 @@ where <img src="https://render.githubusercontent.com/render/math?math=\large R, 
 
 That is, the total risk will be the sum of the risks of each individual round. Each of these risks is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the corresponding stopping probability. Adding all the risks gives us the total risk, which is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the total stopping probability. Because the total stopping probability cannot be larger than one, the total risk cannot be larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">. 
 
-## Finding *kmin* for *BRAVO* and *Athena*
+## Finding *kmin* for *BRAVO* and *Minerva*
 
 ### *BRAVO*
 Because `k1=32` does not satisfy the *BRAVO* stopping condition, lower values of `k1` won't either. To find the smallest value of `k1` (`k1min`) satisfying the *BRAVO* condition, you could run https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/B2Audits/B2BRAVOkmin.m thus:
@@ -100,20 +104,20 @@ Because `k1=32` does not satisfy the *BRAVO* stopping condition, lower values of
 
 and find `kmin(j)` for `j` such that `n(j)=50`: 
 
-`kmin(find(n==50))` which is `34`.  Using the following matlab commands you can check that the *BRAVO* p-value is at most <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">, and that the p-value for `k1=33` is not:
+`kmin(n==50)` which is `34`.  Using the following matlab commands you can check that the *BRAVO* p-value is at most <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">, and that the p-value for `k1=33` is not:
 
-`binopdf(34,50,0.5)/binopdf(34,50,0.75)' 
+`binopdf(34,50,0.5)/binopdf(34,50,0.75)`
 
-to obtain `0.0675' which is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">.  And: 
+to obtain `0.0675` which is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">.  And: 
 
-`binopdf(33,50,0.5)/binopdf(33,50,0.75)'
+`binopdf(33,50,0.5)/binopdf(33,50,0.75)`
 
-to obtain `0.2025' which is larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">.  
+to obtain `0.2025` which is larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">.  
 
-### *Athena*
-Because `k1=32` does satisfy the *Athena* stopping condition, lower values of `k1` might too. To find the smallest value of `k1` (`k1min`) satisfying the *Athena* condition, you could run https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/AthenaNextkmin.m thus:
+### *Minerva*
+Because `k1=32` does satisfy the *Minerva* stopping condition, lower values of `k1` might too. To find the smallest value of `k1` (`k1min`) satisfying the *Minerva* condition, you could run https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/AthenaNextkmin.m thus:
 
-'[n_out, kmin, StopSched, RiskSched, CurrentTierStop, CurrentTierRisk] = Athenakmin(0.5, 0.1, 1.0, (50), 'Minerva');'
+`[n_out, kmin, StopSched, RiskSched, CurrentTierStop, CurrentTierRisk] = Athenakmin(0.5, 0.1, 1.0, (50), 'Minerva');`
 
 to obtain `kmin=31`. And you can check that the ratio of the tails: 
 
@@ -123,6 +127,19 @@ And similarly that
 
 `(1-binocdf(29,50,0.5))/(1-binocdf(29,50,0.75))` is `0.1020` and larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">.
 
-Note that `binocdf(30,50,0.5)' is `Pr[k1 <=30 | margin =0]` and hence that `1-binocdf(30,50,0.5)` is `Pr[k1 >= 31] | margin=0]` and so on. 
+Note that `binocdf(30,50,0.5)` is `Pr[k1 <=30 | margin =0]` and hence that `1-binocdf(30,50,0.5)` is `Pr[k1 >= 31] | margin=0]` and so on. 
+
+## Moving to the next round
+
+We saw that `kmin=31` for *Minerva* and `kmin=34` for *BRAVO*. 
+
+Recall that we would like to ensure that the risk is no more than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the stopping probability for each subsequent round of the *Minerva* audit. Which means we should be sure to compute the distributions correctly. 
+
+Suppose we draw `50` more ballots to get `n2=100` ballots in all. This does not mean, however, that the probability distribution on the winner ballots is the binomial distribution for `100` draws. In particular, because the audit stops for `k1>=kmin` winner ballots in the first round, we know that the probability of having `kmin+50` winner ballots in the second round is zero. Thus, if the audit continues, the probability distributions before the new sample is drawn are as shown in Figures 2 and 3.  
+
+![Figure 2: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing BRAVO stopping condition of first round](fig/graph_bravo_lopped.png)
+
+![Figure 3: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing Minerva stopping condition of first round](fig/graph_athena_lopped.png)
+
 
 See also https://github.com/nealmcb/brla
