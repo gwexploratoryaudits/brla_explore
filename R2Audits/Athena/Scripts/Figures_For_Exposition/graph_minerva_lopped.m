@@ -20,6 +20,12 @@ hold
 
 axis([0, 50, 0, inf]);
 
+% Draw line at kmin and label it
+xl = xline(kmin_minerva, '-.', {sprintf('kmin=%d', kmin_minerva)});
+xl.LineWidth=1;
+xl.FontSize=14;
+xl.LabelVerticalAlignment='middle';
+
 % Label axes
 xlabel('Number of winner ballots after testing condition in first round', 'FontSize', 14)
 ylabel('Probability', 'FontSize', 14)
