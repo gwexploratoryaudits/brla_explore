@@ -1,4 +1,4 @@
-% This script graphs the lopped off BRAVO and Athena curves after a first
+% This script graphs the lopped off BRAVO curves after a first
 % round
 
 %----Input
@@ -21,7 +21,7 @@ hold
 axis([0, 50, 0, inf]);
 
 % Label axes
-xlabel('Number of winning samples after testing condition in first round', 'FontSize', 14)
+xlabel('Number of winner ballots after testing condition in first round', 'FontSize', 14)
 ylabel('Probability', 'FontSize', 14)
 title('After testing BRAVO condition, round 1', 'FontSize', 16) 
 

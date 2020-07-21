@@ -35,7 +35,7 @@ yl2.FontSize = 14;
 yl2.LabelHorizontalAlignment='left';
 
 % Label axes
-xlabel('Number of winning samples in first round', 'FontSize', 14)
+xlabel('Number of winner ballots in first round', 'FontSize', 14)
 ylabel('Probability', 'FontSize', 14)
 title(sprintf('Probability as a function of winner ballots; sample size = %d', n1), 'FontSize', 16) 
 
