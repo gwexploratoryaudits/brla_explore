@@ -16,7 +16,7 @@ The folder Tables contains comparisons of first round sizes for Athena and R2 *B
 
 *BRAVO* and *Bayesian* audits are designed for use as B2 audits. Their stopping rules may be viewed as comparison tests of ratios of likelihoods or posterior probabilities respectively. 
 
-The *Athena* class of audits, on the other hand, is designed for use as an R2 or B2 audit. Its stopping rule is based on the ratio of the tails of probability distributions. 
+The *Athena* class of audits, on the other hand, is designed for use as an R2 audit. It treats B2 audits as a special case of R2 audits, with round size = 1. The stopping rule for this class of audits is based on the tails of probability distributions. 
 
 We can show that the *Athena* approach greatly improves efficiency. In fact, when compared to *R2 BRAVO*, *Athena* requires only about half the number of ballots for a 90\% stopping probability across a wide range of margins. *Athena* is also more efficient than the application of the *BRAVO* rule ballot-by-ballot when ballots are drawn in rounds. This implies that, when ballots are drawn in rounds, keeping track of the order of the samples is not useful for efficiency; it is better to use *Athena*. 
 
@@ -42,11 +42,13 @@ The *BRAVO* p-value is defined as the ratio of the probabilities:
 
 <img src="https://render.githubusercontent.com/render/math?math=\Large \frac{Prob(k1=32 \mid margin = 0)}{Prob(k1=32 \mid margin = 0.5)} = \frac{0.0160}{0.0264} = 0.6076 > \alpha">
 
-The *Athena* p-value is defined as the ratio of the tails, (red solid tail divided by blue semi-transparent tail)
+The *BRAVO* stopping rule is that the p-value is smaller than the risk limit, so we see that. the sample does not pass the *BRAVO* audit. 
+
+One p-value for the *Athena* class of audits is defined as the ratio of the tails, (red solid tail divided by blue semi-transparent tail)
 
 <img src="https://render.githubusercontent.com/render/math?math=\Large \frac{Prob(k1 \geq 32 \mid margin = 0)}{Prob(k1 \geq 32 \mid margin = 0.5)} = \frac{0.0325}{0.9713} = 0.0334 < \alpha">
 
-The stopping condition for each audit is that the p-value should be no larger than the risk limit, <img src="https://render.githubusercontent.com/render/math?math=\large\alpha \leq 0.1">. Thus the sample satisfies the stopping condition for *Athena* but not for *BRAVO*.  
+Various members of the Athena class of audits have various stopping conditions.  We consider the simplest one, where the above p-value is no larger than the risk limit, <img src="https://render.githubusercontent.com/render/math?math=\large\alpha \leq 0.1">. Thus the sample passes the *Athena* audit.  
 
 The math for later rounds is somewhat more complicated, and we get to it soon. 
 
