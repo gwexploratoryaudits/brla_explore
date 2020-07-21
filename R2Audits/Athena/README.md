@@ -40,7 +40,7 @@ Recall that the tied election is the wrong election outcome that is hardest to d
 
 Observe that, if `k1=32`, `Pr[k1=32 | margin=0.5] = 0.0264` and `Pr[k1=32 | margin=0] = 0.0160`. 
  
-<img src="fig/graph_athena_tails.png" alt="Figure 1: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: First Round" width="750">
+<img src="fig/graph_athena_tails.png" alt="Figure 1: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: First Round" width="600">
 
 The *BRAVO* p-value is defined as the ratio of the probabilities: 
 
