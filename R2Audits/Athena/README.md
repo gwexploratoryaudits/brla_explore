@@ -139,7 +139,7 @@ Suppose we draw `50` more ballots to get `n2=100` ballots in all. This does not 
 
 ![Figure 2: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing BRAVO stopping condition of first round](fig/graph_bravo_lopped.png)
 
-![Figure 3: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing Minerva stopping condition of first round](fig/graph_athena_lopped.png)
+![Figure 3: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing Minerva stopping condition of first round](fig/graph_minerva_lopped.png)
 
 
 See also https://github.com/nealmcb/brla
