@@ -141,5 +141,14 @@ Suppose we draw `50` more ballots to get `n2=100` ballots in all. This does not 
 
 ![Figure 3: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing Minerva stopping condition of first round](fig/graph_minerva_lopped.png)
 
+To compute the probabilities after drawing the next lot of `50` ballots, we use the convolution function to compute the probability of the [sum of two random variables](https://en.wikipedia.org/wiki/Convolution_of_probability_distributions). 
+
+One could have `k2` winner ballots after the second draw if one had `i` ballots for the winner after the stopping condition was tested in round 1 and one drew `k2-i` in round 2, for `i` lying between `0` and `kmin-1` and `k2-i` lying between `0` and `50`. 
+
+if `f(k1)` is the distribution shown in Figure 2 or 3, the new distribution `g(k2)` after drawing `50` more ballots is: 
+
+<img src="https://render.githubusercontent.com/render/math?math=\large g(k2) = \sum _{i=max(0,k2-50)}^{min(k_min-1,k2)} f(i) \times binopdf(k2-i, 50, x)">
+
+This can be computed efficiently using [Fourier Transforms](https://en.wikipedia.org/wiki/Convolution_theorem). 
 
 See also https://github.com/nealmcb/brla
