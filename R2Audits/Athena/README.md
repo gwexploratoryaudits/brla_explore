@@ -137,9 +137,9 @@ Recall that we would like to ensure that the risk is no more than <img src="http
 
 Suppose we draw `50` more ballots to get `n2=100` ballots in all. This does not mean, however, that the probability distribution on the winner ballots is the binomial distribution for `100` draws. In particular, because the audit stops for `k1>=kmin` winner ballots in the first round, we know that the probability of having `kmin+50` winner ballots in the second round is zero. Thus, if the audit continues, the probability distributions before the new sample is drawn are as shown in Figures 2 and 3.  
 
-![Figure 2: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing BRAVO stopping condition of first round](fig/graph_bravo_lopped.png)
+<img src="fig/graph_bravo_lopped.png" alt="Figure 2: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing BRAVO stopping condition of first round" width="600">
 
-![Figure 3: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing Minerva stopping condition of first round](fig/graph_minerva_lopped.png)
+<img src="fig/graph_minerva_lopped.png" alt="Figure 3: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing Minerva stopping condition of first round" width="600">
 
 You may generate similar images for different values of the risk limit, `n1` and `x` using the [script for *BRAVO*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_bravo_lopped.m) and the [script for *Minerva*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_minerva_lopped.m). 
 

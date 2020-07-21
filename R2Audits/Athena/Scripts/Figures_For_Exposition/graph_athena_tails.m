@@ -1,4 +1,10 @@
 % This script graphs the Athena tails
+%---
+% Required input is
+%       x: winner fraction
+%       n1: size of first draw
+%       k1: winner ballots in sample
+%---
 
 %----Input
 x = 0.75; % Announced winner fraction
