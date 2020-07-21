@@ -141,7 +141,7 @@ Suppose we draw `50` more ballots to get `n2=100` ballots in all. This does not 
 
 ![Figure 3: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing Minerva stopping condition of first round](fig/graph_minerva_lopped.png)
 
-You may view similar images using the [script for *BRAVO](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_bravo_lopped.m) and the [script for Minerva](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_minerva_lopped.m). 
+You may generate similar images for different values of the risk limit, `n1` and `x` using the [script for *BRAVO*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_bravo_lopped.m) and the [script for *Minerva*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_minerva_lopped.m). 
 
 To compute the probabilities after drawing the next lot of `50` ballots, we use the convolution function to compute the probability of the [sum of two random variables](https://en.wikipedia.org/wiki/Convolution_of_probability_distributions). 
 
