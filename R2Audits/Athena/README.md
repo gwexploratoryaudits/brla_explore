@@ -56,7 +56,7 @@ Various members of the Athena class of audits have various stopping conditions. 
 
 The math for later rounds is somewhat more complicated, and we get to it soon. 
 
-To view other plots similar to the above, you may try different values of `x`, `n1` and `k1` in the script https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_athena_tails.m
+To view other plots similar to the above, you may try different values of `x`, `n1` and `k1` in this [script](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_athena_tails.m)
 
 ## Why do we claim that *Minerva* is risk-limiting? 
 
@@ -140,6 +140,8 @@ Suppose we draw `50` more ballots to get `n2=100` ballots in all. This does not 
 ![Figure 2: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing BRAVO stopping condition of first round](fig/graph_bravo_lopped.png)
 
 ![Figure 3: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing Minerva stopping condition of first round](fig/graph_minerva_lopped.png)
+
+You may view similar images using the [script for *BRAVO](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_bravo_lopped.m) and the [script for Minerva](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_minerva_lopped.m). 
 
 To compute the probabilities after drawing the next lot of `50` ballots, we use the convolution function to compute the probability of the [sum of two random variables](https://en.wikipedia.org/wiki/Convolution_of_probability_distributions). 
 
