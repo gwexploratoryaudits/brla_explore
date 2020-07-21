@@ -77,7 +77,7 @@ where <img src="https://render.githubusercontent.com/render/math?math=\large R_i
 
 The *Athena* stopping condition ensures that the risk is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the stopping probability: 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large\frac{R_1]{S_1} \leq \alpha">
+<img src="https://render.githubusercontent.com/render/math?math=\large\frac{R_1}{S_1} \leq \alpha">
 which implies that: 
 <img src="https://render.githubusercontent.com/render/math?math=\large R_1 \leq \alpha S_1">
 
