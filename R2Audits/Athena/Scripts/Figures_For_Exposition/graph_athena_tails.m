@@ -23,13 +23,13 @@ xl.LabelVerticalAlignment='middle';
 
 % Draw corresponding horizontal lines and label
 yl1 = yline(binopdf(k1,n1,x), ':', ...
-    {sprintf('Prob(k1 = %d | margin = %1.1f)= %1.4f', k1, margin, binopdf(k1,n1,x))});
+    {sprintf('Prob(k1 = %d | margin = %1.1f) = %1.4f', k1, margin, binopdf(k1,n1,x))});
 yl1.LineWidth=2;
 yl1.FontSize=14;
 yl1.LabelHorizontalAlignment='left';
 
 yl2 = yline(binopdf(k1,n1,0.5), ':', ...
-    {sprintf('Prob(k1 = %d | margin = 0)=%1.4f', k1, binopdf(k1,n1,0.5))});
+    {sprintf('Prob(k1 = %d | margin = 0) = %1.4f', k1, binopdf(k1,n1,0.5))});
 yl2.LineWidth=2;
 yl2.FontSize = 14;
 yl2.LabelHorizontalAlignment='left';

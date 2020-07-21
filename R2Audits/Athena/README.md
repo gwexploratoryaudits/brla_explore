@@ -91,6 +91,38 @@ where <img src="https://render.githubusercontent.com/render/math?math=\large R, 
 
 That is, the total risk will be the sum of the risks of each individual round. Each of these risks is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the corresponding stopping probability. Adding all the risks gives us the total risk, which is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the total stopping probability. Because the total stopping probability cannot be larger than one, the total risk cannot be larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">. 
 
-## Later Rounds
+## Finding *kmin* for *BRAVO* and *Athena*
+
+### *BRAVO*
+Because `k1=32` does not satisfy the *BRAVO* stopping condition, lower values of `k1` won't either. To find the smallest value of `k1` (`k1min`) satisfying the *BRAVO* condition, you could run https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/B2Audits/B2BRAVOkmin.m thus:
+
+`[kmslope, kmintercept, n, kmin] = B2BRAVOkmin(0.5, 0.1);`
+
+and find `kmin(j)` for `j` such that `n(j)=50`: 
+
+`kmin(find(n==50))` which is `34`.  Using the following matlab commands you can check that the *BRAVO* p-value is at most <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">, and that the p-value for `k1=33` is not:
+
+`binopdf(34,50,0.5)/binopdf(34,50,0.75)' 
+
+to obtain `0.0675' which is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">.  And: 
+
+`binopdf(33,50,0.5)/binopdf(33,50,0.75)'
+
+to obtain `0.2025' which is larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">.  
+
+### *Athena*
+Because `k1=32` does satisfy the *Athena* stopping condition, lower values of `k1` might too. To find the smallest value of `k1` (`k1min`) satisfying the *Athena* condition, you could run https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/AthenaNextkmin.m thus:
+
+'[n_out, kmin, StopSched, RiskSched, CurrentTierStop, CurrentTierRisk] = Athenakmin(0.5, 0.1, 1.0, (50), 'Minerva');'
+
+to obtain `kmin=31`. And you can check that the ratio of the tails: 
+
+`(1-binocdf(30,50,0.5))/(1-binocdf(30,50,0.75))` is `0.0603` and no larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">.
+
+And similarly that 
+
+`(1-binocdf(29,50,0.5))/(1-binocdf(29,50,0.75))` is `0.1020` and larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">.
+
+Note that `binocdf(30,50,0.5)' is `Pr[k1 <=30 | margin =0]` and hence that `1-binocdf(30,50,0.5)` is `Pr[k1 >= 31] | margin=0]` and so on. 
 
 See also https://github.com/nealmcb/brla
