@@ -147,8 +147,12 @@ One could have `k2` winner ballots after the second draw if one had `i` ballots 
 
 if `f(k1)` is the distribution shown in Figure 2 or 3, the new distribution `g(k2)` after drawing `50` more ballots is: 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large g(k2) = \sum _{i=max(0,k2-50)}^{min(k_min-1,k2)} f(i) \times binopdf(k2-i, 50, x)">
+<img src="https://render.githubusercontent.com/render/math?math=\large g(k2) = \sum _{i=max(0,k2-50)}^{min(k_{min}-1,k2)} f(i) \times binopdf(k2-i, 50, x)">
 
-This can be computed efficiently using [Fourier Transforms](https://en.wikipedia.org/wiki/Convolution_theorem). 
+for the election as announced and similarly for the tied election. 
+
+The convolution can be computed efficiently using Fourier Transforms, this result is the [convolution theorem](https://en.wikipedia.org/wiki/Convolution_theorem). 
+
+Thus, after drawing the second sample, the probability distributions for *BRAVO* and *Minerva* are as in Figures 4 and 5. 
 
 See also https://github.com/nealmcb/brla
