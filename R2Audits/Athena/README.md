@@ -40,7 +40,10 @@ Recall that the tied election is the wrong election outcome that is hardest to d
 
 Observe that, if `k1=32`, `Pr[k1=32 | margin=0.5] = 0.0264` and `Pr[k1=32 | margin=0] = 0.0160`. 
  
-<img src="fig/graph_athena_tails.png" alt="Figure 1: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: First Round" width="600">
+ <figure>
+<img src="fig/graph_athena_tails.png" width="600">
+<figcaption>Figure 1: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: First Round</figcaption>
+</figure>
 
 The *BRAVO* p-value is defined as the ratio of the probabilities: 
 
@@ -137,9 +140,15 @@ Recall that we would like to ensure that the risk is no more than <img src="http
 
 Suppose we draw `50` more ballots to get `n2=100` ballots in all. This does not mean, however, that the probability distribution on the winner ballots is the binomial distribution for `100` draws. In particular, because the audit stops for `k1>=kmin` winner ballots in the first round, we know that the probability of having `kmin+50` winner ballots in the second round is zero. Thus, if the audit continues, the probability distributions before the new sample is drawn are as shown in Figures 2 and 3.  
 
-<img src="fig/graph_bravo_lopped.png" alt="Figure 2: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing BRAVO stopping condition of first round" width="600">
+<figure>
+<img src="fig/graph_bravo_lopped.png" width="600">
+<figcaption>Figure 2: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing BRAVO stopping condition of first round</figcaption>
+</figure>
 
-<img src="fig/graph_minerva_lopped.png" alt="Figure 3: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing Minerva stopping condition of first round" width="600">
+<figure>
+<img src="fig/graph_minerva_lopped.png" width="600">
+<figcaption>Figure 3: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing Minerva stopping condition of first round</figcaption>
+</figure>
 
 You may generate similar images for different values of the risk limit, `n1` and `x` using the [script for *BRAVO*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_bravo_lopped.m) and the [script for *Minerva*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_minerva_lopped.m). 
 

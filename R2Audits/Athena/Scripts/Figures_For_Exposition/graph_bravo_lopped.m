@@ -48,6 +48,6 @@ ylabel('Probability', 'FontSize', 14)
 title('After testing BRAVO condition, round 1', 'FontSize', 16) 
 
 % Delete parts of the legend
-hleg = legend([plot1 plot3], 'Location', 'NorthWest')
+hleg = legend([plot1 plot3], 'Location', 'NorthWest');
 hleg.FontSize = 14;
 
