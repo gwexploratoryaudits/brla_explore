@@ -43,7 +43,9 @@ Observe that, if `k1=32`, `Pr[k1=32 | margin=0.5] = 0.0264` and `Pr[k1=32 | marg
 <img src="fig/graph_athena_tails.png" width="600">
 <b>Figure 1: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: First Round</b>
 
-<P></P>
+&NewLine;
+&NewLine;
+&NewLine;
 
 The *BRAVO* p-value is defined as the ratio of the probabilities: 
 
