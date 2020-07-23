@@ -77,7 +77,7 @@ decreases with an increase in `k1` (assuming `m > 0`, of course, where `m` is th
 
 If we decide to stop at `k1=32`: 
 
-* The *stopping probability* (the probability that the audit will stop given that the election is as announced/assumed) should include the probabilities of all values of `k1` such that `k1 >= 32`. That is, the stopping probability is the tail of the solid blue curve, the translucent blue area: 
+* The *stopping probability* (the probability that the audit will stop given that the election is as announced/assumed) should include the probabilities of all values of `k1` such that `k1 >= 32`. That is, the stopping probability is the tail of the solid blue curve, the translucent blue area in Figure 1: 
 <img src="https://render.githubusercontent.com/render/math?math=\large S_1 = Prob(k1 \geq 32 \mid margin = 0.5)">
 
 where <img src="https://render.githubusercontent.com/render/math?math=\large S_i"> denotes the stopping probability for round *i*. 

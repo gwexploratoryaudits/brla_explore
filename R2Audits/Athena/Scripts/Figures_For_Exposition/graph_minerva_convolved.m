@@ -1,5 +1,5 @@
-% This script graphs the lopped off Minerva curves after a first
-% round
+% This script graphs the convolution of lopped-off curve from first round
+% with a fresh draw for the second. 
 %---
 % Required input is
 %       x: winner fraction
@@ -18,25 +18,36 @@ n2 = 50; % Ballots drawn in round 2
 margin = 2*x-1;
 ntotal = n1+n2;
 
-% For Minerva kmin, first round
+% For Minerva kmin, first round.
+% Function outputs n1 if it is a round size with a non-zero probability of 
+% stopping, and the corresponding kmin. 
+% StopSched and RiskSched are the stopping probability and risk 
+% respectively of the round (the area of the lopped-off tails). 
+% CurrentTierStop and CurrentTierRisk are the lopped probability
+% distributions. 
 [n_out, kmin_minerva, StopSched, RiskSched, CurrentTierStop, ...
-    CurrentTierRisk] = Athenakmin(margin, alpha, 1.0, (n1), 'Minerva');
-k2_max = kmin_minerva-1+n2;
+    CurrentTierRisk] = Athenakmin(margin, alpha, 1.0, (n1), 'Minerva');'
 
-% Convolution of distributions with binomials for second draw
+% Largest k value after second draw
+k2_max = kmin_minerva-1+n2; 
+
+% Convolution of distributions with binomials for second draw.
+% R2CurrentTier computes the convolution of CurrentTierStop 
+% with binomial for draw of size n2, from a distribution 
+% characterized by margin. 
 NewTierStop = R2CurrentTier(margin, CurrentTierStop, n2);
 NewTierRisk = R2CurrentTier(0, CurrentTierRisk, n2);
 
-%----Begin plots
+%----Begin plots.
 first_plot = plot((0:k2_max),NewTierStop, 'b', (0:k2_max), ...
     NewTierRisk, '--r', 'LineWidth', 3);
 hold
 axis([0, k2_max, 0, inf]);
 
-% Label axes
+% Label axes.
 xlabel(sprintf('Number of winner ballots after second draw, Minerva; round schedule = [%d, %d]', n1, n2), 'FontSize', 14)
 ylabel('Probability', 'FontSize', 14)
 title('Probability as a function of winner ballots', 'FontSize', 16) 
 
-% Legend
+% Legend.
 legend(sprintf('Election with margin = %1.1f', margin), 'Tied election', 'location', 'NorthWest');

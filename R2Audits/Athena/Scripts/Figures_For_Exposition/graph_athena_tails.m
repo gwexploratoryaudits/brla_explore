@@ -1,4 +1,4 @@
-% This script graphs the Athena tails
+% This script graphs the Athena tails in the first round
 %---
 % Required input is
 %       x: winner fraction
@@ -16,18 +16,20 @@ margin = 2*x-1;
 
 %----Begin graphs
 
-% Two curves in one plot
-first_plot = plot((0:n1),binopdf((0:n1),n1,x), 'b', (0:n1), ...
+% Two curves in one plot: binomial for the announced election and binomial 
+% for a tie, each with a draw of size n1
+first_plot = plot((0:n1), binopdf((0:n1),n1,x), 'b', (0:n1), ...
     binopdf((0:n1),n1,0.5), '--r', 'LineWidth', 3);
 hold
 
-% Draw line at k1 and label it
+% Draw vertical line at k1 and label it
 xl = xline(k1, '-.', {sprintf('k1=%d', k1)});
 xl.LineWidth=1;
 xl.FontSize=14;
 xl.LabelVerticalAlignment='middle';
 
-% Draw corresponding horizontal lines and label
+% Draw corresponding horizontal lines where vertical line crosses each of 
+% the two curves and label
 yl1 = yline(binopdf(k1,n1,x), ':', ...
     {sprintf('Prob(k1 = %d | margin = %1.1f) = %1.4f', k1, margin, binopdf(k1,n1,x))});
 yl1.LineWidth=2;

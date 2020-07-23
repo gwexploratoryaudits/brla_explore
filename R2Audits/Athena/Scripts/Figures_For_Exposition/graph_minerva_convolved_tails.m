@@ -1,5 +1,4 @@
-% This script graphs the lopped off Minerva curves after a first
-% round
+% This script graphs a close-up of the Minerva tails in the second round
 %---
 % Required input is
 %       x: winner fraction
@@ -25,30 +24,47 @@ ktotal = k1+k2;
 
 
 % For Minerva kmin, first round
+% Function outputs n1 if it is a round size with a non-zero probability of 
+% stopping, and the corresponding kmin. 
+% StopSched and RiskSched are the stopping probability and risk 
+% respectively of the round (the area of the lopped-off tails). 
+% CurrentTierStop and CurrentTierRisk are the lopped probability
+% distributions. 
 [n_out, kmin_minerva, StopSched, RiskSched, CurrentTierStop, ...
     CurrentTierRisk] = Athenakmin(margin, alpha, 1.0, (n1), 'Minerva');
-k2_max = kmin_minerva-1+n2;
+
+% Largest k value after second draw
+k2_max = kmin_minerva-1+n2; 
 
 % Convolution of distributions with binomials for second draw
+% R2CurrentTier computes the convolution of CurrentTierStop 
+% with binomial for draw of size n2, from a distribution 
+% characterized by margin. 
 NewTierStop = R2CurrentTier(margin, CurrentTierStop, n2);
 NewTierRisk = R2CurrentTier(0, CurrentTierRisk, n2);
 
 %----Begin plots
-begin_from = floor(ktotal - 0.02*ntotal);
-% Recall that matlab indexes arrays beginning at 1
+
+% Somewhat arbitrary choice of what part of tail to display. 
+% Chose to begin 2% to the left of the total number of winner ballots
+% drawn.
+begin_from = floor(ktotal - 0.02*ntotal); 
+
+% Recall that matlab indexes arrays beginning at 1.
+% So the prob corresponding to k=0 is NewTierStop(1).
 first_plot = plot((begin_from:k2_max),NewTierStop(begin_from+1:k2_max+1), ...
     'b', (begin_from:k2_max), NewTierRisk(begin_from+1:k2_max+1), ...
     '--r', 'LineWidth', 3);
 hold
 axis([begin_from, k2_max, 0, inf]);
 
-% Draw line at ktotal and label it
+% Draw vertical line at ktotal and label it.
 xl = xline(ktotal, '-.', {sprintf('Total winner ballots drawn=%d', ktotal)});
 xl.LineWidth=1;
 xl.FontSize=14;
 xl.LabelVerticalAlignment='middle';
 
-% Draw corresponding horizontal lines and label
+% Draw corresponding horizontal lines and label.
 % Recall that matlab begins counting indices at 1, so the entry at index 
 % 1 is the value at ktotal=0
 yl1 = yline(NewTierStop(ktotal+1), ':', ...
@@ -63,18 +79,18 @@ yl2.LineWidth=2;
 yl2.FontSize = 14;
 yl2.LabelHorizontalAlignment='left';
 
-% Label axes
+% Label axes.
 xlabel('Number of winner ballots after second draw, Minerva', 'FontSize', 14)
 ylabel('Probability', 'FontSize', 14)
 title(sprintf('Probability as a function of winner ballots; round schedule = [%d, %d]', n1, n2), 'FontSize', 16)
 
-% Color tails
+% Color tails.
 patch_label1 = patch([(ktotal:k2_max), fliplr((ktotal:k2_max))], ...
     [NewTierStop(1, ktotal+1:k2_max+1), fliplr(zeros(1, k2_max-ktotal+1))], 'b', 'FaceAlpha', 0.25);
 patch_label2 = patch([(ktotal:k2_max), fliplr((ktotal:k2_max))], ...
     [NewTierRisk(1, ktotal+1:k2_max+1), fliplr(zeros(1, k2_max-ktotal+1))], 'r');
 
-% Legend
+% Legend.
 legend(vertcat(first_plot, patch_label1, patch_label2), ...
     sprintf('Election with margin = %1.1f', margin), 'Tied election', ...
     sprintf('Prob(winner ballots >= %d and second round | margin = %1.1f and Minerva audit) = %1.4f', ...
