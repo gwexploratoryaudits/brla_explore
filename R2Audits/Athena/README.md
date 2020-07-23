@@ -12,6 +12,8 @@ The folder Scripts contains:
 
 The folder Tables contains comparisons of first round sizes for Athena and R2 *BRAVO*, for some chosen states which we expect might perform ballot polling audits for the 2020 Presidential election. "R2 *BRAVO*" (*round-by-round BRAVO*) refers to the application of the *BRAVO* rule after drawing a round of ballots. 
 
+BELOW WE PRESENT GRAPHS, AND, FOR PURPOSES OF EXPOSITION, MAKE AVAILABLE THE SCRIPTS WE USED TO GENERATE THE GRAPHS. THE SCRIPTS ARE NOT INTENDED TO BE ROBUST AND NO ERROR CHECKING IS PERFORMED; IT IS EXPECTED THAT THEY WILL BREAK IF YOU USE UNUSUAL PARAMETERS. THE SCRIPTS WERE WRITTEN ONLY FOR THE PURPOSE OF GENERATING THE GRAPHS. WHILE THEY CALL FUNCTIONS USED IN THE AUDITS, THE SCRIPTS THEMSELVES ARE NOT PART OF THE AUDIT CODE. 
+
 ## The *Athena* Class of Audits
 
 *BRAVO* and *Bayesian* audits are designed for use as B2 audits: audits in which the decisions are taken after each ballot draw, *ballot-by-ballot*. Their stopping rules may be viewed as comparison tests of likelihood ratios or posterior probability ratios respectively. 
