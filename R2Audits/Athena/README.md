@@ -213,7 +213,7 @@ Notice that the probabilities for winner ballots with *Minerva* (Figure 5) are m
 ### *Athena* tails
 Now we examine more closely the tails of the *Athena* distribution, using an example of `k2=34`; that is, the entire sample has `100` ballots, of which `k1*+k2 = 64` are for the winner. 
 
-<img src="fig/graph_minerva_convolved_tails.png" width="900">
+<img src="fig/graph_minerva_convolved_tails.png" width="800">
 
 Figure 6: Close-Up of Probability Distribution of Winner Votes After Second Draw, *Minerva*, for `x=0.75` and `[n1, n2]=[50, 50]`. 
 <br />
@@ -228,7 +228,7 @@ You may generate similar images for different values of the risk limit, `n1`, `n
 <img src="https://render.githubusercontent.com/render/math?math=\large \leq \alpha*Prob(winner ballots \geq 64~and~second~round | margin = 0.5~and~Minerva~audit) = 0.1 \times 0.0117">
 
 ### *BRAVO* tails
-For the same example above, we look more closely at the tails of the *BRAVO* distribution: 
+For the same example above, we look more closely at the *BRAVO* distribution: 
 
 <img src="fig/graph_bravo_convolved_tails.png" width="900">
 
@@ -240,8 +240,10 @@ Figure 7: Close-Up of Probability Distribution of Winner Votes After Second Draw
 
 You may generate similar images for different values of the risk limit, `n1`, `n2`, `k1`, `k2` and `x` using the [script for *BRAVO*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_bravo_convolved_tails.m). In this case we see that the sample does not pass the audit because 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots \geq  64~and~second~round \mid margin = 0 ~and~BRAVO~audit) = ">
+<img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots =  64~and~second~round \mid margin = 0 ~and~BRAVO~audit) = 0.0011">
 
-<img src="https://render.githubusercontent.com/render/math?math=\large \leq \alpha*Prob(winner ballots \geq 64~and~second~round | margin = 0.5~and~BRAVO~audit) = 0.1 \times ">
+<img src="https://render.githubusercontent.com/render/math?math=\large > \alpha*Prob(winner ballots = 64~and~second~round | margin = 0.5~and~BRAVO~audit) = 0.1 \times 0.0031">
+
+The tails are not of consequence for the *BRAVO* decision, however their values indicate the stopping probability and incurred risk were the audit to stop at this draw. 
 
 See also https://github.com/nealmcb/brla
