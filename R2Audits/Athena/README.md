@@ -242,7 +242,7 @@ You may generate similar images for different values of the risk limit, `n1`, `n
 
 <img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots =  64~and~second~round \mid margin = 0 ~and~BRAVO~audit) = 0.0011">
 
-<img src="https://render.githubusercontent.com/render/math?math=> \alpha*Prob(winner ballots = 64~and~second~round | margin = 0.5~and~BRAVO~audit) = 0.1 \times 0.0031">
+<img src="https://render.githubusercontent.com/render/math?math=\large > \alpha*Prob(winner ballots = 64~and~second~round | margin = 0.5~and~BRAVO~audit) = 0.1 \times 0.0031">
 
 The tails are not of consequence for the *BRAVO* decision, however their values indicate the stopping probability and incurred risk, were the audit to stop at this draw. 
 
@@ -253,19 +253,20 @@ In fact, if one uses the long format in matlab, one may verify that the *BRAVO* 
 
 The *BRAVO* p-value is based on the likelihood ratio of the sequence drawn. 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large Prob(particular sequence with 64 winner ballots \mid margin = 0) = (\frac{1}{2})^{64}(\frac{1}{2})^{36}">
+<img src="https://render.githubusercontent.com/render/math?math=\large Prob(particular%20sequence%20with%2064%20winner%20ballots%20\mid%20margin = 0) = (\frac{1}{2})^{64}(\frac{1}{2})^{36}">
 
 Similarly, 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large Prob(particular sequence with 64 winner ballots \mid margin = 0.5) = p^{64}(1-p)^{36}">
+<img src="https://render.githubusercontent.com/render/math?math=\large Prob(particular sequence with 64 winner ballots \mid margin = 0.5) = x^{64}(1-x)^{36}">
 
 On the other hand, 
 <img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots =  64~and~second~round \mid margin = 0 ~and~BRAVO~audit) = number \times (\frac{1}{2})^{64}(\frac{1}{2})^{36}">
 
-where *number* is the number of ways in which one can draw *64* ballots in the two *BRAVO* rounds. The value of *number* depends on the audit, but is independent of the true tally, so it cancels out when we use the likelihood ratio for drawing *64* ballots instead of that for drawing a single sequence of *64* ballots. For the same reason, the likelihood ratio (p-value) is independent of the audit. 
+where *number* is the number of ways in which one can draw *64* ballots in the second round in a *BRAVO* audit with the particular first round. The value of *number* depends on the audit, but is independent of the true tally, so it cancels out when we use the likelihood ratio for drawing *64* ballots instead of that for drawing a single sequence of *64* ballots. For this reason, the likelihood ratio (p-value) is independent of the audit. 
 
 ## The third round
 One would proceed in this manner for as many rounds as necessary, cutting off the tails of the distributions, convolving them with the binomials for the new draws, computing p-values, comparing the p-value to the risk limit, and, if the p-value is too large, cutting off the tail to move onto the next round. 
  
-
+## *BRAVO* is a special case of *Minerva*
+TBD
 See also https://github.com/nealmcb/brla
