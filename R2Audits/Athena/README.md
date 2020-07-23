@@ -41,6 +41,7 @@ Recall that the tied election is the wrong election outcome that is hardest to d
 Observe that, if `k1=32`, `Pr[k1=32 | margin=0.5] = 0.0264` and `Pr[k1=32 | margin=0] = 0.0160`. 
  
 <img src="fig/graph_athena_tails.png" width="600">
+
 Figure 1: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: First Round
 
 <br />
@@ -137,13 +138,16 @@ Note that `binocdf(30,50,0.5)` is `Pr[k1 <=30 | margin =0]` and hence that `1-bi
 
 ## Moving to the next round
 
-We saw that `kmin=31` for *Minerva* and `kmin=34` for *BRAVO*. 
+We saw that `kmin=31` for *Minerva* and `kmin=34` for *BRAVO*. For our value of `k1=32`, the *Minerva* audit would stop, but the *BRAVO* audit would proceed to the next round. 
 
-Recall that we would like to ensure that the risk is no more than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the stopping probability for each subsequent round of the *Minerva* audit. Which means we should be sure to compute the distributions correctly. 
+In order to understand how *Minerva* works, consider another value for `k1`, say `k1*=30` which will satisfy neither the *Minerva* nor the *BRAVO* stopping conditions. Both audits will proceed to the next round. 
+
+Recall that we would like to ensure that the risk is no more than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the stopping probability for each subsequent round of the *Minerva* audit. Which means we should be sure to compute the next round probability distributions correctly. 
 
 Suppose we draw `50` more ballots to get `n2=100` ballots in all. This does not mean, however, that the probability distribution on the winner ballots is the binomial distribution for `100` draws. In particular, because the audit stops for `k1>=kmin` winner ballots in the first round, we know that the probability of having `kmin+50` winner ballots in the second round is zero. Thus, if the audit continues, the probability distributions before the new sample is drawn are as shown in Figures 2 and 3.  
 
 <img src="fig/graph_bravo_lopped.png" width="600">
+
 Figure 2: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing BRAVO stopping condition of first round
 <br />
 <br />
@@ -151,6 +155,7 @@ Figure 2: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: Aft
 <br />
 
 <img src="fig/graph_minerva_lopped.png" width="600">
+
 Figure 3: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: After testing Minerva stopping condition of first round
 <br />
 <br />
@@ -171,6 +176,6 @@ for the election as announced and similarly for the tied election.
 
 The convolution can be computed efficiently using Fourier Transforms, this result is the [convolution theorem](https://en.wikipedia.org/wiki/Convolution_theorem). 
 
-Thus, after drawing the second sample, the probability distributions for *BRAVO* and *Minerva* are as in Figures 4 and 5. 
+After drawing the second sample, the probability distributions for *BRAVO* and *Minerva* are as in Figures 4 and 5. We use an example of `k2=32`; that is, the entire sample has `100` ballots, of which `k1*+k2 = 62` are for the winner. 
 
 See also https://github.com/nealmcb/brla

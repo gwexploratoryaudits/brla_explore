@@ -1,7 +1,8 @@
  function [n_out, kmin, StopSched, RiskSched, CurrentTierStop, ... 
      CurrentTierRisk] = Athenakmin(margin, alpha, delta, n_in, audit_method)
     % Testing in progress
-    % [n_out, kmin, StopSched, RiskSched] = Athenakmin(margin, alpha, delta, n_in, audit_method)
+    % [n_out, kmin, StopSched, RiskSched, CurrentTierStop, ... 
+    %    CurrentTierRisk] = Athenakmin(margin, alpha, delta, n_in, audit_method)
     % Athena kmin values for valid round sizes among given n_in. 
     % beta = 0; sampling with replacement. 
     % -----------
