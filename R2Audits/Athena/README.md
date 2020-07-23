@@ -200,6 +200,8 @@ Notice that the probabilities for winner ballots with *Minerva* (Figure 5) are m
 
 Now we examine more closely the tails of the *Athena* distribution, using an example of `k2=34`; that is, the entire sample has `100` ballots, of which `k1*+k2 = 64` are for the winner. 
 
+<img src="fig/graph_minerva_convolved_tails.png" width="600">
+
 Figure 6: Close-Up of Probability Distribution of Winner Votes After Second Draw, Minerva, for `x=0.75` and `[n1, n2]=[50, 50]`. 
 <br />
 <br />
@@ -208,8 +210,8 @@ Figure 6: Close-Up of Probability Distribution of Winner Votes After Second Draw
 
 You may generate similar images for different values of the risk limit, `n1`, `n2`, `k1`, `k2` and `x` using the [script for *Minerva*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_minerva_convolved_tails.m). In this case we see that the sample passes the audit because 
 
-`Prob(winner ballots >= 64 and second round | margin = 0 and Minerva audit) < alpha * Prob(winner ballots >= 64 and second round | margin = 0.5 and Minerva audit)'
+<img src="https://render.githubusercontent.com/render/math?math=\Large Prob(winner ballots \geq  64~and~second~round \mid margin = 0 ~and~Minerva~audit)">
 
-<img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots \geq 64 and second round \mid margin = 0 and Minerva audit) \leq \alpha * Prob(winner ballots \geq 64 and second round | margin = 0.5 and Minerva audit)">
+<img src="https://render.githubusercontent.com/render/math?math=\Large \leq \alpha*Prob(winner ballots \geq 64~and~second~round | margin = 0.5~and~Minerva~audit)">
 
 See also https://github.com/nealmcb/brla
