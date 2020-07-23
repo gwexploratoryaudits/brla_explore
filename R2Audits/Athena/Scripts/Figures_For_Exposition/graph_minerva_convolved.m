@@ -34,7 +34,7 @@ hold
 axis([0, k2_max, 0, inf]);
 
 % Label axes
-xlabel(sprintf('Number of winner ballots in second round Minerva; sample size = %d', ntotal), 'FontSize', 14)
+xlabel(sprintf('Number of winner ballots after second draw, Minerva; round schedule = [%d, %d]', n1, n2), 'FontSize', 14)
 ylabel('Probability', 'FontSize', 14)
 title('Probability as a function of winner ballots', 'FontSize', 16) 
 
