@@ -10,19 +10,19 @@ The folder Scripts contains:
 
 * Our first round estimates for the audits of the above elections. 
 
-The folder Tables contains comparisons of first round sizes for Athena and R2 *BRAVO*, for some chosen states which we expect might perform ballot polling audits for the 2020 Presidential election. 
+The folder Tables contains comparisons of first round sizes for Athena and R2 *BRAVO*, for some chosen states which we expect might perform ballot polling audits for the 2020 Presidential election. "R2 *BRAVO*" (*round-by-round BRAVO*) refers to the application of the *BRAVO* rule after drawing a round of ballots. 
 
 ## The *Athena* Class of Audits
 
-*BRAVO* and *Bayesian* audits are designed for use as B2 audits. Their stopping rules may be viewed as comparison tests of ratios of likelihoods or posterior probabilities respectively. 
+*BRAVO* and *Bayesian* audits are designed for use as B2 audits: audits in which the decisions are taken after each ballot draw, *ballot-by-ballot*. Their stopping rules may be viewed as comparison tests of likelihood ratios or posterior probability ratios respectively. 
 
-The *Athena* class of audits, on the other hand, is designed for use as an R2 audit. It treats B2 audits as a special case of R2 audits, with round size = 1. The stopping rule for this class of audits is based on the tails of probability distributions. 
+The *Athena* class of audits, on the other hand, is designed for use as an R2 audit: an audit in which decisions are taken after drawing a round of ballots, *round-by-round*. It treats B2 audits as a special case of R2 audits, with round size = 1. The stopping rule for this class of audits is based on the tails of probability distributions. 
 
-We can show that the *Athena* approach greatly improves efficiency. In fact, when compared to *R2 BRAVO*, *Athena* requires only about half the number of ballots for a 90\% stopping probability across a wide range of margins. *Athena* is also more efficient than the application of the *BRAVO* rule ballot-by-ballot when ballots are drawn in rounds. This implies that, when ballots are drawn in rounds, keeping track of the order of the samples is not useful for efficiency; it is better to use *Athena*. 
+We can show that the *Athena* approach greatly improves efficiency. In fact, when compared to *R2 BRAVO*, *Athena* requires only about half the number of ballots for a single round with 90\% stopping probability across a wide range of margins. *Athena* is also more efficient than the application of the *BRAVO* rule ballot-by-ballot to a list of ordered ballots draws when ballots are drawn in rounds. This is because the use of *BRAVO* ignores available information from downlist ballot draws. This information was obtained at a cost of ballots, and could be used to make a better estimate of whether to stop. Thus, when ballots are drawn in rounds, keeping track of the order of the samples is not useful for efficiency; it is better to use *Athena*. 
 
-For simplicity here, we describe the Minerva audit first. 
+For simplicity here, we describe the *Minerva* audit first. 
 
-## Minerva
+## *Minerva*
 
 Consider a two-contestant contest with no invalid votes. Let `x` be the announced fractional tally for the winner. 
 
@@ -53,17 +53,17 @@ The *BRAVO* p-value is defined as the ratio of the probabilities:
 
 <img src="https://render.githubusercontent.com/render/math?math=\Large \frac{Prob(k1=32 \mid margin = 0)}{Prob(k1=32 \mid margin = 0.5)} = \frac{0.0160}{0.0264} = 0.6076 > \alpha">
 
-The *BRAVO* stopping rule is that the p-value is smaller than the risk limit, so we see that. the sample does not pass the *BRAVO* audit. 
+The *BRAVO* stopping rule requires that the p-value be no larger than the risk limit. We see that the sample does not pass the *BRAVO* audit. 
 
 The *Minerva* p-value is defined as the ratio of the tails, (red solid tail divided by blue semi-transparent tail)
 
-<img src="https://render.githubusercontent.com/render/math?math=\Large \frac{Prob(k1 \geq 32 \mid margin = 0)}{Prob(k1 \geq 32 \mid margin = 0.5)} = \frac{0.0325}{0.9713} = 0.0334 < \alpha">
+<img src="https://render.githubusercontent.com/render/math?math=\Large \frac{Prob(k1 \geq 32 \mid margin = 0)}{Prob(k1 \geq 32 \mid margin = 0.5)} = \frac{0.0325}{0.9713} = 0.0334 < \alpha = 0.1">
 
-Various members of the Athena class of audits have various stopping conditions.  We consider the simplest one, *Minerva*, where the above p-value is no larger than the risk limit, <img src="https://render.githubusercontent.com/render/math?math=\large\alpha \leq 0.1">. Thus the sample passes the *Minerva* audit.  
+The *Minerva* stopping condition is that the above p-value be no larger than the risk limit, <img src="https://render.githubusercontent.com/render/math?math=\large\alpha = 0.1">. Thus the sample passes the *Minerva* audit.  
 
 The math for later rounds is somewhat more complicated, and we get to it soon. 
 
-You may generate similar plots by trying different values of `x`, `n1` and `k1` in this [script](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_athena_tails.m)
+You may generate similar plots by trying different values of `x`, `n1` and `k1` in this [script](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_athena_tails.m).
 
 ## Why do we claim that *Minerva* is risk-limiting? 
 
@@ -71,11 +71,11 @@ We have shown in [Risk-Limiting Bayesian Polling Audits for Two Candidate Electi
 
 <img src="https://render.githubusercontent.com/render/math?math=\Large \frac{Prob(k1 \mid margin=0)}{Prob(k1 \mid margin=m)}">
 
-decreases with an increase in `k1` (assuming `m > 0`, of course). Thus if we choose to stop for a particular value of `k1=32`, we should stop for larger values as well, because the p-value would be smaller. 
+decreases with an increase in `k1` (assuming `m > 0`, of course, where `m` is the election margin assumed for the alternate hypothesis). Thus if we choose to stop for a particular value of winner ballots in the sample, `k1=32` in this case, we should stop for larger values as well, because the p-value would be smaller. 
 
-So if we decide to stop at `k1=32`: 
+If we decide to stop at `k1=32`: 
 
-* The *stopping probability* (the probability that the audit will stop given that the election is as announced) should include the probabilities of all values of `k1 >= 32`. That is, the stopping probability is the tail of the solid blue curve, the translucent blue area: 
+* The *stopping probability* (the probability that the audit will stop given that the election is as announced/assumed) should include the probabilities of all values of `k1` such that `k1 >= 32`. That is, the stopping probability is the tail of the solid blue curve, the translucent blue area: 
 <img src="https://render.githubusercontent.com/render/math?math=\large S_1 = Prob(k1 \geq 32 \mid margin = 0.5)">
 
 where <img src="https://render.githubusercontent.com/render/math?math=\large S_i"> denotes the stopping probability for round *i*. 
@@ -100,7 +100,7 @@ then:
 
 where <img src="https://render.githubusercontent.com/render/math?math=\large R, S"> are the total risk and stopping probability respectively, and <img src="https://render.githubusercontent.com/render/math?math=\large%20S%20\leq%201">. 
 
-That is, the total risk will be the sum of the risks of each individual round. Each of these risks is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the corresponding stopping probability. Adding all the risks gives us the total risk, which is smaller than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the total stopping probability. Because the total stopping probability cannot be larger than one, the total risk cannot be larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">. 
+That is, the total risk will be the sum of the risks of each individual round. The stopping condition ensures that each of these risks is no larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the corresponding stopping probability. Adding all the risks gives us the total risk, which is no larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the total stopping probability. Because the total stopping probability cannot be larger than one, the total risk cannot be larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">. 
 
 ## Finding *kmin* for *BRAVO* and *Minerva*
 
@@ -109,9 +109,13 @@ Because `k1=32` does not satisfy the *BRAVO* stopping condition, lower values of
 
 `[kmslope, kmintercept, n, kmin] = B2BRAVOkmin(0.5, 0.1);`
 
-and find `kmin(j)` for `j` such that `n(j)=50`: 
+which gives you the slope and the intercept of the straight line relating the sample size `n` to `kmin`, which are same-size vectors. `n(1)` is the smallest round size for which the audit has any possibility of stopping, `kmin(1)` is the corresponding minimum number of winner ballots required to stop. 
 
-`kmin(n==50)` which is `34`.  Using the following matlab commands you can check that the *BRAVO* p-value is at most <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">, and that the p-value for `k1=33` is not:
+Find `kmin(j)` for `j` such that `n(j)=50`: 
+
+`kmin(n==50)` 
+
+which is `34`.  Using the following matlab commands you can check that the *BRAVO* p-value is at most <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">, and that the p-value for `k1=33` is not:
 
 `binopdf(34,50,0.5)/binopdf(34,50,0.75)`
 
@@ -126,7 +130,9 @@ Because `k1=32` does satisfy the *Minerva* stopping condition, lower values of `
 
 `[n_out, kmin, StopSched, RiskSched, CurrentTierStop, CurrentTierRisk] = Athenakmin(0.5, 0.1, 1.0, (50), 'Minerva');`
 
-to obtain `kmin=31`. And you can check that the ratio of the tails: 
+to obtain `kmin=31`. 
+
+And you can check that the ratio of the tails: 
 
 `(1-binocdf(30,50,0.5))/(1-binocdf(30,50,0.75))` is `0.0603` and no larger than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha">.
 
@@ -144,7 +150,7 @@ In order to understand how *Minerva* works, consider another value for `k1`, say
 
 Recall that we would like to ensure that the risk is no more than <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> times the stopping probability for each subsequent round of the *Minerva* audit. Which means we should be sure to compute the next round probability distributions correctly. 
 
-Suppose we draw `50` more ballots to get `n2=100` ballots in all. This does not mean, however, that the probability distribution on the winner ballots is the binomial distribution for `100` draws. In particular, because the audit stops for `k1>=kmin` winner ballots in the first round, we know that the probability of having `kmin+50` winner ballots in the second round is zero. Thus, if the audit continues, the probability distributions before the new sample is drawn are as shown in Figures 2 and 3.  
+Suppose we draw `50` more ballots to get `n2=100` ballots in all. This does not mean, however, that the probability distribution on the winner ballots is the binomial distribution for `100` draws. In particular, because the audit stops for `k1>=kmin` winner ballots in the first round, and the largest number of winner ballots going into the second round is `kmin-1`, we know that the probability of having `kmin+50` winner ballots in the second round is zero, even if all ballots drawn in the second round are for the winner. If the audit continues, the probability distributions before the new sample is drawn are as shown in Figures 2 and 3.  
 
 <img src="fig/graph_bravo_lopped.png" width="600">
 
@@ -162,7 +168,11 @@ Figure 3: Probability Distribution of Winner Votes for `x=0.75` and `n1=50`: Aft
 <br />
 <br />
 
+Note that the "discarded" tails, in both cases, represent the probabilities that the audit stops. When this is conditional to the election outcome being correct, we refer to it as the stopping probability of the round (`S1`), large values are good. When it is conditional to a tie, it is the worst-case risk corresponding to the round (`R1`), large values are bad. Our stopping condition bounds the worst-case risk to be no larger than a fraction <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> of the stopping probability. 
+
 You may generate similar images for different values of the risk limit, `n1` and `x` using the [script for *BRAVO*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_bravo_lopped.m) and the [script for *Minerva*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_minerva_lopped.m). 
+
+## Computing the distribution for the second round decision
 
 To compute the probabilities after drawing the next lot of `50` ballots, we use the convolution function to compute the probability of the [sum of two random variables](https://en.wikipedia.org/wiki/Convolution_of_probability_distributions). 
 
@@ -210,8 +220,8 @@ Figure 6: Close-Up of Probability Distribution of Winner Votes After Second Draw
 
 You may generate similar images for different values of the risk limit, `n1`, `n2`, `k1`, `k2` and `x` using the [script for *Minerva*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_minerva_convolved_tails.m). In this case we see that the sample passes the audit because 
 
-<img src="https://render.githubusercontent.com/render/math?math=\Large Prob(winner ballots \geq  64~and~second~round \mid margin = 0 ~and~Minerva~audit)">
+<img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots \geq  64~and~second~round \mid margin = 0 ~and~Minerva~audit) = 0.0007">
 
-<img src="https://render.githubusercontent.com/render/math?math=\Large \leq \alpha*Prob(winner ballots \geq 64~and~second~round | margin = 0.5~and~Minerva~audit)">
+<img src="https://render.githubusercontent.com/render/math?math=\large \leq \alpha*Prob(winner ballots \geq 64~and~second~round | margin = 0.5~and~Minerva~audit) = 0.1 \times 0.0117">
 
 See also https://github.com/nealmcb/brla
