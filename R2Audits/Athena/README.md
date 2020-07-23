@@ -244,6 +244,8 @@ You may generate similar images for different values of the risk limit, `n1`, `n
 
 <img src="https://render.githubusercontent.com/render/math?math=\large > \alpha*Prob(winner ballots = 64~and~second~round | margin = 0.5~and~BRAVO~audit) = 0.1 \times 0.0031">
 
-The tails are not of consequence for the *BRAVO* decision, however their values indicate the stopping probability and incurred risk were the audit to stop at this draw. 
+The tails are not of consequence for the *BRAVO* decision, however their values indicate the stopping probability and incurred risk, were the audit to stop at this draw. 
+
+## Sanity Check
 
 See also https://github.com/nealmcb/brla
