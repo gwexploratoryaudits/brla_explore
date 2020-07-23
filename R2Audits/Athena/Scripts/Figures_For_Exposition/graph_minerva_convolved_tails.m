@@ -45,7 +45,7 @@ axis([begin_from, k2_max, 0, inf]);
 % Draw line at ktotal and label it
 xl = xline(ktotal, '-.', {sprintf('Total winner ballots drawn=%d', ktotal)});
 xl.LineWidth=1;
-xl.FontSize=12;
+xl.FontSize=14;
 xl.LabelVerticalAlignment='middle';
 
 % Draw corresponding horizontal lines and label
@@ -54,13 +54,13 @@ xl.LabelVerticalAlignment='middle';
 yl1 = yline(NewTierStop(ktotal+1), ':', ...
     {sprintf('Prob(ktotal = %d and Round 2| margin = %1.1f and Athena audit) = %1.4f', ktotal, margin, NewTierStop(ktotal+1))});
 yl1.LineWidth=2;
-yl1.FontSize=12;
+yl1.FontSize=14;
 yl1.LabelHorizontalAlignment='left';
 
 yl2 = yline(NewTierRisk(ktotal+1), ':', ...
     {sprintf('Prob(ktotal = %d and Round 2| margin = 0 and Athena audit) = %1.4f', ktotal, NewTierRisk(ktotal+1))});
 yl2.LineWidth=2;
-yl2.FontSize = 12;
+yl2.FontSize = 14;
 yl2.LabelHorizontalAlignment='left';
 
 % Label axes
