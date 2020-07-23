@@ -16,7 +16,7 @@ n1 = 50; % Ballots drawn in round 1
 k1 = 30;
 alpha = 0.1; % risk limit
 n2 = 50; % Ballots drawn in round 2
-k2 = 32;
+k2 = 34;
 
 %----Computations
 margin = 2*x-1;
@@ -34,15 +34,18 @@ NewTierStop = R2CurrentTier(margin, CurrentTierStop, n2);
 NewTierRisk = R2CurrentTier(0, CurrentTierRisk, n2);
 
 %----Begin plots
-first_plot = plot((0:k2_max),NewTierStop, 'b', (0:k2_max), ...
-    NewTierRisk, '--r', 'LineWidth', 3);
+begin_from = floor(ktotal - 0.02*ntotal);
+% Recall that matlab indexes arrays beginning at 1
+first_plot = plot((begin_from:k2_max),NewTierStop(begin_from+1:k2_max+1), ...
+    'b', (begin_from:k2_max), NewTierRisk(begin_from+1:k2_max+1), ...
+    '--r', 'LineWidth', 3);
 hold
-axis([0, k2_max, 0, inf]);
+axis([begin_from, k2_max, 0, inf]);
 
 % Draw line at ktotal and label it
 xl = xline(ktotal, '-.', {sprintf('Total winner ballots drawn=%d', ktotal)});
 xl.LineWidth=1;
-xl.FontSize=14;
+xl.FontSize=12;
 xl.LabelVerticalAlignment='middle';
 
 % Draw corresponding horizontal lines and label
@@ -51,17 +54,34 @@ xl.LabelVerticalAlignment='middle';
 yl1 = yline(NewTierStop(ktotal+1), ':', ...
     {sprintf('Prob(ktotal = %d and Round 2| margin = %1.1f and Athena audit) = %1.4f', ktotal, margin, NewTierStop(ktotal+1))});
 yl1.LineWidth=2;
-yl1.FontSize=10;
+yl1.FontSize=12;
 yl1.LabelHorizontalAlignment='left';
 
 yl2 = yline(NewTierRisk(ktotal+1), ':', ...
     {sprintf('Prob(ktotal = %d and Round 2| margin = 0 and Athena audit) = %1.4f', ktotal, NewTierRisk(ktotal+1))});
 yl2.LineWidth=2;
-yl2.FontSize = 10;
+yl2.FontSize = 12;
 yl2.LabelHorizontalAlignment='left';
 
 % Label axes
 xlabel('Number of winner ballots after second draw, Minerva', 'FontSize', 14)
 ylabel('Probability', 'FontSize', 14)
-title(sprintf('Probability as a function of winner ballots; sample size = %d', ntotal), 'FontSize', 16) 
+title(sprintf('Probability as a function of winner ballots; round schedule = [%d, %d]', n1, n2), 'FontSize', 16)
+
+% Color tails
+patch_label1 = patch([(ktotal:k2_max), fliplr((ktotal:k2_max))], ...
+    [NewTierStop(1, ktotal+1:k2_max+1), fliplr(zeros(1, k2_max-ktotal+1))], 'b', 'FaceAlpha', 0.25);
+patch_label2 = patch([(ktotal:k2_max), fliplr((ktotal:k2_max))], ...
+    [NewTierRisk(1, ktotal+1:k2_max+1), fliplr(zeros(1, k2_max-ktotal+1))], 'r');
+
+% Legend
+legend(vertcat(first_plot, patch_label1, patch_label2), ...
+    sprintf('Election with margin = %1.1f', margin), 'Tied election', ...
+    sprintf('Prob(winner ballots >= %d and second round | margin = %1.1f and Minerva audit) = %1.4f', ...
+    ktotal, margin, sum(NewTierStop(ktotal+1:k2_max+1))), ...
+    sprintf('Prob(winner ballots >= %d  and second round | margin = 0 and Minerva audit) = %1.4f', ... 
+    ktotal, sum(NewTierRisk(ktotal+1:k2_max+1))), ...
+    'Location', 'NorthWest', 'FontSize', 14)
+
+
 
