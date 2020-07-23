@@ -18,10 +18,14 @@ n2 = 50; % Ballots drawn in round 2
 margin = 2*x-1;
 ntotal = n1+n2;
 
-% For Minerva kmin, first round
-[n_out, kmin_minerva, StopSched, RiskSched, CurrentTierStop, ...
-    CurrentTierRisk] = Athenakmin(margin, alpha, 1.0, (n1), 'Minerva');
-k2_max = kmin_minerva-1+n2;
+% For Bravo kmin, first round
+[kmslope, kmintercept, n, kmin] = B2BRAVOkmin(margin, alpha);
+kmin_bravo = kmin(n==n1);
+k2_max = kmin_bravo-1+n2;
+
+% Compute distribution at end of first round
+CurrentTierStop = binopdf((0:kmin_bravo-1), n1, x);
+CurrentTierRisk = binopdf((0:kmin_bravo-1), n1, 0.5);
 
 % Convolution of distributions with binomials for second draw
 NewTierStop = R2CurrentTier(margin, CurrentTierStop, n2);
@@ -34,7 +38,7 @@ hold
 axis([0, k2_max, 0, inf]);
 
 % Label axes
-xlabel(sprintf('Number of winner ballots in second round Minerva; sample size = %d', ntotal), 'FontSize', 14)
+xlabel(sprintf('Number of winner ballots in second round BRAVO; sample size = %d', ntotal), 'FontSize', 14)
 ylabel('Probability', 'FontSize', 14)
 title('Probability as a function of winner ballots', 'FontSize', 16) 
 

@@ -166,16 +166,34 @@ You may generate similar images for different values of the risk limit, `n1` and
 
 To compute the probabilities after drawing the next lot of `50` ballots, we use the convolution function to compute the probability of the [sum of two random variables](https://en.wikipedia.org/wiki/Convolution_of_probability_distributions). 
 
-One could have `k2` winner ballots after the second draw if one had `i` ballots for the winner after the stopping condition was tested in round 1 and one drew `k2-i` in round 2, for `i` lying between `0` and `kmin-1` and `k2-i` lying between `0` and `50`. 
+One could have `ktotal` winner ballots after the second draw if one had `i` ballots for the winner after the stopping condition was tested in round 1 and one drew `ktotal-i` in round 2, for `i` lying between `0` and `kmin-1` and `ktotal-i` lying between `0` and `50`. 
 
-if `f(k1)` is the distribution shown in Figure 2 or 3, the new distribution `g(k2)` after drawing `50` more ballots is: 
+if `f(k1)` is the distribution shown in Figure 2 or 3, the new distribution `g(ktotal)` after drawing `50` more ballots is: 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large g(k2) = \sum _{i=max(0,k2-50)}^{min(k_{min}-1,k2)} f(i) \times binopdf(k2-i, 50, x)">
+<img src="https://render.githubusercontent.com/render/math?math=\large g(ktotal) = \sum _{i=max(0,ktotal-50)}^{min(k_{min}-1,ktotal)} f(i) \times binopdf(ktotal-i, 50, x)">
 
 for the election as announced and similarly for the tied election. 
 
 The convolution can be computed efficiently using Fourier Transforms, this result is the [convolution theorem](https://en.wikipedia.org/wiki/Convolution_theorem). 
 
-After drawing the second sample, the probability distributions for *BRAVO* and *Minerva* are as in Figures 4 and 5. We use an example of `k2=32`; that is, the entire sample has `100` ballots, of which `k1*+k2 = 62` are for the winner. 
+After drawing the second sample, the probability distributions for *BRAVO* and *Minerva* are as in Figures 4 and 5. 
+
+<img src="fig/graph_bravo_convolved.png" width="600">
+
+Figure 2: Probability Distribution of Winner Votes After Second Draw, BRAVO, for `x=0.75` and `[n1, n2] = [50,50]`. 
+<br />
+<br />
+<br />
+<br />
+
+<img src="fig/graph_minerva_convolved.png" width="600">
+
+Figure 3: Probability Distribution of Winner Votes After Second Draw, Minerva, for `x=0.75` and `[n1, n2]=[50, 50]`. 
+<br />
+<br />
+<br />
+<br />
+
+We use an example of `k2=32`; that is, the entire sample has `100` ballots, of which `k1*+k2 = 62` are for the winner. 
 
 See also https://github.com/nealmcb/brla
