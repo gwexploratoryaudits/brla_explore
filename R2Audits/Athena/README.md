@@ -200,7 +200,7 @@ Notice that the probabilities for winner ballots with *Minerva* (Figure 5) are m
 
 Now we examine more closely the tails of the *Athena* distribution, using an example of `k2=34`; that is, the entire sample has `100` ballots, of which `k1*+k2 = 64` are for the winner. 
 
-<img src="fig/graph_minerva_convolved_tails.png" width="600">
+<img src="fig/graph_minerva_convolved_tails.png" width="700">
 
 Figure 6: Close-Up of Probability Distribution of Winner Votes After Second Draw, Minerva, for `x=0.75` and `[n1, n2]=[50, 50]`. 
 <br />
