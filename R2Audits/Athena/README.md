@@ -192,7 +192,7 @@ After drawing the second sample, the probability distributions for *BRAVO* and *
 
 <img src="fig/graph_bravo_convolved.png" width="600">
 
-Figure 4: Probability Distribution of Winner Votes After Second Draw, BRAVO, for `x=0.75` and `[n1, n2] = [50,50]`. 
+Figure 4: Probability Distribution of Winner Votes After Second Draw, *BRAVO*, for `x=0.75` and `[n1, n2] = [50,50]`. 
 <br />
 <br />
 <br />
@@ -200,7 +200,7 @@ Figure 4: Probability Distribution of Winner Votes After Second Draw, BRAVO, for
 
 <img src="fig/graph_minerva_convolved.png" width="600">
 
-Figure 5: Probability Distribution of Winner Votes After Second Draw, Minerva, for `x=0.75` and `[n1, n2]=[50, 50]`. 
+Figure 5: Probability Distribution of Winner Votes After Second Draw, *Minerva*, for `x=0.75` and `[n1, n2]=[50, 50]`. 
 <br />
 <br />
 <br />
@@ -210,11 +210,12 @@ You may generate similar images for different values of the risk limit, `n1`, `n
 
 Notice that the probabilities for winner ballots with *Minerva* (Figure 5) are much smaller than those for *BRAVO* (Figure 4). This is because the *kmin* for Minerva was smaller and hence the number of winner ballots going into the second round is smaller. Recall that `kmin=31` for *Minerva* and `kmin=34` for *BRAVO*. Hence the winner ballots going into a *Minerva* Round 2 is `30` or fewer, while for *BRAVO* the number is `33` or fewer. 
 
+### *Athena* tails
 Now we examine more closely the tails of the *Athena* distribution, using an example of `k2=34`; that is, the entire sample has `100` ballots, of which `k1*+k2 = 64` are for the winner. 
 
-<img src="fig/graph_minerva_convolved_tails.png" width="800">
+<img src="fig/graph_minerva_convolved_tails.png" width="900">
 
-Figure 6: Close-Up of Probability Distribution of Winner Votes After Second Draw, Minerva, for `x=0.75` and `[n1, n2]=[50, 50]`. 
+Figure 6: Close-Up of Probability Distribution of Winner Votes After Second Draw, *Minerva*, for `x=0.75` and `[n1, n2]=[50, 50]`. 
 <br />
 <br />
 <br />
@@ -225,5 +226,22 @@ You may generate similar images for different values of the risk limit, `n1`, `n
 <img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots \geq  64~and~second~round \mid margin = 0 ~and~Minerva~audit) = 0.0007">
 
 <img src="https://render.githubusercontent.com/render/math?math=\large \leq \alpha*Prob(winner ballots \geq 64~and~second~round | margin = 0.5~and~Minerva~audit) = 0.1 \times 0.0117">
+
+### *BRAVO* tails
+For the same example above, we look more closely at the tails of the *BRAVO* distribution: 
+
+<img src="fig/graph_bravo_convolved_tails.png" width="900">
+
+Figure 7: Close-Up of Probability Distribution of Winner Votes After Second Draw, *BRAVO*, for `x=0.75` and `[n1, n2]=[50, 50]`. 
+<br />
+<br />
+<br />
+<br />
+
+You may generate similar images for different values of the risk limit, `n1`, `n2`, `k1`, `k2` and `x` using the [script for *BRAVO*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_bravo_convolved_tails.m). In this case we see that the sample does not pass the audit because 
+
+<img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots \geq  64~and~second~round \mid margin = 0 ~and~BRAVO~audit) = ">
+
+<img src="https://render.githubusercontent.com/render/math?math=\large \leq \alpha*Prob(winner ballots \geq 64~and~second~round | margin = 0.5~and~BRAVO~audit) = 0.1 \times ">
 
 See also https://github.com/nealmcb/brla

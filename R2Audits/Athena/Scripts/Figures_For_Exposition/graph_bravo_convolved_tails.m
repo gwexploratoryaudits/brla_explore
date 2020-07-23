@@ -1,4 +1,4 @@
-% This script graphs a close-up of the Minerva tails in the second round
+% This script graphs a close-up of the Bravo tails in the second round. 
 %---
 % Required input is
 %       x: winner fraction
@@ -22,28 +22,31 @@ margin = 2*x-1;
 ntotal = n1+n2;
 ktotal = k1+k2;
 
-
-% For Minerva kmin, first round
-% Function outputs n1 if it is a round size with a non-zero probability of 
-% stopping, and the corresponding kmin. 
-% StopSched and RiskSched are the stopping probability and risk 
-% respectively of the round (the area of the lopped-off tails). 
-% CurrentTierStop and CurrentTierRisk are the lopped probability
-% distributions. 
-[n_out, kmin_minerva, StopSched, RiskSched, CurrentTierStop, ...
-    CurrentTierRisk] = Athenakmin(margin, alpha, 1.0, (n1), 'Minerva');
+% For Bravo kmin, first round.
+% Function outputs slope and intercept of straight line kmin as a 
+% function of round size n. Both kmin and n are vectors, such that 
+% kmin(j) is the kmin value for n(j). The vectors go upto a maximum 
+% round size of 6*ASN. They begin at the smallest round size for which a
+% decision to stop has non-zero probability. 
+[kmslope, kmintercept, n, kmin] = B2BRAVOkmin(margin, alpha);
+kmin_bravo = kmin(n==n1);
 
 % Largest k value after second draw
-k2_max = kmin_minerva-1+n2; 
+k2_max = kmin_bravo-1+n2;
 
-% Convolution of distributions with binomials for second draw
+% Compute distribution at end of first round.
+% Binomials with the tails cut off from kmin onward.
+CurrentTierStop = binopdf((0:kmin_bravo-1), n1, x);
+CurrentTierRisk = binopdf((0:kmin_bravo-1), n1, 0.5);
+
+% Convolution of distribution with binomial for second draw.
 % R2CurrentTier computes the convolution of CurrentTierStop 
 % with binomial for draw of size n2, from a distribution 
 % characterized by margin. 
 NewTierStop = R2CurrentTier(margin, CurrentTierStop, n2);
 NewTierRisk = R2CurrentTier(0, CurrentTierRisk, n2);
 
-%----Begin plots
+%----Begin plots.
 
 % Somewhat arbitrary choice of what part of tail to display. 
 % Chose to begin 2% to the left of the total number of winner ballots
@@ -68,21 +71,21 @@ xl.LabelVerticalAlignment='middle';
 % Recall that matlab begins counting indices at 1, so the entry at index 
 % 1 is the value at ktotal=0
 yl1 = yline(NewTierStop(ktotal+1), ':', ...
-    {sprintf('Prob(ktotal = %d and Round 2| margin = %1.1f and Minerva audit) = %1.4f', ktotal, margin, NewTierStop(ktotal+1))});
+    {sprintf('Prob(ktotal = %d and Round 2| margin = %1.1f and BRAVO audit) = %1.4f', ktotal, margin, NewTierStop(ktotal+1))});
 yl1.LineWidth=2;
 yl1.FontSize=14;
 yl1.LabelHorizontalAlignment='left';
 
 yl2 = yline(NewTierRisk(ktotal+1), ':', ...
-    {sprintf('Prob(ktotal = %d and Round 2| margin = 0 and Minerva audit) = %1.4f', ktotal, NewTierRisk(ktotal+1))});
+    {sprintf('Prob(ktotal = %d and Round 2| margin = 0 and BRAVO audit) = %1.4f', ktotal, NewTierRisk(ktotal+1))});
 yl2.LineWidth=2;
 yl2.FontSize = 14;
 yl2.LabelHorizontalAlignment='left';
 
 % Label axes.
-xlabel('Number of winner ballots after second draw, Minerva', 'FontSize', 14)
+xlabel(sprintf('Number of winner ballots after second draw, BRAVO; round schedule = [%d, %d]', n1, n2), 'FontSize', 14)
 ylabel('Probability', 'FontSize', 14)
-title(sprintf('Probability as a function of winner ballots; round schedule = [%d, %d]', n1, n2), 'FontSize', 16)
+title('Probability as a function of winner ballots', 'FontSize', 16) 
 
 % Color tails.
 patch_label1 = patch([(ktotal:k2_max), fliplr((ktotal:k2_max))], ...
@@ -93,11 +96,9 @@ patch_label2 = patch([(ktotal:k2_max), fliplr((ktotal:k2_max))], ...
 % Legend.
 legend(vertcat(first_plot, patch_label1, patch_label2), ...
     sprintf('Election with margin = %1.1f', margin), 'Tied election', ...
-    sprintf('Prob(winner ballots >= %d and second round | margin = %1.1f and Minerva audit) = %1.4f', ...
+    sprintf('Prob(winner ballots >= %d and second round | margin = %1.1f and BRAVO audit) = %1.4f', ...
     ktotal, margin, sum(NewTierStop(ktotal+1:k2_max+1))), ...
-    sprintf('Prob(winner ballots >= %d  and second round | margin = 0 and Minerva audit) = %1.4f', ... 
+    sprintf('Prob(winner ballots >= %d  and second round | margin = 0 and BRAVO audit) = %1.4f', ... 
     ktotal, sum(NewTierRisk(ktotal+1:k2_max+1))), ...
     'Location', 'NorthWest', 'FontSize', 14)
-
-
 
