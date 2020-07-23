@@ -253,7 +253,7 @@ In fact, if one uses the long format in matlab, one may verify that the *BRAVO* 
 
 The *BRAVO* p-value is based on the likelihood ratio of the sequence drawn. 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large Prob(particular%20sequence%20with%2064%20winner%20ballots%20\mid%20margin = 0) = (\frac{1}{2})^{64}(\frac{1}{2})^{36}">
+<img src="https://render.githubusercontent.com/render/math?math=\large Prob(particular+sequence+with+64+winner+ballots+\mid+margin = 0) = (\frac{1}{2})^{64}(\frac{1}{2})^{36}">
 
 Similarly, 
 
@@ -267,6 +267,6 @@ where *number* is the number of ways in which one can draw *64* ballots in the s
 ## The third round
 One would proceed in this manner for as many rounds as necessary, cutting off the tails of the distributions, convolving them with the binomials for the new draws, computing p-values, comparing the p-value to the risk limit, and, if the p-value is too large, cutting off the tail to move onto the next round. 
  
-## *BRAVO* is a special case of *Minerva*
+## B2 *BRAVO* is a special case of *Minerva*
 TBD
 See also https://github.com/nealmcb/brla
