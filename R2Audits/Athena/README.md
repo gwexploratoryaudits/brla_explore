@@ -80,9 +80,9 @@ If we decide to stop at `k1=32`:
 * The *stopping probability* (the probability that the audit will stop given that the election is as announced/assumed) should include the probabilities of all values of `k1` such that `k1 >= 32`. That is, the stopping probability is the tail of the solid blue curve, the translucent blue area in Figure 1: 
 <img src="https://render.githubusercontent.com/render/math?math=\large S_1 = Prob(k1 \geq 32 \mid margin = 0.5)">
 
-where <img src="https://render.githubusercontent.com/render/math?math=\large S_i"> denotes the stopping probability for round *i*. 
+where <img src="https://render.githubusercontent.com/render/math?math=\large S_i"> denotes the stopping probability for round *i*, and is equal to the sum of the probabilities of each sequence that satisfies the stopping condition in the *ith* round and no earlier. 
 
-* The *risk* (the probability that the audit will stop given that the election is tied) is the tail of the dashed red curve, the solid red area:
+* Similarly, the *risk* (the probability that the audit will stop given that the election is tied) is the tail of the dashed red curve, the solid red area:
 
 <img src="https://render.githubusercontent.com/render/math?math=\large R_1 = Prob(k1 \geq 32 \mid margin = 0)">
 
@@ -223,9 +223,9 @@ Figure 6: Close-Up of Probability Distribution of Winner Votes After Second Draw
 
 You may generate similar images for different values of the risk limit, `n1`, `n2`, `k1`, `k2` and `x` using the [script for *Minerva*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_minerva_convolved_tails.m). In this case we see that the sample passes the audit because 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots \geq  64~and~second~round \mid margin = 0 ~and~Minerva~audit) = 0.0007">
+<img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots \geq  64~and~second~round \mid margin = 0 ~and~Minerva~audit~[50, 50]) = 0.0007">
 
-<img src="https://render.githubusercontent.com/render/math?math=\large \leq \alpha*Prob(winner ballots \geq 64~and~second~round | margin = 0.5~and~Minerva~audit) = 0.1 \times 0.0117">
+<img src="https://render.githubusercontent.com/render/math?math=\large \leq \alpha*Prob(winner ballots \geq 64~and~second~round | margin = 0.5~and~Minerva~audit~[50,50]) = 0.1 \times 0.0117">
 
 ### *BRAVO* tails
 For the same example above, we look more closely at the *BRAVO* distribution (note that the scale of the two figures is very different): 
@@ -240,9 +240,9 @@ Figure 7: Close-Up of Probability Distribution of Winner Votes After Second Draw
 
 You may generate similar images for different values of the risk limit, `n1`, `n2`, `k1`, `k2` and `x` using the [script for *BRAVO*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/R2Audits/Athena/Scripts/Figures_For_Exposition/graph_bravo_convolved_tails.m). In this case we see that the sample does not pass the audit because 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots =  64~and~second~round \mid margin = 0 ~and~BRAVO~audit) = 0.0011">
+<img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots =  64~and~second~round \mid margin = 0 ~and~BRAVO~audit~[50,50]) = 0.0011">
 
-<img src="https://render.githubusercontent.com/render/math?math=\large > \alpha*Prob(winner ballots = 64~and~second~round | margin = 0.5~and~BRAVO~audit) = 0.1 \times 0.0031">
+<img src="https://render.githubusercontent.com/render/math?math=\large > \alpha*Prob(winner ballots = 64~and~second~round | margin = 0.5~and~BRAVO~audit~[50,50]) = 0.1 \times 0.0031">
 
 The tails are not of consequence for the *BRAVO* decision, however their values indicate the stopping probability and incurred risk, were the audit to stop at this draw. 
 
@@ -253,20 +253,50 @@ In fact, if one uses the long format in matlab, one may verify that the *BRAVO* 
 
 The *BRAVO* p-value is based on the likelihood ratio of the sequence drawn. 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large Prob(particular+sequence+with+64+winner+ballots+\mid+margin = 0) = (\frac{1}{2})^{64}(\frac{1}{2})^{36}">
+<img src="https://render.githubusercontent.com/render/math?math=\large Prob(particular~sequence~with~64~winner~ballots \mid margin = 0) = (\frac{1}{2})^{64}(\frac{1}{2})^{36}">
 
 Similarly, 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large Prob(particular sequence with 64 winner ballots \mid margin = 0.5) = x^{64}(1-x)^{36}">
+<img src="https://render.githubusercontent.com/render/math?math=\large Prob(particular~sequence~with~64~winner~ballots \mid margin = 0.5) = x^{64}(1-x)^{36}">
 
 On the other hand, 
-<img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner ballots =  64~and~second~round \mid margin = 0 ~and~BRAVO~audit) = number \times (\frac{1}{2})^{64}(\frac{1}{2})^{36}">
+<img src="https://render.githubusercontent.com/render/math?math=\large Prob(winner~ballots~=~64~and~second~round \mid margin = 0 ~and~BRAVO~audit~[50,50]) = number \times (\frac{1}{2})^{64}(\frac{1}{2})^{36}">
 
 where *number* is the number of ways in which one can draw *64* ballots in the second round in a *BRAVO* audit with the particular first round. The value of *number* depends on the audit, but is independent of the true tally, so it cancels out when we use the likelihood ratio for drawing *64* ballots instead of that for drawing a single sequence of *64* ballots. For this reason, the likelihood ratio (p-value) is independent of the audit. 
 
 ## The third round
 One would proceed in this manner for as many rounds as necessary, cutting off the tails of the distributions, convolving them with the binomials for the new draws, computing p-values, comparing the p-value to the risk limit, and, if the p-value is too large, cutting off the tail to move onto the next round. 
  
-## B2 *BRAVO* is a special case of *Minerva*
-TBD
+## B2 *BRAVO* is identical to *Minerva* with round size 1
+One may observe that B2 *BRAVO* is a special case of *Minerva* (or, more accurately, that *Minerva* is a generalization of *BRAVO*) as follows. 
+
+Consider the B2 *BRAVO* audit, where stopping decisions are made after each ballot draw. Suppose the stopping condition is satisfied for a sample of size `n` and a particular sequence of ballots of which `k` are for the winner.  Hence: 
+
+<img src="https://render.githubusercontent.com/render/math?math=\large \frac{(\frac{1}{2})^n}{x^{k}(1-x)^{n-k}} \leq \alpha">
+
+Given any `i > 0`, the probability of having `k+i` winner ballots of `n` is zero in this audit because, if there were `k+i` winner ballots in the sample of size `n` there would need to be at least `k+i-1 \geq k` in the sample of size `n-1`, and the audit would have satisfied the stopping condition at `n-1` ballots because:  
+ 
+<img src="https://render.githubusercontent.com/render/math?math=\large \frac{(\frac{1}{2})^n}{x^{k}(1-x)^{n-k}} \leq \alpha \Rightarrow \frac{(\frac{1}{2})^n}{x^{k+i-1}(1-x)^{n-1-(k+i-1)}} \leq \alpha">
+
+Thus the "tail" for the B2 *BRAVO* distribution is of size one, and the B2 *BRAVO* stopping condition is identical to that for *Minerva*. 
+
+## *Minerva* is at least as efficient as *BRAVO*
+
+Let <img src="https://render.githubusercontent.com/render/math?math=\large L_0(k,n)"> denote the likelihood of `k` ballots for the winner in a sample of size `n` for the null hypothesis (tied election) and <img src="https://render.githubusercontent.com/render/math?math=\large L_a(k,n)">  that for the alternate hypothesis (election with fractional winner tally `x`).  Suppose the drawn sample satisfies the *BRAVO* stopping condition. That is, suppose
+
+<img src="https://render.githubusercontent.com/render/math?math=\large L_0(k,n) \leq \alpha  L_a(k,n) \Rightarrow \frac{L_0(k,n)}{L_a(k,n)} = \frac{(\frac{1}{2})^n}{x^{k}(1-x)^{n-k}} \leq \alpha"> 
+
+Note that when `k` increases for a fixed `n`, the denominator above increases and the numerator is unchanged. Hence
+
+<img src="https://render.githubusercontent.com/render/math?math=\large L_0(k,n) \leq \alpha  L_a(k,n) \Rightarrow \frac{L_0(k,n)}{L_a(k,n)} \leq \alpha \Rightarrow \frac{L_0(k',n)}{L_a(k',n)} \leq \alpha \forall k' s.t. k \leq k' \leq n \Rightarrow  L_0(k',n) \leq \alpha  L_a(k',n) \forall k' s.t. k \leq k' \leq n"> 
+
+Hence <img src="https://render.githubusercontent.com/render/math?math=\large \sum _{k'=k}^{k'=n} L_0(k',n) \leq \alpha  \sum  _{k'=k}^{k'=n}  L_a(k',n)"> 
+and the sample satisfies the *Minerva* stopping condition. 
+
+Hence *Minerva* requires the drawing of no more ballots than does *BRAVO*. 
+
+Additionally, because <img src="https://render.githubusercontent.com/render/math?math=\large \frac{L_0(k,n)}{L_a(k,n)}"> is monotone decreasing with `k`, *Minerva* accepts some values of `k` that do not satisfy the *BRAVO* condition and *Minerva* audits stop for samples that *BRAVO* does not stop for. That is, *Minerva* accepts values of `k` where <img src="https://render.githubusercontent.com/render/math?math=\large \frac{L_0(k,n)}{L_a(k,n)} > \alpha"> or <img src="https://render.githubusercontent.com/render/math?math=\largeL_0(k,n) > \alpha L_a(k,n)">  as long as, for larger number of winner votes, the ratio drops sufficiently and <img src="https://render.githubusercontent.com/render/math?math=\large \sum _k L_0(k,n) \leq \alpha  \sum _k L_a(k,n)">. This is illustrated in Figure 1. 
+
+For the above reason, in general, *Minerva* is more efficient than *BRAVO*. 
+
 See also https://github.com/nealmcb/brla
