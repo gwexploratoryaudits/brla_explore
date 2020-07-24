@@ -305,8 +305,27 @@ For the above reason, in general, *Minerva* is more efficient than *BRAVO*.
 
 *Minerva* requires that the relationship between risk and stopping probability be enforced at the level of the round: the combined risk contributed by all sequences that terminate the audit should be no more than a risk-limit fraction of the combined stopping probability. 
 
-We propose another audit, *Metis*, which enforces the above relationship across all rounds. This is because discreteness will typically require that the risk contribution of the round will be slightly smaller than the risk-limit fraction of the stopping probability; thus the round leaves some risk on the table; or underspends the risk budget. This underspent risk could be rolled over into the next round. The *Metis* stopping condition for round `i_0` is: 
+## *Metis*
+Consider the fact that discreteness will typically require that the risk contribution of the round be slightly smaller than the risk-limit fraction of the stopping probability. The round thus leaves some risk on the table; or underspends the risk budget. This underspent risk could be rolled over into the next round. We propose another audit, *Metis*, which enforces the relationship between risk and stopping probability on the entire risk and the entire stopping probability of the audit so far. across all rounds. 
+
+The *Metis* stopping condition for round `i_0` is: 
 
 <img src="https://render.githubusercontent.com/render/math?math=\large \sum _{i=1}^{i_0} \sum _{k_i} L^i_0(k_i,n_i) \leq \alpha  \sum _{i=1}^{i_0} \sum _{k_i} L^i_a(k_i,n_i)">
+
+*Metis* differs from *Minerva* only when the audit has more than a single round. For the second round, the *Metis* p-value is the ratio of the sum of the risk tails of all rounds to the sum of the stopping probability tails of all rounds, where the tails of all all previous rounds are defined by the value of `kmin` for that round. 
+
+Observe that a sample satisfying *Minerva* will satisfy *Metis*, using the same arguments we used to show that a sample satisfying *BRAVO* satisfies *Minerva*. Thus *Metis* is at least as efficient as *Minerva*, and hence *BRAVO*. Note, however, that ballot-by-ballot *Metis* (*Metis* with round size `1`) is not *BRAVO*, nor is it *Minerva*. 
+
+## Computing Stopping Probabilities Without Resorting to Simulations
+
+TBD
+
+## Experimental Verification: *Minerva* is more efficient than *BRAVO* for a single round and 90\% stopping probability
+
+TBD
+
+## B2 *Metis* is more efficient than the B2 *SPRT*
+
+TBD
 
 See also https://github.com/nealmcb/brla
