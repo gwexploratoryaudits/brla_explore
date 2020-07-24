@@ -73,7 +73,7 @@ We have shown in [Risk-Limiting Bayesian Polling Audits for Two Candidate Electi
 
 <img src="https://render.githubusercontent.com/render/math?math=\Large \frac{Prob(k1 \mid margin=0)}{Prob(k1 \mid margin=m)}">
 
-decreases with an increase in `k1` (assuming `m > 0`, of course, where `m` is the election margin assumed for the alternate hypothesis). Thus if we choose to stop for a particular value of winner ballots in the sample, `k1=32` in this case, we should stop for larger values as well, because the p-value would be smaller. 
+decreases with an increase in `k1` (assuming `m > 0`, of course, where `m` is the election margin assumed for the alternate hypothesis). Thus if we choose to stop for a particular value of winner ballots in the sample, `k1=32` in this case, we should stop for larger values as well, because the p-values would all be smaller. 
 
 If we decide to stop at `k1=32`: 
 
@@ -276,27 +276,37 @@ Consider the B2 *BRAVO* audit, where stopping decisions are made after each ball
 
 Given any `i > 0`, the probability of having `k+i` winner ballots of `n` is zero in this audit because, if there were `k+i` winner ballots in the sample of size `n` there would need to be at least `k+i-1 \geq k` in the sample of size `n-1`, and the audit would have satisfied the stopping condition at `n-1` ballots because:  
  
-<img src="https://render.githubusercontent.com/render/math?math=\large \frac{(\frac{1}{2})^n}{x^{k}(1-x)^{n-k}} \leq \alpha \Rightarrow \frac{(\frac{1}{2})^n}{x^{k+i-1}(1-x)^{n-1-(k+i-1)}} \leq \alpha">
+<img src="https://render.githubusercontent.com/render/math?math=\large \frac{(\frac{1}{2})^n}{x^{k}(1-x)^{n-k}} \leq \alpha \Rightarrow \frac{(\frac{1}{2})^n}{x^{k&#43i-1}(1-x)^{n-1-(k&#43i-1)}} \leq \alpha">
 
 Thus the "tail" for the B2 *BRAVO* distribution is of size one, and the B2 *BRAVO* stopping condition is identical to that for *Minerva*. 
 
 ## *Minerva* is at least as efficient as *BRAVO*
 
-Let <img src="https://render.githubusercontent.com/render/math?math=\large L_0(k,n)"> denote the likelihood of `k` ballots for the winner in a sample of size `n` for the null hypothesis (tied election) and <img src="https://render.githubusercontent.com/render/math?math=\large L_a(k,n)">  that for the alternate hypothesis (election with fractional winner tally `x`).  Suppose the drawn sample satisfies the *BRAVO* stopping condition. That is, suppose
+Let <img src="https://render.githubusercontent.com/render/math?math=\large L^i_0(k_i,n_i)"> denote the likelihood of `k_i` ballots for the winner in a sample of size `n_i` for the null hypothesis (tied election) and <img src="https://render.githubusercontent.com/render/math?math=\large L^i_a(k_i,n_i)">  that for the alternate hypothesis (election with fractional winner tally `x`), each for the `ith` round.  The likelihoods depend on the size of the previous rounds and other parameters defining the audit that are not overtly specified above, but are understood. 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large L_0(k,n) \leq \alpha  L_a(k,n) \Rightarrow \frac{L_0(k,n)}{L_a(k,n)} = \frac{(\frac{1}{2})^n}{x^{k}(1-x)^{n-k}} \leq \alpha"> 
+Suppose the drawn sample satisfies the *BRAVO* stopping condition. That is, suppose
 
-Note that when `k` increases for a fixed `n`, the denominator above increases and the numerator is unchanged. Hence
+<img src="https://render.githubusercontent.com/render/math?math=\large L^i_0(k_i,n_i) \leq \alpha  L^i_a(k_i,n_i) \Rightarrow \frac{L^i_0(k_i,n_i)}{L^i_a(k_i,n_i)} = \frac{(\frac{1}{2})^{n_i}}{x^{k_i}(1-x)^{n_i-k_i}} \leq \alpha"> 
 
-<img src="https://render.githubusercontent.com/render/math?math=\large L_0(k,n) \leq \alpha  L_a(k,n) \Rightarrow \frac{L_0(k,n)}{L_a(k,n)} \leq \alpha \Rightarrow \frac{L_0(k',n)}{L_a(k',n)} \leq \alpha \forall k' s.t. k \leq k' \leq n \Rightarrow  L_0(k',n) \leq \alpha  L_a(k',n) \forall k' s.t. k \leq k' \leq n"> 
+Note that when `k_i` increases for a fixed `n_i`, the denominator above increases and the numerator is unchanged. Hence
 
-Hence <img src="https://render.githubusercontent.com/render/math?math=\large \sum _{k'=k}^{k'=n} L_0(k',n) \leq \alpha  \sum  _{k'=k}^{k'=n}  L_a(k',n)"> 
+<img src="https://render.githubusercontent.com/render/math?math=\large L^i_0(k_i,n_i) \leq \alpha  L^i_a(k_i,n_i) \Rightarrow \frac{L^i_0(k_i,n_i)}{L^i_a(k_i,n_i)} \leq \alpha \Rightarrow \frac{L^i_0(k_i',n_i)}{L^i_a(k_i',n_i)} \leq \alpha \forall k_i' s.t. k_i \leq k_i' \leq n_i \Rightarrow  L^i_0(k_i',n_i) \leq \alpha  L^i_a(k_i',n_i) \forall k_i' s.t. k_i \leq k_i' \leq n_i"> 
+
+Hence <img src="https://render.githubusercontent.com/render/math?math=\large \sum _{k_i'=k_i}^{k_i'=n_i} L^i_0(k_i',n_i) \leq \alpha  \sum  _{k_i'=k_i}^{k_i'=n_i}  L^i_a(k_i',n_i)"> 
 and the sample satisfies the *Minerva* stopping condition. 
 
 Hence *Minerva* requires the drawing of no more ballots than does *BRAVO*. 
 
-Additionally, because <img src="https://render.githubusercontent.com/render/math?math=\large \frac{L_0(k,n)}{L_a(k,n)}"> is monotone decreasing with `k`, *Minerva* accepts some values of `k` that do not satisfy the *BRAVO* condition and *Minerva* audits stop for samples that *BRAVO* does not stop for. That is, *Minerva* accepts values of `k` where <img src="https://render.githubusercontent.com/render/math?math=\large \frac{L_0(k,n)}{L_a(k,n)} > \alpha"> or <img src="https://render.githubusercontent.com/render/math?math=\largeL_0(k,n) > \alpha L_a(k,n)">  as long as, for larger number of winner votes, the ratio drops sufficiently and <img src="https://render.githubusercontent.com/render/math?math=\large \sum _k L_0(k,n) \leq \alpha  \sum _k L_a(k,n)">. This is illustrated in Figure 1. 
+Additionally, because <img src="https://render.githubusercontent.com/render/math?math=\large \frac{L_0(k_i,n_i)}{L_a(k_i,n_i)}"> is monotone decreasing with `k_i`, *Minerva* accepts some values of `k_i` that do not satisfy the *BRAVO* condition and *Minerva* audits stop for samples that *BRAVO* does not stop for. That is, *Minerva* accepts values of `k_i` where <img src="https://render.githubusercontent.com/render/math?math=\large \frac{L^i_0(k_i,n_i)}{L^i_a(k_i,n_i)} > \alpha"> or <img src="https://render.githubusercontent.com/render/math?math=\large L^i_0(k_i,n_i) > \alpha L^i_a(k_i,n_i)">  as long as, for larger number of winner votes, the ratio drops sufficiently and <img src="https://render.githubusercontent.com/render/math?math=\large \sum _{k_i} L^i_0(k_i,n_i) \leq \alpha  \sum _{k_i} L^i_a(k_i,n_i)">. This is illustrated by the example of Figure 1 which satisfied the *Minerva* condition but not the *BRAVO* one. 
 
 For the above reason, in general, *Minerva* is more efficient than *BRAVO*. 
+
+*BRAVO* requires that each sequence that terminates the audit is such that it contributes risk that is no more than a risk-limit fraction of the stopping probability. 
+
+*Minerva* requires that the relationship between risk and stopping probability be enforced at the level of the round: the combined risk contributed by all sequences that terminate the audit should be no more than a risk-limit fraction of the combined stopping probability. 
+
+We propose another audit, *Metis*, which enforces the above relationship across all rounds. This is because discreteness will typically require that the risk contribution of the round will be slightly smaller than the risk-limit fraction of the stopping probability; thus the round leaves some risk on the table; or underspends the risk budget. This underspent risk could be rolled over into the next round. The *Metis* stopping condition for round `i_0` is: 
+
+<img src="https://render.githubusercontent.com/render/math?math=\large \sum _{i=1}^{i_0} \sum _{k_i} L^i_0(k_i,n_i) \leq \alpha  \sum _{i=1}^{i_0} \sum _{k_i} L^i_a(k_i,n_i)">
 
 See also https://github.com/nealmcb/brla
