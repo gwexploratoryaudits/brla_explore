@@ -1,0 +1,308 @@
+{
+    "Alabama": [
+        {
+            "Arlo_gm_raw": 174,
+            "Arlo_gm_scaled": 181
+        }
+    ],
+    "Alaska": [
+        {
+            "Arlo_gm_raw": 518,
+            "Arlo_gm_scaled": 590
+        }
+    ],
+    "Arizona": [
+        {
+            "Arlo_gm_raw": 10066,
+            "Arlo_gm_scaled": 10732
+        }
+    ],
+    "Arkansas": [
+        {
+            "Arlo_gm_raw": 176,
+            "Arlo_gm_scaled": 187
+        }
+    ],
+    "California": [
+        {
+            "Arlo_gm_raw": 138,
+            "Arlo_gm_scaled": 148
+        }
+    ],
+    "Colorado": [
+        {
+            "Arlo_gm_raw": 5004,
+            "Arlo_gm_scaled": 5475
+        }
+    ],
+    "Connecticut": [
+        {
+            "Arlo_gm_raw": 714,
+            "Arlo_gm_scaled": 748
+        }
+    ],
+    "Delaware": [
+        {
+            "Arlo_gm_raw": 1002,
+            "Arlo_gm_scaled": 1057
+        }
+    ],
+    "District of Columbia": [
+        {
+            "Arlo_gm_raw": 14,
+            "Arlo_gm_scaled": 15
+        }
+    ],
+    "Florida": [
+        {
+            "Arlo_gm_raw": 93560,
+            "Arlo_gm_scaled": 96608
+        }
+    ],
+    "Georgia": [
+        {
+            "Arlo_gm_raw": 5077,
+            "Arlo_gm_scaled": 5266
+        }
+    ],
+    "Hawaii": [
+        {
+            "Arlo_gm_raw": 118,
+            "Arlo_gm_scaled": 128
+        }
+    ],
+    "Idaho": [
+        {
+            "Arlo_gm_raw": 104,
+            "Arlo_gm_scaled": 120
+        }
+    ],
+    "Illinois": [
+        {
+            "Arlo_gm_raw": 448,
+            "Arlo_gm_scaled": 474
+        }
+    ],
+    "Indiana": [
+        {
+            "Arlo_gm_raw": 354,
+            "Arlo_gm_scaled": 374
+        }
+    ],
+    "Iowa": [
+        {
+            "Arlo_gm_raw": 1411,
+            "Arlo_gm_scaled": 1520
+        }
+    ],
+    "Kansas": [
+        {
+            "Arlo_gm_raw": 294,
+            "Arlo_gm_scaled": 318
+        }
+    ],
+    "Kentucky": [
+        {
+            "Arlo_gm_raw": 147,
+            "Arlo_gm_scaled": 155
+        }
+    ],
+    "Louisiana": [
+        {
+            "Arlo_gm_raw": 352,
+            "Arlo_gm_scaled": 365
+        }
+    ],
+    "Maine": [
+        {
+            "Arlo_gm_raw": 14092,
+            "Arlo_gm_scaled": 15202
+        }
+    ],
+    "Maryland": [
+        {
+            "Arlo_gm_raw": 185,
+            "Arlo_gm_scaled": 197
+        }
+    ],
+    "Massachusetts": [
+        {
+            "Arlo_gm_raw": 167,
+            "Arlo_gm_scaled": 180
+        }
+    ],
+    "Michigan": [
+        {
+            "Arlo_gm_raw": 2581939,
+            "Arlo_gm_scaled": 2724367
+        }
+    ],
+    "Minnesota": [
+        {
+            "Arlo_gm_raw": 51788,
+            "Arlo_gm_scaled": 56680
+        }
+    ],
+    "Mississippi": [
+        {
+            "Arlo_gm_raw": 444,
+            "Arlo_gm_scaled": 453
+        }
+    ],
+    "Missouri": [
+        {
+            "Arlo_gm_raw": 380,
+            "Arlo_gm_scaled": 401
+        }
+    ],
+    "Montana": [
+        {
+            "Arlo_gm_raw": 294,
+            "Arlo_gm_scaled": 320
+        }
+    ],
+    "Nebraska": [
+        {
+            "Arlo_gm_raw": 196,
+            "Arlo_gm_scaled": 213
+        }
+    ],
+    "Nevada": [
+        {
+            "Arlo_gm_raw": 21433,
+            "Arlo_gm_scaled": 22943
+        }
+    ],
+    "New Hampshire": [
+        {
+            "Arlo_gm_raw": 920883,
+            "Arlo_gm_scaled": 987173
+        }
+    ],
+    "New Jersey": [
+        {
+            "Arlo_gm_raw": 680,
+            "Arlo_gm_scaled": 703
+        }
+    ],
+    "New Mexico": [
+        {
+            "Arlo_gm_raw": 1667,
+            "Arlo_gm_scaled": 1888
+        }
+    ],
+    "New York": [
+        {
+            "Arlo_gm_raw": 259,
+            "Arlo_gm_scaled": 272
+        }
+    ],
+    "North Carolina": [
+        {
+            "Arlo_gm_raw": 9916,
+            "Arlo_gm_scaled": 10330
+        }
+    ],
+    "North Dakota": [
+        {
+            "Arlo_gm_raw": 88,
+            "Arlo_gm_scaled": 98
+        }
+    ],
+    "Ohio": [
+        {
+            "Arlo_gm_raw": 1978,
+            "Arlo_gm_scaled": 2077
+        }
+    ],
+    "Oklahoma": [
+        {
+            "Arlo_gm_raw": 95,
+            "Arlo_gm_scaled": 101
+        }
+    ],
+    "Oregon": [
+        {
+            "Arlo_gm_raw": 952,
+            "Arlo_gm_scaled": 1068
+        }
+    ],
+    "Pennsylvania": [
+        {
+            "Arlo_gm_raw": 253702,
+            "Arlo_gm_scaled": 265245
+        }
+    ],
+    "Rhode Island": [
+        {
+            "Arlo_gm_raw": 524,
+            "Arlo_gm_scaled": 562
+        }
+    ],
+    "South Carolina": [
+        {
+            "Arlo_gm_raw": 653,
+            "Arlo_gm_scaled": 683
+        }
+    ],
+    "South Dakota": [
+        {
+            "Arlo_gm_raw": 143,
+            "Arlo_gm_scaled": 154
+        }
+    ],
+    "Tennessee": [
+        {
+            "Arlo_gm_raw": 196,
+            "Arlo_gm_scaled": 206
+        }
+    ],
+    "Texas": [
+        {
+            "Arlo_gm_raw": 1628,
+            "Arlo_gm_scaled": 1706
+        }
+    ],
+    "Utah": [
+        {
+            "Arlo_gm_raw": 240,
+            "Arlo_gm_scaled": 329
+        }
+    ],
+    "Vermont": [
+        {
+            "Arlo_gm_raw": 156,
+            "Arlo_gm_scaled": 180
+        }
+    ],
+    "Virginia": [
+        {
+            "Arlo_gm_raw": 4509,
+            "Arlo_gm_scaled": 4790
+        }
+    ],
+    "Washington": [
+        {
+            "Arlo_gm_raw": 469,
+            "Arlo_gm_scaled": 525
+        }
+    ],
+    "West Virginia": [
+        {
+            "Arlo_gm_raw": 72,
+            "Arlo_gm_scaled": 76
+        }
+    ],
+    "Wisconsin": [
+        {
+            "Arlo_gm_raw": 214980,
+            "Arlo_gm_scaled": 229503
+        }
+    ],
+    "Wyoming": [
+        {
+            "Arlo_gm_raw": 53,
+            "Arlo_gm_scaled": 59
+        }
+    ]
+}
