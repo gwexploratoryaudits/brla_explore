@@ -26,10 +26,10 @@ first_plot = plot((0:n1), binopdf((0:n1),n1,p), 'Color', navy, 'LineWidth', 3);
 hold
 % Binomial for a tie
 second_plot = plot((0:n1), binopdf((0:n1),n1,0.5), '--', ...
-    'Color', maroon, 'LineWidth', 3)
+    'Color', maroon, 'LineWidth', 3);
 
 % Draw vertical line at k1 and label it
-xl = xline(k1, '-.', {sprintf('k1=%d', k1)});
+xl = xline(k1, '-.', {sprintf('$k_1$=%d', k1)}, 'Interpreter', 'latex');
 xl.LineWidth=1;
 xl.FontSize=14;
 xl.LabelVerticalAlignment='middle';
@@ -37,21 +37,21 @@ xl.LabelVerticalAlignment='middle';
 % Draw corresponding horizontal lines where vertical line crosses each of 
 % the two curves and label
 yl1 = yline(binopdf(k1,n1,p), ':', ...
-    {sprintf('Prob(k1 = %d | margin = %1.1f) = %1.4f', k1, margin, binopdf(k1,n1,p))});
+    {sprintf('Prob($k_1$ = %d $\\mid$ margin = %1.1f) = %1.4f', k1, margin, binopdf(k1,n1,p))}, 'Interpreter', 'latex');
 yl1.LineWidth=2;
 yl1.FontSize=14;
 yl1.LabelHorizontalAlignment='left';
 
 yl2 = yline(binopdf(k1,n1,0.5), ':', ...
-    {sprintf('Prob(k1 = %d | margin = 0) = %1.4f', k1, binopdf(k1,n1,0.5))});
+    {sprintf('Prob($k_1$ = %d $\\mid$ margin = 0) = %1.4f', k1, binopdf(k1,n1,0.5))}, 'Interpreter', 'latex');
 yl2.LineWidth=2;
 yl2.FontSize = 14;
 yl2.LabelHorizontalAlignment='left';
 
 % Label axes
-xlabel('Number of winner ballots in first round', 'FontSize', 14)
+xlabel('Number of winner ballots in first round, $k_1$', 'FontSize', 14, 'Interpreter', 'latex')
 ylabel('Probability', 'FontSize', 14)
-title(sprintf('Probability as a function of winner ballots; sample size = %d', n1), 'FontSize', 16) 
+title(sprintf('Probability as a function of winner ballots; $n_1$ = %d', n1), 'FontSize', 16, 'Interpreter', 'latex') 
 
 % Color tails
 patch_label1 = patch([(k1:n1), fliplr((k1:n1))], ...
@@ -62,7 +62,7 @@ patch_label2 = patch([(k1:n1), fliplr((k1:n1))], ...
 % Legend
 legend(vertcat(first_plot, second_plot, patch_label1, patch_label2), ...
     sprintf('Election with margin = %1.1f', margin), 'Tied election', ...
-    sprintf('Prob(k1 >= %d | margin = %1.1f) = %1.4f', k1, margin, 1-binocdf(k1-1,n1,p)), ...
-    sprintf('Prob(k1 >= %d | margin = 0) = %1.4f', k1, 1-binocdf(k1-1,n1,0.5)), ...
-    'Location', 'NorthWest', 'FontSize', 14)
+    sprintf('Tail for election with margin = %1.1f', margin), ...
+    sprintf('Tail for tied election'), ...
+    'Location', 'NorthWest', 'FontSize', 14);
 
