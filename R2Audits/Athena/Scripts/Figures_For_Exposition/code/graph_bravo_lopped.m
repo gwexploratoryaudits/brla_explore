@@ -25,20 +25,26 @@ margin = 2*x-1;
 kmin_bravo = kmin(n==n1);
 
 %----Begin plot
+
+% Name colors
+maroon = [0.5 0 0];
+navy = [0 0 0.5];
+dull_green = [0 0.6 0];
+
 % Two curves in one plot for BRAVO.
 % pdfs up to kmin-1, and zeros thereafter.
 % Zeros plotted as different plots so the "vertical" (not!) line dropping 
 % at kmin is not in the graph.
-plot1 = plot((0:kmin_bravo-1), binopdf((0:kmin_bravo-1),n1, x), 'b', ...
-    'LineWidth', 3, ... 
+plot1 = plot((0:kmin_bravo-1), binopdf((0:kmin_bravo-1),n1, x), ...
+    'Color', navy, 'LineWidth', 3, ... 
     'DisplayName', sprintf('Election with margin = %1.1f', margin));
 hold on;
-plot2 = plot((kmin_bravo:n1), zeros(1,n1-kmin_bravo+1), 'b', ...
-    'LineWidth', 3, 'DisplayName', 'BlueZeros');
-plot3 = plot((0:kmin_bravo-1), binopdf((0:kmin_bravo-1),n1, 0.5), '--r', ...
-    'LineWidth', 3, 'DisplayName', 'Tied Election');
-plot4 = plot((kmin_bravo:n1), zeros(1,n1-kmin_bravo+1), '--r', ...
-    'LineWidth', 3, 'DisplayName', 'RedZeros');
+plot2 = plot((kmin_bravo:n1), zeros(1,n1-kmin_bravo+1), ...
+    'Color', navy, 'LineWidth', 3, 'DisplayName', 'BlueZeros');
+plot3 = plot((0:kmin_bravo-1), binopdf((0:kmin_bravo-1),n1, 0.5), '--', ...
+    'Color', maroon, 'LineWidth', 3, 'DisplayName', 'Tied Election');
+plot4 = plot((kmin_bravo:n1), zeros(1,n1-kmin_bravo+1), '--', ...
+    'Color', maroon, 'LineWidth', 3, 'DisplayName', 'RedZeros');
 hleg = legend('location','NorthWest');
 axis([0, n1, 0, inf]);
 

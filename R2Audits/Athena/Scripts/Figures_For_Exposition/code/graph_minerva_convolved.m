@@ -26,7 +26,7 @@ ntotal = n1+n2;
 % CurrentTierStop and CurrentTierRisk are the lopped probability
 % distributions. 
 [n_out, kmin_minerva, StopSched, RiskSched, CurrentTierStop, ...
-    CurrentTierRisk] = Athenakmin(margin, alpha, 1.0, (n1), 'Minerva');'
+    CurrentTierRisk] = Athenakmin(margin, alpha, 1.0, (n1), 'Minerva');
 
 % Largest k value after second draw
 k2_max = kmin_minerva-1+n2; 
@@ -39,15 +39,21 @@ NewTierStop = R2CurrentTier(margin, CurrentTierStop, n2);
 NewTierRisk = R2CurrentTier(0, CurrentTierRisk, n2);
 
 %----Begin plots.
-first_plot = plot((0:k2_max),NewTierStop, 'b', (0:k2_max), ...
-    NewTierRisk, '--r', 'LineWidth', 3);
+% Name colors
+maroon = [0.5 0 0];
+navy = [0 0 0.5];
+dull_green = [0 0.6 0];
+
+first_plot = plot((0:k2_max),NewTierStop, 'Color', navy, 'LineWidth', 3);
 hold
+second_plot = plot((0:k2_max), NewTierRisk, '--', 'Color', maroon, 'LineWidth', 3);
 axis([0, k2_max, 0, inf]);
 
 % Label axes.
-xlabel(sprintf('Number of winner ballots after second draw, Minerva; round schedule = [%d, %d]', n1, n2), 'FontSize', 14)
+xlabel(sprintf('Number of winner ballots after second draw, Minerva; round schedule = [%d, %d]', n1, ntotal), 'FontSize', 14)
 ylabel('Probability', 'FontSize', 14)
 title('Probability as a function of winner ballots', 'FontSize', 16) 
 
 % Legend.
-legend(sprintf('Election with margin = %1.1f', margin), 'Tied election', 'location', 'NorthWest');
+hleg = legend(sprintf('Election with margin = %1.1f', margin), 'Tied election', 'location', 'NorthWest');
+hleg.FontSize = 14;
