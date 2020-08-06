@@ -1,38 +1,43 @@
 function [n, kmin, Stopping] = StopProb_IrrelevantBallots(difference_fraction, alpha, delta, ...
-StopSched_prev, RiskSched_prev, CurrentTierStop, CurrentTierRisk, ... 
-n_last, k_last, max_draws, audit_method, irrelevant_fraction)
-
-% Computes kmin and Stopping probability for various round sizes n
-% beginning at n_last + 1 and going on to max_draws. Takes in to 
-% account the reported percent of irrelevant ballots.
-% Outputs are arrays indexed by number of new ballots drawn. 
-%
-% ---------------------------Inputs------------------------
-%
-%       difference_fraction:    fractional difference between winner and loser votes
-%       alpha:                  fractional risk limit
-%       delta:                  minimum value for Athena LR; not needed for 
-%                                   other audit types
-%       StopSched_prev:         most recent Stop_Sched
-%       RiskSched_prev:         most recent RiskSched 
-%       CurrentTierStop:        most recent winner vote distribution for 
-%                                   election with margin
-%       CurrentTierRisk:        most recent winner vote distribution for 
-%                                   tied election
-%       n_last:                 total number of ballots drawn so far
-%       k_last:                 total number of winner votes drawn so far
-%       max_draws:              maximum number of ballots that can be 
-%                                   drawn in all
-%       audit_method:           one of Arlo, Athena, Minerva, Metis
-%
-%       irrelevant_fraction:    reported fraction of irrelevant ballots
-%
-% -------------------------Outputs---------------------------
-%
-%       n:                      total ballots drawn, (n_last+1:max_draws)
-%       kmin:                   corresponding kmin
-%       Stopping:               corresponding stopping probability
-%
+    StopSched_prev, RiskSched_prev, CurrentTierStop, CurrentTierRisk, ... 
+    n_last, k_last, max_draws, audit_method, irrelevant_fraction)
+    %
+    % [n, kmin, Stopping] = StopProb_IrrelevantBallots(difference_fraction, ...
+    %   alpha, delta, StopSched_prev, RiskSched_prev, CurrentTierStop, ... 
+    %   CurrentTierRisk, n_last, k_last, max_draws, audit_method, irrelevant_fraction)
+    %
+    % Computes kmin and Stopping probability for various round sizes n
+    % beginning at n_last + 1 and going on to max_draws. Takes in to 
+    % account the reported percent of irrelevant ballots.
+    % Outputs are arrays indexed by number of new ballots drawn. 
+    % Same as StopProb.m but using new irrelevant ballot approach.
+    %
+    % ---------------------------Inputs------------------------
+    %
+    %       difference_fraction:    fractional difference between winner and loser votes
+    %       alpha:                  fractional risk limit
+    %       delta:                  minimum value for Athena LR; not needed for 
+    %                                   other audit types
+    %       StopSched_prev:         most recent Stop_Sched
+    %       RiskSched_prev:         most recent RiskSched 
+    %       CurrentTierStop:        most recent winner vote distribution for 
+    %                                   election with margin
+    %       CurrentTierRisk:        most recent winner vote distribution for 
+    %                                   tied election
+    %       n_last:                 total number of ballots drawn so far
+    %       k_last:                 total number of winner votes drawn so far
+    %       max_draws:              maximum number of ballots that can be 
+    %                                   drawn in all
+    %       audit_method:           one of Arlo, Athena, Minerva, Metis
+    %
+    %       irrelevant_fraction:    reported fraction of irrelevant ballots
+    %
+    % -------------------------Outputs---------------------------
+    %
+    %       n:                      total ballots drawn, (n_last+1:max_draws)
+    %       kmin:                   corresponding kmin
+    %       Stopping:               corresponding stopping probability
+    %
 
 % assumed fraction of winner votes
 p = ((1-irrelevant_fraction)+difference_fraction)/2;
@@ -72,7 +77,7 @@ end
 
 %---------------Compute Stopping----------------%
 
-% Assuming not Arlo right now... 
+% NOTE: Assuming not Arlo right now... 
 for j=1:max_draws-n_last % j is number of new ballots drawn
 
     % Round is large enough for non-zero stopping probability
@@ -80,6 +85,7 @@ for j=1:max_draws-n_last % j is number of new ballots drawn
         
         % Initialize stopping probability for round size of j
         Final_stop_prob = 0;
+        
         for i=0:j % i is the number of irrelevant ballots, j-i is the number of relevant ballots
             
             % Initialize the stopping probability for round size of j where
