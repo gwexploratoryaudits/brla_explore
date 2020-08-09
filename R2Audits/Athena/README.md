@@ -28,7 +28,7 @@ For simplicity here, we describe the *Minerva* audit first.
 
 Consider a two-contestant contest with no invalid votes. Let `x` be the announced fractional tally for the winner. 
 
-Suppose the risk limit of the audit is <img src="https://render.githubusercontent.com/render/math?math=\large\alpha%3D0.1">
+Suppose the risk limit of the audit is <img src="https://render.githubusercontent.com/render/math?math=\large\alpha = 0.1">
 
 Suppose `n1` ballots are drawn in the first round. Denote by `k1` the number of votes drawn for the winner. Suppose `n1=50` and `x=0.75` (corresponding to a margin of `0.5`). 
 
