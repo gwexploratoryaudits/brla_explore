@@ -1,7 +1,7 @@
 # brla_explore/B2Audits
-exploratory code related to ballot-by-ballot (B2) RLAs
+exploratory code related to ballot-by-ballot (B2) RLAs, both with and without replacement. 
 
-We assume two candidates and no invalid votes. 
+For our main code, we assume two candidates and no invalid votes. In scripts, we may use the tests for pairwise contests to determine the test for a multi-candidate contest as described in the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. 
 
 Read the README for the parent directory, brla_explore, first. 
 
@@ -22,7 +22,7 @@ The properties computed are:
 
 7. **Percentiles:** Desired percentile values may be computed from the stopping schedule and/or the risk schedule. 
 
-To validate our mathematical approach and code we have computed the values of Table 1 in the *BRAVO* paper. See: Tables/BRAVO Table I.pdf for the first five rows and Tables/BRAVO Table II.pdf for the next five rows. The largest fractional difference is smaller than 0.5\%. 
+To validate our mathematical approach and code we [*have computed*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits/Tables/Bravo_Verification_Table.pdf) the values of Table 1 of the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. The average of the absolute value of the fractional difference is 0.13\%. 
 
 *Note:* The properties we compute are properties for the entire audit, over all the draws, so we need to make an assumption regarding the number of draws when we compute the stopping and risk schedules:
 
@@ -34,7 +34,7 @@ To validate our mathematical approach and code we have computed the values of Ta
 
 ## Specification of an Audit. 
 
-We use the idea of *kmin*s (minimum number of votes for the winner required in the sample to stop the audit) described in the parent directory, brla_explore. 
+We use the idea of *kmin*s (minimum number of votes for the announced winner required in the sample to stop the audit) described in the parent directory, [*brla_explore*](https://github.com/gwexploratoryaudits/brla_explore). 
 
 ### Single Audits
 

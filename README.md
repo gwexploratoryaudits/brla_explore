@@ -24,17 +24,17 @@ For example:
 
 * An R2 audit with rounds of sizes 100, 400 and 1000 ballots will allow stopping decisions only at 100, 400 and 1000 ballots, and not after, say, drawing the first 50 ballots. 
 
-As described in [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999), we specify an audit by an array of sample sizes and an array of corresponding values of *kmin* (minimum number of votes for the winner required to stop the audit). Thus, for the above examples, 
+As described in [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999), we specify an audit by an array of sample sizes and an array of corresponding values of *kmin* (minimum number of votes for the announced winner required to stop the audit). Thus, for the above examples, 
 
-* The B2 audit will allow stopping decisions at each draw. It will be specified by an array of sample sizes: 1, 2, 3, ..., *N* where *N* is the maximum number of ballots drawn. The corresponding values of *kmin* will be determined by the stopping rule. For example, the *BRAVO* stopping rule is *likelihood ratio >* <img src="https://render.githubusercontent.com/render/math?math=\large \frac{1}{\alpha}"> where <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> is the risk limit, and the likelihood ratio depends on the size of the sample, the number of votes for the winner and the election margin. 
+* The B2 audit will allow stopping decisions at each draw. It will be specified by an array of sample sizes: 1, 2, 3, ..., *N* where *N* is the maximum number of ballots drawn. The corresponding values of *kmin* will be determined by the stopping rule. For example, the *BRAVO* stopping rule is *likelihood ratio >* <img src="https://render.githubusercontent.com/render/math?math=\large \frac{1}{\alpha}"> where <img src="https://render.githubusercontent.com/render/math?math=\large \alpha"> is the risk limit, and the likelihood ratio depends on the size of the sample, the number of votes for the announced winner and the election margin. 
 
-* The audit with sample sizes 100, 400 and 1000 will be specified by an array of sample sizes: 100, 400 and 1000. It may have *kmin* values of 60, 230 and 520 respectively, which imply that one would stop the audit in the first round if and only if the number of ballots for the winner in the sample were 60 or larger; in the second round if it were 230 or larger and in the last round if it were 520 or larger. 
+* The audit with sample sizes 100, 400 and 1000 will be specified by an array of sample sizes: 100, 400 and 1000. It may have *kmin* values of 60, 230 and 520 respectively, which imply that one would stop the audit in the first round if and only if the number of ballots for the announced winner in the sample were 60 or larger; in the second round if it were 230 or larger and in the last round if it were 520 or larger. 
 
-Clearly, such a specification only works for audits whose stopping criteria are monotonic with the number of winner ballots in the sample. 
+Clearly, such a specification only works for audits whose stopping criteria are monotonic with the number of announced-winner ballots in the sample. 
 
-We include code for computing:
+For B2 audits, we include code for computing:
 
-* *n*: array of sample sizes beginning with the smallest size where a decision to stop is possible (usually all votes need to be for the winner to stop for the smallest possible sample size) and going on to the maximum number of ballots draws. 
+* *n*: array of sample sizes beginning with the smallest size where a decision to stop is possible (usually all votes need to be for the announced winner to stop for the smallest possible sample size in a B2 audit) and going on to the maximum number of ballots draws. 
 
 * *kmin*: a corresponding array of minimum votes required for the winner to stop the audit. That is, *kmin(j)* is the minimum number of votes required for the winner in a sample of size *n(j)*.  
 
