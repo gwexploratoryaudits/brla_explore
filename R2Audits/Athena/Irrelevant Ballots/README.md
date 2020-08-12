@@ -41,7 +41,7 @@ Therefore, you can calculate the stopping probability for a given round size n u
 
 Note that votes for the loser li = (n – w – i).
 
-*Put Equation Here
+![Equation](equation.jpg)
 
 ## Code
 
