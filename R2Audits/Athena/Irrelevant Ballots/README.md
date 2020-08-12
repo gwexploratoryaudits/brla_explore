@@ -5,7 +5,7 @@
 ### Table of Contents
 
 - [Description](#description)
-- [My Code](#my code)
+- [My Code](#mycode)
 - [Conclusions](#conclusions)
 
 ## Description
@@ -43,7 +43,7 @@ Note that votes for the loser li = (n – w – i).
 
 *Put Equation Here
 
-## My Code
+### My Code
 
 **RangeNextRoundSizes_IrrelevantBallots.m**
 
