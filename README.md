@@ -3,11 +3,11 @@ exploratory code related to ballot-by-ballot RLAs and their approximations: roun
 
 For most of our work in this repository, we assume two candidates and no invalid votes. An exception is Claire Furtick's work on estimating stopping probabilities taking into consideration the announced tally. For the most part, though, our work focuses on the pairwise comparisons of candidates. 
 
-1. The folder B2Audits contains code to compute (without simulation) properties of audits that sample *ballot-by-ballot* (as opposed to *round-by-round*). Ballot-by-Ballot (or B2) audits make decisions (re: whether to stop the audit or not) at every ballot draw. For example, the theoretical versions of [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) and [*Bayesian Risk Limiting Audits*](https://arxiv.org/abs/1902.00999) are B2 audits. 
+1. The folder [*B2Audits*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits) contains code to compute (without simulation) properties of audits that sample *ballot-by-ballot* (as opposed to *round-by-round*). Ballot-by-Ballot (or B2) audits make decisions (re: whether to stop the audit or not) at every ballot draw. For example, the theoretical versions of [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) and [*Bayesian Risk Limiting Audits*](https://arxiv.org/abs/1902.00999) are B2 audits. 
 
-    To validate our mathematical approach and code for B2 audits we have computed the values of Table 1 in the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. See: [*B2Audits/Tables/BRAVO Table I.pdf*](https://github.com/gwexploratoryaudits/brla_explore/blob/poorvi/B2Audits/Tables/BRAVO%20Table%20I.pdf) for the first five rows and [*BRAVO Table II.pdf*](https://github.com/gwexploratoryaudits/brla_explore/blob/master/B2Audits/Tables/BRAVO%20Table%20II.pdf) for the next five rows. The largest difference is 190 ballots, smaller than 0.5\%, and occurs in estimating the expected number of ballots in simulations of audits for an election with a 1\% margin.  The average value of the absolute fractional difference is 0.13\%. This difference likely reflects the finiteness of both: the number of simulations used to generate the BRAVO table and the number of terms in our summations to analytically derive the probabilities. 
+    To validate our mathematical approach and code for B2 audits we have computed the values of Table 1 in the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. See: [*B2Audits/Tables/Bravo_Verification_Table.pdf*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits/Tables/Bravo_Verification_Table.pdf). The largest difference is 190 ballots, smaller than 0.5\%, and occurs in estimating the expected number of ballots in simulations of audits for an election with a 1\% margin.  The average value of the absolute fractional difference is 0.13\%. This difference likely reflects the finiteness of both: the number of simulations used to generate the BRAVO table and the number of terms in our summations to analytically derive the probabilities. 
 
-2. The folder R2 Audits contains: 
+2. The folder [*R2 Audits*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/R2Audits) contains: 
 * code to compute (without simulation) properties of audits that sample *round-by-round*, making decisions (re: whether to stop the audit or not) after drawing a round of tens of ballots (in a single location) or even thousands across a state. Many real election audits are R2 audits, applying decision rules developed for B2 audits. This results in considerable inefficiency. Our code helps understand the inefficiency when B2 rules are applied to R2 audits, and to understand the properties of audits specially developed for use in R2 audits. 
 * code to compute stopping decisions and p-values for some R2 audits, including the new Athena class of audits. 
 
@@ -45,7 +45,7 @@ At the moment, we support three types of audits:
 * *BRAVO* and 
 * *BRAVOLike*:  
   *BRAVO* without replacement, where the likelihood ratio is also computed assuming ballots are drawn without replacement. 
-* The new *Athena* class of audits, including *Athena*, *Minerva* and *Metis*. 
+* The new [*Athena*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/R2Audits/Athena) class of audits, including *Athena*, *Minerva* and *Metis*. 
   
   We have fuzzy plans to incorporate Bayesian audits: both [*Bayesian RLAs*](https://arxiv.org/abs/1902.00999) and more general [*Bayesian Audits*](https://arxiv.org/abs/1801.00528). 
 
