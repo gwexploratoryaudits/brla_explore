@@ -1,6 +1,8 @@
 # brla_explore
 exploratory code related to ballot-by-ballot RLAs and their approximations: round-by-round RLAs
 
+For more technical details on the approach to computing pdfs and on the new round-by-round RLA class, see the long paper on [*Athena*](https://arxiv.org/abs/2008.02315). 
+
 For most of our work in this repository, we assume two candidates and no invalid votes. An exception is Claire Furtick's work on estimating stopping probabilities taking into consideration the announced tally. For the most part, though, our work focuses on the pairwise comparisons of candidates. 
 
 1. The folder [*B2Audits*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits) contains code to compute (without simulation) properties of audits that sample *ballot-by-ballot* (as opposed to *round-by-round*). Ballot-by-Ballot (or B2) audits make decisions (re: whether to stop the audit or not) at every ballot draw. For example, the theoretical versions of [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) and [*Bayesian Risk Limiting Audits*](https://arxiv.org/abs/1902.00999) are B2 audits. 
