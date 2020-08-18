@@ -1,22 +1,22 @@
 # brla_explore/B2Audits
 exploratory code related to ballot-by-ballot (B2) RLAs, both with and without replacement. 
 
-For our main code, we assume two candidates and no invalid votes. In scripts, we may use the tests for pairwise contests to determine the test for a multi-candidate contest as described in the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. 
+We assume that the stopping condition of the audit is monotone increasing with the number of winner ballots in the sample, all other parameters being constant. For most of our main code, we assume two candidates and no invalid votes. In scripts, we may use the tests for pairwise contests to determine the test for a multi-candidate contest as described in the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. Claire Furtick's code, currently undergoing testing, derives stopping probabilities for multi-candidate contests by correctly combining our results for pairwise contests. 
 
-Read the README for the parent directory, brla_explore, first. 
+Read the README for the parent directory, [*brla_explore*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits), first. 
 
-## Properties of ballot-by-ballot audits
-The properties computed are: 
+## Statistical properties of ballot-by-ballot audits
+The properties computed are as follows. They are computed without simulation, for a given margin, a choice of sampling with or without replacement, and a maximum sample size for an audit without replacement. See below for more details on maximum sample size. 
 
-1. **Ballot-by-Ballot Stopping Schedule:** The probability of stopping at each ballot draw for a given underlying election margin. 
+1. **Ballot-by-Ballot Stopping Schedule:** The non-cumulative probability of stopping, computed at each ballot draw, for a given underlying election margin. 
 
 2. **Ballot-by-Ballot Risk Schedule:** The above, when the margin is the smallest possible for an incorrect election: a draw (for even-sized elections) or a margin of a single vote in favor of the loser. For audits with replacement, we always assume a tie as in the literature. 
 
-3. **Stopping Probability:** The probability that the audit stops: the sum of the values of the stopping schedule, expected to be one. 
+3. **Stopping Probability:** The total probability that the audit stops: the sum of the values of the stopping schedule, expected to be one if the maximum sample size is large enough. 
 
-4. **Total Risk:** The total risk of the audit for the worst-case election (draw or margin of one in favour of the loser). Computed as the sum of the values of the risk schedule. 
+4. **Total Risk:** The total risk of the audit for the worst-case election (draw or margin of one in favour of the loser). Computed as the sum of the values of the risk schedule; we assume a full hand count follows if the audit does not stop after all ballots have been drawn. 
 
-5. **No of Expected Ballots:** The scalar product of the stopping schedule and the vector of corresponding sample size. 
+5. **No of Expected Ballots:** The scalar product of the stopping schedule and the vector of corresponding sample sizes. 
 
 6. **No of Expected Ballots for Worst-Case Incorrect Election:** The scalar product of the risk schedule and the sample size vector, plus (1-Total Risk)(max number of draws). In the absence of knowledge of the size of the election, this is a lower bound on the value, a sanity check. 
 
@@ -34,7 +34,7 @@ To validate our mathematical approach and code we [*have computed*](https://gith
 
 ## Specification of an Audit. 
 
-We use the idea of *kmin*s (minimum number of votes for the announced winner required in the sample to stop the audit) described in the parent directory, [*brla_explore*](https://github.com/gwexploratoryaudits/brla_explore). 
+We use the idea of *kmin*s (minimum number of votes for the announced winner required in the sample to stop the audit) described in the README of the parent directory, [*brla_explore*](https://github.com/gwexploratoryaudits/brla_explore), and in our papers on [*Bayesian audits*](https://arxiv.org/abs/1902.00999) and [*Athena.*](https://arxiv.org/abs/2008.02315)
 
 ### Single Audits
 
