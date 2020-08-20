@@ -1,58 +1,64 @@
 # brla_explore/B2Audits
 exploratory code related to ballot-by-ballot (B2) RLAs, both with and without replacement. 
 
-We assume that the stopping condition of the audit is monotone increasing with the number of winner ballots in the sample, all other parameters being constant. For most of our main code, we assume two candidates and no invalid votes. In scripts, we may use the tests for pairwise contests to determine the test for a multi-candidate contest as described in the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. Claire Furtick's code, currently undergoing testing, derives stopping probabilities for multi-candidate contests by correctly combining our results for pairwise contests. 
+We assume that the stopping condition of the audit is monotone increasing with the number of winner ballots in the sample, all other parameters being constant. For most of our main code, we assume two candidates and no invalid votes. In scripts, we may use the results for pairwise contests to determine those for a multi-candidate contest as described in the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. Claire Furtick's code, currently undergoing testing, derives stopping probabilities for multi-candidate contests by correctly combining our results for pairwise contests. 
 
 Read the README for the parent directory, [*brla_explore*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits), first. 
 
 ## Statistical properties of ballot-by-ballot audits
-The properties computed are as follows. They are computed without simulation, for a given margin, a choice of sampling with or without replacement, and a maximum sample size for an audit without replacement. See below for more details on maximum sample size. 
+The properties below are computed analytically (without simulation).  These are properties for the entire audit, over all the draws, so we need to make an assumption regarding the number of draws:
 
-1. **Ballot-by-Ballot Stopping Schedule:** The non-cumulative probability of stopping, computed at each ballot draw, for a given underlying election margin. 
-
-2. **Ballot-by-Ballot Risk Schedule:** The above, when the margin is the smallest possible for an incorrect election: a draw (for even-sized elections) or a margin of a single vote in favor of the loser. For audits with replacement, we always assume a tie as in the literature. 
-
-3. **Stopping Probability:** The total probability that the audit stops: the sum of the values of the stopping schedule, expected to be one if the maximum sample size is large enough. 
-
-4. **Total Risk:** The total risk of the audit for the worst-case election (draw or margin of one in favour of the loser). Computed as the sum of the values of the risk schedule; we assume a full hand count follows if the audit does not stop after all ballots have been drawn. 
-
-5. **No of Expected Ballots:** The scalar product of the stopping schedule and the vector of corresponding sample sizes. 
-
-6. **No of Expected Ballots for Worst-Case Incorrect Election:** The scalar product of the risk schedule and the sample size vector, plus (1-Total Risk)(max number of draws). In the absence of knowledge of the size of the election, this is a lower bound on the value, a sanity check. 
-
-7. **Percentiles:** Desired percentile values may be computed from the stopping schedule and/or the risk schedule. 
-
-To validate our mathematical approach and code we [*have computed*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits/Tables/Bravo_Verification_Table.pdf) the values of Table 1 of the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. The average of the absolute value of the fractional difference is 0.13\%. 
-
-*Note:* The properties we compute are properties for the entire audit, over all the draws, so we need to make an assumption regarding the number of draws when we compute the stopping and risk schedules:
-
-* Audits *with replacement* are computed assuming the maximum number of draws is 6ASN. (ASN is the theoretical expected number of ballots drawn for a BRAVO audit. The theoretical 99th percentile for elections with margins ranging from 40\% to 1\%, corresponds to about 4.36ASN to 4.65ASN ballots drawn). 
+* Audits *with replacement* are computed assuming that the maximum number of draws is 6ASN. (ASN is the theoretical expected number of ballots drawn for a BRAVO audit. The theoretical 99th percentile for elections with margins ranging from 40\% to 1\%, corresponds to about 4.36ASN to 4.65ASN ballots drawn). 
 
 * For an audit *without replacement*, the size of the election needs to be provided, and is assumed to be the maximum number of ballots drawn. 
 
 * Note that a smaller number of maximum ballots drawn may be specified while designing an audit, the above computations are for the purpose of testing our results against simulations and for determining statistical properties. 
 
+The following properties are computed for: a given margin, given choice of sampling with or without replacement, and a given maximum sample size for an audit without replacement. 
+
+1. **Ballot-by-Ballot Stopping Schedule:** The non-cumulative probability of stopping, computed at each ballot draw, for a given underlying election margin. 
+
+2. **Ballot-by-Ballot Risk Schedule:** The above, when the margin is the smallest possible for an incorrect election: a tie (for even-sized elections) or a margin of a single vote in favor of the loser. For audits with replacement, we always assume a tie as in the literature. 
+
+3. **Stopping Probability:** The total probability that the audit stops: the sum of the values of the stopping schedule, expected to be `1` if the maximum sample size is large enough. 
+
+4. **Total Risk:** The total risk of the audit for the worst-case election (draw or margin of one in favor of the loser). Computed as the sum of the values of the risk schedule; we assume a full hand count follows if the audit does not stop after all ballots have been drawn. 
+
+5. **No of Expected Ballots:** The scalar product of the stopping schedule and the vector of corresponding sample sizes. 
+
+6. **No of Expected Ballots for Worst-Case Incorrect Election:** The scalar product of the risk schedule and the sample size vector, plus `(1-Total Risk)(max number of draws)`. In the absence of knowledge of the size of the election, this is a lower bound on the value, a sanity check. 
+
+7. **Percentiles:** Desired percentile values may be computed from the stopping schedule and/or the risk schedule. 
+
+To validate our mathematical approach and code we [*have computed*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits/Tables/Bravo_Verification_Table.pdf) the values of Table 1 of the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. The average of the absolute value of the fractional difference between our values and those obtained through simulations in the BRAVO paper is 0.13\%. 
+
 ## Specification of an Audit. 
 
-We use the idea of *kmin*s (minimum number of votes for the announced winner required in the sample to stop the audit) described in the README of the parent directory, [*brla_explore*](https://github.com/gwexploratoryaudits/brla_explore), and in our papers on [*Bayesian audits*](https://arxiv.org/abs/1902.00999) and [*Athena.*](https://arxiv.org/abs/2008.02315)
+We use the idea of `kmin`s (minimum number of votes for the announced winner required in the sample to stop the audit) described in the README of the parent directory, [*brla_explore*](https://github.com/gwexploratoryaudits/brla_explore), and in our papers on [*Bayesian audits*](https://arxiv.org/abs/1902.00999) and [*Athena.*](https://arxiv.org/abs/2008.02315)
 
 ### Single Audits
 
-  The functions computing *n* and *kmin* for *BRAVO* and *BRAVOLike* are *B2BRAVOkmin* and *B2BRAVOLikekmin* respectively. The former requires only the margin and the risk limit as input, while the latter also requires election size. 
+  The functions computing `n` and `kmin` for *BRAVO* and *BRAVOLike* are `B2BRAVOkmin` and `B2BRAVOLikekmin` respectively. The former requires only the margin and the risk limit as input, while the latter also requires election size. 
 
   Try, for example: 
 
-  `[n1, kmin1] = B2BRAVOkmin(0.4, 0.1);`
+  `[~, ~, n1, kmin1] = B2BRAVOkmin(0.4, 0.1);`
 
-  to generate two arrays: `n1`: sample sizes and `kmin1`. 
+  to generate two arrays: `n1`, which is an array of sample sizes and `kmin1`, which is the corresponding array of `kmin` values. 
   
-  `kmin1(j)` is the minimum number of winner votes required in a sample of size `n1(j)` to stop a *BRAVO* audit with risk limit `0.1` and election margin `0.4`. 
+  `kmin1(j)` is the minimum number of winner votes required in a sample of size `n1(j)` to stop a *BRAVO* audit with risk limit `0.1` and election margin `0.4`. The `~`s represent outputs we ignore right now, the slope and intercept of the discretized straight line defining `kmin1` as a function of `n1'. You could plot it to see the relationship: 
+  
+  `plot(n1, kmin1)`
 
   Similarly, 
 
-  `[n2, kmin2] = B2BRAVOLikekmin(0.4, 0.1, 1000);`
+  `[n2, kmin2, ~] = B2BRAVOLikekmin(0.4, 0.1, 200);`
 
-  generates the same arrays for the same margin and risk limit and a `1000`-vote election for the *BRAVOLike* audit. *B2BravoLikekmin* also outputs the LogLikelihoodRatio, which may be used as a sanity check. 
+  generates the same arrays for the same margin and risk limit and a `200`-vote election for the *BRAVOLike* audit. *B2BravoLikekmin* also outputs the LogLikelihoodRatio, which may be used as a sanity check. We ignore it above. You could plot `kmin2` as a function of `n2`; observe that `kmin2' does not go beyond `101', which represents a winning margin of `1` for an election with `200` cast votes. 
+  
+  `plot(n2, kmin2)`
+
+You could also view the two plots on the same figure, using script Scripts/ForExposition/code/plot_bravos 
 
 ### Multiple Audits
 
