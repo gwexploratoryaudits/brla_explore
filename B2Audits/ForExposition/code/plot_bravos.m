@@ -1,7 +1,6 @@
+function plot_bravos(margin, alpha, N)
 % This script graphs the kmins for Bravo and BravoLike (Bravo without
 % replacement)
-%
-%---
 %
 % Required input is
 %       alpha: risk limit
@@ -9,11 +8,6 @@
 %       N: election size for Bravolike
 %
 %---
-
-%----Input
-alpha = 0.1; % risk limit
-margin = 0.4; % election margin
-N = 200; % election size
 
 %----Computations
 [~, ~, n1, kmin1] = B2BRAVOkmin(margin, alpha);
@@ -51,4 +45,5 @@ title(sprintf('Minimum winner ballots needed to stop audit, margin=%4.1f, risk l
 
 % Legend
 legend('Bravo', 'Bravolike', 'Location', 'NorthWest', 'FontSize', 14);
+end
 

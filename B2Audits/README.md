@@ -46,7 +46,7 @@ We use the idea of `kmin`s (minimum number of votes for the announced winner req
 
   to generate two arrays: `n1`, which is an array of sample sizes and `kmin1`, which is the corresponding array of `kmin` values. 
   
-  `kmin1(j)` is the minimum number of winner votes required in a sample of size `n1(j)` to stop a *BRAVO* audit with risk limit `0.1` and election margin `0.4`. The `~`s represent outputs we ignore right now, the slope and intercept of the discretized straight line defining `kmin1` as a function of `n1'. You could plot it to see the relationship: 
+  `kmin1(j)` is the minimum number of winner votes required in a sample of size `n1(j)` to stop a *BRAVO* audit with risk limit `0.1` and election margin `0.4`. The `~`s represent outputs we ignore right now, the slope and intercept of the discretized straight line defining `kmin1` as a function of `n1`. You could plot it to see the relationship: 
   
   `plot(n1, kmin1)`
 
@@ -54,11 +54,11 @@ We use the idea of `kmin`s (minimum number of votes for the announced winner req
 
   `[n2, kmin2, ~] = B2BRAVOLikekmin(0.4, 0.1, 200);`
 
-  generates the same arrays for the same margin and risk limit and a `200`-vote election for the *BRAVOLike* audit. *B2BravoLikekmin* also outputs the LogLikelihoodRatio, which may be used as a sanity check. We ignore it above. You could plot `kmin2` as a function of `n2`; observe that `kmin2' does not go beyond `101', which represents a winning margin of `1` for an election with `200` cast votes. 
+  generates the arrays of sample size and `kmin` for the same margin and risk limit and a `200`-vote election for the *BRAVOLike* audit. *B2BravoLikekmin* also outputs the LogLikelihoodRatio, which may be used as a sanity check. We ignore it above. You could plot `kmin2` as a function of `n2`; observe that `kmin2` does not go beyond `101`, which represents a winning margin of `1` for an election with `200` cast votes. 
   
   `plot(n2, kmin2)`
 
-You could also view the two plots on the same figure, using script Scripts/ForExposition/code/plot_bravos 
+You could also view the two plots on the same figure, using the code: ForExposition/code/plot_bravos 
 
 ### Multiple Audits
 
