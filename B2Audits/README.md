@@ -36,7 +36,9 @@ The following properties are computed for: a given margin, given choice of sampl
 
 We use the idea of `kmin`s (minimum number of votes for the announced winner required in the sample to stop the audit) described in the README of the parent directory, [*brla_explore*](https://github.com/gwexploratoryaudits/brla_explore), and in our papers on [*Bayesian audits*](https://arxiv.org/abs/1902.00999) and [*Athena.*](https://arxiv.org/abs/2008.02315). In this folder we provide code to compute `kmin`s for *BRAVO* and *BRAVOLike* audits. 
 
-You may study the statistical properties of your own audit as long as you specify a ballot-by-ballot audit: `n` is an array beginning at a positive value and incremented by `1` up to a maximum value; `kmin` is a monotone non-decreasing array of the same size as `n`, and `kmin(j)` is understood as being the smallest number of announced-winner ballots needed to stop an audit given a sample of size `n(j)`. You may specify the audit for multiple values of margin, risk limit and election size, see the section on [Many Audits](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits#multiple-audits) below. 
+You may study the statistical properties of your own audit using code in this folder as long as you specify a ballot-by-ballot audit: `n` is an array beginning at a positive value and incremented by `1` up to a maximum value; `kmin` is a monotone non-decreasing array of the same size as `n`, and `kmin(j)` is understood as being the smallest number of announced-winner ballots needed to stop an audit given a sample of size `n(j)`. You may specify the audit for multiple values of margin, risk limit and election size, see the section on [Multiple Audits](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits#multiple-audits) below. 
+
+If you are interested in studying audits specified using rounds (the sample-size array is incremented by values larger than `1`), see [R2Audits](https://github.com/gwexploratoryaudits/brla_explore/tree/master/R2Audits). 
 
 ### Single Audits
 
