@@ -1,14 +1,16 @@
 # brla_explore/B2Audits
 exploratory code related to ballot-by-ballot (B2) RLAs, both with and without replacement. 
 
+Our mathematical approach and code have been validated against the simulation-based results of Lindeman *et al.* We [have computed](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits/Tables/Bravo_Verification_Table.pdf) the values of Table 1 of the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. The average of the absolute value of the fractional difference between our values and those in the BRAVO paper is 0.13\%. 
+
 We assume that the stopping condition of the audit is monotone increasing with the number of winner ballots in the sample, all other parameters being constant. For most of our main code, we assume two candidates and no invalid votes. In scripts, we may use the results for pairwise contests to determine those for a multi-candidate contest as described in the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. Claire Furtick's code, currently undergoing testing, derives stopping probabilities for multi-candidate contests by correctly combining our results for pairwise contests. 
 
-Read the README for the parent directory, [*brla_explore*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits), first. 
+Read the README for the parent directory, [brla_explore](https://github.com/gwexploratoryaudits/brla_explore), first. 
 
 ## Statistical properties of ballot-by-ballot audits
 The properties below are computed analytically (without simulation).  These are properties for the entire audit, over all the draws, so we need to make an assumption regarding the number of draws:
 
-* Audits *with replacement* are computed assuming that the maximum number of draws is 6ASN. (ASN is the theoretical expected number of ballots drawn for a BRAVO audit. The theoretical 99th percentile for elections with margins ranging from 40\% to 1\%, corresponds to about 4.36ASN to 4.65ASN ballots drawn). 
+* Audits *with replacement* are computed assuming that the maximum number of draws is `6ASN`. (`ASN` is the theoretical expected number of ballots drawn for a *BRAVO* audit. The theoretical 99th percentile for elections with margins ranging from 40\% to 1\%, corresponds to about `4.36ASN` to `4.65ASN` ballots drawn). 
 
 * For an audit *without replacement*, the size of the election needs to be provided, and is assumed to be the maximum number of ballots drawn. 
 
@@ -29,8 +31,6 @@ The following properties are computed for: a given margin, given choice of sampl
 6. **No of Expected Ballots for Worst-Case Incorrect Election:** The scalar product of the risk schedule and the sample size vector, plus `(1-Total Risk)(max number of draws)`. In the absence of knowledge of the size of the election, this is a lower bound on the value, a sanity check. 
 
 7. **Percentiles:** Desired percentile values may be computed from the stopping schedule and/or the risk schedule. 
-
-To validate our mathematical approach and code we [*have computed*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits/Tables/Bravo_Verification_Table.pdf) the values of Table 1 of the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. The average of the absolute value of the fractional difference between our values and those obtained through simulations in the BRAVO paper is 0.13\%. 
 
 ## Specification of an Audit. 
 
@@ -62,8 +62,8 @@ You could also view the two plots on the same figure, using the code: ForExposit
 
 ### Multiple Audits
 
-  For much of our code, we have wrappers to compute multiple outputs for different values of margin, risk limit and election size (each input as a row vector). Because arrays for *n* and (hence *kmin*) are not of the same size (the smallest sample size for a decision may not be the same even if some other parameters are), the wrapper code will output many arrays of different sizes in the form of a structured list of these arrays, shaped by the row vectors input representing margin, risk limit and election size. The wrapper code to compute multiple outputs has suffix "Many". We used it to verify the statistical properties of our implemented audits (for example, for the tables in Tables/BRAVO Table I.pdf and Tables/BRAVO Table II.pdf
-
+  For much of our code, we have wrappers to compute multiple outputs for different values of margin, risk limit and election size (each input as a row vector). Because arrays for `n` and (hence `kmin`) are not of the same size (the smallest sample size for a decision may not be the same even if some other parameters are), the wrapper code will output many arrays of different sizes in the form of a structured list of these arrays, shaped by the row vectors input representing margin, risk limit and election size. The wrapper code to compute multiple outputs has suffix "Many". We used it to verify the statistical properties of our implemented audits, such as, for example, [statistical properties of *BRAVO*](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits/Tables/Bravo_Verification_Table.pdf). 
+  
   For multiple audits, for example, try: 
 
   `margins = [0.4, 0.3, 0.2, 0.16, 0.1];`
@@ -72,13 +72,13 @@ You could also view the two plots on the same figure, using the code: ForExposit
 
   `[nBRAVO, kminBRAVO] = B2BRAVOkminMany(margins, alpha);`
 
-  to obtain two lists of *5* arrays each: *nBRAVO* and *kminBRAVO*
+  to obtain two lists of `5` arrays each: `nBRAVO` and `kminBRAVO`
 
   `nBRAVO{i,s}` is the array of sample sizes for `margin(i)` and risk limit `alpha(s)`
 
   `kminBRAVO{i,s}` is the array of corresponding values of minimum winner votes needed to stop. 
 
-  You thus obtain values of *n* and *kmin* for *5* audits, and could obtain *10* audits by using 
+  You thus obtain values of `n` and `kmin` for `5` audits, and could obtain `10` audits by using 
   
   `alpha2 = [0.1,0.05];`
   
@@ -86,9 +86,9 @@ You could also view the two plots on the same figure, using the code: ForExposit
   
   `[nBRAVO2, kminBRAVO2] = B2BRAVOkminMany(margins, alpha2);`
 
-  to obtain two 5 X 2 lists of *10* arrays each: *nBRAVO2* and *kminBRAVO2*
+  to obtain two `5 X 2` lists of `10` arrays each: `nBRAVO2` and `kminBRAVO2`
 
-  For *BRAVOLike* you would need election size as well: 
+  For `BRAVOLike` you would need election size as well: 
   
   `N=[1000]`
   
@@ -104,15 +104,15 @@ You could also view the two plots on the same figure, using the code: ForExposit
   
  `[nBRAVOLike2, kminBRAVOLike2] = B2BRAVOLikekminMany(margins, alpha2, N2);`
   
-  to obtain two 5 X 2 X 2 lists of *20* arrays each: *nBRAVOLike* and *kminBRAVOLike*
+  to obtain two `5 X 2 X 2` lists of `20` arrays each: `nBRAVOLike2` and `kminBRAVOLike2`
 
   `nBRAVOLike2{i,s,t}` is the array of sample sizes for `margin(i)`, risk limit `alpha2(s)` and `N2(t)`
 
   `kminBRAVOLike2{i,s,t}` is the array of corresponding values of minimum winner votes needed to stop. 
 
-  You thus obtain values of *n* and *kmin* for *20* audits. 
+  You thus obtain values of `n` and `kmin` for `20` audits. 
 
-Thus one may input one's own audit(s) defined by one or more pairs of arrays of *n* and corresponding *kmin*, or use our code to generate these arrays for multiple margins, risk limits and election sizes for *BRAVO* or *BRAVOLike* audits (and, hopefully, Bayesian audits in the future). 
+Thus one may input one's own audit(s) defined by one or more pairs of arrays of `n` and corresponding `kmin`, or use our code to generate these arrays for multiple margins, risk limits and election sizes for *BRAVO* or *BRAVOLike* audits (and, hopefully, Bayesian audits in the future). 
 
 ## Stopping Probabilities and Risk
 B2 audits allow the possibility of stopping at each ballot draw. 

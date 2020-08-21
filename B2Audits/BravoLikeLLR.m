@@ -1,15 +1,19 @@
 function LogRatio = BravoLikeLLR(k,winnervotes,n,N)
     %
-    % LogRatio = BravoLikeLLR(k,n,N)
+    % LogRatio = BravoLikeLLR(k,winnervotes,n,N)
     % This function generates the log-likelihood ratio for a BRAVOLike
     % audit without using the hypergeometric function. 
-    % Error checking to avoid log(0) should be done outside this function. 
+    % Error checking to avoid log(0) should be done outside this function.
+    %
     %------------
-    %Input: 
+    %
+    % Input: 
     %   k:              number of votes for winner
     %   n:              number of samples
     %   N:              total number of votes
+    %
     %----------
+    %
     % Output:
     % LogRatio:         log-likelihood ratio
 
