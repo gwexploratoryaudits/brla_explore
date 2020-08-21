@@ -48,7 +48,7 @@ For B2 audits, *BRAVO* and *BRAVOLike* (*BRAVO* without replacement, where the l
 
 * `kmin`: a corresponding array of minimum votes required for the winner to stop the audit. That is, `kmin(j)` is the minimum number of votes required for the winner in a sample of size `n(j)`.  
 
-For new R2 audits, [the *Athena* class](https://github.com/gwexploratoryaudits/brla_explore/tree/master/R2Audits/Athena)---including *Athena*, *Minerva* and *Metis*---we provide code for computing `kmin` given a *round schedule* `n`. 
+For new R2 audits, [the *Athena* class](https://arxiv.org/abs/2008.02315)---including *Athena*, *Minerva* and *Metis*---we provide code for computing `kmin` given a *round schedule* `n`. 
   
   We have fuzzy plans to incorporate Bayesian audits: both [*Bayesian RLAs*](https://arxiv.org/abs/1902.00999) and more general [*Bayesian Audits*](https://arxiv.org/abs/1801.00528). 
   

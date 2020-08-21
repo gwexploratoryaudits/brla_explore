@@ -34,7 +34,9 @@ The following properties are computed for: a given margin, given choice of sampl
 
 ## Specification of an Audit. 
 
-We use the idea of `kmin`s (minimum number of votes for the announced winner required in the sample to stop the audit) described in the README of the parent directory, [*brla_explore*](https://github.com/gwexploratoryaudits/brla_explore), and in our papers on [*Bayesian audits*](https://arxiv.org/abs/1902.00999) and [*Athena.*](https://arxiv.org/abs/2008.02315)
+We use the idea of `kmin`s (minimum number of votes for the announced winner required in the sample to stop the audit) described in the README of the parent directory, [*brla_explore*](https://github.com/gwexploratoryaudits/brla_explore), and in our papers on [*Bayesian audits*](https://arxiv.org/abs/1902.00999) and [*Athena.*](https://arxiv.org/abs/2008.02315). In this folder we provide code to compute `kmin`s for *BRAVO* and *BRAVOLike* audits. 
+
+You may study the statistical properties of your own audit as long as you specify a ballot-by-ballot audit: `n` is an array beginning at a positive value and incremented by `1` up to a maximum value; `kmin` is a monotone non-decreasing array of the same size as `n`, and `kmin(j)` is understood as being the smallest number of announced-winner ballots needed to stop an audit given a sample of size `n(j)`. You may specify the audit for multiple values of margin, risk limit and election size, see the section on [Many Audits](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits#multiple-audits) below. 
 
 ### Single Audits
 
@@ -121,9 +123,9 @@ B2 audits allow the possibility of stopping at each ballot draw.
 
 * On the other hand if the election is correct, there is also a probability of (correctly) stopping at each draw. 
 
-In either case, there is a probability of stopping at each draw, which depends on: the *kmin* array, whether the audit is with or without replacement, and the underlying election margin. When the margin is zero, this probability corresponds to worst-case risk. We refer to this sequence of probabilities as the stopping probability schedule or the risk schedule respectively. 
+In either case, there is a probability of stopping at each draw, which may be understood as the probability of stopping at the *ith* draw and not having stopped at an earlier draw. This probability depends on: the *kmin* array, whether the audit is with or without replacement, and the underlying election margin. When the margin is zero, the probability corresponds to worst-case risk. We refer to the sequence of probabilities, indexed by the draw (size of the sample), as the stopping probability schedule or the risk schedule respectively. 
 
-The respective sums give us the total stopping probability of the specified audit for the specified underlying election. When the underlying election has zero margin, this total stopping probability is the risk. Notably, we observe that this is often strictly smaller than the risk limit because the ballot draws are discrete-valued. The audit will not stop at exactly the required value of the likelihood ratio, but at the first value not smaller than it, this leads to a slight reduction in risk for each ballot draw when compared to the risk if the audit always stopped at exactly the required value. 
+The respective sums of the schedules give us the total (cumulative) stopping probability of the specified audit for the specified underlying election. When the underlying election has zero margin, this total stopping probability is the risk. Notably, we observe that this is often strictly smaller than the risk limit because the ballot draws are discrete-valued. The audit will not stop at exactly the required value of the likelihood ratio, but at the first value not smaller than it, this leads to a slight reduction in risk for each ballot draw when compared to the risk if the audit always stopped at exactly the required value. 
 
 ### Single Audits
 
