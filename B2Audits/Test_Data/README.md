@@ -1,0 +1,1 @@
+Some kmin values generated to test other code. Likely not used. 
