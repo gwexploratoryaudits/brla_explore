@@ -26,7 +26,32 @@ function values = InverseCDF(cdf, percentiles)
     %
     
     for j=1:size(percentiles,2)
-        values(j) = find(cdf >= percentiles(j),1);
+        %   Binary search for first value of CDF not smaller than 
+        %   percentile(j). 
+        upper=size(cdf,2);
+        lower=1;
+        guess = 1;
+        while upper > lower + 1
+            guess = ceil((upper+lower)/2);
+            if percentiles(j) < cdf(guess)
+                upper = guess;
+            elseif percentiles(j) == cdf(guess)
+                upper = guess;
+                lower = guess;
+            else
+                lower = guess;
+            end
+        end
+        % In the very rare case that we get exactly the percentile
+        % we want to check that a lower value is also not at that 
+        % percentile. 
+        if percentiles(j) == cdf(guess)
+            while percentiles(j) == cdf(upper)
+                upper = upper-1;
+            end
+                upper=upper+1;
+        end
+        values(j) = upper;
     end       
 end
 
