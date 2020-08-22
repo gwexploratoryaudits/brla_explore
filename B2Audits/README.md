@@ -10,7 +10,7 @@ Read the README for the parent directory, [brla_explore](https://github.com/gwex
 ## Statistical properties of ballot-by-ballot audits
 The properties below are computed analytically (without simulation).  These are properties for the entire audit, over all the draws, so we need to make an assumption regarding the number of draws:
 
-* Audits *with replacement* are computed assuming that the maximum number of draws is `6ASN`. (`ASN` is the theoretical expected number of ballots drawn for a *BRAVO* audit. The theoretical 99th percentile for elections with margins ranging from 40\% to 1\%, corresponds to about `4.36ASN` to `4.65ASN` ballots drawn). 
+* Audits *with replacement* are computed assuming that the maximum number of draws is `6*ASN`. (`ASN` is the theoretical expected number of ballots drawn for a *BRAVO* audit. The theoretical 99th percentile for elections with margins ranging from 40\% to 1\%, corresponds to about `4.36*ASN` to `4.65*ASN` ballots drawn). 
 
 * For an audit *without replacement*, the size of the election needs to be provided, and is assumed to be the maximum number of ballots drawn. 
 
@@ -121,7 +121,7 @@ Thus one may input one's own audit(s) defined by one or more pairs of arrays of 
 ## Stopping Probabilities and Risk
 B2 audits allow the possibility of stopping at each ballot draw. 
 
-* If the election is incorrect, the possibility of stopping at each draw allows for the incurring of risk at each draw, by erroneously stopping the audit. 
+* If the election is incorrect, the possibility of stopping at each draw allows for the incurring of risk at each draw---by erroneously stopping the audit. 
 
 * On the other hand if the election is correct, there is also a probability of (correctly) stopping at each draw. 
 
@@ -201,7 +201,7 @@ and
 
 `BRAVOLikeRiskTable = StoppingPercentilesMany(nBRAVOLike,RiskSchedBRAVOLike, risk_percentiles);`
 
-From the Scripts folder try scripts `B2BRAVOTestScript`, which does all of the above for *BRAVO*, and B2RiskScript which does it all for `BRAVO` and *BRAVOLike*. See our results in the various pdf files in Tables/
+From the Scripts folder try scripts `B2BRAVOTestScript`, which does all of the above for *BRAVO*, and B2RiskScript which does it all for *BRAVO* and *BRAVOLike*. See our results in the various pdf files in Tables/
 
 ## Log-Likelihood (Ignore if not curious)
 The *BRAVOLike* audit requires the computation of the ratio of hypergeometric probabilities for the stopping decision, see equation (5), [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999), with beta = 0. Because hypergeometric probabilities can be very small for our values, and because we are really interested in the ratio (each probability is a likelihood, and the ratio is the likelihood ratio) we do not use hypergeometric probability functions. 

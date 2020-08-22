@@ -1,6 +1,7 @@
 function [n, kmin, LLR] = B2BRAVOLikekmin(margin, alpha, N)
     % 
     % [n, kmin, LLR] = B2BRAVOLikekmin(margin, alpha, N)
+    %
     % Generates kmin for a B2 (ballot-by-ballot) BRAVO-like (BRAVO 
     % without replacement) audit
     %

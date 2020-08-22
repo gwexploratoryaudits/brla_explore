@@ -1,10 +1,14 @@
  function [n_Many, kmin_Many] = B2BRAVOkminMany(marginVector, alphaVector)
     %
 	% [n_Many, kmin_Many] = B2BRAVOkminMany(marginVector, alphaVector)
+    %
     % The B2BRAVOkmin function for vector inputs, used to compute 
     % multiple audits. Does not, however, output slope and intercept as
-    % does B2BRAVOkmin. Outputs classical BRAVO kmin values and 
-    % corresponding vector, n, of sample sizes. 
+    % does B2BRAVOkmin. Outputs BRAVO kmin values and corresponding 
+    % vector, n, of sample sizes. 
+	% Assumptions as in the original BRAVO paper:
+    %       * beta = zero. 
+    %       * sampling with replacement. 
     %
     % -----------
     %
@@ -32,10 +36,6 @@
     %
     % ----------
     %
-    %   This function does not output kmslope or kmintercept. Note beta is 
-    %   assumed zero as in B2BRAVOkmin and as defined in the original 
-    %   BRAVO paper. 
-    % 
     
     num_margin=size(marginVector,2);
     num_alpha = size(alphaVector,2);

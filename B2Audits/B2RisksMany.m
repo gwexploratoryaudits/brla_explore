@@ -3,6 +3,7 @@ function [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = ...
     %
     % [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = ...
     % BSquareRisksMany(marginVector, NVector, n_Many, kmin_Many, audit_type)
+    %
     % This is the B2Risks function for vector inputs, used to compute 
     % multiple audits. 
     % This function returns:

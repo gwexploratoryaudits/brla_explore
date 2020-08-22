@@ -1,10 +1,10 @@
 function [n_Many, kmin_Many] = B2BRAVOLikekminMany(marginVector, alphaVector, NVector)
     %
     % [n_Many, kmin_Many] = B2BRAVOLikekminMany(marginVector, alphaVector, NVector)
+    %
     % The B2BRAVOLikekmin function for vector inputs, used to compute 
-    % multiple audits. 
-    % Generating kmin for many B2 (ballot-by-ballot) BRAVO-like 
-    % (BRAVO without replacement) audits. 
+    % multiple audits. Computes kmin for many B2 (ballot-by-ballot) 
+    % BRAVO-like (BRAVO without replacement) audits. 
     %
     % ----------
     %

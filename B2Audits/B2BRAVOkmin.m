@@ -1,13 +1,18 @@
  function [kmslope, kmintercept, n, kmin] = B2BRAVOkmin(margin, alpha)
     %
     % [kmslope, kmintercept, n, kmin] = B2BRAVOkmin(margin, alpha)
-    % Computes the kmin values for BRAVO. 
-    % Also returns the slope and intercept defining the linear expression 
-    % for kmin as a function of sample size n when the BRAVO stopping 
-    % condition is examined in the log domain. 
-    % beta assumed zero and sampling assumed with replacement as defined 
-    % in the original BRAVO paper. 
-    % Max value of round size is 6*ASN
+    %
+    % Computes: 
+    %       * kmin values for BRAVO and 
+    %       * the slope and intercept defining the linear expression for 
+    %           kmin as a function of sample size n when the BRAVO 
+    %           stopping condition is examined in the log domain. 
+    % Assumptions as in the original BRAVO paper:
+    %       * beta = zero. 
+    %       * sampling with replacement. 
+    %
+    % Max value of round size is 6*ASN. 
+    %
     % For the equation, see Athena paper: https://arxiv.org/abs/2008.02315, 
     % section 3. 
     %

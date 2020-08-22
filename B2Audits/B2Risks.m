@@ -1,6 +1,7 @@
 function [RiskSched, RiskValue, ExpectedBallots, CurrentTier] = B2Risks(margin, N, n, kmin, audit_type)
     %
     % [RiskSched, RiskValue, ExpectedBallots] = B2Risks(margin, N, n, kmin, audit_type)
+    %
     % This function returns:
     %       ballot-by-ballot stopping probability 
     %       total stopping probability 
