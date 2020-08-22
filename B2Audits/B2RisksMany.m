@@ -1,6 +1,8 @@
-function [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = B2RisksMany(marginVector, NVector, n_Many, kmin_Many, audit_type)
+function [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = ...
+    B2RisksMany(marginVector, NVector, n_Many, kmin_Many, audit_type)
     %
-    % [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = BSquareRisksMany(marginVector, NVector, n_Many, kmin_Many, audit_type)
+    % [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = ...
+    % BSquareRisksMany(marginVector, NVector, n_Many, kmin_Many, audit_type)
     % This is the B2Risks function for vector inputs, used to compute 
     % multiple audits. 
     % This function returns:
@@ -15,15 +17,17 @@ function [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = B2RisksMany(ma
     %       ballot-by-ballot risk schedule
     %       total risk
     %       number of expected ballots drawn (for this case, a sanity check)
+    %
     %----------
+    %
     % Input: 
-    %   marginVector:       row vector of margins as a fraction (for computing 
+    %   marginVector:       row vector of margins as a fraction (for 
     %                           stopping probs)
-    %                           or vector of zeroes (for risk calculations)
+    %                           or vector of zeroes (for risks)
     %   NVector:            row vector of total votes cast in election. 
-    %                           when the audit is with replacement, NVector 
-    %                           does not influence anything. 
-    %   also input are the following structured lists of arrays. The lists
+    %                           When the audit is with replacement, NVector 
+    %                           is inconsequential. 
+    %   Also input are the following structured lists of arrays. The lists
     %   are of size: 
     %       no. of margins X y X no. of election sizes
     %   where we assume that y is the number of risk limits used to 
@@ -50,7 +54,9 @@ function [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = B2RisksMany(ma
     %   The best way to use this code is to use output from
     %   B2BravoLikeMany or B2BRAVOkminMany, but it may also be used to 
     %   evaluate the risks of other audits specified as described above. 
+    %
     % ----------
+    %
     % Output
     %   RiskSched_Many:         structured list of arrays of risk schedules. 
     %                               jth value in an array is the risk (or 
@@ -59,16 +65,21 @@ function [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = B2RisksMany(ma
     %   RiskValue_Many:         array of the risks (or stopping 
     %                               probabilities) computed as the sum of 
     %                               all values of risk(j). 
-    %   ExpectedBallots_Many:	array of expected number of ballots examined
-    %                               should be larger than (1-risk-limit)*N 
-    %                               for zero margin.
+    %   ExpectedBallots_Many:	array of floor of the expected number of 
+    %                               ballots examined. Should be close to 
+    %                               correct when sampling is without 
+    %                               replacement. Should be larger than 
+    %                               (1-risk-limit)*size(n, 2) for zero 
+    %                               margin.
+    %
     % ----------
 
     % for ease of computation
     num_margin=size(marginVector,2);
     % We assume the risk limit is the second dimension in n_Many
     num_alpha = size(n_Many,2);
-    num_N = size(NVector,2);
+    % We assume that the election size is the third dimension in n_Many
+    num_N = size(n_Many,3);
     
     % Initialize RiskValue and Expected Ballots
     RiskValue_Many = zeros(num_margin, num_alpha, num_N);

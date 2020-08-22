@@ -3,7 +3,7 @@ exploratory code related to ballot-by-ballot RLAs and their approximations: roun
 
 For more technical details on the approach to computing pdfs and on the new round-by-round RLA class, see the long paper on [*Athena*](https://arxiv.org/abs/2008.02315). 
 
-For most of our work in this repository, we assume two candidates and no invalid votes. An exception is Claire Furtick's work on estimating stopping probabilities taking into consideration the announced tally. For the most part, though, our work focuses on the pairwise comparisons of candidates. 
+For most of our work in this repository, we assume two candidates and no invalid votes. An exception is Claire Furtick's work on estimating stopping probabilities taking into consideration the announced tally. For the most part, though, our work focuses on the pairwise comparisons of candidates and sampling with replacement. 
 
 1. The folder [B2Audits](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits) contains code to compute (without simulation) properties of audits that sample *ballot-by-ballot* (as opposed to *round-by-round*). Ballot-by-Ballot (or B2) audits make decisions (re: whether to stop the audit or not) at every ballot draw. For example, the theoretical versions of [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf), the general [*Bayesian Audits*](https://arxiv.org/abs/1801.00528) and [*Bayesian Risk Limiting Audits*](https://arxiv.org/abs/1902.00999) are B2 audits. 
 
@@ -36,7 +36,7 @@ As described in [Risk-Limiting Bayesian Polling Audits for Two Candidate Electio
 
 Clearly, such a specification only works for audits whose stopping criteria are monotonic with the number of announced-winner ballots in the sample. 
 
-Our code for computing pdfs may be used for any audits which may be specified using a monotone increasing array of sample sizes `n` and a corresponding array of monotone non-decreasing values of `kmin`. 
+Our code for computing pdfs may be used for any audits specified by a monotone increasing array of sample sizes `n` and a corresponding array of monotone non-decreasing values of `kmin`. 
 
 ## Computing `kmin`s
 

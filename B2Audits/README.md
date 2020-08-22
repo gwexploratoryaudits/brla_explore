@@ -3,7 +3,7 @@ exploratory code related to ballot-by-ballot (B2) RLAs, both with and without re
 
 Our mathematical approach and code have been validated against the simulation-based results of Lindeman *et al.* We [have computed](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits/Tables/Bravo_Verification_Table.pdf) the values of Table 1 of the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. The average of the absolute value of the fractional difference between our values and those in the BRAVO paper is 0.13\%. 
 
-We assume that the stopping condition of the audit is monotone increasing with the number of winner ballots in the sample, all other parameters being constant. For most of our main code, we assume two candidates and no invalid votes. In scripts, we may use the results for pairwise contests to determine those for a multi-candidate contest as described in the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. Claire Furtick's code, currently undergoing testing, derives stopping probabilities for multi-candidate contests by correctly combining our results for pairwise contests. 
+We assume that the stopping condition of the audit is monotone increasing with the number of winner ballots in the sample, all other parameters being constant. For most of our main code, we assume two candidates and no invalid votes. Only for sampling with replacement, in scripts, we may use the results for pairwise contests to determine those for a multi-candidate contest as described in the [*BRAVO*](https://www.usenix.org/system/files/conference/evtwote12/evtwote12-final27.pdf) paper. Claire Furtick's code, currently undergoing testing, derives stopping probabilities for multi-candidate contests by combining our results for pairwise contests. 
 
 Read the README for the parent directory, [brla_explore](https://github.com/gwexploratoryaudits/brla_explore), first. 
 
@@ -34,7 +34,7 @@ The following properties are computed for: a given margin, given choice of sampl
 
 ## Specification of an Audit. 
 
-We use the idea of `kmin`s (minimum number of votes for the announced winner required in the sample to stop the audit) described in the README of the parent directory, [*brla_explore*](https://github.com/gwexploratoryaudits/brla_explore), and in our papers on [*Bayesian audits*](https://arxiv.org/abs/1902.00999) and [*Athena.*](https://arxiv.org/abs/2008.02315). In this folder we provide code to compute `kmin`s for *BRAVO* and *BRAVOLike* audits. 
+We use the idea of `kmin`s (minimum number of votes for the announced winner required in the sample to stop the audit) described in the README of the parent directory, [brla_explore](https://github.com/gwexploratoryaudits/brla_explore), and in our papers on [*Bayesian audits*](https://arxiv.org/abs/1902.00999) and [*Athena*](https://arxiv.org/abs/2008.02315). In this folder we provide code to compute `kmin`s for *BRAVO* and *BRAVOLike* audits. 
 
 You may study the statistical properties of your own audit using code in this folder as long as you specify a ballot-by-ballot audit: `n` is an array beginning at a positive value and incremented by `1` up to a maximum value; `kmin` is a monotone non-decreasing array of the same size as `n`, and `kmin(j)` is understood as being the smallest number of announced-winner ballots needed to stop an audit given a sample of size `n(j)`. You may specify the audit for multiple values of margin, risk limit and election size, see the section on [Multiple Audits](https://github.com/gwexploratoryaudits/brla_explore/tree/master/B2Audits#multiple-audits) below. 
 
@@ -125,39 +125,40 @@ B2 audits allow the possibility of stopping at each ballot draw.
 
 * On the other hand if the election is correct, there is also a probability of (correctly) stopping at each draw. 
 
-In either case, there is a probability of stopping at each draw, which may be understood as the probability of stopping at the *ith* draw and not having stopped at an earlier draw. This probability depends on: the *kmin* array, whether the audit is with or without replacement, and the underlying election margin. When the margin is zero, the probability corresponds to worst-case risk. We refer to the sequence of probabilities, indexed by the draw (size of the sample), as the stopping probability schedule or the risk schedule respectively. 
+In either case, there is a probability of stopping at each draw, which may be understood as the probability of stopping at the *ith* draw and not having stopped at an earlier draw. This probability depends on: the `kmin*` array, whether the audit is with or without replacement, and the underlying election margin; additionally, for audits without replacement it also depends on the number of votes cast. When the margin is zero, the probability corresponds to worst-case risk. We refer to the sequence of probabilities, indexed by the draw (size of the sample), as the stopping probability schedule or the risk schedule respectively. 
 
-The respective sums of the schedules give us the total (cumulative) stopping probability of the specified audit for the specified underlying election. When the underlying election has zero margin, this total stopping probability is the risk. Notably, we observe that this is often strictly smaller than the risk limit because the ballot draws are discrete-valued. The audit will not stop at exactly the required value of the likelihood ratio, but at the first value not smaller than it, this leads to a slight reduction in risk for each ballot draw when compared to the risk if the audit always stopped at exactly the required value. 
+The respective sums of the schedules give us the total (cumulative) stopping probability of the specified audit for the specified underlying election. When the underlying election has zero margin, this total stopping probability is the risk. Notably, we observe that this is often strictly smaller than the risk limit because the ballot draws are discrete-valued. The audit will not stop at exactly the required value of the likelihood ratio, but at the first value not smaller than it, this leads to a slight reduction in risk for each ballot draw. 
 
 ### Single Audits
 
-We include code for computing these schedules for single audits, called B2Risks. 
+We include code for computing the stopping probability and risk schedules for single audits, called `B2Risks`. 
 
-Try, using the above computed values of *kmin* and *n*: 
+Try, using the above computed values of `kmin` and `n` to compute the corresponding stopping probability and risk schedules: 
 
-`[StopSched1, StopValue1, ExpectedBallots1] = B2Risks(0.4, N, n1, kmin1, 0)`
+`[StopSched1, StopValue1, ExpectedBallots1] = B2Risks(0.4, [], n1, kmin1, 0);`
 
-to obtain the array `StopSched1` of the *BRAVO* schedule of stopping probabilities, `StopValue1` its sum, expected to be very close to 1 and representing the total probability of the audit stopping, and `ExpectedBallots`, the expected number of ballots drawn, for an underlying election of margin 0.4, which this audit, defined by `n1` and `kmin1`, was designed for. When sampling is without replacement, the value `N` is only used to find the expected number of ballots, and its contribution is weighted by multiplying by StopValue1, which will be consequential if the number of draws is small for the margin. In particular, `N` matters when the `margin=0`(when it is the risk that is computed). If the entire arrays of `n` and `kmin` computed using *B2BRAVOkmin* are used, `N` is of consequence only for `margin=0`. The last argument, `0`, represents an audit with replacement. 
+to obtain the array `StopSched1` of the *BRAVO* schedule of stopping probabilities, `StopValue1` its sum, expected to be very close to 1 and representing the total probability of the audit stopping, and `ExpectedBallots`, the expected number of ballots drawn, for an underlying election of margin 0.4, which this audit, defined by `n1` and `kmin1`, was designed for. When sampling is without replacement, the value `N` is inconsequential, and hence ignored here. The last argument, `0`, represents an audit with replacement. One could compute the pdfs using a different margin to test how the *BRAVO* audit computed for a margin of `0.4` would behave for an election with a different margin. 
 
 Similarly, you could try: 
 
-`[StopSched2, StopValue2, ExpectedBallots2] = B2Risks(0.4, N, n2, kmin2, 1)`
+`[StopSched2, StopValue2, ExpectedBallots2] = B2Risks(0.4, 200, n2, kmin2, 1);`
 
-for the *BRAVOLike* single audit. 
+for the *BRAVOLike* single audit. TBD. 
 
 You may also use other values for `margin`, or use `1` (without replacement) to see what you would get were the audit used in a setting different from the one it was designed for. Using `margin=0` will give you the risk schedule, total risk and a lower bound on the minimum number of expected ballot draws when the underlying election is tied. 
 
-`[RiskSched1, RiskValue1, ExpectedBallotsInCorrect1] = B2Risks(0, N, n1, kmin1, 0)`
+`[RiskSched1, RiskValue1, ExpectedBallotsInCorrect1] = B2Risks(0, [], n1, kmin1, 0)`
 
-gives you the risk schedule, total risk and expected ballots for a worst-case incorrect election for the *BRAVO* audit computed for a margin of *0.4* and a risk limit of *0.1*. 
+gives you the risk schedule, total risk and expected ballots for a worst-case incorrect election for the *BRAVO* audit computed for a margin of `0.4` and a risk limit of `0.1`. 
 
 ### Multiple Audits
 
-As described earlier for the generation of *kmin* values, we can use wrapper code to perform the above for multiple audits. You may try, for *BRAVO*: 
+As described earlier for the generation of `kmin` values, we can use wrapper code to perform compute pdfs  for multiple audits. You may try, for *BRAVO*: 
 
-`[StopSchedBRAVO, StopProbBRAVO, ExpectedBallotsCorrectBRAVO] = B2RisksMany(margins, N, nBRAVO, kminBRAVO, 0);`
+`[StopSchedBRAVO, StopProbBRAVO, ExpectedBallotsCorrectBRAVO] = B2RisksMany(margins, [], nBRAVO, kminBRAVO, 0);`
 
 `margin_incorrect = zeros(1,size(margins,2));`
+
 `[RiskSchedBRAVO, RiskValueBRAVO, ExpectedBallotsInCorrectBRAVO] = B2RisksMany(margin_incorrect, N, nBRAVO, kminBRAVO, 0);`
 
 and, for *BRAVOLike*: 
