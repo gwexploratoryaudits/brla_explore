@@ -1,14 +1,20 @@
 function Average_Ballots = ASN(margin, alpha)
     % 
     % Average_Ballots = ASN(margin, alpha)
+    %
     % outputs ASN as described in BRAVO paper, eqn(5)
+    %
     % ----------
+    %
     % Input: 
     %   margin:         fractional margin
     %   alpha:          fractional risk limit
+    %
     % ----------
+    %
     % Output: 
     % Average_Ballots:  ASN value
+    %
     % ----------
 
     p_w = (1+margin)/2;
