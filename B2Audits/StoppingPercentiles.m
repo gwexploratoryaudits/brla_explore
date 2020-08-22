@@ -1,6 +1,7 @@
 function stopping_values = StoppingPercentiles(n, StopSched, percentiles)
     %
     % stopping_values = StoppingPercentiles(n, StopSched, percentiles)
+    %
     % This function generates number of ballots for various 
     % specified percentiles of the stopping probabilities. 
     %
