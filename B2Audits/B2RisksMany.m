@@ -79,17 +79,32 @@ function [RiskSched_Many, RiskValue_Many, ExpectedBallots_Many] = ...
     num_margin=size(marginVector,2);
     % We assume the risk limit is the second dimension in n_Many
     num_alpha = size(n_Many,2);
-    % We assume that the election size is the third dimension in n_Many
-    num_N = size(n_Many,3);
     
-    % Initialize RiskValue and Expected Ballots
-    RiskValue_Many = zeros(num_margin, num_alpha, num_N);
-    ExpectedBallots_Many = zeros(num_margin, num_alpha, num_N);
+    % For without replacement, we assume that the number of election sizes 
+    % is the third dimension in n_Many. For with replacement, we ignore
+    % election size. 
+    if audit_type == 1
+        num_N = size(n_Many,3);
+        % Initialize RiskValue and Expected Ballots
+        RiskValue_Many = zeros(num_margin, num_alpha, num_N);
+        ExpectedBallots_Many = zeros(num_margin, num_alpha, num_N);
     
-    for i=1:num_margin   
-        for s=1:num_alpha
-            for t=1:num_N
-                [RiskSched_Many{i,s,t}, RiskValue_Many(i,s,t), ExpectedBallots_Many(i,s,t)] = B2Risks(marginVector(i), NVector(t), n_Many{i,s,t}, kmin_Many{i,s,t}, audit_type);
+        for i=1:num_margin   
+            for s=1:num_alpha
+                for t=1:num_N
+                    [RiskSched_Many{i,s,t}, RiskValue_Many(i,s,t), ExpectedBallots_Many(i,s,t)] = B2Risks(marginVector(i), NVector(t), n_Many{i,s,t}, kmin_Many{i,s,t}, audit_type);
+                end
+            end
+        end
+        
+    else
+        % Initialize RiskValue and Expected Ballots
+        RiskValue_Many = zeros(num_margin, num_alpha);
+        ExpectedBallots_Many = zeros(num_margin, num_alpha);
+        
+        for i=1:num_margin   
+            for s=1:num_alpha
+                [RiskSched_Many{i,s}, RiskValue_Many(i,s), ExpectedBallots_Many(i,s)] = B2Risks(marginVector(i), [], n_Many{i,s}, kmin_Many{i,s}, audit_type);
             end
         end
     end
