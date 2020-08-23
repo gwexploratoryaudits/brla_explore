@@ -72,7 +72,7 @@ You could also view the two plots on the same figure, using the code: ForExposit
 
   `margins = [0.4, 0.3, 0.2, 0.16, 0.1];`
 
-  `alpha = [0.1];`
+  `alpha = (0.1);`
 
   `[nBRAVO, kminBRAVO] = B2BRAVOkminMany(margins, alpha);`
 
@@ -94,7 +94,7 @@ You could also view the two plots on the same figure, using the code: ForExposit
 
   For `BRAVOLike` you would need election size as well: 
   
-  `N=[1000]`
+  `N=(1000)`
   
   `[nBRAVOLike, kminBRAVOLike] = B2BRAVOLikekminMany(margins, alpha, N);`
   
@@ -159,9 +159,9 @@ As described earlier for the generation of `kmin` values, we can use wrapper cod
 
 `margin_incorrect = zeros(1,size(margins,2));`
 
-`[RiskSchedBRAVO, RiskValueBRAVO, ExpectedBallotsInCorrectBRAVO] = B2RisksMany(margin_incorrect, N, nBRAVO, kminBRAVO, 0);`
+`[RiskSchedBRAVO, RiskValueBRAVO, ExpectedBallotsInCorrectBRAVO] = B2RisksMany(margin_incorrect, [], nBRAVO, kminBRAVO, 0);`
 
-and, for *BRAVOLike*: 
+and, for *BRAVOLike*: TBD
 
 `[StopSchedBRAVOLike, StopProbBRAVOLike, ExpectedBallotsCorrectBRAVOLike] = B2RisksMany(margins, N, nBRAVOLike, kminBRAVOLike, 1);`
 
@@ -177,15 +177,19 @@ We compute the cumulative distribution function from the stopping or risk schedu
 
 `stopping_values = StoppingPercentiles(n1, StopSched1, percentiles)`
 
-will compute the first row of percentiles in Table 1 of the *BRAVO* paper by first computing `CDF = CumDistFunc(StopSched1);` then `stopping_values =InverseCDF(CDF,percentiles);` and then correcting `stopping_values` because `n1(1)` is not *1*, and the first sample size is larger than one, while the `CDF` and `InverseCDF` functions are with respect to array index `j` and not value of `n1(j)`. 
+will compute the first row of percentiles in Table 1 of the *BRAVO* paper by first computing `CDF = CumDistFunc(StopSched1);` then `stopping_values =InverseCDF(CDF,percentiles);` and then correcting `stopping_values` because `n1(1)` is not `1`, and the first sample size is larger than one, while the `CDF` and `InverseCDF` functions are with respect to array index `j` and not value of `n1(j)`. 
 
 This too can be done for multiple audits, and you can try: 
 
 `BRAVOTable = StoppingPercentilesMany(nBRAVO,StopSchedBRAVO,percentiles);`
 
-to obtain our estimates of the percentile columns of the first five rows of Table 1 of the *BRAVO* paper. `ExpectedBallotsCorrectBRAVO` from the previous computation of `B2Risks` and `ASNmany(margins,[0.1])` will give you the other columns in the Table. 
+to obtain our estimates of the percentile columns of the first five rows of Table 1 of the *BRAVO* paper. `ExpectedBallotsCorrectBRAVO` from the previous computation of `B2Risks` and 
 
-To obtain a similar five rows for the *BRAVOLike* audit, try: 
+`ASNMany(margins,(0.1))` 
+
+will give you the other columns in the Table. 
+
+To obtain a similar five rows for the *BRAVOLike* audit, try: TBD
 
 `BRAVOLikeTable = StoppingPercentilesMany(nBRAVOLike,StopSchedBRAVOLike, percentiles);`
 
