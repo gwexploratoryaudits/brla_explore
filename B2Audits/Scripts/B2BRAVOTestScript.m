@@ -34,13 +34,13 @@
 
 % Compute margins in smaller batches: the first five together, then the 
 % next two, and the last three individually. 
-% margins = [0.4, 0.3, 0.2, 0.16, 0.1, 0.08, 0.06, 0.04, 0.02, 0.01];
-marginVector = [0.01];
+% marginVector = [0.4, 0.3, 0.2, 0.16, 0.1];
+marginVector = [0.08, 0.06];
+% marginVector = [0.04];
+% marginVector = [0.02];
+% marginVector = [0.01];
 percentiles = [0.25, 0.5, 0.75, 0.9, 0.99];
 alpha = [0.1];
-% N is a dummy variable needed to compute other values computed by the 
-% functions we call. N not needed anywhere in an audit with replacement. 
-N = [1000];
 
 % Generate BRAVO audit kmins
 % nBRAVO_Many and kminBRAVO_Many are structured lists of the same size. 
@@ -52,7 +52,7 @@ N = [1000];
 
 % Generate stopping scheds and total probabilities for the same margins. 
 % ``0'' is used to indicate an audit with replacement. 
-[StopSched_Many, StopProb_Many, ExpectedBallots_Many] = B2RisksMany(marginVector, N, nBRAVO_Many, kminBRAVO_Many, 0);
+[StopSched_Many, StopProb_Many, ExpectedBallots_Many] = B2RisksMany(marginVector, [], nBRAVO_Many, kminBRAVO_Many, 0);
 
 % Obtain sample sizes for percentiles. 
 BRAVOTable = StoppingPercentilesMany(nBRAVO_Many, StopSched_Many, percentiles);
