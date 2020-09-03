@@ -1,0 +1,1716 @@
+[{
+  "_id": {
+    "$oid": "5f32e7f432f91dfbee4a95f1"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.0776,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cc"
+      },
+      "contest_ballots": 2123372,
+      "tally": {
+        "Clinton": 729547,
+        "Trump": 1318255
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Alabama",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32e80332f91dfbee4abd03"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08169,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dc28d760350320f3fdadf"
+      },
+      "contest_ballots": 318608,
+      "tally": {
+        "Clinton": 116454,
+        "Trump": 163387
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Alaska",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32e81a32f91dfbee4ae415"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08876,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dc2a4760350320f4001f2"
+      },
+      "contest_ballots": 2573165,
+      "tally": {
+        "Clinton": 1161167,
+        "Trump": 1252401
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Arizona",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32e8ef32f91dfbee4b0b27"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07899,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dc37f760350320f402905"
+      },
+      "contest_ballots": 1130635,
+      "tally": {
+        "Clinton": 380494,
+        "Trump": 684872
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Arkansas",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32e8fe32f91dfbee4b3239"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07294,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dc38e760350320f405018"
+      },
+      "contest_ballots": 14181595,
+      "tally": {
+        "Clinton": 8753788,
+        "Trump": 4483810
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "California",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32e90d32f91dfbee4b594b"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.0876,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dc39d760350320f40772b"
+      },
+      "contest_ballots": 2780247,
+      "tally": {
+        "Clinton": 1338870,
+        "Trump": 1202484
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Colorado",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32e97d32f91dfbee4b805d"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08209,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dc411760350320f409e3e"
+      },
+      "contest_ballots": 1644920,
+      "tally": {
+        "Clinton": 897572,
+        "Trump": 673215
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Connecticut",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32e99732f91dfbee4ba76f"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08442,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dc42c760350320f40c551"
+      },
+      "contest_ballots": 443814,
+      "tally": {
+        "Clinton": 235603,
+        "Trump": 185127
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Delaware",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32e9b632f91dfbee4bce81"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.04159,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dc44c760350320f40ec64"
+      },
+      "contest_ballots": 311268,
+      "tally": {
+        "Clinton": 282830,
+        "Trump": 12723
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "District of Columbia",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32e9c232f91dfbee4bf593"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08855,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dc457760350320f411377"
+      },
+      "contest_ballots": 9420039,
+      "tally": {
+        "Clinton": 4504975,
+        "Trump": 4617886
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Florida",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f0fd32f91dfbee4c1ca5"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08702,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dcbbb760350320f413a8a"
+      },
+      "contest_ballots": 4114732,
+      "tally": {
+        "Clinton": 1877963,
+        "Trump": 2089104
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Georgia",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f16932f91dfbee4c43b7"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.0728,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dcc28760350320f41619d"
+      },
+      "contest_ballots": 428937,
+      "tally": {
+        "Clinton": 266891,
+        "Trump": 128847
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Hawaii",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f17832f91dfbee4c6ac9"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07608,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dcc37760350320f4188b0"
+      },
+      "contest_ballots": 690255,
+      "tally": {
+        "Clinton": 189765,
+        "Trump": 409055
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Idaho",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f18632f91dfbee4c91db"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.0791,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dcc44760350320f41afc3"
+      },
+      "contest_ballots": 5536424,
+      "tally": {
+        "Clinton": 3090729,
+        "Trump": 2146015
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Illinois",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f19b32f91dfbee4cb8ed"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08106,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dcc5a760350320f41d6d6"
+      },
+      "contest_ballots": 2734958,
+      "tally": {
+        "Clinton": 1033126,
+        "Trump": 1557286
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Indiana",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f1ae32f91dfbee4cdfff"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08225,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dcc6d760350320f41fde9"
+      },
+      "contest_ballots": 1566031,
+      "tally": {
+        "Clinton": 653669,
+        "Trump": 800983
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Iowa",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f1d632f91dfbee4d0711"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07769,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dcc95760350320f4224fc"
+      },
+      "contest_ballots": 1184402,
+      "tally": {
+        "Clinton": 427005,
+        "Trump": 671018
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Kansas",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f1e832f91dfbee4d2e23"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07484,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dcca7760350320f424c0f"
+      },
+      "contest_ballots": 1924149,
+      "tally": {
+        "Clinton": 628854,
+        "Trump": 1202971
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Kentucky",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f1f632f91dfbee4d5535"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08181,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dccb6760350320f427322"
+      },
+      "contest_ballots": 2029032,
+      "tally": {
+        "Clinton": 780154,
+        "Trump": 1178638
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Louisiana",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f20932f91dfbee4d7c47"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08959,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dccc8760350320f429a35"
+      },
+      "contest_ballots": 747927,
+      "tally": {
+        "Clinton": 357735,
+        "Trump": 335593
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Maine",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f32c32f91dfbee4da359"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07998,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dcdf5760350320f42c148"
+      },
+      "contest_ballots": 2781446,
+      "tally": {
+        "Clinton": 1677928,
+        "Trump": 943169
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Maryland",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f33c32f91dfbee4dca6b"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07354,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dce04760350320f42e85b"
+      },
+      "contest_ballots": 3325046,
+      "tally": {
+        "Clinton": 1995196,
+        "Trump": 1090893
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Massachusetts",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f34b32f91dfbee4df17d"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08938,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dce14760350320f430f6e"
+      },
+      "contest_ballots": 2944813,
+      "tally": {
+        "Clinton": 1367716,
+        "Trump": 1322951
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Minnesota",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f76a32f91dfbee4e188f"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08359,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dd258760350320f433681"
+      },
+      "contest_ballots": 1209357,
+      "tally": {
+        "Clinton": 485131,
+        "Trump": 700714
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Mississippi",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f77f32f91dfbee4e3fa1"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07932,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dd26d760350320f435d94"
+      },
+      "contest_ballots": 2808605,
+      "tally": {
+        "Clinton": 1071068,
+        "Trump": 1594511
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Missouri",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f79232f91dfbee4e66b3"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07685,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dd280760350320f4384a7"
+      },
+      "contest_ballots": 497147,
+      "tally": {
+        "Clinton": 177709,
+        "Trump": 279240
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Montana",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f7a432f91dfbee4e8dc5"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07386,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dd292760350320f43abba"
+      },
+      "contest_ballots": 844227,
+      "tally": {
+        "Clinton": 284494,
+        "Trump": 495961
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Nebraska",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f7b432f91dfbee4eb4d7"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08808,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2dd2a2760350320f43d2cd"
+      },
+      "contest_ballots": 1125385,
+      "tally": {
+        "Clinton": 539260,
+        "Trump": 512058
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Nevada",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f97032f91dfbee4edbe9"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08418,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e0efb2a04842a514b3202"
+      },
+      "contest_ballots": 3874046,
+      "tally": {
+        "Clinton": 2148278,
+        "Trump": 1601933
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "New Jersey",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f98932f91dfbee4f02fb"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08515,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e0f152a04842a514b5915"
+      },
+      "contest_ballots": 798319,
+      "tally": {
+        "Clinton": 385234,
+        "Trump": 319667
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "New Mexico",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f9b732f91dfbee4f2a0d"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07707,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e0f462a04842a514b8028"
+      },
+      "contest_ballots": 7721453,
+      "tally": {
+        "Clinton": 4556124,
+        "Trump": 2819534
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "New York",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32f9c932f91dfbee4f511f"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08744,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e0f572a04842a514ba73b"
+      },
+      "contest_ballots": 4741564,
+      "tally": {
+        "Clinton": 2189316,
+        "Trump": 2362631
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "North Carolina",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32fa9732f91dfbee4f7831"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07053,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e102e2a04842a514bce4e"
+      },
+      "contest_ballots": 344360,
+      "tally": {
+        "Clinton": 93758,
+        "Trump": 216794
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "North Dakota",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32faa432f91dfbee4f9f43"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08579,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e103c2a04842a514bf561"
+      },
+      "contest_ballots": 5496487,
+      "tally": {
+        "Clinton": 2394164,
+        "Trump": 2841005
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Ohio",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32fad732f91dfbee4fc655"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07321,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e10702a04842a514c1c74"
+      },
+      "contest_ballots": 1452992,
+      "tally": {
+        "Clinton": 420375,
+        "Trump": 949136
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Oklahoma",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32fae532f91dfbee4fed67"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08298,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e107e2a04842a514c4387"
+      },
+      "contest_ballots": 2001336,
+      "tally": {
+        "Clinton": 1002106,
+        "Trump": 782403
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Oregon",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f32fb0532f91dfbee501479"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08961,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e109f2a04842a514c6a9a"
+      },
+      "contest_ballots": 6165478,
+      "tally": {
+        "Clinton": 2926441,
+        "Trump": 2970733
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Pennsylvania",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f330e9b32f91dfbee503b8b"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08105,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e252c2a04842a514c91ad"
+      },
+      "contest_ballots": 464144,
+      "tally": {
+        "Clinton": 252525,
+        "Trump": 180543
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Rhode Island",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f330eb232f91dfbee50629d"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08126,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e25422a04842a514cb8c0"
+      },
+      "contest_ballots": 2103027,
+      "tally": {
+        "Clinton": 855373,
+        "Trump": 1155389
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "South Carolina",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f330ecb32f91dfbee5089af"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.0725,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e255c2a04842a514cdfd3"
+      },
+      "contest_ballots": 370093,
+      "tally": {
+        "Clinton": 117458,
+        "Trump": 227721
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "South Dakota",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f330eda32f91dfbee50b0c1"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07521,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e256b2a04842a514d06e6"
+      },
+      "contest_ballots": 2508027,
+      "tally": {
+        "Clinton": 870695,
+        "Trump": 1522925
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Tennessee",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f330eea32f91dfbee50d7d3"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08606,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e257a2a04842a514d2df9"
+      },
+      "contest_ballots": 8969226,
+      "tally": {
+        "Clinton": 3877868,
+        "Trump": 4685047
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Texas",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f330f1632f91dfbee50fee5"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07743,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e25a82a04842a514d550c"
+      },
+      "contest_ballots": 1131430,
+      "tally": {
+        "Clinton": 310676,
+        "Trump": 515231
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Utah",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f330f2932f91dfbee5125f7"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07883,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e25bb2a04842a514d7c1f"
+      },
+      "contest_ballots": 315067,
+      "tally": {
+        "Clinton": 178573,
+        "Trump": 95369
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Vermont",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f330f3832f91dfbee514d09"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.08785,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e25ca2a04842a514da332"
+      },
+      "contest_ballots": 3984631,
+      "tally": {
+        "Clinton": 1981473,
+        "Trump": 1769443
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Virginia",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f330f9b32f91dfbee51741b"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.0812,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e26312a04842a514dca45"
+      },
+      "contest_ballots": 3317019,
+      "tally": {
+        "Clinton": 1742718,
+        "Trump": 1221747
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Clinton"
+      ],
+      "name": "Washington",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f330fb132f91dfbee519b2d"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.06454,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e26472a04842a514df158"
+      },
+      "contest_ballots": 714423,
+      "tally": {
+        "Clinton": 188794,
+        "Trump": 489371
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "West Virginia",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f330fbf32f91dfbee51c23f"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.089,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e26542a04842a514e186b"
+      },
+      "contest_ballots": 2976150,
+      "tally": {
+        "Clinton": 1382536,
+        "Trump": 1405284
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Wisconsin",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f33209732f91dfbee51e951"
+  },
+  "underlying": "tie",
+  "invalid_ballots": true,
+  "description": "One round Minerva with given sample size (from PV MATLAB)",
+  "analysis": 0.07121,
+  "reported_contest": [
+    {
+      "_id": {
+        "$oid": "5f2e380d2a04842a514e3f7e"
+      },
+      "contest_ballots": 255849,
+      "tally": {
+        "Clinton": 55973,
+        "Trump": 174419
+      },
+      "num_winners": 1,
+      "reported_winners": [
+        "Trump"
+      ],
+      "name": "Wyoming",
+      "description": "2016 Presidential"
+    }
+  ],
+  "audit_info": [
+    {
+      "_id": {
+        "$oid": "5f2dc27d760350320f3fb3cb"
+      },
+      "audit_type": "minerva",
+      "alpha": 0.1
+    }
+  ]
+}]
