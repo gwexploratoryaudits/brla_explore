@@ -35,10 +35,10 @@
 % Compute margins in smaller batches: the first five together, then the 
 % next two, and the last three individually. 
 % marginVector = [0.4, 0.3, 0.2, 0.16, 0.1];
-marginVector = [0.08, 0.06];
+% marginVector = [0.08, 0.06];
 % marginVector = [0.04];
 % marginVector = [0.02];
-% marginVector = [0.01];
+marginVector = [0.01];
 percentiles = [0.25, 0.5, 0.75, 0.9, 0.99];
 alpha = [0.1];
 
