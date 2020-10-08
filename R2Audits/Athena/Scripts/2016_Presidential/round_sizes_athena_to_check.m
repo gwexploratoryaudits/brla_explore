@@ -1,6 +1,6 @@
 % very basic script to read Athena raw first round values and 
-% check kmin for delta = 1 and confirm that it does not satisfy 
-% Minerva condition. In this case, Minerva and Sthena are the same. 
+% check kmin for delta = 1 and confirm that it does satisfy 
+% Minerva condition. In this case, Minerva and Athena are the same. 
 % Need raw values. 
 fname='2016_one_round_all.json';
 election_results = jsondecode(fileread(fname));
