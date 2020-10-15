@@ -1,5 +1,6 @@
 % For Ordered Ballot Draw First Rounds Using Election data for small margins.
-% Takes hours for 23, Michigan. Maybe less for others. 
+% Takes hours for 23: Michigan. Maybe less for others:
+% 50: Wisconsin
 %--------
 alpha = [0.1];
 percentiles = [0.9];
@@ -17,7 +18,7 @@ for i=1:size(states,1)
     total_relevant_ballots = sum(election_results.(states{i}).contests.presidential.results);
     factors(i) = total_ballots/total_relevant_ballots;
 end
-new_margins = margins(23);
+new_margins = margins(50);
 
 %--------------BRAVO------------%
 [nBRAVO, kminBRAVO] = B2BRAVOkminMany(new_margins, alpha);
@@ -27,6 +28,8 @@ new_margins = margins(23);
 %--------------Stopping Percentiles-----------%
 BRAVOTable = StoppingPercentilesMany(nBRAVO,StopSchedBRAVO,percentiles);
 
-new_factors = factors(23);
+new_factors = factors(50);
 
 scaled_BRAVOTable = (new_factors.').*BRAVOTable;
+
+save wisconsin.mat
