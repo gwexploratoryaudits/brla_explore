@@ -211,7 +211,15 @@ From the Scripts folder try in_readme_Part_1,  in_readme_Part_2 and in_readme_Pa
 ## Log-Likelihood (Ignore if not curious)
 The *BRAVOLike* audit requires the computation of the ratio of hypergeometric probabilities for the stopping decision, see equation (5), [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999), with beta = 0. Because hypergeometric probabilities can be very small for our values, and because we are really interested in the ratio (each probability is a likelihood, and the ratio is the likelihood ratio) we do not use hypergeometric probability functions. 
 
-We tried simplifying the expression by canceling out common factors in the numerator and denominator, and computed only the product of ratios that are not too extreme in value. However, we see that there may be too many products and that can also pose a problem. We finally chose to compute these products as sums in the log domain and to obtain the Log-Likelihood Ratio (LLR). Also, we make sure to check for zeros in the denominator, and get a constant value of *kmin* once *kmin* reaches one more than half the number of votes.  
+We tried simplifying the expression by canceling out common factors in the numerator and denominator, and computed only the product of ratios that are not too extreme in value. However, we see that there may be too many products and that can also pose a problem. We finally chose to compute these products as sums in the log domain and to obtain the Log-Likelihood Ratio (LLR). Also, we make sure to check for zeros in the denominator, and get a constant value of *kmin* once *kmin* reaches one more than half the number of votes.  See BravoLikeLLR
+
+## First Round Predictions for Selection-Ordered BRAVO (SB)
+
+In our paper on  [*Athena*](https://arxiv.org/abs/2008.02315) we describe Selection-Ordered BRAVO where a single round of ballots is drawn before the decision (so that would be an R2 audit) and the audit passes the round if any ballot of the selection-ordered sample passes the B2 audit. Thus we may use our B2 code to estimate the 90th percentile of the stopping probability of the B2 audit to estimate the number of ballots to be drawn in a single round for the sample to pass the selection-ordered ballot stopping rule. The scripts OrderedBallotDrawsScript and OrderedBallotDrawsScript_small_margin address this problem and were used to obtain the SB round sizes in Table 3 of [*Athena*](https://arxiv.org/abs/2008.02315). 
+
+## Observation of Relationship between the BRAVO ratio and the Athena ratio.
+
+The Athena ratio is better understood by examining the code in the R2Audits folder. The script sigma_tau compares the behaviour of B2 BRAVO and an Athena class audit, B2 Minerva. 
 
 ## Verification Through Simulations
 

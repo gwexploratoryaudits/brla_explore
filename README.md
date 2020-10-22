@@ -14,7 +14,7 @@ For most of our work in this repository, we assume two candidates and no invalid
 * code to compute stopping decisions and p-values for some R2 audits, including the new Athena class of audits. 
 
 ## The specification of an audit for the purpose of computing pdfs
-One may think of an audit as a set of rounds: a round is defined as a the sampling of a number of ballots (the round size) followed by a decision of whether to: 
+One may think of an audit as a set of rounds: a round is defined as the sampling of a number of ballots (the round size) followed by a decision of whether to: 
 
 (a) stop drawing ballots and declare the election outcome correct or
 

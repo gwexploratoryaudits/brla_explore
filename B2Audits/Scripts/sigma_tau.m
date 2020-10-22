@@ -1,4 +1,13 @@
 % This script computes p-values of B2 Minerva and B2 Bravo
+% First a round size of n(1), where n(1) is the minimum 
+% number of ballots needed for B2 Bravo to stop. We observe that, while 
+% the p-values are different till n(1), at n(1) they are the same and 
+% both B2-Minerva and B2-Bravo stop. 
+% 
+% Next we see how everything changes when a new ballot is drawn. 
+% Note that, for the previous round of size n(1), kmin=n(1). Hence, after 
+% a new ballot is drawn, the max number of winner ballots is still n(1). 
+% As expected, Minerva p-value is no smaller than Bravo p-value. 
 
 alpha = 0.1;
 p = 0.75;
@@ -22,9 +31,11 @@ for i=2:n(1)+1
  tau(i) = (1-cdf_stop(i-1))/(1-cdf_risk(i-1));
 end
 
-plot(sigma)
-hold
-plot(tau)
+plot(sigma, '+-', 'LineWidth', 2)
+hold on
+plot(tau, 'o-', 'LineWidth', 2)
+title('Round 1', 'FontSize', 16)
+legend('Bravo sigma', 'Minerva tau', 'FontSize', 14)
 
 NewTierStop(1) = (1-p)*CurrentTierStop(1);
 NewTierRisk(1) = 0.5*CurrentTierRisk(1);
@@ -48,6 +59,11 @@ for i=2:n(1)+1
  tau_new(i) = (1-cdf_stop_new(i-1))/(1-cdf_risk_new(i-1));
 end
 
-plot(sigma_new)
-plot(tau_new)
+hold off 
+figure
+plot(sigma_new, '+-', 'LineWidth', 2)
+hold on
+plot(tau_new, 'o-', 'LineWidth', 2)
+title('Round 2: One More Ballot', 'FontSize', 16)
+legend('Bravo sigma', 'Minerva tau', 'FontSize', 14)
 
