@@ -26,7 +26,12 @@ function values = InverseCDF(cdf, percentiles)
     %
     
     for j=1:size(percentiles,2)
-        values(j) = find(cdf >= percentiles(j),1);
+        x = find(cdf >= percentiles(j),1);
+        if size(x,2) == 0
+            values(j) = size(cdf,2);
+        else
+            values(j) = x;
+        end
     end       
 end
 

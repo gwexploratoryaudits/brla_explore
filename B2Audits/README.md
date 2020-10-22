@@ -26,9 +26,9 @@ The following properties are computed for: a given margin, given choice of sampl
 
 4. **Total Risk:** The total risk of the audit for the worst-case election (draw or margin of one in favor of the loser). Computed as the sum of the values of the risk schedule; we assume a full hand count follows if the audit does not stop after all ballots have been drawn. 
 
-5. **No of Expected Ballots:** The scalar product of the stopping schedule and the vector of corresponding sample sizes. 
+5. **No of Expected Ballots:** The scalar product of the stopping schedule and the vector of corresponding sample sizes, plus `(1-Total Stopping prob)(max number of draws)`. In the absence of knowledge of the size of the election, this is a lower bound on the value, a sanity check. 
 
-6. **No of Expected Ballots for Worst-Case Incorrect Election:** The scalar product of the risk schedule and the sample size vector, plus `(1-Total Risk)(max number of draws)`. In the absence of knowledge of the size of the election, this is a lower bound on the value, a sanity check. 
+6. **No of Expected Ballots for Worst-Case Incorrect Election:** As above, for the risk schedule.  
 
 7. **Percentiles:** Desired percentile values may be computed from the stopping schedule and/or the risk schedule. 
 
@@ -143,7 +143,7 @@ Similarly, you could try:
 
 `[StopSched2, StopValue2, ExpectedBallots2] = B2Risks(0.4, 200, n2, kmin2, 1);`
 
-for the *BRAVOLike* single audit. TBD. 
+for the *BRAVOLike* single audit. 
 
 You may also use other values for `margin`, or use `1` (without replacement) to see what you would get were the audit used in a setting different from the one it was designed for. Using `margin=0` will give you the risk schedule, total risk and a lower bound on the minimum number of expected ballot draws when the underlying election is tied. 
 
@@ -153,7 +153,7 @@ gives you the risk schedule, total risk and expected ballots for a worst-case in
 
 ### Multiple Audits
 
-As described earlier for the generation of `kmin` values, we can use wrapper code to perform compute pdfs  for multiple audits. You may try, for *BRAVO*: 
+As described earlier for the generation of `kmin` values, we can use wrapper code to compute pdfs  for multiple audits. You may try, for *BRAVO*: 
 
 `[StopSchedBRAVO, StopProbBRAVO, ExpectedBallotsCorrectBRAVO] = B2RisksMany(margins, [], nBRAVO, kminBRAVO, 0);`
 
@@ -161,14 +161,15 @@ As described earlier for the generation of `kmin` values, we can use wrapper cod
 
 `[RiskSchedBRAVO, RiskValueBRAVO, ExpectedBallotsInCorrectBRAVO] = B2RisksMany(margin_incorrect, [], nBRAVO, kminBRAVO, 0);`
 
-and, for *BRAVOLike*: TBD
+You may compare the `ExpectedBallotsCorrectBRAVO` values, also listed in Tables/Bravo_Verification_Table.pdf, with entries in the first five rows of Table 1 in the *BRAVO* paper, and RiskValueBRAVO with values we computed, which are listed in Tables/BSquare-Risk-Table I.pdf. 
+
+For *BRAVOLike*: 
 
 `[StopSchedBRAVOLike, StopProbBRAVOLike, ExpectedBallotsCorrectBRAVOLike] = B2RisksMany(margins, N, nBRAVOLike, kminBRAVOLike, 1);`
 
 `[RiskSchedBRAVOLike, RiskValueBRAVOLike, ExpectedBallotsInCorrectBRAVOLike] = B2RisksMany(margin_incorrect, N, nBRAVOLike, kminBRAVOLike, 1);`
 
-You may compare the `ExpectedBallotsCorrectBRAVO` values, also listed in Tables/BRAVO Table I.pdf, with entries in the first five rows of Table 1 in the *BRAVO* paper. 
-
+You may compare the `RiskValueBRAVOLike`, and  `ExpectedBallotsCorrectBRAVOLike` with values we computed, which are listed in Tables/BSquare-Risk-Table I.pdf and  Tables/BRAVO-BRAVOLike 1K Table I.pdf respectively. 
 ## Stopping Percentiles
 
 We compute the cumulative distribution function from the stopping or risk schedules, and can then use the inverse CDF to compute a specified percentile. For example, 
@@ -205,7 +206,7 @@ and
 
 `BRAVOLikeRiskTable = StoppingPercentilesMany(nBRAVOLike,RiskSchedBRAVOLike, risk_percentiles);`
 
-From the Scripts folder try scripts `B2BRAVOTestScript`, which does all of the above for *BRAVO*, and B2RiskScript which does it all for *BRAVO* and *BRAVOLike*. See our results in the various pdf files in Tables/
+From the Scripts folder try in_readme_Part_1,  in_readme_Part_2 and in_readme_Part_3,  in order. The scripts perform all the above operations. You may also try scripts: `B2BRAVOTestScript`, which does all of the above for *BRAVO*, and B2RiskScript which does it all for *BRAVO* and *BRAVOLike*. See our results in the various pdf files in Tables/
 
 ## Log-Likelihood (Ignore if not curious)
 The *BRAVOLike* audit requires the computation of the ratio of hypergeometric probabilities for the stopping decision, see equation (5), [Risk-Limiting Bayesian Polling Audits for Two Candidate Elections](https://arxiv.org/abs/1902.00999), with beta = 0. Because hypergeometric probabilities can be very small for our values, and because we are really interested in the ratio (each probability is a likelihood, and the ratio is the likelihood ratio) we do not use hypergeometric probability functions. 

@@ -1,4 +1,5 @@
 % This script computes Bravo Table error
+% The last row needs to be computed. 
 Bravo = [12	22	38	60	131	30;
 23	38	66	108	236	53;
 49	84	149	244	538	119;
@@ -11,6 +12,8 @@ Bravo = [12	22	38	60	131	30;
 18839	32547	57838	96411	214491	46126];
 
 % Put together our values computed as described in B2BRAVOTestScript
+load Verification_Table.mat
 Estimate = [BTable1; BTable2; BTable3; BTable4];
 Expected = [Expected1; Expected2; Expected3; Expected4];
 FullTable = [Estimate.'; Expected.'].';
+Error = FullTable-Bravo(1:9,:);

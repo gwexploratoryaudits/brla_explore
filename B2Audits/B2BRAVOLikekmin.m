@@ -74,7 +74,7 @@ function [n, kmin, LLR] = B2BRAVOLikekmin(margin, alpha, N)
     % which is a winning tally. 
     endat=0;
 
-    for j=1:N
+    for j=1:N %j is number of ballots drawn in sample
         for k=kminprev(1,j):j
             if j-k > LoserTally
                 % Value of k is small enough that the number of votes left 
@@ -93,6 +93,12 @@ function [n, kmin, LLR] = B2BRAVOLikekmin(margin, alpha, N)
                 % sample sizes, kmin=HalfN+1.
                 kmin(1,j:N)=HalfN+1;
                 endat=j;
+                % This could happen without ever achieving the LLR 
+                % requirement; this this is the first sample size that 
+                % one can stop at. 
+                if startat == 0
+                    startat = j;
+                end
                 break
             else
                 % The value of k is both small enough and large enough 
