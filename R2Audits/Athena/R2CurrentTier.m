@@ -22,6 +22,7 @@ function CurrentTier = R2CurrentTier(margin, PreviousTier, new_round_draws)
     %   CurrentTier:	array of individual probability values. kth value 
     %                           is the probability of having k-1 votes for 
     %                           the winner in this round. 
+    %
     %----------
     %
 

@@ -8,29 +8,35 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
     % current round of an audit. Likelihood ratio is the inverse of the 
     % `delta-value' used for Athena. This function returns LR for 
     % all audit methods. Note that LR depends only on margin, n and k; 
-    % that is, only on variables needed for Arlo p-values. 
+    % that is, only on variables needed for BRAVO p-values. It is the 
+    % ratio tested for the BRAVO stopping condition. 
     %
     % Input Values
     %       margin:             election margin as a fraction; needed only 
-    %                               for Arlo
+    %                               for EoR BRAVO
     %       StopSched_prev:     previous non-cumulative stopping prob. 
     %                               sched; needed only for Metis
     %       RiskSched_prev:     previous non-cumulative Risk Schedule; 
     %                               needed only for Metis
     %       CurrentTierStop:	current winner vote distribution for 
-    %                               margin; not needed for Arlo
+    %                               margin; not needed for EoR
     %       CurrentTierRisk:	current winner vote distribution for tied 
-    %                               election; not needed for Arlo
+    %                               election; not needed for EoR
     %       n:                  current (single) cumulative round size
     %       k:                  current (single) cumulative number of 
     %                               ballots for the winner
-    %       audit_method:   string, one of: Arlo, Athena, Minerva, Metis
+    %       audit_method:   string, one of: EoR, Athena, Minerva, Metis.
     %                           Athena and Minerva have the same p_values 
     %                           for the same kmins and CurrentTier, but 
     %                           their kmins are, in general, distinct for 
     %                           the same round sizes because their stopping 
-    %                           conditions are distinct. 
-    %
+    %                           conditions are distinct. Here, their 
+    %                           p_values will be the same if n, k and both 
+    %                           CurrentTiers are the same. That is, if 
+    %                           their histories are the same. However, 
+    %                           the stopping decisions might still differ
+    %                           because the LR needs to be tested as well 
+    %                           for Athena. 
     %
     %----------
     %

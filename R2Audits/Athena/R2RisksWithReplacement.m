@@ -3,7 +3,7 @@ function [RiskSched, CurrentTier] = R2RisksWithReplacement(margin, n, kmin)
     % [RiskSched, CurrentTier] = R2RisksWithReplacement(margin, n, kmin)
     % 
     % This function returns round-by-round stopping probability 
-    % (stopping probbaility schedule/risk schedule) for a round-by-round 
+    % (stopping probability schedule/risk schedule) for a round-by-round 
     % audit defined by a round schedule n and a corresponding kmin 
     % schedule kmin, applied to an election defined by margin.
     % Note that, if margin=0, it returns round-by-round risk schedule.
@@ -28,12 +28,15 @@ function [RiskSched, CurrentTier] = R2RisksWithReplacement(margin, n, kmin)
     % Output Values
     %   RiskSched:          array of individual risk values. jth value is 
     %                           the risk (or stopping prob.) of drawing 
-    %                           n(j) ballots, round-by-round.                      
+    %                           n(j) ballots, round-by-round.  
+	%   CurrentTier:        array of individual probability values. kth 
+    %                           value is the probability of having k-1 
+    %                           votes for the winner in this round. 
     %
     %----------
     %
-    % The right tail of the pdf at a round is the risk of the round, when
-    % the pdf represents the underlying vote distribution. 
+    % The right tail of the pdf at a round is the risk (stopping prob.) of 
+    % the round, when the pdf represents the underlying vote distribution. 
     % The worst case risk corresponds to a tied election, see Bayesian 
     % RLA paper. 
     %

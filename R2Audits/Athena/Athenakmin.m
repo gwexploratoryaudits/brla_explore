@@ -1,18 +1,23 @@
  function [n_out, kmin, StopSched, RiskSched, CurrentTierStop, ... 
      CurrentTierRisk] = Athenakmin(margin, alpha, delta, n_in, audit_method)
+    %
     % Testing in progress
+    %
     % [n_out, kmin, StopSched, RiskSched, CurrentTierStop, ... 
     %    CurrentTierRisk] = Athenakmin(margin, alpha, delta, n_in, audit_method)
+    %
     % Athena kmin values for valid round sizes among given n_in. 
     % beta = 0; sampling with replacement. 
+    %
     % -----------
+    %
     % Input: 
-    %   margin:         fractional margin
-    %   alpha:          fractional risk limit
-    %   delta:          LR stopping condition for Athena
-    %   n_in:           row vector of cumulative round sizes, assumed to be
-    %                       increasing
-	%   audit_method:   string, one of: Athena, Minerva, Metis
+    %   margin:             fractional margin
+    %   alpha:              fractional risk limit
+    %   delta:              LR stopping condition for Athena
+    %   n_in:               row vector of cumulative round sizes, assumed 
+    %                           to be increasing
+	%   audit_method:       string, one of: Athena, Minerva, Metis
     %                       Athena and Minerva have the same p_values for 
     %                       the same kmins, but their kmins are, in 
     %                       general, distinct for the same round sizes
@@ -20,17 +25,36 @@
     %                       delta is needed only for Athena. 
     %
     % THIS IS CURRENTLY ONLY FOR SAMPLING WITH REPLACEMENT.
-    % Does not support Arlo. Use R2BRAVOkmin for Arlo. 
+    % Supports only the Athena class. 
+    % Does not support EoR BRAVO. Use R2BRAVOkmin for EoR BRAVO. 
     %
     % ----------
+    %
     % Output: 
-    %   n_out:          1-D array, beginning at first value of n_in for 
+    %   n_out:              1-D array, beginning at first value of n_in for 
     %                           which the probability ratio is large 
     %                           enough. That is, n_out begins with the 
     %                           the first value of n_in that has a non-zero
     %                           probability of stopping the audit. 
-    %	kmin:           1-D array of Athena kmin corresponding to n_out; 
+    %	kmin:               1-D array of Athena kmin corresponding to n_out; 
     %                           size of n_out
+    %   StopSched:          array of individual stopping prob. values for 
+    %                           election with margin. jth value is 
+    %                           the stopping prob when drawing n(j) 
+    %                           ballots, round-by-round.                      
+    %   RiskSched:          array of individual risk values. jth value is 
+    %                           the risk (stopping prob. of tied election) 
+    %                           of drawing n(j) ballots, round-by-round.                      
+    %
+	%   CurrentTierStop:	array of individual probability values. kth 
+    %                           value is the probability of having k-1 
+    %                           votes for the winner in this round.
+    %                           Assuming election with margin. 
+    %   CurrentTierRisk:	array of individual probability values. kth 
+    %                           value is the probability of having k-1 
+    %                           votes for the winner in this round. 
+    %                           Assuming tied election. 
+    %
     % -----------
     %
     % kmin[j] = smallest integer k such that stopping conditions are met
@@ -48,6 +72,8 @@
     RiskSched = zeros(1,NumberRounds);
     StopSched = zeros(1,NumberRounds);
     kmin = zeros(1, NumberRounds);
+    
+    % Initialize pdfs of winner votes
     CurrentTierStop = (1);
     CurrentTierRisk = (1);
     current_number_ballots = 0;
@@ -56,7 +82,7 @@
         CurrentTierStop = R2CurrentTier(margin,CurrentTierStop,n_in(j)-current_number_ballots);
         CurrentTierRisk = R2CurrentTier(0,CurrentTierRisk,n_in(j)-current_number_ballots);
         kmin(j) = AthenaNextkmin(margin, alpha, delta, StopSched, ...
-     RiskSched, CurrentTierStop, CurrentTierRisk, n_in(j), audit_method);
+            RiskSched, CurrentTierStop, CurrentTierRisk, n_in(j), audit_method);
  
         if kmin(j) > n_in(j)
             % round not large enough; do not lop off, nothing happens
@@ -76,6 +102,3 @@
     n_in(Invalid_n) = [];
     n_out = n_in;
  end
-
-
-    
