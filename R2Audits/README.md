@@ -43,12 +43,17 @@ We use the idea of `kmin`s (minimum number of votes for the winner required in t
   For multiple audits, for example, try: 
   
   
- `margins = [0.4, 0.3, 0.2];
-  alpha = 0.1;
-  n_in_Many{1,1} = [1, 7, 56, 106];
-  n_in_Many{2,1} = [1, 9, 58]; 
-  n_in_Many{3,1} = [1, 13, 62]; 
-  [n_out_Many,kmin_Many] = R2BRAVOkminMany(margins, alpha, n_in_Many);`
+ `margins = [0.4, 0.3, 0.2];`
+ 
+  `alpha = 0.1;`
+  
+  `n_in_Many{1,1} = [1, 7, 56, 106];`
+  
+ `n_in_Many{2,1} = [1, 9, 58];` 
+ 
+ `n_in_Many{3,1} = [1, 13, 62];`
+ 
+ `[n_out_Many,kmin_Many] = R2BRAVOkminMany(margins, alpha, n_in_Many);`
 
 
 ## Stopping Probabilities and Risk
@@ -78,8 +83,9 @@ The variable `CurrentTier` returned is the pdf of winner votes after the round s
 
 Using code in the B2Audits folder, we may compute the cumulative distribution function from the stopping or risk schedules, and can then use the inverse CDF to compute a specified percentile. For example, 
 
-`percentiles = [0.5, 0.7, 0.8];
-stopping_values = StoppingPercentiles(n_out_Many{1,1}, RiskSched, percentiles);`
+`percentiles = [0.5, 0.7, 0.8];`
+
+`stopping_values = StoppingPercentiles(n_out_Many{1,1}, RiskSched, percentiles);`
 
 ## Verification Through Simulations
 
