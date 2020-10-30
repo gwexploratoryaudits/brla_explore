@@ -1,6 +1,9 @@
 function [RiskSched, RiskValue, ExpectedBallots] = R2RisksConvolution(margin, N, n, kmin, audit_type)
     %
     % [RiskSched, RiskValue, ExpectedBallots] = R2RisksConvolution(margin, N, n, kmin, audit_type)
+    %
+    % Use, instead, R2RisksWithReplacement if sampling is with replacement.
+    % 
     % This function returns:
     %       round-by-round stopping probability 
     %       total stopping probability 
@@ -19,7 +22,9 @@ function [RiskSched, RiskValue, ExpectedBallots] = R2RisksConvolution(margin, N,
     % Note also that the computation of the new pdf is not really a 
     % convolution when sampling without replacement, and hence the 
     % Fourier Transform is not useful in that case. 
+    %
     %----------
+    %
     % Input Values: 
     %   margin:         announced margin as a fraction for stopping probs;
     %                   zero for risk calculations
@@ -34,7 +39,9 @@ function [RiskSched, RiskValue, ExpectedBallots] = R2RisksConvolution(margin, N,
     %   R2BRAVOkmin using margin, alpha (and N) when margin is not 
     %   zero. the jth value of kmin is the minimum number of votes for 
     %   winner required to terminate the audit round of size n(j). 
+    %
     %----------
+    %
     % Output Values
     %   RiskSched:          array of individual risk values. jth value is 
     %                           the risk (or stopping prob.) of drawing 

@@ -38,8 +38,13 @@
 % marginVector = [0.08, 0.06];
 % marginVector = [0.04];
 % marginVector = [0.02];
-marginVector = [0.01];
-percentiles = [0.25, 0.5, 0.75, 0.9, 0.99];
+marginVector01 = [0.01];
+% Variables have been named for margin = 0.01 as that's the only value that
+% needs to be computed for the new expected ballots formulae. All other
+% values are stored in Verification_Table.mat and we wouldn't want to
+% confuse our numbers with those. 
+
+percentiles01 = [0.25, 0.5, 0.75, 0.9, 0.99];
 alpha = [0.1];
 
 % Generate BRAVO audit kmins
@@ -48,14 +53,16 @@ alpha = [0.1];
 % margin. nBRAVO is a list of arrays of sample sizes, beginning at the 
 % first one of consequence. kminBRAVO is the list of corresponding arrays 
 % of kmins. 
-[nBRAVO_Many, kminBRAVO_Many] = B2BRAVOkminMany(marginVector, alpha);
+[nBRAVO_Many01, kminBRAVO_Many01] = B2BRAVOkminMany(marginVector01, alpha);
 
 % Generate stopping scheds and total probabilities for the same margins. 
 % ``0'' is used to indicate an audit with replacement. 
-[StopSched_Many, StopProb_Many, ExpectedBallots_Many] = B2RisksMany(marginVector, [], nBRAVO_Many, kminBRAVO_Many, 0);
+[StopSched_Many01, StopProb_Many01, ExpectedBallots_Many01] = B2RisksMany(marginVector01, [], nBRAVO_Many01, kminBRAVO_Many01, 0);
 
 % Obtain sample sizes for percentiles. 
-BRAVOTable = StoppingPercentilesMany(nBRAVO_Many, StopSched_Many, percentiles);
+BRAVOTable01 = StoppingPercentilesMany(nBRAVO_Many01, StopSched_Many01, percentiles01);
 
 % ASN Values
-ASNValues = ASNMany(marginVector,alpha);
+ASNValues01 = ASNMany(marginVector01,alpha);
+
+save point01.mat

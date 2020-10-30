@@ -1,6 +1,7 @@
 function [RiskSched, CurrentTier] = R2RisksWithReplacement(margin, n, kmin)
     %
     % [RiskSched, CurrentTier] = R2RisksWithReplacement(margin, n, kmin)
+    % 
     % This function returns round-by-round stopping probability 
     % (stopping probbaility schedule/risk schedule) for a round-by-round 
     % audit defined by a round schedule n and a corresponding kmin 
@@ -8,6 +9,7 @@ function [RiskSched, CurrentTier] = R2RisksWithReplacement(margin, n, kmin)
     % Note that, if margin=0, it returns round-by-round risk schedule.
     % ONLY FOR AUDITING WITH REPLACEMENT.
     % USES FOURIER TRANSFORM.
+    %
     %----------
     %
     % Input Values: 
@@ -17,9 +19,9 @@ function [RiskSched, CurrentTier] = R2RisksWithReplacement(margin, n, kmin)
     %   kmin:           row vector of same size as n
     %
     %   n and kmin are typically outputs of R2BRAVOkmin or Athenakmin 
-    %   using margin (when non-zero) and alpha. the jth value of 
-    %   kmin is the minimum number of votes for winner required to 
-    %   terminate the audit round of size n(j). 
+    %   using margin (when non-zero) and alpha. kmin(j) is the 
+    %   minimum number of votes for winner required to terminate the 
+    %   audit round of size n(j). 
     %
     %----------
     %
@@ -34,6 +36,7 @@ function [RiskSched, CurrentTier] = R2RisksWithReplacement(margin, n, kmin)
     % the pdf represents the underlying vote distribution. 
     % The worst case risk corresponds to a tied election, see Bayesian 
     % RLA paper. 
+    %
 
     % p: fractional vote count for winner
     p = (1+margin)/2;

@@ -1,16 +1,31 @@
  function [kmslope, kmintercept, n_out, kmin] = R2BRAVOkmin(margin, alpha, n_in)
     %
     % [kmslope, kmintercept, n_out, kmin] = R2BRAVOkmin(margin, alpha, n_in)
-    % Classical BRAVO slope and intercept for linear expression for kmin 
-    % in log domain; also computes kmin values for valid values in given 
-    % n_in. beta assumed zero as defined in original BRAVO paper. 
+    %
+    % Computes, for given round schedule n_in: 
+    %       * EoR BRAVO kmin values and 
+    %       * the slope and intercept defining the linear expression for 
+    %           kmin as a function of sample size n when the BRAVO 
+    %           stopping condition is examined in the log domain. 
+    % Assumptions as in the original BRAVO paper:
+    %       * beta = zero. 
+    %       * sampling with replacement. 
+    %
+    % BRAVO applied at end-of-round.
+    %
+    % For the equation, see Athena paper: https://arxiv.org/abs/2008.02315, 
+    % section 3. 
+    %
     % -----------
+    %
     % Input: 
     %   margin:         fractional margin
     %   alpha:          fractional risk limit
     %   n_in:           row vector of round sizes, assumed to be
     %                       non-decreasing
+    %
     % ----------
+    %
     % Output: 
 	%   kmslope:        (log 0.5 - log (1-p))/(log p - log(1-p))
 	%	kmintercept:    - (log (alpha))/(log p - log(1-p)) 
@@ -23,6 +38,7 @@
     %                           a decision. 
 	%	kmin:           1-D array of size of n_out: 
     %                   ceiling(kmslope*n_out + kmintercept) 
+    %
     % -----------
 
     % p is fractional vote for winner 
