@@ -3,13 +3,14 @@ function kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
     % Testing in progress
     %
     % kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
-    % RiskSched_prev, CurrentTierStop, CurrentTierRisk, n_next, audit_method)
+    %                   RiskSched_prev, CurrentTierStop, CurrentTierRisk, ...
+    %                   n_next, audit_method)
     %
     % Athena next kmin value for given (single) cumulative n_next. 
     % beta = 0; sampling may be with or without replacement as CurrentTier, 
     % StopSched and RiskSched capture that information. 
-    % Neither Arlo nor Bravo is an option for audit_method. R2BRAVOkmin 
-    % should be used instead. 
+    % EoR is not an option for audit_method. R2BRAVOkmin should be used 
+    % for EoR BRAVO. 
     %
     % -----------
     %
@@ -25,12 +26,20 @@ function kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
     %	CurrentTierRisk:	current winner vote distribution for tied 
     %                               election; 
     %   n_next:             single cumulative round size
-    %   audit_method:       string, one of: Athena, Minerva, Metis
-    %                       Athena and Minerva have the same p_values for 
-    %                       the same kmins, but their kmins are, in 
-    %                       general, distinct for the same round sizes
-    %                       because their stopping conditions are distinct.
-    %                       delta is needed only for Athena. 
+    %	audit_method:       string, one of: EoR, Athena, Minerva, Metis.
+    %                           Athena and Minerva have the same p_values 
+    %                           for the same values of k and CurrentTier, 
+    %                           but their kmins are, in general, distinct 
+    %                           for the same round sizes because their 
+    %                           stopping conditions are distinct and this 
+    %                           changes the CurrentTiers. Here, their 
+    %                           p_values will be the same if n, k and both 
+    %                           CurrentTiers are the same. That is, if 
+    %                           their stopping histories and the most 
+    %                           recent draw are the same. However, the
+    %                           stopping decisions and kmins might still 
+    %                           differ because the LR needs to be tested as
+    %                           well for Athena. 
     %
     % ----------
     %
@@ -72,7 +81,7 @@ function kmin_next = AthenaNextkmin(margin, alpha, delta, StopSched_prev, ...
       
             % If Athena, check LR
             if strcmp(audit_method,'Athena') 
-                %Compute Arlo kmin for risk limit delta
+                %Compute EoR kmin for risk limit delta
                 km = ceil((-log(delta) - n_next*log(1-margin))/log((1+margin)/(1-margin)));
                 kmin_next = max(kmin_next, km);
             end

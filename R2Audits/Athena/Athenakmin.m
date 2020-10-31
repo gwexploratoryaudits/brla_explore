@@ -17,12 +17,11 @@
     %   delta:              LR stopping condition for Athena
     %   n_in:               row vector of cumulative round sizes, assumed 
     %                           to be increasing
-	%   audit_method:       string, one of: Athena, Minerva, Metis
-    %                       Athena and Minerva have the same p_values for 
-    %                       the same kmins, but their kmins are, in 
-    %                       general, distinct for the same round sizes
-    %                       because their stopping conditions are distinct.
-    %                       delta is needed only for Athena. 
+	%	audit_method:       string, one of: EoR, Athena, Minerva, Metis.
+    %                           Athena and Minerva can have the same 
+    %                           p_value but distinct kmins for the same  
+    %                           round sizes because their stopping 
+    %                           conditions are distinct. 
     %
     % THIS IS CURRENTLY ONLY FOR SAMPLING WITH REPLACEMENT.
     % Supports only the Athena class. 

@@ -7,9 +7,8 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
     % This function returns the pvalue and the likelihood ratio for the 
     % current round of an audit. Likelihood ratio is the inverse of the 
     % `delta-value' used for Athena. This function returns LR for 
-    % all audit methods. Note that LR depends only on margin, n and k; 
-    % that is, only on variables needed for BRAVO p-values. It is the 
-    % ratio tested for the BRAVO stopping condition. 
+    % all audit methods. The LR is the inverse of the BRAVO p-value. 
+    % It depends only on margin, n and k. 
     %
     % Input Values
     %       margin:             election margin as a fraction; needed only 
@@ -27,14 +26,16 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
     %                               ballots for the winner
     %       audit_method:   string, one of: EoR, Athena, Minerva, Metis.
     %                           Athena and Minerva have the same p_values 
-    %                           for the same kmins and CurrentTier, but 
-    %                           their kmins are, in general, distinct for 
-    %                           the same round sizes because their stopping 
-    %                           conditions are distinct. Here, their 
+    %                           for the same values of k and CurrentTier, 
+    %                           but their kmins are, in general, distinct 
+    %                           for the same round sizes because their 
+    %                           stopping conditions are distinct and this 
+    %                           changes the CurrentTiers. Here, their 
     %                           p_values will be the same if n, k and both 
     %                           CurrentTiers are the same. That is, if 
-    %                           their histories are the same. However, 
-    %                           the stopping decisions might still differ
+    %                           their stopping histories and the most 
+    %                           recent draw are the same. However, the
+    %                           stopping decisions might still differ
     %                           because the LR needs to be tested as well 
     %                           for Athena. 
     %
@@ -53,15 +54,16 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
     % Compute LR value in log domain first.
 	LR = exp(log(1+margin)*k + log(1-margin)*(n-k));
     
-    % Arlo does not need stopping or probability schedules. 
-    if strcmp(audit_method,'Arlo')
+    % EoR does not need stopping or probability schedules. 
+    if strcmp(audit_method,'EoR')
         p_value = 1/LR;
     else        
         % pvalue is defined differently for different audits, but all 
-        % except Arlo need computation of the tails for this particular 
+        % except EoR need computation of the tails for this particular 
         % round. 
         TailStop = sum(CurrentTierStop(k+1:size(CurrentTierStop,2)));
         TailRisk = sum(CurrentTierRisk(k+1:size(CurrentTierRisk,2)));
+        % WHAT VALUE OF TailStop SHOULD WE CONSIDER AS TOO SMALL? 
         if strcmp(audit_method, 'Metis')
             % p_value is the ratio of total risk over all rounds to total 
             % stopping probability for all rounds. 
