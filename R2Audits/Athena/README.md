@@ -326,11 +326,11 @@ Observe that a sample satisfying *Minerva* will satisfy *Metis*, using the same 
 
 See the [*Athena*](https://arxiv.org/abs/2008.02315) paper.
 
-## Experimental Verification: *Minerva* is more efficient than EoR or SB *BRAVO* for a single round and 90\% stopping probability
+## Experimental Verification: *Athena* is more efficient than EoR or SB *BRAVO* for a single round and 90\% stopping probability
 
-<img src="fig/EoR-Distinct_Ballots.pdf" width="900">
+[Comparison of Athena with EoR BRAVO](fig/EoR-Distinct_Ballots.pdf)
 
-<img src="fig/SB-Distinct_Ballots.pdf" width="900">
+[Comparison of Athena with EoR BRAVO](fig/SB-Distinct_Ballots.pdf)
 
 ## B2 *Metis* is more efficient than the B2 *SPRT*
 
