@@ -324,11 +324,13 @@ Observe that a sample satisfying *Minerva* will satisfy *Metis*, using the same 
 
 ## Computing Stopping Probabilities Without Resorting to Simulations
 
-TBD
+See the [*Athena*](https://arxiv.org/abs/2008.02315) paper.
 
-## Experimental Verification: *Minerva* is more efficient than *BRAVO* for a single round and 90\% stopping probability
+## Experimental Verification: *Minerva* is more efficient than EoR or SB *BRAVO* for a single round and 90\% stopping probability
 
-TBD
+<img src="fig/EoR-Distinct_Ballots.pdf" width="900">
+
+<img src="fig/SB-Distinct_Ballots.pdf" width="900">
 
 ## B2 *Metis* is more efficient than the B2 *SPRT*
 
