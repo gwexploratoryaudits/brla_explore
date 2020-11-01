@@ -8,7 +8,7 @@
 %---
 
 %----Input
-x = 0.75; % Announced winner fraction
+x = 0.65; % Announced winner fraction
 n1 = 50; % Ballots drawn in round 1
 alpha = 0.1; % risk limit
 

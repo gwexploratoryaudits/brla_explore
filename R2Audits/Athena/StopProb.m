@@ -26,11 +26,12 @@ function [n, kmin, Stopping] = StopProb(margin, alpha, delta, ...
     %       k_last:             total number of winner votes drawn so far
     %       max_draws:          maximum number of ballots that can be 
     %                               drawn in all
-    %       audit_method:       one of Arlo, Athena, Minerva, Metis
+    %       audit_method:       one of EoR, Athena, Minerva, Metis
     %
     % -------------------------Outputs---------------------------
     %
-    %       n:                  total ballots drawn, (n_last+1:max_draws)
+    %       n:                  total cumulative ballots drawn, 
+    %                               (n_last+1:max_draws)
     %       kmin:               corresponding kmin
     %       Stopping:           corresponding stopping probability
     %
@@ -38,7 +39,7 @@ function [n, kmin, Stopping] = StopProb(margin, alpha, delta, ...
     % assumed fraction of winner votes
     p = (1+margin)/2;
 
-    % possible new total sample size
+    % possible new cumulative sample size
     n = (n_last+1:max_draws);
     
     % allocate kmin
@@ -47,12 +48,12 @@ function [n, kmin, Stopping] = StopProb(margin, alpha, delta, ...
     % allocate and initialize probabilities to zero
     Stopping = zeros(1, max_draws-n_last);
     
-    if strcmp(audit_method,'Arlo')
+    if strcmp(audit_method,'EoR')
         % ---------------Compute kmin ------------------%
         % Do not need current tier probabilities to compute kmin. 
         % R2BRAVOkmin returns first value for which round is large 
         % enough; but we prefer to compute for all rounds, so get 
-        % only slope and intercept.
+        % only slope and intercept. n here is unimportant. 
         [slope, intercept, ~, ~] = R2BRAVOkmin(margin, alpha, n);
         kmin = ceil(slope*n + intercept);
         
@@ -65,13 +66,13 @@ function [n, kmin, Stopping] = StopProb(margin, alpha, delta, ...
             end % Found Stopping(j)
         end
         
-    else % not Arlo
+    else % not EoR
         for j=1:max_draws-n_last % j is number of new ballots drawn   
             %--------------Compute kmin(j)----------------%
-            if n_last == 0 % Not Arlo, but first round. Do not need convolutions. 
+            if n_last == 0 % Not EoR, but first round. Do not need convolutions. 
                 NextTierStop = binopdf(0:j,j,p);
                 NextTierRisk = binopdf(0:j,j,0.5);
-            else % Not Arlo and not first round, need convolution
+            else % Not EoR and not first round, need convolution
                 NextTierStop = R2CurrentTier(margin,CurrentTierStop,j);
                 NextTierRisk = R2CurrentTier(0,CurrentTierRisk,j);
             end

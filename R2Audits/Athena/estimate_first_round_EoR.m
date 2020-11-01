@@ -1,6 +1,6 @@
-function [n_est, kmin, prob_est, kmslope, kmintercept] = estimate_first_round_Arlo(margin, alpha, prob)
-% n_est = estimate_first_round_Arlo(margin, alpha, prob)
-% Estimates first round size for Arlo, for a very low margin
+function [n_est, kmin, prob_est, kmslope, kmintercept] = estimate_first_round_EoR(margin, alpha, prob)
+% n_est = estimate_first_round_EoR(margin, alpha, prob)
+% Estimates first round size for EoR, for a very low margin
 p = (1+margin)/2;
 q = 1-p;
 

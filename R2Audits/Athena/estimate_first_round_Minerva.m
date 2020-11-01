@@ -1,6 +1,6 @@
-function n_est = estimate_first_round_Athena(margin, alpha, prob)
-% n_est = estimate_first_round_Athena(margin, alpha, prob)
-% Estimates first round size for Athena and Minerva, for a very low margin
+function n_est = estimate_first_round_Minerva(margin, alpha, prob)
+% n_est = estimate_first_round_Minerva(margin, alpha, prob)
+% Estimates first round size for Minerva, for a very low margin
 p = (1+margin)/2;
 q = 1-p;
 

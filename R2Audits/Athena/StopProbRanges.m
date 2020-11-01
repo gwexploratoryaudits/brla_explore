@@ -6,8 +6,9 @@ function [n, kmin, Stopping] = StopProbRanges(margin, alpha, delta, ...
     %   StopSched_prev, RiskSched_prev, CurrentTierStop, CurrentTierRisk, ... 
     %   n_last, k_last, min_draws, max_draws, audit_method)
     %
-    % Computes n, kmin and Stopping probability for various round sizes. 
-    % Outputs are arrays indexded by number of new ballots drawn. 
+    % Computes n, kmin and Stopping probability for cumulative round sizes 
+    % (n_last+min_draws, n_last+max_draws) 
+    % Outputs are arrays indexed by number of new ballots drawn. 
     %
     % ---------------------------Inputs------------------------
     %
@@ -25,11 +26,11 @@ function [n, kmin, Stopping] = StopProbRanges(margin, alpha, delta, ...
     %       k_last:             total number of winner votes drawn so far
     %       min_draws:          minimum number of new draws
     %       max_draws:          maximum number of new draws
-    %       audit_method:       one of Arlo, Athena, Minerva, Metis
+    %       audit_method:       one of EoR, Athena, Minerva, Metis
     %
     % -------------------------Outputs---------------------------
     %
-    %       n:                  total ballots drawn
+    %       n:                  total cumulative ballots drawn
     %       kmin:               corresponding kmin
     %       Stopping:           corresponding stopping probability
     %
@@ -49,7 +50,7 @@ function [n, kmin, Stopping] = StopProbRanges(margin, alpha, delta, ...
     % allocate and initialize probabilities to zero
     Stopping = zeros(1, size(n,2));
     
-    if strcmp(audit_method,'Arlo')
+    if strcmp(audit_method,'EoR')
         % ---------------Compute kmin ------------------%
         % Do not need current tier probabilities to compute kmin. 
         % R2BRAVOkmin returns first value for which round is large 
@@ -59,7 +60,7 @@ function [n, kmin, Stopping] = StopProbRanges(margin, alpha, delta, ...
         kmin = ceil(slope*n + intercept);
         
         %---------------Compute Stopping----------------%
-        for j=1:size(n,2) % j is index
+        for j=1:size(n,2) % j is index, not necessarily new ballots drawn
             if kmin(j) <= n(j)
                 % Round is large enough for  non-zero stopping probability. 
                 % Compute binomial cdf for kmin(j) - k_last
@@ -67,7 +68,7 @@ function [n, kmin, Stopping] = StopProbRanges(margin, alpha, delta, ...
             end % Found Stopping(j)
         end
         
-    else % not Arlo
+    else % not EoR
         for j=1:size(n,2) % j is index
             %--------------Compute kmin(j)----------------%
             if n_last == 0 % Not Arlo, but first round. Do not need convolutions. 

@@ -1,7 +1,7 @@
 # brla_explore/R2Audits
 exploratory code related to round-by-round RLAs
 
-We assume two candidates and no invalid votes. Almost all our R2 work is for audits with replacement. Most of our code for BRAVO as an R2 audit is for EoR (end-of-round) BRAVO. 
+We assume two candidates and no invalid votes. Almost all our R2 work is for audits with replacement. Most of our code for BRAVO as an R2 audit is for EoR (end-of-round) BRAVO. This directory contains more general code for round-by-round audits. For code specific to Athena, see the Athena subdirectory. 
 
 Read the README file for B2Audits first. 
 

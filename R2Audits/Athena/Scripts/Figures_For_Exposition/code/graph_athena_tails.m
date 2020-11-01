@@ -7,7 +7,7 @@
 %---
 
 %----Input
-p = 0.75; % Announced winner fraction
+p = 0.75; % Announced winner fraction, denoted x in README
 n1 = 50; % Ballots drawn in round 1
 k1 = 32; % winner ballots in sample
 

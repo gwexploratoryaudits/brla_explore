@@ -6,8 +6,8 @@ function [next_rounds_max, next_rounds_min, n, kmin, Stopping] = ...
     %
     % [next_rounds_max, next_rounds_min, n, kmin, Stopping] = 
     %   RangeNextRoundSizes(margin, alpha, delta, StopSched_prev, ...
-    %   RiskSched_prev, CurrentTierStop, CurrentTierRisk, ... 
-    %   n_last, k_last, percentiles, max_draws, audit_method)
+    %       RiskSched_prev, CurrentTierStop, CurrentTierRisk, ... 
+    %       n_last, k_last, percentiles, max_draws, audit_method)
     %
     % Computes range of next round sizes for given percentiles. 
     %
@@ -28,7 +28,7 @@ function [next_rounds_max, next_rounds_min, n, kmin, Stopping] = ...
     %       percentiles:        row vector of percentiles
     %       max_draws:          maximum number of ballots that can be 
     %                               drawn in all
-    %       audit_method:       one of Arlo, Athena, Minerva, Metis
+    %       audit_method:       one of EoR, Athena, Minerva, Metis
     %
     % -------------------------Outputs---------------------------
     %
@@ -36,7 +36,7 @@ function [next_rounds_max, next_rounds_min, n, kmin, Stopping] = ...
     %                               size with stopping prob. smaller than 
     %                               percentile value
     %       next_rounds_min:	min new draw sizes: smallest size with 
-    %                               stopping prob. smaller than percentile 
+    %                               stopping prob. larger than percentile 
     %                               value
     %       n:                  total ballots drawn
     %       kmin:               corresponding kmin
