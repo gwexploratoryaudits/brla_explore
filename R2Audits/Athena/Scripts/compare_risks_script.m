@@ -1,6 +1,7 @@
 % This script was used to check values in 
 % https://github.com/filipzz/athena/blob/master/code/athena/test_athena.json
 % They check out, for both values of margin
+% NOTE the term "Arlo" IS NOW REPLACED BY "EoR" in the code. 
 margin = 0.1;
 % margin = 0.2903;
 alpha = 0.1;
