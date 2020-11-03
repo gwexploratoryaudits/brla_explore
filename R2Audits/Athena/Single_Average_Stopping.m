@@ -1,10 +1,10 @@
 function [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ...
                 alpha, StopSched_prev, RiskSched_prev, CurrentTierStop, ...
-                CurrentTierRisk, n_prev, n_next)
+                CurrentTierRisk, n_prev, n_next, audit_method)
 %
 % [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ...
 %           alpha, StopSched_prev, RiskSched_prev, CurrentTierStop, ...
-%           CurrentTierRisk, n_prev, n_next)
+%           CurrentTierRisk, n_prev, n_next, audit_method)
 %
 % Computes stopping probability and kmin for a single given round. 
 % Crucially, this is without knowing k (number of winner ballots in sample). 
@@ -21,6 +21,7 @@ function [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ...
 %                               tied election
 %       n_prev:             total number of ballots drawn so far
 %       n_next:             potential next cumulative round size
+%       audit_method:       string representing 'Minerva' or 'EoR'
 %
 % -------------------------Outputs---------------------------
 % Each output is row vector of the size of percentiles
@@ -33,7 +34,7 @@ function [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ...
 %
 % Use for first round sizes as follows:
 %   [kmin, pstop, pstop_minus_1] = Single_Stopping(margin, alpha, (0), (0), ...
-%           (1), (1), 0, n_next)
+%           (1), (1), 0, n_next, audit_method)
 % 
 
 	% assumed fraction of winner votes
@@ -49,22 +50,32 @@ function [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ...
 	else % Not first round, need convolution
         NextTierStop = R2CurrentTier(margin,CurrentTierStop,new_draws);
         NextTierRisk = R2CurrentTier(0,CurrentTierRisk,new_draws);
-  end
-
-	% Now that we have the stopping and tied election 
-	% distributions, find a single kmin value for a new draw of 
-	% new_draw ballots. AthenaNextkmin returns n+1 if kmin larger 
-	% than n
-	kmin = AthenaNextkmin(margin, alpha, [], StopSched_prev, ...
-                RiskSched_prev, NextTierStop, NextTierRisk, n_next, 'Minerva');
-            
+    end
+    
+    if strcmp(audit_method,'EoR')
+        % Compute EoR kmin
+        % Compute kmin for EoR
+        % for ease of computation
+        logpoveroneminusp=log(p/(1-p));
+        kmslope = (log(0.5/(1-p)))/logpoveroneminusp;
+        kmintercept = - (log (alpha))/logpoveroneminusp;
+        kmin =ceil(kmslope*n_next + kmintercept);
+    else % Minerva
+        % Now that we have the stopping and tied election 
+        % distributions, find a single kmin value for a new draw of 
+        % new_draw ballots. AthenaNextkmin returns n+1 if kmin larger 
+        % than n
+        kmin = AthenaNextkmin(margin, alpha, [], StopSched_prev, ...
+                RiskSched_prev, NextTierStop, NextTierRisk, n_next, audit_method);
+    end
+                   
     %---------------Compute Stopping----------------%
 	if kmin <= n_next
         % Round is large enough for  non-zero stopping probability. 
         % Note that NextTierStop sums up to only 1-sum(StopSched_prev).
         all_stop = 1-sum(StopSched_prev);
         if all_stop >= 0.000001
-            pstop = sum(NextTierStop(kmin+1:n_next))/all_stop;
+            pstop = sum(NextTierStop(kmin+1:size(NextTierStop,2)))/all_stop;
         else
             pstop=0;
         end
@@ -83,15 +94,29 @@ function [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ...
         NextTierRisk = R2CurrentTier(0,CurrentTierRisk,new_draws-1);
 	end
     
-	kmin_minus_1 = AthenaNextkmin(margin, alpha, [], StopSched_prev, ...
-                RiskSched_prev, NextTierStop, NextTierRisk, n_next-1, 'Minerva');
+	if strcmp(audit_method,'EoR')
+        % Compute EoR kmin
+        % Compute kmin for EoR
+        % for ease of computation
+        logpoveroneminusp=log(p/(1-p));
+        kmslope = (log(0.5/(1-p)))/logpoveroneminusp;
+        kmintercept = - (log (alpha))/logpoveroneminusp;
+        kmin_minus_1 = ceil(kmslope*(n_next-1) + kmintercept);
+    else % Minerva
+        % Now that we have the stopping and tied election 
+        % distributions, find a single kmin value for a new draw of 
+        % new_draw ballots. AthenaNextkmin returns n+1 if kmin larger 
+        % than n
+        kmin_minus_1 = AthenaNextkmin(margin, alpha, [], StopSched_prev, ...
+                RiskSched_prev, NextTierStop, NextTierRisk, n_next-1, audit_method);
+    end
             
 	if kmin_minus_1 <= n_next-1
         % Round is large enough for  non-zero stopping probability. 
         if all_stop >= 0.000001
-            pstop_minus_1 = sum(NextTierStop(kmin_minus_1+1:n_next-1))/all_stop;
+            pstop_minus_1 = sum(NextTierStop(kmin_minus_1+1:size(NextTierStop,2)))/all_stop;
         else
-            pstop=0;
+            pstop_minus_1=0;
         end
     else
         pstop_minus_1 = 0;

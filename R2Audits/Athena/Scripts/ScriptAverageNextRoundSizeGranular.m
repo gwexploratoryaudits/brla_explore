@@ -1,12 +1,22 @@
-function [next_round_size, kmin_stopping, sprob] = ...
-    AverageNextRoundSizeGranular(margin, alpha, delta, StopSched_prev, ...
-    RiskSched_prev, CurrentTierStop, CurrentTierRisk, n_prev, ...
-    percentiles, max_round_size, tolerance, audit_method)
+%This is a script for the next round size function using binary search.
+%It prints to output left and right choices as they are made. 
+%Run the script typical.m and then run this script. 
+StopSched_prev = StopSched;
+RiskSched_prev = RiskSched;
+n_prev = n_in;
+k_prev = k_all;
+percentiles = [0.9];
+max_round_size = 10000;
+tolerance = 0.0001;
+%function [next_round_size, kmin_stopping, sprob] = ...
+%   AverageNextRoundSizeGranular(margin, alpha, delta, StopSched_prev, ...
+%   RiskSched_prev, CurrentTierStop, CurrentTierRisk, n_prev, ...
+%   percentiles, max_round_size, tolerance)
     %
     % [next_round_size, n, kmin, sprob] = ...
     % NextRoundSizeGranular(margin, alpha, delta, StopSched_prev, ...
     %   RiskSched_prev, CurrentTierStop, CurrentTierRisk, n_prev, ...
-    %   percentiles, max_round_size, tolerance, audit_method)
+    %   percentiles, max_round_size, tolerance)
     %
     % Computes next round sizes for Minerva, given percentiles, using 
     % binary search. Does not compute entire stopping probability curve,
@@ -30,7 +40,6 @@ function [next_round_size, kmin_stopping, sprob] = ...
     %       max_round_size:     maximum round size
     %       tolerance:          allowed deviation above required percentile
     %                               value
-    %       audit_method:       string 'Minerva' or 'EoR'
     %
     % -------------------------Outputs---------------------------
     % Each output is row vector of the size of percentiles
@@ -46,7 +55,7 @@ function [next_round_size, kmin_stopping, sprob] = ...
     % Use for first round sizes as follows:
     %   [next_round_size, kmin_stopping, sprob] = ...
     %       NextRoundSizeGranular(margin, alpha, delta, (0), (0), (1), ...
-    %           (1), 0, percentiles, max_round_size, tolerance, audit_method)
+    %           (1), 0, percentiles, max_round_size, tolerance)
     % 
  
     % Find value of j0 by binary search. 
@@ -65,33 +74,33 @@ function [next_round_size, kmin_stopping, sprob] = ...
     kmin_stopping = zeros(1, size(percentiles,2));
     
     for i=1:size(percentiles,2)
-        left = n_prev+1;
-        right = max_round_size;
+        left = n_prev+1
+        right = max_round_size
         next_round_size(i) = max_round_size+1; % if this isn't changed, the binary search failed. 
         while(left ~= right)
-            mid = floor((left+right)/2);
+            mid = floor((left+right)/2)
             [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ... 
                 alpha, StopSched_prev, RiskSched_prev, CurrentTierStop, ...
-                CurrentTierRisk, n_prev, mid, audit_method);
+                CurrentTierRisk, n_prev, mid);
             if (percentiles(i) <= pstop) && ...
                     (pstop <= percentiles(i) + tolerance || pstop_minus_1 < percentiles(i))
-                next_round_size(i) = mid;
+                next_round_size(i) = mid
                 break
             elseif pstop > percentiles(i)
-                right = mid;
+                right = mid
             elseif mid == left
                     break
             else
-                left = mid;
+                left = mid
             end
         end
         if next_round_size(i) == max_round_size+1
-            sprob(i)=0;
-            kmin_stopping(i) = max_round_size+1;
+            sprob(i)=0
+            kmin_stopping(i) = max_round_size+1
         else
-            sprob(i) = pstop;
-            kmin_stopping(i) = kmin;
+            sprob(i) = pstop
+            kmin_stopping(i) = kmin
         end
     end
-end
+%end
 

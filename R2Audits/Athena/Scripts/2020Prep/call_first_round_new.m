@@ -1,4 +1,4 @@
-% This script is called from within check_first_round_data
+% This script is called from within check_first_round_data and average_next_rounds_preds
         % This is first round. Initialization parameters below are fixed
         currently_drawn_ballots = 0;
         CurrentTierStop = (1);
