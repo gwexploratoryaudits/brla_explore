@@ -26,8 +26,8 @@ for i=1:size(states,1)
         % Write round sizes
         second_round.(states{i}).round_sizes_Minerva = [n_in, next_round_size];
         second_round.(states{i}).round_sizes_EoR = [n_in_B, next_round_size_B];
-        second_round.(states{i}).round_sizes_factor_Minerva = next_round_size/n_in;
-        second_round.(states{i}).round_sizes_factor_EoR = next_round_size_B/n_in_B;
+        second_round.(states{i}).second_round_sizes_factor_Minerva = next_round_size/n_in;
+        second_round.(states{i}).second_round_sizes_factor_EoR = next_round_size_B/n_in_B;
         second_round.(states{i}).second_round_size_factor_incremental = ...
             (next_round_size_B-n_in_B)/(next_round_size-n_in);
         second_round.(states{i}).average_round_size_Minerva = ...
@@ -39,15 +39,15 @@ for i=1:size(states,1)
             +(1-StopSched_B(1,1))*next_round_size_B)/(StopSched(1,1)*n_in ...
             +(1-StopSched(1,1))*next_round_size);
         % kmins
-        second_round.(states{i}).kmins_Minerva = [kmin, next_round_kmin];  
-        second_round.(states{i}).kmins_EoR = [kmin_B, next_round_kmin_B];
+        %second_round.(states{i}).kmins_Minerva = [kmin, next_round_kmin];  
+        %second_round.(states{i}).kmins_EoR = [kmin_B, next_round_kmin_B];
         % Probabilities
-        second_round.(states{i}).stop_prob_Minerva = [StopSched(1,1),next_round_sprob];
-        second_round.(states{i}).stop_prob_EoR = [StopSched_B(1,1),next_round_sprob_B];
-        second_round.(states{i}).cumulative_stop_prob_Minerva = ...
-            [StopSched(1,1),StopSched(1,1)+(1-StopSched(1,1))*next_round_sprob];
-        second_round.(states{i}).cumulative_stop_prob_EoR = ...
-            [StopSched_B(1,1),StopSched_B(1,1)+(1-StopSched_B(1,1))*next_round_sprob_B];
+        %second_round.(states{i}).stop_prob_Minerva = [StopSched(1,1),next_round_sprob];
+        %second_round.(states{i}).stop_prob_EoR = [StopSched_B(1,1),next_round_sprob_B];
+        %second_round.(states{i}).cumulative_stop_prob_Minerva = ...
+            %[StopSched(1,1),StopSched(1,1)+(1-StopSched(1,1))*next_round_sprob];
+        %second_round.(states{i}).cumulative_stop_prob_EoR = ...
+            %[StopSched_B(1,1),StopSched_B(1,1)+(1-StopSched_B(1,1))*next_round_sprob_B];
     end
 end
 
