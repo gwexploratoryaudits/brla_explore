@@ -65,24 +65,28 @@ function [next_round_size, kmin_stopping, sprob] = ...
     kmin_stopping = zeros(1, size(percentiles,2));
     
     for i=1:size(percentiles,2)
-        left = n_prev+1;
-        right = max_round_size;
         next_round_size(i) = max_round_size+1; % if this isn't changed, the binary search failed. 
-        while(left ~= right)
-            mid = floor((left+right)/2);
-            [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ... 
-                alpha, StopSched_prev, RiskSched_prev, CurrentTierStop, ...
-                CurrentTierRisk, n_prev, mid, audit_method);
-            if (percentiles(i) <= pstop) && ...
+        while (next_round_size(i) == max_round_size+1) && (max_round_size < 5000000)
+            max_round_size = 2*max_round_size;
+            next_round_size(i) = max_round_size+1; 
+            left = n_prev+1;
+            right = max_round_size;
+            while(left ~= right)
+                mid = floor((left+right)/2);
+                [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ... 
+                    alpha, StopSched_prev, RiskSched_prev, CurrentTierStop, ...
+                    CurrentTierRisk, n_prev, mid, audit_method);
+                if (percentiles(i) <= pstop) && ...
                     (pstop <= percentiles(i) + tolerance || pstop_minus_1 < percentiles(i))
-                next_round_size(i) = mid;
-                break
-            elseif pstop > percentiles(i)
-                right = mid;
-            elseif mid == left
+                    next_round_size(i) = mid;
                     break
-            else
-                left = mid;
+                elseif pstop > percentiles(i)
+                    right = mid;
+                elseif mid == left
+                    break
+                else
+                    left = mid;
+                end
             end
         end
         if next_round_size(i) == max_round_size+1

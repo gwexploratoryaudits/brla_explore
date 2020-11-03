@@ -242,6 +242,17 @@
 			"average_round_size_EoR":742.1230221,
 			"average_round_size_factor":1.929476523
 		},
+		"NewMexico":{
+			"margin":0.09301589869,
+			"round_sizes_Minerva":[824,2085],
+			"round_sizes_EoR":[1667,3295],
+			"second_round_sizes_factor_Minerva":2.530339806,
+			"second_round_sizes_factor_EoR":1.976604679,
+			"second_round_size_factor_incremental":1.291038858,
+			"average_round_size_Minerva":942.5497172,
+			"average_round_size_EoR":1823.290028,
+			"average_round_size_factor":1.934423187
+		},
 		"NewYork":{
 			"margin":0.2354488237,
 			"round_sizes_Minerva":[133,338],
@@ -263,6 +274,17 @@
 			"average_round_size_Minerva":54.18765278,
 			"average_round_size_EoR":95.997326,
 			"average_round_size_factor":1.771571956
+		},
+		"Ohio":{
+			"margin":0.08535369154,
+			"round_sizes_Minerva":[969,2465],
+			"round_sizes_EoR":[1978,3921],
+			"second_round_sizes_factor_Minerva":2.543859649,
+			"second_round_sizes_factor_EoR":1.982305359,
+			"second_round_size_factor_incremental":1.298796791,
+			"average_round_size_Minerva":1110.778243,
+			"average_round_size_EoR":2164.545754,
+			"average_round_size_factor":1.948674965
 		},
 		"Oklahoma":{
 			"margin":0.3860947448,
@@ -329,6 +351,17 @@
 			"average_round_size_Minerva":112.910374,
 			"average_round_size_EoR":212.4725994,
 			"average_round_size_factor":1.881781025
+		},
+		"Texas":{
+			"margin":0.09426451156,
+			"round_sizes_Minerva":[795,2017],
+			"round_sizes_EoR":[1628,3198],
+			"second_round_sizes_factor_Minerva":2.537106918,
+			"second_round_sizes_factor_EoR":1.964373464,
+			"second_round_size_factor_incremental":1.284779051,
+			"average_round_size_Minerva":910.1214444,
+			"average_round_size_EoR":1778.488688,
+			"average_round_size_factor":1.954122385
 		},
 		"Utah":{
 			"margin":0.2476731642,

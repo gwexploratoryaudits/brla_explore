@@ -8,16 +8,17 @@ fname='2016_one_round_all.json';
 election_results = loadjson(fileread(fname));
 states = fieldnames(election_results);
 
-%---Risk Limit and Audit
+%---Risk Limit, minimum margin and Audit
 alpha = 0.1;
+% doing only for 7% or larger margins right now
+margin_min = 0.07;
 audit_method = 'Minerva';
 audit_method_B = 'EoR';
 
 for i=1:size(states,1)
     margin = abs(election_results.(states{i}).contests.presidential.margin);
     margin_many(i) = margin;
-    % doing only for 20% or larger margins right now
-    if (margin > 0.1)
+    if (margin > margin_min)
         second_round.(states{i}).margin = margin;
         % First write raw first round sizes
         n_in = election_results.(states{i}).contests.presidential.Athena_pv_raw;
@@ -58,8 +59,17 @@ for i=1:size(states,1)
     end
 end
 
+% For graphs etc.
+n_in_many = n_in_many(margin_many > margin_min);
+n_in_B_many = n_in_B_many(margin_many > margin_min);
+next_round_many = next_round_many(margin_many > margin_min);
+next_round_B_many = next_round_B_many(margin_many > margin_min);
+average_many = average_many(margin_many > margin_min);
+average_B_many = average_B_many(margin_many > margin_min);
+margin_many = margin_many(margin_many > margin_min);
+
 % Write this back into a new file
-fname2='pred_both_next_rounds.json';
+fname2='pred_both_next_rounds_small_margins.json';
 txt = savejson(second_round);
 fid = fopen(fname2, 'w');
 if fid == -1, error('Cannot create JSON file'); end
