@@ -1,13 +1,13 @@
-function [kmin, pstop, pstop_minus_1] = Single_Stopping(margin, alpha, StopSched_prev, ...
-                RiskSched_prev, CurrentTierStop, CurrentTierRisk, ... 
-                n_prev, k_prev, n_next)
+function [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ...
+                alpha, StopSched_prev, RiskSched_prev, CurrentTierStop, ...
+                CurrentTierRisk, n_prev, n_next)
 %
-% [kmin, pstop, pstop_minus_1] = Single_Stopping(margin, alpha, StopSched_prev, ...
-%               RiskSched_prev, CurrentTierStop, CurrentTierRisk, ... 
-%               n_prev, k_prev, n_next)
+% [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ...
+%           alpha, StopSched_prev, RiskSched_prev, CurrentTierStop, ...
+%           CurrentTierRisk, n_prev, n_next)
 %
-% Computes stopping probability and kmin for a single given round for a 
-% single given k (number of winner ballots). 
+% Computes stopping probability and kmin for a single given round. 
+% Crucially, this is without knowing k (number of winner ballots in sample). 
 %
 % ---------------------------Inputs------------------------
 %
@@ -20,7 +20,6 @@ function [kmin, pstop, pstop_minus_1] = Single_Stopping(margin, alpha, StopSched
 %       CurrentTierRisk:    most recent winner vote distribution for 
 %                               tied election
 %       n_prev:             total number of ballots drawn so far
-%       k_prev:             total number of winner votes drawn so far
 %       n_next:             potential next cumulative round size
 %
 % -------------------------Outputs---------------------------
@@ -34,7 +33,7 @@ function [kmin, pstop, pstop_minus_1] = Single_Stopping(margin, alpha, StopSched
 %
 % Use for first round sizes as follows:
 %   [kmin, pstop, pstop_minus_1] = Single_Stopping(margin, alpha, (0), (0), ...
-%           (1), (1), 0, 0, n_next)
+%           (1), (1), 0, n_next)
 % 
 
 	% assumed fraction of winner votes
@@ -62,11 +61,15 @@ function [kmin, pstop, pstop_minus_1] = Single_Stopping(margin, alpha, StopSched
     %---------------Compute Stopping----------------%
 	if kmin <= n_next
         % Round is large enough for  non-zero stopping probability. 
-        % Compute binomial cdf for kmin - k_prev for a draw of 
-        % n_next ballots. 
-        pstop = 1-binocdf(kmin-k_prev-1,new_draws,p);
-  else
-      pstop = 0;
+        % Note that NextTierStop sums up to only 1-sum(StopSched_prev).
+        all_stop = 1-sum(StopSched_prev);
+        if all_stop >= 0.000001
+            pstop = sum(NextTierStop(kmin+1:n_next))/all_stop;
+        else
+            pstop=0;
+        end
+    else
+        pstop = 0;
 	end % Found pstop
             
      %--------Repeat above process for new_draws-1 --- %
@@ -85,10 +88,12 @@ function [kmin, pstop, pstop_minus_1] = Single_Stopping(margin, alpha, StopSched
             
 	if kmin_minus_1 <= n_next-1
         % Round is large enough for  non-zero stopping probability. 
-        % Compute binomial cdf for kmin_minus_1 - k_prev for a draw of 
-        % n_next-1 ballots. 
-        pstop_minus_1 = 1-binocdf(kmin_minus_1-k_prev-1,new_draws-1,p);
-  else
+        if all_stop >= 0.000001
+            pstop_minus_1 = sum(NextTierStop(kmin_minus_1+1:n_next-1))/all_stop;
+        else
+            pstop=0;
+        end
+    else
         pstop_minus_1 = 0;
 	end % Found pstop
             
