@@ -54,12 +54,12 @@ function [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ...
     
     if strcmp(audit_method,'EoR')
         % Compute EoR kmin
-        % Compute kmin for EoR
-        % for ease of computation
-        logpoveroneminusp=log(p/(1-p));
-        kmslope = (log(0.5/(1-p)))/logpoveroneminusp;
-        kmintercept = - (log (alpha))/logpoveroneminusp;
-        kmin =ceil(kmslope*n_next + kmintercept);
+        % Do not need current tier probabilities to compute kmin. 
+        % R2BRAVOkmin returns first value for which round is large 
+        % enough; but we prefer to compute for all rounds, so get 
+        % only slope and intercept. n here is unimportant. 
+        [slope, intercept, ~, ~] = R2BRAVOkmin(margin, alpha, n_next);
+        kmin = ceil(slope*n_next + intercept);
     else % Minerva
         % Now that we have the stopping and tied election 
         % distributions, find a single kmin value for a new draw of 
@@ -98,14 +98,11 @@ function [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ...
         % Compute EoR kmin
         % Compute kmin for EoR
         % for ease of computation
-        logpoveroneminusp=log(p/(1-p));
-        kmslope = (log(0.5/(1-p)))/logpoveroneminusp;
-        kmintercept = - (log (alpha))/logpoveroneminusp;
-        kmin_minus_1 = ceil(kmslope*(n_next-1) + kmintercept);
+        kmin_minus_1 = ceil(slope*(n_next-1) + intercept);
     else % Minerva
         % Now that we have the stopping and tied election 
         % distributions, find a single kmin value for a new draw of 
-        % new_draw ballots. AthenaNextkmin returns n+1 if kmin larger 
+        % new_draw-1 ballots. AthenaNextkmin returns n+1 if kmin larger 
         % than n
         kmin_minus_1 = AthenaNextkmin(margin, alpha, [], StopSched_prev, ...
                 RiskSched_prev, NextTierStop, NextTierRisk, n_next-1, audit_method);

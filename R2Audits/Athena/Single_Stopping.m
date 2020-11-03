@@ -7,7 +7,8 @@ function [kmin, pstop, pstop_minus_1] = Single_Stopping(margin, alpha, StopSched
 %               n_prev, k_prev, n_next)
 %
 % Computes stopping probability and kmin for a single given round for a 
-% single given k (number of winner ballots). 
+% single given k (number of winner ballots). Minerva. Also computes for 
+% theprevious size to detect a change. 
 %
 % ---------------------------Inputs------------------------
 %

@@ -28,10 +28,8 @@
         % for ease of computation
         % p is fractional vote for winner 
         p=(1+margin)/2;
-        logpoveroneminusp=log(p/(1-p));
-        kmslope = (log(0.5/(1-p)))/logpoveroneminusp;
-        kmintercept = - (log (alpha))/logpoveroneminusp;
-        kmin_B=ceil(kmslope*n_in + kmintercept);
+        [slope, intercept, ~, ~] = R2BRAVOkmin(margin, alpha, n_in_B);
+        kmin_B = ceil(slope*n_in_B + intercept);
 
         % Compute distributions for next round size and the next round
         if kmin <= n_in
