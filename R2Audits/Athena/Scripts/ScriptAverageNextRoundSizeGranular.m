@@ -4,19 +4,21 @@
 StopSched_prev = StopSched;
 RiskSched_prev = RiskSched;
 n_prev = n_in;
-k_prev = k_all;
 percentiles = [0.9];
 max_round_size = 10000;
 tolerance = 0.0001;
+audit_method = audit_method;
+CurrentTierStop = CurrentTierStop;
+CurrentTierRisk = CurrentTierRisk;
 %function [next_round_size, kmin_stopping, sprob] = ...
 %   AverageNextRoundSizeGranular(margin, alpha, delta, StopSched_prev, ...
 %   RiskSched_prev, CurrentTierStop, CurrentTierRisk, n_prev, ...
-%   percentiles, max_round_size, tolerance)
+%   percentiles, max_round_size, tolerance, audit_method)
     %
     % [next_round_size, n, kmin, sprob] = ...
     % NextRoundSizeGranular(margin, alpha, delta, StopSched_prev, ...
     %   RiskSched_prev, CurrentTierStop, CurrentTierRisk, n_prev, ...
-    %   percentiles, max_round_size, tolerance)
+    %   percentiles, max_round_size, tolerance, audit_method)
     %
     % Computes next round sizes for Minerva, given percentiles, using 
     % binary search. Does not compute entire stopping probability curve,
@@ -40,6 +42,7 @@ tolerance = 0.0001;
     %       max_round_size:     maximum round size
     %       tolerance:          allowed deviation above required percentile
     %                               value
+    %       audit_method:       string 'Minerva' or 'EoR'
     %
     % -------------------------Outputs---------------------------
     % Each output is row vector of the size of percentiles
@@ -55,7 +58,7 @@ tolerance = 0.0001;
     % Use for first round sizes as follows:
     %   [next_round_size, kmin_stopping, sprob] = ...
     %       NextRoundSizeGranular(margin, alpha, delta, (0), (0), (1), ...
-    %           (1), 0, percentiles, max_round_size, tolerance)
+    %           (1), 0, percentiles, max_round_size, tolerance, audit_method)
     % 
  
     % Find value of j0 by binary search. 
@@ -74,24 +77,34 @@ tolerance = 0.0001;
     kmin_stopping = zeros(1, size(percentiles,2));
     
     for i=1:size(percentiles,2)
+        flag=0
         left = n_prev+1
         right = max_round_size
-        next_round_size(i) = max_round_size+1; % if this isn't changed, the binary search failed. 
-        while(left ~= right)
-            mid = floor((left+right)/2)
-            [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ... 
-                alpha, StopSched_prev, RiskSched_prev, CurrentTierStop, ...
-                CurrentTierRisk, n_prev, mid);
-            if (percentiles(i) <= pstop) && ...
+        next_round_size(i) = max_round_size+1
+        while (flag==0) && (max_round_size < 5000000)
+            while(left < right)
+                mid = floor((left+right)/2)
+                [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ... 
+                    alpha, StopSched_prev, RiskSched_prev, CurrentTierStop, ...
+                    CurrentTierRisk, n_prev, mid, audit_method);
+                if (percentiles(i) <= pstop) && ...
                     (pstop <= percentiles(i) + tolerance || pstop_minus_1 < percentiles(i))
-                next_round_size(i) = mid
-                break
-            elseif pstop > percentiles(i)
-                right = mid
-            elseif mid == left
+                    next_round_size(i) = mid
+                    flag=1
                     break
-            else
-                left = mid
+                elseif pstop > percentiles(i)
+                    right = mid
+                elseif mid == left
+                    break
+                else
+                    left = mid
+                end
+            end
+            if flag == 0
+                left = max(max_round_size, left)
+                max_round_size = 2*max_round_size
+                right = max_round_size
+                next_round_size(i) = max_round_size+1
             end
         end
         if next_round_size(i) == max_round_size+1

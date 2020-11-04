@@ -65,13 +65,19 @@ function [next_round_size, kmin_stopping, sprob] = ...
     kmin_stopping = zeros(1, size(percentiles,2));
     
     for i=1:size(percentiles,2)
-        next_round_size(i) = max_round_size+1; % if this isn't changed, the binary search failed. 
-        while (next_round_size(i) == max_round_size+1) && (max_round_size < 5000000)
-            max_round_size = 2*max_round_size;
-            next_round_size(i) = max_round_size+1; 
-            left = n_prev+1;
-            right = max_round_size;
-            while(left ~= right)
+        flag=0;
+        left = n_prev+1;
+        right = max_round_size;
+        next_round_size(i) = max_round_size+1;
+        while (flag==0) && (max_round_size < 5000000)
+            if right > n_prev
+                [~, pstop_right, ~] = Single_Average_Stopping(margin, ... 
+                    alpha, StopSched_prev, RiskSched_prev, CurrentTierStop, ...
+                    CurrentTierRisk, n_prev, right, audit_method);  
+            else
+                pstop_right = 0;
+            end
+            while(left < right) && (percentiles(i) <= pstop_right)
                 mid = floor((left+right)/2);
                 [kmin, pstop, pstop_minus_1] = Single_Average_Stopping(margin, ... 
                     alpha, StopSched_prev, RiskSched_prev, CurrentTierStop, ...
@@ -79,6 +85,7 @@ function [next_round_size, kmin_stopping, sprob] = ...
                 if (percentiles(i) <= pstop) && ...
                     (pstop <= percentiles(i) + tolerance || pstop_minus_1 < percentiles(i))
                     next_round_size(i) = mid;
+                    flag=1;
                     break
                 elseif pstop > percentiles(i)
                     right = mid;
@@ -87,6 +94,12 @@ function [next_round_size, kmin_stopping, sprob] = ...
                 else
                     left = mid;
                 end
+            end
+            if flag == 0
+                left = max(max_round_size, left);
+                max_round_size = 2*max_round_size;
+                right = max_round_size;
+                next_round_size(i) = max_round_size+1;
             end
         end
         if next_round_size(i) == max_round_size+1

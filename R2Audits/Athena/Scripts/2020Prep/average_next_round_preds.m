@@ -1,6 +1,6 @@
 % Second round size using binary search without knowledge of 
 % winner ballots drawn, for both EoR and Minerva. 
-% For the moment, only margin >= 10%
+% For the moment, only margin >= 1%
 
 %---Read Presidential data. Need margin, which is not in simulation output
 % file. 
@@ -10,8 +10,8 @@ states = fieldnames(election_results);
 
 %---Risk Limit, minimum margin and Audit
 alpha = 0.1;
-% doing only for 7% or larger margins right now
-margin_min = 0.07;
+% doing only for 1% or larger margins right now
+margin_min = 0.005;
 audit_method = 'Minerva';
 audit_method_B = 'EoR';
 
