@@ -45,7 +45,7 @@ margin_many = margin_many(margin_many > margin_min);
 factor = next_round_B_many./next_round_many;
 
 % Write this back into a new file
-fname2='pred_both_first_rounds_90_20.json';
+fname2='pred_both_first_rounds_80_20.json';
 txt = savejson(second_round);
 fid = fopen(fname2, 'w');
 if fid == -1, error('Cannot create JSON file'); end
