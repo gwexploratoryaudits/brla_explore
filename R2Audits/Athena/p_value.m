@@ -67,7 +67,7 @@ function [p_value, LR] = p_value(margin, StopSched_prev, RiskSched_prev, ...
         if strcmp(audit_method, 'Metis')
             % p_value is the ratio of total risk over all rounds to total 
             % stopping probability for all rounds. 
-            p_value = (sum(RiskSched_prev)+TailRisk)/...
+            p_value = (sum(RiskSched_prev)+TailRisk)/...Tail
                 (sum(StopSched_prev)+TailStop);
         else
             % audit_method is either Athena or Minerva, and p_value is
