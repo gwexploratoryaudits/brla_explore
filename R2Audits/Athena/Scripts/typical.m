@@ -17,17 +17,19 @@ if i == 1
     end
     % Initialization parameters below are fixed
     currently_drawn_ballots = 0;
-    CurrentTierStop = (1);
-    CurrentTierRisk = (1);
+    this_draw = n_in(i)-currently_drawn_ballots;
+    CurrentTierStop = binopdf(0:this_draw,this_draw, 0.5*(1+margin));
+    CurrentTierRisk = binopdf(0:this_draw,this_draw, 0.5);
     StopSched = (0);
     RiskSched = (0);
 end
 
-this_draw = n_in(i)-currently_drawn_ballots;
-
-% Generate winning vote distributions for each hypothesis
-CurrentTierStop = R2CurrentTier(margin,CurrentTierStop,this_draw);
-CurrentTierRisk = R2CurrentTier(0,CurrentTierRisk,this_draw);
+if i >= 2
+    this_draw = n_in(i)-currently_drawn_ballots;
+    % Generate winning vote distributions for each hypothesis
+    CurrentTierStop = R2CurrentTier(margin,CurrentTierStop,this_draw);
+    CurrentTierRisk = R2CurrentTier(0,CurrentTierRisk,this_draw);
+end
 
 % Compute pvalues and likelihood ratios
 [pvalue(i), LR(i)] = p_value(margin, StopSched, RiskSched, ...

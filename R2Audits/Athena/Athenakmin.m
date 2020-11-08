@@ -72,14 +72,17 @@
     StopSched = zeros(1,NumberRounds);
     kmin = zeros(1, NumberRounds);
     
-    % Initialize pdfs of winner votes
-    CurrentTierStop = (1);
-    CurrentTierRisk = (1);
-    current_number_ballots = 0;
-    
     for j=1:NumberRounds
-        CurrentTierStop = R2CurrentTier(margin,CurrentTierStop,n_in(j)-current_number_ballots);
-        CurrentTierRisk = R2CurrentTier(0,CurrentTierRisk,n_in(j)-current_number_ballots);
+        if j == 1
+            % Initialize pdfs of winner votes
+            p = (1+margin)/2;
+            current_number_ballots = 0;
+            CurrentTierStop = binopdf(0:n_in(j), n_in(j),p);
+            CurrentTierRisk = binopdf(0:n_in(j), n_in(j),0.5);
+        else
+            CurrentTierStop = R2CurrentTier(margin,CurrentTierStop,n_in(j)-current_number_ballots);
+            CurrentTierRisk = R2CurrentTier(0,CurrentTierRisk,n_in(j)-current_number_ballots);
+        end
         kmin(j) = AthenaNextkmin(margin, alpha, delta, StopSched, ...
             RiskSched, CurrentTierStop, CurrentTierRisk, n_in(j), audit_method);
  

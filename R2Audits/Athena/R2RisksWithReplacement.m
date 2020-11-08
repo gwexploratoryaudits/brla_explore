@@ -49,10 +49,6 @@ function [RiskSched, CurrentTier] = R2RisksWithReplacement(margin, n, kmin)
     % Initialize risk schedule (or stopping prob. sched when margin is not 
     % zero). 
     RiskSched = zeros(1,NumberRounds);
-    
-    % Initialize CurrentTier: zero ballots with probability 1. 
-    CurrentTier = [1];
-    current_number_ballots = 0; 
 
     %---------For jth audit round-----------  
     % k: number of votes for the winner
@@ -65,10 +61,16 @@ function [RiskSched, CurrentTier] = R2RisksWithReplacement(margin, n, kmin)
     % the (new) CurrentTier. 
 
     for j=1:NumberRounds
-        new_round_draws = n(j)-current_number_ballots;
-        
-        % Vote distribution after drawing new_round_draws
-        CurrentTier = R2CurrentTier(margin, CurrentTier, new_round_draws);
+        if j==1
+            p = (1+margin)/2;
+            current_number_ballots = 0; 
+            new_round_draws = n(j)-current_number_ballots;
+            CurrentTier = binopdf(0:new_round_draws, new_round_draws,p);
+        else
+            new_round_draws = n(j)-current_number_ballots;
+            % Vote distribution after drawing new_round_draws
+            CurrentTier = R2CurrentTier(margin, CurrentTier, new_round_draws);
+        end
         
         % Risk for this round: 
         RiskSched(j) = sum(CurrentTier(kmin(j)+1:size(CurrentTier,2)));

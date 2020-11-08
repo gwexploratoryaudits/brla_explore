@@ -29,9 +29,16 @@ function CurrentTier = R2CurrentTier(margin, PreviousTier, new_round_draws)
     % p: fractional vote count for winner
     p = (1+margin)/2;
     
-    % We now construct the new CurrentTier as the convolution of 
+    % We can convolve the two functions directly
+    
+    CurrentTier = conv(binopdf(0:new_round_draws,new_round_draws, p), PreviousTier);
+    
+    % We could also construct the new CurrentTier as the convolution of 
     % PreviousTier and the binomial function for new_round_draws using 
-    % the fft. Padding before fft is necessary, see, for example, 
+    % the fft. For the moment we comment this out as the FFT causes small 
+    % incorrect negative values at the edges. 
+    
+    % Padding before fft is necessary, see, for example, 
     % https://www.mathworks.com/help/signal/ug/linear-and-circular-convolution.html
     
     % Consider two probability distributions of ballots: one with at most 
@@ -43,10 +50,10 @@ function CurrentTier = R2CurrentTier(margin, PreviousTier, new_round_draws)
     % size of the vector representing the sum. This is achieved by 
     % padding each vector by a zero vector of length: the other's size-1
     
-    NewBallots = [binopdf(0:new_round_draws,new_round_draws, p) ...
-        zeros(1,size(PreviousTier,2)-1)];
-    PreviousTier=[PreviousTier zeros(1,new_round_draws)];
+    % NewBallots = [binopdf(0:new_round_draws,new_round_draws, p) ...
+    %    zeros(1,size(PreviousTier,2)-1)];
+    %PreviousTier=[PreviousTier zeros(1,new_round_draws)];
     
     % CurrentTier is convolution of the two
-    CurrentTier=ifft(fft(PreviousTier).*fft(NewBallots));
+    %CurrentTier=ifft(fft(PreviousTier).*fft(NewBallots));
 end
