@@ -17,7 +17,6 @@
 			"round_sizes_Minerva_EoR":[114,213],
 			"round_sizes_Minerva_EoR_scaled":[116,217],
 			"round_sizes_factor":1.868421053,
-			"distinct_Minerva_EoR":[116,217],
 			"stop_prob_Minerva":0.9181868455,
 			"stop_prob_EoR":0.9104180435
 		},
@@ -38,7 +37,6 @@
 			"round_sizes_Minerva_EoR":[639,1301],
 			"round_sizes_Minerva_EoR_scaled":[669,1361],
 			"round_sizes_factor":2.03599374,
-			"distinct_Minerva_EoR":[669,1359],
 			"stop_prob_Minerva":0.9068564772,
 			"stop_prob_EoR":0.9044397413
 		},
@@ -55,12 +53,7 @@
 					"state_id":4,
 					"margin":0.003136633583
 				}
-			},
-			"round_sizes_Minerva_EoR":[698936,1453108],
-			"round_sizes_Minerva_EoR_scaled":[710152,1476426],
-			"round_sizes_factor":2.079028695,
-			"distinct_Minerva_EoR":[640652,1196732],
-			"stop_prob_EoR":0.899858637
+			}
 		},
 		"Arkansas":{
 			"contests":{
@@ -79,7 +72,6 @@
 			"round_sizes_Minerva_EoR":[88,176],
 			"round_sizes_Minerva_EoR_scaled":[91,182],
 			"round_sizes_factor":2,
-			"distinct_Minerva_EoR":[91,182],
 			"stop_prob_Minerva":0.9080621452,
 			"stop_prob_EoR":0.9088256432
 		},
@@ -100,7 +92,6 @@
 			"round_sizes_Minerva_EoR":[79,160],
 			"round_sizes_Minerva_EoR_scaled":[81,164],
 			"round_sizes_factor":2.025316456,
-			"distinct_Minerva_EoR":[81,164],
 			"stop_prob_Minerva":0.9121085803,
 			"stop_prob_EoR":0.9157899539
 		},
@@ -121,7 +112,6 @@
 			"round_sizes_Minerva_EoR":[371,747],
 			"round_sizes_Minerva_EoR_scaled":[384,774],
 			"round_sizes_factor":2.013477089,
-			"distinct_Minerva_EoR":[384,774],
 			"stop_prob_Minerva":0.9089399888,
 			"stop_prob_EoR":0.9059606447
 		},
@@ -142,7 +132,6 @@
 			"round_sizes_Minerva_EoR":[171,345],
 			"round_sizes_Minerva_EoR_scaled":[174,351],
 			"round_sizes_factor":2.01754386,
-			"distinct_Minerva_EoR":[174,351],
 			"stop_prob_Minerva":0.9056107604,
 			"stop_prob_EoR":0.9092601862
 		},
@@ -163,7 +152,6 @@
 			"round_sizes_Minerva_EoR":[196,381],
 			"round_sizes_Minerva_EoR_scaled":[199,387],
 			"round_sizes_factor":1.943877551,
-			"distinct_Minerva_EoR":[199,387],
 			"stop_prob_Minerva":0.9131529252,
 			"stop_prob_EoR":0.9068367191
 		},
@@ -184,7 +172,6 @@
 			"round_sizes_Minerva_EoR":[7,13],
 			"round_sizes_Minerva_EoR_scaled":[8,14],
 			"round_sizes_factor":1.857142857,
-			"distinct_Minerva_EoR":[8,14],
 			"stop_prob_Minerva":0.9466252303,
 			"stop_prob_EoR":0.9681072518
 		},
@@ -205,7 +192,6 @@
 			"round_sizes_Minerva_EoR":[6015,12421],
 			"round_sizes_Minerva_EoR_scaled":[6071,12537],
 			"round_sizes_factor":2.065004156,
-			"distinct_Minerva_EoR":[6070,12530],
 			"stop_prob_Minerva":0.9012104325,
 			"stop_prob_EoR":0.9004058841
 		},
@@ -222,12 +208,7 @@
 					"state_id":13,
 					"margin":0.002386593258
 				}
-			},
-			"round_sizes_Minerva_EoR":[1207283,2509975],
-			"round_sizes_Minerva_EoR_scaled":[1223054,2542764],
-			"round_sizes_factor":2.079027867,
-			"distinct_Minerva_EoR":[1084953,1993171],
-			"stop_prob_EoR":0.8998831702
+			}
 		},
 		"Hawaii":{
 			"contests":{
@@ -246,7 +227,6 @@
 			"round_sizes_Minerva_EoR":[79,158],
 			"round_sizes_Minerva_EoR_scaled":[82,163],
 			"round_sizes_factor":2,
-			"distinct_Minerva_EoR":[82,163],
 			"stop_prob_Minerva":0.9157917518,
 			"stop_prob_EoR":0.9146696889
 		},
@@ -267,7 +247,6 @@
 			"round_sizes_Minerva_EoR":[75,140],
 			"round_sizes_Minerva_EoR_scaled":[78,145],
 			"round_sizes_factor":1.866666667,
-			"distinct_Minerva_EoR":[78,145],
 			"stop_prob_Minerva":0.9232808175,
 			"stop_prob_EoR":0.9146903202
 		},
@@ -288,7 +267,6 @@
 			"round_sizes_Minerva_EoR":[240,473],
 			"round_sizes_Minerva_EoR_scaled":[245,483],
 			"round_sizes_factor":1.970833333,
-			"distinct_Minerva_EoR":[245,483],
 			"stop_prob_Minerva":0.9106993321,
 			"stop_prob_EoR":0.9034578497
 		},
@@ -309,7 +287,6 @@
 			"round_sizes_Minerva_EoR":[267,537],
 			"round_sizes_Minerva_EoR_scaled":[273,549],
 			"round_sizes_factor":2.011235955,
-			"distinct_Minerva_EoR":[273,549],
 			"stop_prob_Minerva":0.9111136542,
 			"stop_prob_EoR":0.9051436721
 		},
@@ -330,7 +307,6 @@
 			"round_sizes_Minerva_EoR":[1010,2031],
 			"round_sizes_Minerva_EoR_scaled":[1037,2085],
 			"round_sizes_factor":2.010891089,
-			"distinct_Minerva_EoR":[1037,2084],
 			"stop_prob_Minerva":0.904891218,
 			"stop_prob_EoR":0.9013786559
 		},
@@ -351,7 +327,6 @@
 			"round_sizes_Minerva_EoR":[313,629],
 			"round_sizes_Minerva_EoR_scaled":[321,644],
 			"round_sizes_factor":2.009584665,
-			"distinct_Minerva_EoR":[321,644],
 			"stop_prob_Minerva":0.9045484262,
 			"stop_prob_EoR":0.9032024227
 		},
@@ -372,7 +347,6 @@
 			"round_sizes_Minerva_EoR":[103,200],
 			"round_sizes_Minerva_EoR_scaled":[105,204],
 			"round_sizes_factor":1.941747573,
-			"distinct_Minerva_EoR":[105,204],
 			"stop_prob_Minerva":0.910126417,
 			"stop_prob_EoR":0.9033667088
 		},
@@ -393,7 +367,6 @@
 			"round_sizes_Minerva_EoR":[196,403],
 			"round_sizes_Minerva_EoR_scaled":[200,410],
 			"round_sizes_factor":2.056122449,
-			"distinct_Minerva_EoR":[200,410],
 			"stop_prob_Minerva":0.9055469194,
 			"stop_prob_EoR":0.9084284243
 		},
@@ -414,7 +387,6 @@
 			"round_sizes_Minerva_EoR":[820,1640],
 			"round_sizes_Minerva_EoR_scaled":[854,1707],
 			"round_sizes_factor":2,
-			"distinct_Minerva_EoR":[854,1706],
 			"stop_prob_Minerva":0.9062353237,
 			"stop_prob_EoR":0.902151112
 		},
@@ -435,7 +407,6 @@
 			"round_sizes_Minerva_EoR":[64,115],
 			"round_sizes_Minerva_EoR_scaled":[66,118],
 			"round_sizes_factor":1.796875,
-			"distinct_Minerva_EoR":[66,118],
 			"stop_prob_Minerva":0.9225519917,
 			"stop_prob_EoR":0.9030393825
 		},
@@ -456,7 +427,6 @@
 			"round_sizes_Minerva_EoR":[64,115],
 			"round_sizes_Minerva_EoR_scaled":[66,119],
 			"round_sizes_factor":1.796875,
-			"distinct_Minerva_EoR":[66,119],
 			"stop_prob_Minerva":0.9247136537,
 			"stop_prob_EoR":0.9064348034
 		},
@@ -477,7 +447,6 @@
 			"round_sizes_Minerva_EoR":[8678,17909],
 			"round_sizes_Minerva_EoR_scaled":[8814,18190],
 			"round_sizes_factor":2.06372436,
-			"distinct_Minerva_EoR":[8807,18161],
 			"stop_prob_Minerva":0.9018635551,
 			"stop_prob_EoR":0.9011347338
 		},
@@ -498,7 +467,6 @@
 			"round_sizes_Minerva_EoR":[1318,2715],
 			"round_sizes_Minerva_EoR_scaled":[1350,2780],
 			"round_sizes_factor":2.059939302,
-			"distinct_Minerva_EoR":[1350,2779],
 			"stop_prob_Minerva":0.9025009436,
 			"stop_prob_EoR":0.9033727783
 		},
@@ -519,7 +487,6 @@
 			"round_sizes_Minerva_EoR":[259,518],
 			"round_sizes_Minerva_EoR_scaled":[263,526],
 			"round_sizes_factor":2,
-			"distinct_Minerva_EoR":[263,526],
 			"stop_prob_Minerva":0.9112494692,
 			"stop_prob_EoR":0.9081523647
 		},
@@ -540,7 +507,6 @@
 			"round_sizes_Minerva_EoR":[288,576],
 			"round_sizes_Minerva_EoR_scaled":[294,587],
 			"round_sizes_factor":2,
-			"distinct_Minerva_EoR":[294,587],
 			"stop_prob_Minerva":0.9063478351,
 			"stop_prob_EoR":0.9061961427
 		},
@@ -561,7 +527,6 @@
 			"round_sizes_Minerva_EoR":[257,509],
 			"round_sizes_Minerva_EoR_scaled":[264,523],
 			"round_sizes_factor":1.980544747,
-			"distinct_Minerva_EoR":[264,523],
 			"stop_prob_Minerva":0.9093265122,
 			"stop_prob_EoR":0.9072377573
 		},
@@ -582,7 +547,6 @@
 			"round_sizes_Minerva_EoR":[186,371],
 			"round_sizes_Minerva_EoR_scaled":[191,381],
 			"round_sizes_factor":1.994623656,
-			"distinct_Minerva_EoR":[191,381],
 			"stop_prob_Minerva":0.9028292005,
 			"stop_prob_EoR":0.9032109871
 		},
@@ -603,7 +567,6 @@
 			"round_sizes_Minerva_EoR":[11562,23964],
 			"round_sizes_Minerva_EoR_scaled":[11832,24523],
 			"round_sizes_factor":2.07265179,
-			"distinct_Minerva_EoR":[11783,24311],
 			"stop_prob_Minerva":0.9001129586,
 			"stop_prob_EoR":0.9009965495
 		},
@@ -624,7 +587,6 @@
 			"round_sizes_Minerva_EoR":[1259,2553],
 			"round_sizes_Minerva_EoR_scaled":[1284,2604],
 			"round_sizes_factor":2.027799841,
-			"distinct_Minerva_EoR":[1283,2600],
 			"stop_prob_Minerva":0.9049813069,
 			"stop_prob_EoR":0.9027719447
 		},
@@ -645,7 +607,6 @@
 			"round_sizes_Minerva_EoR":[274,547],
 			"round_sizes_Minerva_EoR_scaled":[278,555],
 			"round_sizes_factor":1.996350365,
-			"distinct_Minerva_EoR":[278,555],
 			"stop_prob_Minerva":0.9028003197,
 			"stop_prob_EoR":0.9051088623
 		},
@@ -666,7 +627,6 @@
 			"round_sizes_Minerva_EoR":[586,1185],
 			"round_sizes_Minerva_EoR_scaled":[600,1212],
 			"round_sizes_factor":2.0221843,
-			"distinct_Minerva_EoR":[600,1212],
 			"stop_prob_Minerva":0.9058492516,
 			"stop_prob_EoR":0.9046281277
 		},
@@ -687,7 +647,6 @@
 			"round_sizes_Minerva_EoR":[135,254],
 			"round_sizes_Minerva_EoR_scaled":[138,260],
 			"round_sizes_factor":1.881481481,
-			"distinct_Minerva_EoR":[138,260],
 			"stop_prob_Minerva":0.9160327328,
 			"stop_prob_EoR":0.9067722558
 		},
@@ -708,7 +667,6 @@
 			"round_sizes_Minerva_EoR":[36875,76250],
 			"round_sizes_Minerva_EoR_scaled":[37429,77396],
 			"round_sizes_factor":2.06779661,
-			"distinct_Minerva_EoR":[37303,76857],
 			"stop_prob_Minerva":0.9004657591,
 			"stop_prob_EoR":0.9003357011
 		},
@@ -729,7 +687,6 @@
 			"round_sizes_Minerva_EoR":[62,113],
 			"round_sizes_Minerva_EoR_scaled":[65,117],
 			"round_sizes_factor":1.822580645,
-			"distinct_Minerva_EoR":[65,117],
 			"stop_prob_Minerva":0.9174180388,
 			"stop_prob_EoR":0.9009661004
 		},
@@ -750,7 +707,6 @@
 			"round_sizes_Minerva_EoR":[1063,2148],
 			"round_sizes_Minerva_EoR_scaled":[1080,2181],
 			"round_sizes_factor":2.020696143,
-			"distinct_Minerva_EoR":[1080,2181],
 			"stop_prob_Minerva":0.9053426873,
 			"stop_prob_EoR":0.9034509949
 		},
@@ -771,7 +727,6 @@
 			"round_sizes_Minerva_EoR":[64,122],
 			"round_sizes_Minerva_EoR_scaled":[66,125],
 			"round_sizes_factor":1.90625,
-			"distinct_Minerva_EoR":[66,125],
 			"stop_prob_Minerva":0.9202810738,
 			"stop_prob_EoR":0.9147866745
 		},
@@ -792,7 +747,6 @@
 			"round_sizes_Minerva_EoR":[259,517],
 			"round_sizes_Minerva_EoR_scaled":[268,534],
 			"round_sizes_factor":1.996138996,
-			"distinct_Minerva_EoR":[268,534],
 			"stop_prob_Minerva":0.9070745111,
 			"stop_prob_EoR":0.908508478
 		},
@@ -813,7 +767,6 @@
 			"round_sizes_Minerva_EoR":[49696,103144],
 			"round_sizes_Minerva_EoR_scaled":[50274,104342],
 			"round_sizes_factor":2.075499034,
-			"distinct_Minerva_EoR":[50092,103559],
 			"stop_prob_Minerva":0.9007453624,
 			"stop_prob_EoR":0.9004922533
 		},
@@ -834,7 +787,6 @@
 			"round_sizes_Minerva_EoR":[160,313],
 			"round_sizes_Minerva_EoR_scaled":[164,319],
 			"round_sizes_factor":1.95625,
-			"distinct_Minerva_EoR":[164,319],
 			"stop_prob_Minerva":0.9137707277,
 			"stop_prob_EoR":0.9015334243
 		},
@@ -855,7 +807,6 @@
 			"round_sizes_Minerva_EoR":[508,1027],
 			"round_sizes_Minerva_EoR_scaled":[516,1043],
 			"round_sizes_factor":2.021653543,
-			"distinct_Minerva_EoR":[516,1043],
 			"stop_prob_Minerva":0.9039340448,
 			"stop_prob_EoR":0.9050153512
 		},
@@ -876,7 +827,6 @@
 			"round_sizes_Minerva_EoR":[103,186],
 			"round_sizes_Minerva_EoR_scaled":[106,192],
 			"round_sizes_factor":1.805825243,
-			"distinct_Minerva_EoR":[106,192],
 			"stop_prob_Minerva":0.9179800934,
 			"stop_prob_EoR":0.9011881922
 		},
@@ -897,7 +847,6 @@
 			"round_sizes_Minerva_EoR":[133,254],
 			"round_sizes_Minerva_EoR_scaled":[136,259],
 			"round_sizes_factor":1.909774436,
-			"distinct_Minerva_EoR":[136,259],
 			"stop_prob_Minerva":0.9153563078,
 			"stop_prob_EoR":0.9127336181
 		},
@@ -918,7 +867,6 @@
 			"round_sizes_Minerva_EoR":[2188,4453],
 			"round_sizes_Minerva_EoR_scaled":[2221,4520],
 			"round_sizes_factor":2.035191956,
-			"distinct_Minerva_EoR":[2221,4520],
 			"stop_prob_Minerva":0.9037468409,
 			"stop_prob_EoR":0.9018592831
 		},
@@ -939,7 +887,6 @@
 			"round_sizes_Minerva_EoR":[158,313],
 			"round_sizes_Minerva_EoR_scaled":[165,327],
 			"round_sizes_factor":1.981012658,
-			"distinct_Minerva_EoR":[165,327],
 			"stop_prob_Minerva":0.9135955448,
 			"stop_prob_EoR":0.9073586322
 		},
@@ -960,7 +907,6 @@
 			"round_sizes_Minerva_EoR":[55,104],
 			"round_sizes_Minerva_EoR_scaled":[58,109],
 			"round_sizes_factor":1.890909091,
-			"distinct_Minerva_EoR":[58,109],
 			"stop_prob_Minerva":0.9266460889,
 			"stop_prob_EoR":0.9141157217
 		},
@@ -981,7 +927,6 @@
 			"round_sizes_Minerva_EoR":[664,1342],
 			"round_sizes_Minerva_EoR_scaled":[677,1368],
 			"round_sizes_factor":2.021084337,
-			"distinct_Minerva_EoR":[677,1368],
 			"stop_prob_Minerva":0.9039529601,
 			"stop_prob_EoR":0.9030146303
 		},
@@ -1002,7 +947,6 @@
 			"round_sizes_Minerva_EoR":[186,369],
 			"round_sizes_Minerva_EoR_scaled":[193,382],
 			"round_sizes_factor":1.983870968,
-			"distinct_Minerva_EoR":[193,382],
 			"stop_prob_Minerva":0.9094660291,
 			"stop_prob_EoR":0.9096574692
 		},
@@ -1023,7 +967,6 @@
 			"round_sizes_Minerva_EoR":[49,88],
 			"round_sizes_Minerva_EoR_scaled":[50,90],
 			"round_sizes_factor":1.795918367,
-			"distinct_Minerva_EoR":[50,90],
 			"stop_prob_Minerva":0.9256541574,
 			"stop_prob_EoR":0.9136556257
 		},
@@ -1040,12 +983,7 @@
 					"state_id":55,
 					"margin":0.006381265331
 				}
-			},
-			"round_sizes_Minerva_EoR":[168867,351081],
-			"round_sizes_Minerva_EoR_scaled":[171837,357255],
-			"round_sizes_factor":2.079038533,
-			"distinct_Minerva_EoR":[167438,338586],
-			"stop_prob_EoR":0.8994094228
+			}
 		},
 		"Wyoming":{
 			"contests":{
@@ -1064,7 +1002,6 @@
 			"round_sizes_Minerva_EoR":[35,64],
 			"round_sizes_Minerva_EoR_scaled":[37,67],
 			"round_sizes_factor":1.828571429,
-			"distinct_Minerva_EoR":[37,67],
 			"stop_prob_Minerva":0.9249481791,
 			"stop_prob_EoR":0.9119697339
 		}
