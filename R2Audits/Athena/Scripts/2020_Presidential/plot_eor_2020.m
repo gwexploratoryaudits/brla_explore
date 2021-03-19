@@ -55,6 +55,6 @@ hold
 %plot(margin2, ratio_SO, 'v', 'Color', [0.5 0 0], 'MarkerSize', 10, 'LineWidth', 3);
 plot(margin2, ratio_SO, 'v', 'Color', [0.5 0 0], 'MarkerSize', 7, 'LineWidth', 2);
 xlabel('Announced Election Margin', 'FontSize', 16);
-ylabel('Minerva Round-Size as a Fraction', 'FontSize', 16)
+ylabel('Bravo Round-Size as a Fraction', 'FontSize', 16)
 legend('End-of-Round Bravo', 'Selection-Ordered-Ballots Bravo', 'FontSize', 14)
 %legend('End-of-Round Bravo')
