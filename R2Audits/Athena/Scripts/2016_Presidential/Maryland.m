@@ -17,12 +17,12 @@ MD_Data = [0.015	253	2425	203;
 0.250	18	9	158;
 0.300	15	6	157];
 
-plot(MD_Data(:, 1), MD_Data(:, 2), 'b^-', MD_Data(:, 1), MD_Data(:, 4), ...
-    'r*-', MD_Data(:, 1), MD_Data(:, 3), 'ks-', 'MarkerSize', 10, 'LineWidth', 2)
-axis([0 0.3 0 500])
-title('No. of Ballots as a function of margin', 'FontSize', 32)
-xlabel('Margin', 'FontSize', 28)
-ylabel('Number of Ballots', 'FontSize', 28)
+plot(100*MD_Data(:, 1), MD_Data(:, 2), 'b^-', 100*MD_Data(:, 1), MD_Data(:, 4), ...
+    'r*-', 100*MD_Data(:, 1), MD_Data(:, 3), 'ks-', 'MarkerSize', 10, 'LineWidth', 2)
+axis([0 30 0 250])
+title('Person-hours as a function of margin', 'FontSize', 32)
+xlabel('Percent Margin', 'FontSize', 28)
+ylabel('Number of Person-hours', 'FontSize', 28)
 legend('Batch Comparison', 'Ballot Comparison', 'Ballot Polling', 'FontSize', 24)
 ax = gca;
 ax.FontSize = 24;
