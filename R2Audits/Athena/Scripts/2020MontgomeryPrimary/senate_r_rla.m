@@ -1,5 +1,5 @@
 % Computes Minerva and Bravo pvalues as a function of sample size
-% using sample data from sampled.m
+% using sample data from sampled_ccd.m
 % Presidential primary, Montgomery County, OH, 2020
 % 2020_montgomery_official.json
 %
@@ -117,56 +117,4 @@
         p_max_sb(i) = max(p_sb(i, :));
 	end 
         
-    % Plot
-% Name colors
-maroon = [0.5 0 0];
-navy = [0 0 0.5];
-dull_green = [0 0.6 0];
-dull_orange = [0.8, 0.3, 0];
-
-begin_from = 1;
-end_at = 240;
-
-% Bravo p-value 
-first_plot = plot((begin_from:end_at), p_max_eor, 's-', ...
-   'Color', dull_green);
-hold
-
-second_plot = plot((begin_from:end_at), p_max_sb, '*-', ...
-   'Color', navy);
-
-third_plot = plot((begin_from:end_at), p_max_minerva, 'o-', ...
-   'Color', maroon);
-
-% Draw horizontal line at 2 risk limits and label
-yl1 = yline(alpha, ':', {sprintf('Risk limit = %1.4f', alpha)});
-yl1.LineWidth=2;
-yl1.FontSize=14;
-yl1.LabelHorizontalAlignment='left';
-
-yl2 = yline(alpha/2, ':', {sprintf('Risk limit = %1.4f', alpha/2)});
-yl2.LineWidth=2;
-yl2.FontSize=14;
-yl2.LabelHorizontalAlignment='left';
-
-% Label axes
-xlabel('Number of ballots drawn', 'FontSize', 14)
-ylabel('Computed p-value', 'FontSize', 14)
-title('Presidential Primary, Democrat', 'FontSize', 16) 
-
-% Legend
-legend(vertcat(first_plot, second_plot, third_plot), 'EoR p-value', ...
-    'SB p-value', 'Minerva p-value', 'Location', 'NorthEast', 'FontSize', 14)
-
-axis([0, 100, 0.00, 0.125])
-
-values_point1 = [find(p_max_minerva <= 0.1, 1), find(p_max_sb <= 0.1, 1), find(p_max_eor <= 0.1, 1)]
-values_point05 = [find(p_max_minerva <= 0.05, 1), find(p_max_sb <= 0.05, 1), find(p_max_eor <= 0.05, 1)]
-
-p_max_minerva(240)
-p_max_sb(240)
-p_max_eor(240)
-
-
-
-
+    

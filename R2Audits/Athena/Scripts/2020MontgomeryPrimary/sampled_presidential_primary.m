@@ -238,3 +238,15 @@ sample = [0,0,0,0,0,0,0,0,0,0
 1,0,0,0,0,0,0,0,0,0
 0,0,0,0,0,0,0,0,0,0
 0,0,0,0,0,0,0,0,0,0];
+
+% Bad manual fix I here: there are no votes in the sample for candidate 
+% 1, who is ignored in the above numbers so we stick in a zero column 
+% here to make the sample consistent with the candidates. 
+new_sample = transpose([zeros(1,size(sample,1)); transpose(sample)]);
+    
+% Bad manual fix II here. Senator Booker had two votes in the sample
+% but none in the official results. We delete him from the samples and
+% we also delete write-ins from the candidates.
+new_sample_2 = new_sample(:, [1:3 5:11]); 
+
+sample = new_sample_2;
