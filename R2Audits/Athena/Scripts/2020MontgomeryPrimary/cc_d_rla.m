@@ -118,7 +118,7 @@
 % Name colors
 maroon = [0.5 0 0];
 navy = [0 0 0.5];
-dull_green = [0 0.6 0];
+dull_green = [0 0.3 0];
 dull_orange = [0.8, 0.3, 0];
 
 begin_from = 1;
@@ -126,14 +126,14 @@ end_at = 240;
 
 % Bravo p-value 
 first_plot = plot((begin_from:end_at), p_max_eor, 's-', ...
-   'Color', dull_green);
+   'Color', navy);
 hold
 
 second_plot = plot((begin_from:end_at), p_max_sb, '*-', ...
-   'Color', navy);
+   'Color', maroon);
 
 third_plot = plot((begin_from:end_at), p_max_minerva, 'o-', ...
-   'Color', maroon);
+   'Color', dull_green);
 
 % Draw horizontal line at 2 risk limits and label
 yl1 = yline(alpha, ':', {sprintf('Risk limit = %1.4f', alpha)});
@@ -147,13 +147,13 @@ yl2.FontSize=14;
 yl2.LabelHorizontalAlignment='left';
 
 % Label axes
-xlabel('Number of ballots drawn', 'FontSize', 14)
-ylabel('Computed p-value', 'FontSize', 14)
-title('City Commissioner, Democrat', 'FontSize', 16) 
+xlabel('Number of ballots drawn', 'FontSize', 16)
+ylabel('Computed p-value', 'FontSize', 16)
+title('County Commissioner FTC 1-2-2021, Democrat', 'FontSize', 18) 
 
 % Legend
 legend(vertcat(first_plot, second_plot, third_plot), 'EoR p-value', ...
-    'SB p-value', 'Minerva p-value', 'Location', 'NorthEast', 'FontSize', 14)
+    'SB p-value', 'Minerva p-value', 'Location', 'NorthEast', 'FontSize', 16)
 
 axis([0, 100, 0.00, 0.125])
 
