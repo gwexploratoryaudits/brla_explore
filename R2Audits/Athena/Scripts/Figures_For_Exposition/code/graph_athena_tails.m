@@ -49,9 +49,9 @@ yl2.FontSize = 14;
 yl2.LabelHorizontalAlignment='left';
 
 % Label axes
-xlabel('Number of winner ballots in first round, $K_1$', 'FontSize', 14, 'Interpreter', 'latex')
-ylabel('Probability', 'FontSize', 14)
-title(sprintf('Probability as a function of winner ballots; $n_1$ = %d', n1), 'FontSize', 16, 'Interpreter', 'latex') 
+xlabel('Number of winner ballots in first round, $K_1$', 'FontSize', 16, 'Interpreter', 'latex')
+ylabel('Probability', 'FontSize', 16)
+title(sprintf('Probability as a function of winner ballots; $n_1$ = %d', n1), 'FontSize', 18, 'Interpreter', 'latex') 
 
 % Color tails
 patch_label1 = patch([(k1:n1), fliplr((k1:n1))], ...
@@ -64,5 +64,5 @@ legend(vertcat(first_plot, second_plot, patch_label1, patch_label2), ...
     sprintf('Election with margin = %1.1f', margin), 'Tied election', ...
     sprintf('Tail for election with margin = %1.1f', margin), ...
     sprintf('Tail for tied election'), ...
-    'Location', 'NorthWest', 'FontSize', 14);
+    'Location', 'NorthWest', 'FontSize', 16);
 
