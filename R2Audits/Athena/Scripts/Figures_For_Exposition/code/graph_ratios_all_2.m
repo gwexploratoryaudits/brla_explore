@@ -81,20 +81,31 @@ y_minerva = [y_min, y_max, y_max, y_min];
 patch_label1 = patch(x_minerva+3, y_minerva, dull_green, 'FaceAlpha', 0.25);
 patch_label2 = patch(x_minerva, y_minerva, dull_orange, 'FaceAlpha', 0.25);
 
-% Label axes
-xlabel('Number of winner ballots in first round, $k_1$', ...
-    'FontSize', 16, 'Interpreter', 'latex')
-ylabel('$\sigma_1$ or $\tau_1$ (log scale)', 'FontSize', 16, ...
-    'Interpreter', 'latex')
-title({sprintf('First round Bravo and Minerva ratios for $n_1$ = %d and p = %1.4f', n1, p)}, ...
-    'FontSize', 18, 'Interpreter', 'latex') 
+ti = title({sprintf('First round Bravo and Minerva ratios for $n_1$ = %d and p = %1.4f', n1, p)}, ...
+    'Interpreter', 'latex');
+ti.FontSize = 20;
 
 % Legend
-legend(vertcat(first_plot, second_plot, patch_label1, patch_label2), ...
+leg = legend(vertcat(first_plot, second_plot, patch_label1, patch_label2), ...
     'Bravo likelihood ratio, $\sigma_1$ (log scale)', ...
     'Minerva tail ratio, $\tau_1$ (log scale)', ...
     'Bravo audit stops, $\sigma_1 \geq \alpha^{-1}$', ...
     'Minerva audit stops, $\tau_1 \geq \alpha^{-1}$', ...
-    'Location', 'SouthEast', 'FontSize', 16, 'Interpreter', 'latex')
+    'Interpreter', 'latex');
+leg.FontSize = 16;
+leg.Location = 'SouthEast'; 
+
+ax = gca;
+ax.XAxis.FontSize = 14;
+ax.YAxis.FontSize = 14;
+
+% Label axes
+xlab = xlabel('Number of winner ballots in first round, $k_1$', ...
+    'Interpreter', 'latex'); 
+xlab.FontSize = 18;
+
+ylab = ylabel('$\sigma_1$ or $\tau_1$ (log scale)', ...
+    'Interpreter', 'latex');
+ylab.FontSize = 18;
 
 

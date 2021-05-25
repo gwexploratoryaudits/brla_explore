@@ -8,7 +8,7 @@
 %---
 
 %----Input
-x = 0.65; % Announced winner fraction
+x = 0.75; % Announced winner fraction
 n1 = 50; % Ballots drawn in round 1
 alpha = 0.1; % risk limit
 
@@ -38,6 +38,7 @@ dull_green = [0 0.6 0];
 plot1 = plot((0:kmin_minerva-1), binopdf((0:kmin_minerva-1),n1, x), ...
     'Color', navy, 'LineWidth', 3, ... 
     'DisplayName', sprintf('Election with margin = %1.1f', margin));
+legend(sprintf('Election with margin = %1.1f', margin), 'Interpreter', 'latex');
 hold on;
 plot2 = plot((kmin_minerva:n1), zeros(1,n1-kmin_minerva+1), ...
     'Color', navy, 'LineWidth', 3, 'DisplayName', 'BlueZeros');
@@ -49,16 +50,29 @@ hleg = legend('location','NorthWest');
 axis([0, n1, 0, inf]);
 
 % Draw vertical line at kmin and label it.
-xl = xline(kmin_minerva, '-.', {sprintf('kmin=%d', kmin_minerva)});
+xl = xline(kmin_minerva, '-.', {sprintf('kmin=%d', kmin_minerva)}, ...
+    'Interpreter', 'latex');
 xl.LineWidth=1;
-xl.FontSize=14;
+xl.FontSize=16;
 xl.LabelVerticalAlignment='middle';
-
-% Label axes.
-xlabel('Number of winner ballots after testing condition in first round', 'FontSize', 14)
-ylabel('Probability', 'FontSize', 14)
-title('After testing Minerva condition, round 1', 'FontSize', 16) 
 
 % Delete parts of the legend corresponding to zeros.
 hleg = legend([plot1 plot3], 'Location', 'NorthWest');
 hleg.FontSize = 14;
+
+ax = gca;
+ax.XAxis.FontSize = 14;
+ax.YAxis.FontSize = 14;
+
+% Label axes.
+xlab = xlabel('Number of winner ballots after testing condition in first round', 'Interpreter', 'latex');
+xlab.FontSize = 18;
+
+ylab = ylabel('Probability', 'Interpreter', 'latex');
+ylab.FontSize = 18;
+
+ti = title('After testing Minerva condition, round 1', 'Interpreter', 'latex'); 
+ti.FontSize = 20;
+
+
+

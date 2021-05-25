@@ -85,3 +85,19 @@ title('Testing the BRAVO stopping condition', 'FontSize', 16)
 legend('kmin: minimum winner ballots required to stop', ...
     'Ordered-ballot-draws test', 'End-of-round test', 'FontSize', 12, ...
     'Location', 'NorthWest')
+
+% If want to standardize LaTeX font
+% Label axes and title
+xlab = xlabel('Sample Size', 'Interpreter', 'latex');
+xlab.FontSize = 18;
+ylab = ylabel('Winner Ballots in Sample', 'Interpreter', 'latex');
+ylab.FontSize = 18;
+
+ti = title('Testing the BRAVO stopping condition', 'Interpreter', 'latex');
+ti.FontSize = 20; 
+
+leg = legend('kmin: minimum winner ballots required to stop', ...
+    'Ordered-ballot-draws test', 'End-of-round test', ...
+    'Interpreter', 'latex');
+leg.FontSize = 16;
+leg.Location = 'NorthWest';

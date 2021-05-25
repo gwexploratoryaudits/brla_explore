@@ -29,29 +29,33 @@ second_plot = plot((0:n1), binopdf((0:n1),n1,0.5), '--', ...
     'Color', maroon, 'LineWidth', 3);
 
 % Draw vertical line at k1 and label it
-xl = xline(k1, '-.', {sprintf('$k_1$=%d', k1)}, 'Interpreter', 'latex');
+xl = xline(k1, '-.', {sprintf('$K_1$=%d', k1)}, 'Interpreter', 'latex');
 xl.LineWidth=1;
-xl.FontSize=14;
-xl.LabelVerticalAlignment='middle';
+xl.FontSize=16;
+xl.LabelVerticalAlignment='top';
 
 % Draw corresponding horizontal lines where vertical line crosses each of 
 % the two curves and label
 yl1 = yline(binopdf(k1,n1,p), ':', ...
-    {sprintf('Prob($k_1$ = %d $\\mid$ margin = %1.1f) = %1.4f', k1, margin, binopdf(k1,n1,p))}, 'Interpreter', 'latex');
+    {sprintf('Prob($K_1$ = %d $\\mid$ margin = %1.1f) = %1.4f', k1, margin, binopdf(k1,n1,p))}, 'Interpreter', 'latex');
 yl1.LineWidth=2;
-yl1.FontSize=14;
+yl1.FontSize=16;
 yl1.LabelHorizontalAlignment='left';
 
 yl2 = yline(binopdf(k1,n1,0.5), ':', ...
-    {sprintf('Prob($k_1$ = %d $\\mid$ margin = 0) = %1.4f', k1, binopdf(k1,n1,0.5))}, 'Interpreter', 'latex');
+    {sprintf('Prob($K_1$ = %d $\\mid$ margin = 0) = %1.4f', k1, binopdf(k1,n1,0.5))}, 'Interpreter', 'latex');
 yl2.LineWidth=2;
-yl2.FontSize = 14;
+yl2.FontSize = 16;
 yl2.LabelHorizontalAlignment='left';
 
 % Label axes
-xlabel('Number of winner ballots in first round, $K_1$', 'FontSize', 16, 'Interpreter', 'latex')
-ylabel('Probability', 'FontSize', 16)
-title(sprintf('Probability as a function of winner ballots; $n_1$ = %d', n1), 'FontSize', 18, 'Interpreter', 'latex') 
+xlab = xlabel('Number of winner ballots in first round, $K_1$', 'Interpreter', 'latex');
+xlab.FontSize = 18;
+ylab = ylabel('Probability', 'Interpreter', 'latex');
+ylab.FontSize = 18;
+
+ti = title(sprintf('Probability as a function of winner ballots; $n_1$ = %d', n1), 'Interpreter', 'latex');
+ti.FontSize = 20; 
 
 % Color tails
 patch_label1 = patch([(k1:n1), fliplr((k1:n1))], ...
@@ -60,9 +64,19 @@ patch_label2 = patch([(k1:n1), fliplr((k1:n1))], ...
     [binopdf((k1:n1),n1,0.5), fliplr(zeros(1,n1-k1+1))], maroon);
 
 % Legend
-legend(vertcat(first_plot, second_plot, patch_label1, patch_label2), ...
+leg = legend(vertcat(first_plot, second_plot, patch_label1, patch_label2), ...
     sprintf('Election with margin = %1.1f', margin), 'Tied election', ...
     sprintf('Tail for election with margin = %1.1f', margin), ...
-    sprintf('Tail for tied election'), ...
-    'Location', 'NorthWest', 'FontSize', 16);
+    sprintf('Tail for tied election'), 'interpreter', 'latex');
+leg.Location = 'NorthWest'; 
+leg.FontSize = 16;
 
+ax = gca;
+ax.XAxis.FontSize = 14;
+ax.YAxis.FontSize = 14;
+
+% Label axes
+xlab = xlabel('Number of winner ballots in first round, $K_1$', 'Interpreter', 'latex');
+xlab.FontSize = 18;
+ylab = ylabel('Probability', 'Interpreter', 'latex');
+ylab.FontSize = 18;

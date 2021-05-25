@@ -136,26 +136,36 @@ third_plot = plot((begin_from:end_at), p_max_minerva, 'o-', ...
    'Color', dull_green);
 
 % Draw horizontal line at 2 risk limits and label
-yl1 = yline(alpha, ':', {sprintf('Risk limit = %1.4f', alpha)});
+yl1 = yline(alpha, ':', {sprintf('Risk limit = %1.1f', alpha)}, 'Interpreter', 'latex');
 yl1.LineWidth=2;
-yl1.FontSize=14;
+yl1.FontSize=16;
 yl1.LabelHorizontalAlignment='left';
 
-yl2 = yline(alpha/2, ':', {sprintf('Risk limit = %1.4f', alpha/2)});
+yl2 = yline(alpha/2, ':', {sprintf('Risk limit = %1.2f', alpha/2)}, 'Interpreter', 'latex');
 yl2.LineWidth=2;
-yl2.FontSize=14;
+yl2.FontSize=16;
 yl2.LabelHorizontalAlignment='left';
 
-% Label axes
-xlabel('Number of ballots drawn', 'FontSize', 16)
-ylabel('Computed p-value', 'FontSize', 16)
-title('County Commissioner FTC 1-2-2021, Democrat', 'FontSize', 18) 
+ti = title('County Commissioner FTC 1-2-2021, Democrat', 'Interpreter', 'latex');
+ti.FontSize = 20; 
 
 % Legend
-legend(vertcat(first_plot, second_plot, third_plot), 'EoR p-value', ...
-    'SB p-value', 'Minerva p-value', 'Location', 'NorthEast', 'FontSize', 16)
+leg = legend(vertcat(first_plot, second_plot, third_plot), 'EoR p-value', ...
+    'SB p-value', 'Minerva p-value', 'Interpreter', 'latex');
+leg.Location = 'SouthWest'; 
+leg.FontSize = 16;
 
 axis([0, 100, 0.00, 0.125])
+
+ax = gca;
+ax.XAxis.FontSize = 14;
+ax.YAxis.FontSize = 14;
+
+% Label axes
+xlab = xlabel('Number of ballots drawn', 'Interpreter', 'latex'); 
+xlab.FontSize = 18;
+ylab = ylabel('Computed p-value', 'Interpreter', 'latex');
+ylab.FontSize = 18; 
 
 values_point1 = [find(p_max_minerva <= 0.1, 1), find(p_max_sb <= 0.1, 1), find(p_max_eor <= 0.1, 1)]
 values_point05 = [find(p_max_minerva <= 0.05, 1), find(p_max_sb <= 0.05, 1), find(p_max_eor <= 0.05, 1)]
