@@ -49,11 +49,21 @@ hold
 second_plot = plot((0:k2_max), NewTierRisk, '--', 'Color', maroon, 'LineWidth', 3);
 axis([0, k2_max, 0, inf]);
 
-% Label axes.
-xlabel(sprintf('Number of winner ballots after second draw, Minerva; round schedule = [%d, %d]', n1, ntotal), 'FontSize', 14)
-ylabel('Probability', 'FontSize', 14)
-title('Probability as a function of winner ballots', 'FontSize', 16) 
-
 % Legend.
-hleg = legend(sprintf('Election with margin = %1.1f', margin), 'Tied election', 'location', 'NorthWest');
-hleg.FontSize = 14;
+hleg = legend(sprintf('Election with margin = %1.1f', margin), 'Tied election', 'location', 'NorthWest', 'Interpreter', 'latex');
+hleg.FontSize = 16;
+
+ax = gca;
+ax.XAxis.FontSize = 14;
+ax.YAxis.FontSize = 14;
+
+% Label axes.
+xlab = xlabel('Number of winner ballots after second draw', 'Interpreter', 'latex');
+xlab.FontSize = 18;
+
+ylab = ylabel('Probability', 'Interpreter', 'latex');
+ylab.FontSize = 18;
+
+ti = title(sprintf('Minerva pdfs: round schedule = [%d, %d]', n1, ntotal), 'Interpreter', 'latex'); 
+ti.FontSize = 18;
+
