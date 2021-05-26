@@ -1,5 +1,7 @@
 % very basic script to plot Minerva values, first run 
 % first_round_preds_10_2020 script
+% I tried to save the data so you don't need to run above, see: 
+% first_round_preds_10_2020.mat
 
 % Delete the four states with low margin
 % new_scaled_BRAVOTable2 = ceil(new_scaled_BRAVOTable);
@@ -54,7 +56,16 @@ ax2.FontSize=14;
 hold
 %plot(margin2, ratio_SO, 'v', 'Color', [0.5 0 0], 'MarkerSize', 10, 'LineWidth', 3);
 plot(margin2, ratio_SO, 'v', 'Color', [0.5 0 0], 'MarkerSize', 7, 'LineWidth', 2);
-xlabel('Announced Election Margin', 'FontSize', 16);
-ylabel('Bravo Round-Size as a Fraction', 'FontSize', 16)
-legend('End-of-Round Bravo', 'Selection-Ordered-Ballots Bravo', 'FontSize', 14)
+
+xlab = xlabel('Announced Election Margin', 'Interpreter', 'latex');
+xlab.FontSize = 18;
+
+ylab = ylabel('Bravo Round-Size as a Fraction', 'Interpreter', 'latex');
+ylab.FontSize = 18;
+
+leg = legend('End-of-Round Bravo', 'Selection-Ordered-Ballots Bravo', 'Interpreter', 'latex');
+leg.FontSize = 16;
+
+ti = title('EoR and SB Round Sizes as a Fraction of Minerva', 'Interpreter', 'latex');
+ti.FontSize = 20;
 %legend('End-of-Round Bravo')
