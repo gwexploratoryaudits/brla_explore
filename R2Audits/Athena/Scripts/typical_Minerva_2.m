@@ -17,6 +17,9 @@ if i == 1
     current_sigma = 1;
 end
 
+fprintf('This is round %d of the audit, enter stopping probability \n', i)
+sp(i) = input('Next round stopping prob as a fraction: ');
+
 this_draw = n_in(i)-currently_drawn_ballots;
 this_k = k_all(i)-current_k;
 CurrentTierStop = binopdf(0:this_draw,this_draw, 0.5*(1+margin));
@@ -30,7 +33,7 @@ RiskSched = (0);
     CurrentTierStop, CurrentTierRisk, this_draw, this_k, 'Minerva');
 
 pvalue(i) = tail_ratio(i)*current_sigma;
-sigma(i) = 1/LR(i);
+sigma(i) = current_sigma/LR(i);
     
 currently_drawn_ballots = n_in(i);
 current_k = k_all(i);
@@ -43,11 +46,15 @@ for j=1:i
 end
 
 if pvalue(i) >= alpha
-    [next_rounds(i), ~, ~, ~, ~]  = NextRoundSize(margin, 0.1*LR(i), [], (0), (0), (1), (1), 0, 0, (0.9), 10000, 0.0001);
+   [next_draws(i), ~, ~, ~, ~]  = NextRoundSize(margin, alpha/current_sigma, [], (0), (0), (1), (1), 0, 0, (sp(i)), 500, 0.0001);
 else
-    next_rounds(i) = 0;
+    next_draws(i) = 0;
 end
 
 for j=1:i
-    fprintf('next draw: %d \n', next_rounds(i));
+    fprintf('next draw: %d \n', next_draws(j));
+end
+
+for j=1:i
+    fprintf('next round: %d \n', n_in(j)+next_draws(j));
 end
